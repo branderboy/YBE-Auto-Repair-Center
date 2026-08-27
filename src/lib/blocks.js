@@ -221,7 +221,7 @@ function reviewsBlock(cards, { heading, sub } = {}) {
 <section class="py-20 bg-white border-t border-gray-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="flex justify-center mb-4">
-      <div class="flex gap-1 text-yellow-400 bg-gray-50 border border-gray-200 shadow-sm px-4 py-2 rounded-full">${stars(5, 28)}</div>
+      <div class="flex gap-1 md:gap-2 text-yellow-400 drop-shadow-[0_4px_12px_rgba(250,204,21,0.5)]">${stars(5, 64)}</div>
     </div>
     <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide text-ybe-black mb-4">
       ${heading || `Rated ${b.rating.value} on Google`}
@@ -231,8 +231,8 @@ function reviewsBlock(cards, { heading, sub } = {}) {
       ${cards
         .map(
           (c) => `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red shadow-sm text-left relative">
-        ${icon('quote', 40, 'text-ybe-red absolute top-4 right-4 opacity-15')}
-        <div class="flex gap-1 text-yellow-400 mb-4">${stars(5, 16)}</div>
+        ${icon('quote', 72, 'text-ybe-red absolute top-3 right-3 opacity-15')}
+        <div class="flex gap-0.5 text-yellow-400 mb-4">${stars(5, 28)}</div>
         <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(c.title)}</h3>
         <p class="text-gray-700 leading-relaxed">${esc(c.text)}</p>
       </div>`

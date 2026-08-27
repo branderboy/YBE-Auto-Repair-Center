@@ -899,7 +899,7 @@ ${section(
       ${reviewThemes
         .map(
           (t) => `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red">
-        <div class="flex gap-1 text-yellow-400 mb-4">${Array(5).fill(icon('star', 16, 'fill-current')).join('')}</div>
+        <div class="flex gap-0.5 text-yellow-400 mb-4">${Array(5).fill(icon('star', 28, 'fill-current')).join('')}</div>
         <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-3">${esc(t.theme)}</h3>
         <p class="text-gray-700 leading-relaxed">${esc(t.detail)}</p>
       </div>`
