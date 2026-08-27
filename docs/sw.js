@@ -2,14 +2,14 @@
 const CACHE = 'ybe-v1';
 const PRECACHE = [
   "/",
-  "/no-connection.html",
-  "/assets/css/site.css",
-  "/assets/img/ybe-auto-logo.png",
-  "/assets/img/hero-shop.jpg",
-  "/assets/fonts/caveat-700.woff2",
-  "/roadside-assistance/",
-  "/contact/",
-  "/services/"
+  "/YBE-Auto-Repair-Center/no-connection.html",
+  "/YBE-Auto-Repair-Center/assets/css/site.css",
+  "/YBE-Auto-Repair-Center/assets/img/ybe-auto-logo.png",
+  "/YBE-Auto-Repair-Center/assets/img/hero-shop.jpg",
+  "/YBE-Auto-Repair-Center/assets/fonts/caveat-700.woff2",
+  "/YBE-Auto-Repair-Center/roadside-assistance/",
+  "/YBE-Auto-Repair-Center/contact/",
+  "/YBE-Auto-Repair-Center/services/"
 ];
 
 self.addEventListener('install', (event) => {
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match('/no-connection.html')))
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('/YBE-Auto-Repair-Center/no-connection.html')))
     );
     return;
   }

@@ -146,6 +146,46 @@ Sitemap: ${b.siteUrl}/sitemap.xml
   );
 }
 
+/**
+ * Rewrite root-relative references so the site works from a subfolder.
+ *
+ * GitHub Pages serves a project site at /<repo>/, so every href="/...",
+ * src="/..." and url('/...') would otherwise 404. This runs last, over the
+ * finished output, so nothing upstream has to know about the prefix.
+ * External URLs (http…, //…, mailto:, tel:, sms:) are left alone.
+ */
+function applyBasePath() {
+  const base = b.basePath;
+  if (!base) return 0;
+
+  const rewrite = (text) =>
+    text
+      // href="/x" and src="/x" but not "//host"
+      .replace(/(href|src)="\/(?!\/)/g, `$1="${base}/`)
+      // CSS url('/x')
+      .replace(/url\((['"]?)\/(?!\/)/g, `url($1${base}/`)
+      // service worker paths and precache entries
+      .replace(/(['"])\/(assets|services|roadside-assistance|service-areas|car-care|about|reviews|contact|request-appointment|faq|no-connection\.html|sw\.js|manifest\.webmanifest)/g,
+        `$1${base}/$2`)
+      // manifest start_url / scope
+      .replace(/"start_url":\s*"\/"/g, `"start_url": "${base}/"`)
+      .replace(/"scope":\s*"\/"/g, `"scope": "${base}/"`);
+
+  let touched = 0;
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { walk(full); continue; }
+      if (!/\.(html|css|js|webmanifest|xml)$/.test(e.name)) continue;
+      const before = fs.readFileSync(full, 'utf8');
+      const after = rewrite(before);
+      if (after !== before) { fs.writeFileSync(full, after); touched++; }
+    }
+  };
+  walk(OUT);
+  return touched;
+}
+
 function run() {
   console.log(`\nBuilding ${b.name} → docs/\n`);
   fs.rmSync(OUT, { recursive: true, force: true });
@@ -185,13 +225,16 @@ function run() {
   const precached = buildPwa();
   buildSitemap();
   buildRobots();
+  const rebased = applyBasePath();
 
   console.log(`  ✓ ${pages.length} pages written`);
   console.log(`  ✓ site.css compiled (${(cssBytes / 1024).toFixed(1)} KB minified)`);
   console.log(`  ✓ sitemap.xml (${pages.filter((p) => p.indexed).length} indexed URLs)`);
   console.log(`  ✓ robots.txt`);
   console.log(`  ✓ PWA: manifest, service worker (${precached} precached), offline page`);
-  console.log(`  ✓ assets copied\n`);
+  console.log(`  ✓ assets copied`);
+  if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files\n`);
+  else console.log('');
 }
 
 run();
