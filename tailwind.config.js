@@ -23,6 +23,10 @@ module.exports = {
           /* Lighter red for text sitting on dark surfaces — #E31818 on near-black
              only reaches ~3.4:1, below the WCAG AA 4.5:1 minimum for body text. */
           redlight: '#FF5C5C',
+          /* Green used for the numbered service labels, so the page is not
+             wall-to-wall red. Passes AA against white text. */
+          green: '#15803D',
+          darkgreen: '#166534',
           darkred: '#B91414',
           black: '#1A1A1A',
           charcoal: '#222222',

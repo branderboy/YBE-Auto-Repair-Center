@@ -87,7 +87,7 @@ function numberedCards(items, { cols = 'md:grid-cols-2' } = {}) {
         (it, i) => `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 hover:border-ybe-red transition-colors flex flex-col justify-between group">
       <div>
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-8 h-8 bg-ybe-red text-white flex items-center justify-center font-heading font-bold text-xl rounded-sm flex-shrink-0">${i + 1}</div>
+          <div class="w-8 h-8 bg-ybe-green text-white flex items-center justify-center font-heading font-bold text-xl rounded-sm flex-shrink-0">${i + 1}</div>
           <h3 class="text-2xl font-heading font-bold text-ybe-black uppercase tracking-wide">${esc(it.title)}</h3>
         </div>
         <p class="text-gray-700 leading-relaxed mb-6">${esc(it.text || '')}</p>
