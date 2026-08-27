@@ -216,12 +216,14 @@ function defaultTrustItems() {
 /* ------------------------------------------------------------- REVIEWS */
 /** The dark reviews section from the homepage. */
 function reviewsBlock(cards, { heading, sub } = {}) {
-  const stars = (n, size) => Array(5).fill(icon('star', size, 'fill-current')).join('');
+  // White fill with a dark red outline, rather than solid yellow.
+  const stars = (n, size) =>
+    Array(5).fill(icon('star', size, 'fill-white stroke-ybe-darkred')).join('');
   return `
 <section class="py-20 bg-ybe-redtint border-y border-red-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="flex justify-center mb-4">
-      <div class="flex gap-1 md:gap-2 text-yellow-400 drop-shadow-[0_4px_12px_rgba(250,204,21,0.5)]">${stars(5, 64)}</div>
+      <div class="flex gap-1 md:gap-2 drop-shadow-[0_3px_8px_rgba(0,0,0,0.18)]">${stars(5, 64)}</div>
     </div>
     <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide text-ybe-black mb-4">
       ${heading || `Rated ${b.rating.value} on Google`}
@@ -232,7 +234,7 @@ function reviewsBlock(cards, { heading, sub } = {}) {
         .map(
           (c) => `<div class="p-8 rounded-sm border border-red-200 border-l-4 border-l-ybe-red text-left relative">
         ${icon('quote', 72, 'text-ybe-red absolute top-3 right-3 opacity-15')}
-        <div class="flex gap-0.5 text-yellow-400 mb-4">${stars(5, 28)}</div>
+        <div class="flex gap-0.5 mb-4">${stars(5, 28)}</div>
         <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(c.title)}</h3>
         <p class="text-gray-700 leading-relaxed">${esc(c.text)}</p>
       </div>`
@@ -331,14 +333,13 @@ function contactBlock({ heading, sub } = {}) {
               <h3 class="font-heading text-xl font-bold uppercase text-ybe-black mb-3">Follow &amp; Share</h3>
               <div class="flex flex-wrap items-center gap-3">
                 <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" data-track="facebook" data-location="contact-block"
-                   class="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#0f5fd0] text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                   class="inline-flex items-center gap-2 bg-white hover:bg-[#1877F2] text-[#1877F2] hover:text-white border-2 border-[#1877F2] font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
                   ${icon('facebook', 20)} Facebook</a>
                 <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" data-track="instagram" data-location="contact-block"
-                   style="background-image:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"
-                   class="inline-flex items-center gap-2 hover:opacity-90 text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-opacity">
+                   class="inline-flex items-center gap-2 bg-white hover:bg-[#C13584] text-[#C13584] hover:text-white border-2 border-[#C13584] font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
                   ${icon('instagram', 20)} Instagram</a>
                 <button type="button" id="share-btn" data-track="share" data-location="contact-block"
-                   class="inline-flex items-center gap-2 bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                   class="inline-flex items-center gap-2 bg-white hover:bg-ybe-red text-ybe-red hover:text-white border-2 border-ybe-red font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
                   ${icon('share-2', 20)} <span id="share-label">Share</span></button>
               </div>
               <p id="share-status" role="status" aria-live="polite" class="text-sm text-gray-600 mt-2 h-5"></p>
