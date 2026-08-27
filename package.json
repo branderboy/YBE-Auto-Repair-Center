@@ -8,7 +8,9 @@
     "check": "node scripts/check.js",
     "og": "node scripts/make-og-card.js",
     "verify": "npm run build && npm run check",
-    "serve": "node scripts/serve.js"
+    "serve": "node scripts/serve.js",
+    "links:external": "node scripts/check-links-external.js",
+    "test:links": "node scripts/test-link-checker.js"
   },
   "engines": {
     "node": ">=18"
