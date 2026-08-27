@@ -57,10 +57,10 @@ function headerNav(currentPath) {
 
   return `<header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-white py-3 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center gap-4">
+      <div class="relative flex justify-center lg:justify-between items-center gap-4">
         <a href="/" class="flex-shrink-0 flex items-center" aria-label="${esc(b.name)} home">
           <img id="header-logo" src="${b.images.logo}" alt="${esc(b.images.logoAlt)}"
-               width="240" height="152" class="transition-all duration-300 h-16 sm:h-20 lg:h-24 w-auto" />
+               width="240" height="152" class="transition-all duration-300 h-20 sm:h-24 lg:h-24 w-auto" />
         </a>
         <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">${desktop}</nav>
         <div class="hidden lg:flex items-center gap-2">
@@ -71,7 +71,7 @@ function headerNav(currentPath) {
              class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-base xl:text-lg px-4 py-2 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all flex items-center gap-2 uppercase tracking-wide font-bold whitespace-nowrap">
             ${icon('phone', 18)} ${esc(b.phone.display)}</a>
         </div>
-        <div class="lg:hidden flex items-center">
+        <div class="lg:hidden flex items-center absolute right-0 top-1/2 -translate-y-1/2">
           <button id="mobile-menu-btn" class="text-ybe-black hover:text-ybe-red focus:outline-none focus-visible:ring-2 focus-visible:ring-ybe-red p-1"
                   aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
             ${icon('menu', 32, 'menu-open-icon')}${icon('x', 32, 'menu-close-icon hidden')}<span class="sr-only">Menu</span>
@@ -367,7 +367,12 @@ function layout({
   schema = [],
   body,
   ogType = 'website',
-  noIndex = false
+  noIndex = false,
+  /*
+   * The homepage hero clears the fixed header with its own top padding, so the
+   * usual <main> offset would double it and push the copy down the screen.
+   */
+  fullBleed = false
 }) {
   const graph = [localBusinessSchema(), ...schema];
   if (crumbs.length > 1) graph.push(breadcrumbSchema(crumbs));
@@ -424,7 +429,7 @@ ${jsonLd}
 <body class="font-sans text-gray-900 bg-white antialiased relative pb-16 lg:pb-0">
 <a href="#main" class="skip-link">Skip to main content</a>
 ${headerNav(path)}
-<main id="main" class="pt-[88px] sm:pt-[104px] lg:pt-[120px]">
+<main id="main" class="${fullBleed ? '' : 'pt-[88px] sm:pt-[104px] lg:pt-[120px]'}">
 ${T.breadcrumbs(crumbs)}
 ${body}
 </main>

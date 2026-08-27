@@ -133,6 +133,8 @@ function renderHomeOriginal() {
     description: `Diagnostics, brakes, engines, transmissions, A/C, bodywork and roadside assistance in ${primaryArea.label}. Open seven days. Call or text ${b.phone.display}.`,
     path: '/',
     crumbs: [{ label: 'Home', url: '/' }],
+    // The hero pads for the header itself; see `fullBleed` in layout.js.
+    fullBleed: true,
     schema: [T.faqSchema(faqs.slice(0, 6))],
     body: main
   });

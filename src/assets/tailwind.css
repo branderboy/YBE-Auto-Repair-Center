@@ -94,3 +94,27 @@
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Mobile red.
+ * The bright brand red (#FC0101) is punchy on a large screen but harsh on a
+ * phone, where it sits close to the eye on a bright panel. Below the md
+ * breakpoint it deepens to burgundy. Backgrounds, text, borders and the star
+ * outline all shift together so nothing is left mismatched.
+ */
+@media (max-width: 767px) {
+  .bg-ybe-red { background-color: #7A0C19; }
+  .hover\:bg-ybe-red:hover { background-color: #7A0C19; }
+  .bg-ybe-darkred,
+  .hover\:bg-ybe-darkred:hover { background-color: #5E0912; }
+  .text-ybe-red { color: #7A0C19; }
+  .hover\:text-ybe-red:hover { color: #7A0C19; }
+  .border-ybe-red { border-color: #7A0C19; }
+  .border-l-ybe-red { border-left-color: #7A0C19; }
+  .stroke-ybe-darkred { stroke: #5E0912; }
+  /* On dark panels burgundy is too low-contrast, so lift it there. */
+  .bg-ybe-black .text-ybe-red,
+  .bg-ybe-charcoal .text-ybe-red,
+  .bg-black .text-ybe-red,
+  .diagonal-stripe-bg .text-ybe-red { color: #C43B48; }
+}
