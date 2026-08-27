@@ -18,8 +18,9 @@ const { faqAccordion, faqSchema, serviceSchema } = T;
 const { categories, allServices, roadsideHub, areas, primaryArea, articles, clusters } =
   require('../data/pillars.js');
 const { serviceBySlug } = require('../data/services.js');
+const E = require('../data/entities.js');
 const { roadsideBySlug } = require('../data/roadside.js');
-const { articleBySlug } = require('../data/articles.js');
+const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -44,6 +45,57 @@ function relatedList(slugs, heading = 'Related Services') {
           (s) =>
             `<li><a href="${s.url}" class="inline-flex items-center gap-2 py-2 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
           ${icon('arrow-right', 18)} ${esc(s.title)}</a></li>`
+        )
+        .join('')}
+    </ul>
+  </div>`;
+}
+
+/**
+ * Reference links for an article.
+ *
+ * An answer engine weighs whether a page cites anything checkable. These are
+ * the same entities the page declares in its structured data, surfaced as real
+ * links so a reader can follow them too, rather than being metadata only.
+ */
+function sourcesBlock(article) {
+  const urls = E.services[article.relatedService];
+  if (!urls || !urls.length) return '';
+  const label = (u) => decodeURIComponent(u.replace(E.WIKI, '')).replace(/_/g, ' ');
+  return `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 mt-12">
+    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3 border-b-2 border-ybe-red pb-2">Further Reading</h2>
+    <p class="text-gray-600 text-sm mb-4">Background on the parts and systems described above.</p>
+    <ul class="space-y-2">
+      ${urls
+        .map(
+          (u) =>
+            `<li><a href="${u}" target="_blank" rel="noopener noreferrer nofollow"
+          class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
+          ${icon('external-link', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(label(u))} &mdash; Wikipedia</span></a></li>`
+        )
+        .join('')}
+    </ul>
+  </div>`;
+}
+
+/**
+ * Car-care questions that point at a given service.
+ *
+ * The audit found several articles with only two inbound links. Articles link
+ * down to their service, but nothing linked back up, so the cluster only ran
+ * one way. This closes the loop and gives each topic a proper hub.
+ */
+function relatedQuestions(serviceSlug) {
+  const matches = allArticles.filter((a) => a.relatedService === serviceSlug);
+  if (!matches.length) return '';
+  return `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Common Questions</h2>
+    <ul class="space-y-3">
+      ${matches
+        .map(
+          (a) =>
+            `<li><a href="${a.url}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
+          ${icon('help-circle', 18, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(a.title)}</span></a></li>`
         )
         .join('')}
     </ul>
@@ -252,8 +304,9 @@ ${section(
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         ${relatedList(svc.related)}
-        ${areasServed()}
+        ${relatedQuestions(svc.slug) || areasServed()}
       </div>
+      ${relatedQuestions(svc.slug) ? `<div class="mt-8">${areasServed()}</div>` : ''}
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
@@ -418,8 +471,9 @@ ${section(
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         ${relatedList(svc.related)}
-        ${areasServed()}
+        ${relatedQuestions(svc.slug) || areasServed()}
       </div>
+      ${relatedQuestions(svc.slug) ? `<div class="mt-8">${areasServed()}</div>` : ''}
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
@@ -731,9 +785,11 @@ ${section(
           : ''
       }
 
+      ${sourcesBlock(a)}
+
       ${
         related.length
-          ? `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          ? `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 mt-12">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Related Questions</h2>
         <ul class="space-y-3">
           ${related
