@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Stylized dark garage backdrop with red speed streaks and tire tread">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#141416"/>
+      <stop offset="55%" stop-color="#1A1A1D"/>
+      <stop offset="100%" stop-color="#0B0B0C"/>
+    </linearGradient>
+    <linearGradient id="redStreak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E31818" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#E31818" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FF3B3B" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="silverStreak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#CCCCCC" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#E8E8E8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#CCCCCC" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.68" cy="0.42" r="0.55">
+      <stop offset="0%" stop-color="#E31818" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#E31818" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.78">
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.75"/>
+    </radialGradient>
+    <pattern id="tread" width="46" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)">
+      <rect width="46" height="30" fill="none"/>
+      <rect x="0" y="0" width="20" height="12" rx="2" fill="#FFFFFF" opacity="0.05"/>
+      <rect x="24" y="15" width="20" height="12" rx="2" fill="#FFFFFF" opacity="0.05"/>
+    </pattern>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#base)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <!-- tire tread band sweeping across the frame -->
+  <g transform="translate(0,-40)">
+    <path d="M520 900 C 760 620, 1080 470, 1600 400 L1600 900 Z" fill="url(#tread)"/>
+  </g>
+
+  <!-- speed streaks echoing the logo's speedometer sweep -->
+  <g>
+    <rect x="150" y="250" width="1300" height="10" rx="5" fill="url(#redStreak)" transform="rotate(-14 800 255)"/>
+    <rect x="240" y="330" width="1200" height="5"  rx="3" fill="url(#silverStreak)" transform="rotate(-14 800 332)"/>
+    <rect x="90"  y="430" width="1450" height="14" rx="7" fill="url(#redStreak)" opacity="0.65" transform="rotate(-14 800 437)"/>
+    <rect x="330" y="520" width="1150" height="4"  rx="2" fill="url(#silverStreak)" opacity="0.7" transform="rotate(-14 800 522)"/>
+    <rect x="200" y="620" width="1300" height="8"  rx="4" fill="url(#redStreak)" opacity="0.45" transform="rotate(-14 800 624)"/>
+  </g>
+
+  <!-- speedometer arc, top right -->
+  <g transform="translate(1180 240)" opacity="0.5" fill="none" stroke-linecap="round">
+    <path d="M-190 60 A 200 200 0 0 1 190 60" stroke="#E8E8E8" stroke-opacity="0.28" stroke-width="10"/>
+    <path d="M30 -122 A 200 200 0 0 1 190 60" stroke="#E31818" stroke-width="10"/>
+    <g stroke="#FFFFFF" stroke-opacity="0.30" stroke-width="5">
+      <path d="M-168 22 l-30 -9"/><path d="M-140 -44 l-26 -18"/><path d="M-86 -96 l-17 -26"/>
+      <path d="M-14 -126 l-6 -30"/><path d="M60 -122 l7 -30"/><path d="M126 -86 l19 -25"/>
+      <path d="M170 -28 l28 -13"/>
+    </g>
+    <circle cx="0" cy="60" r="15" fill="#E31818" stroke="none"/>
+    <path d="M0 60 L168 6" stroke="#E31818" stroke-width="9"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+</svg>

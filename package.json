@@ -1,0 +1,19 @@
+{
+  "name": "ybe-auto-repair-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-page local-business website for YBE Auto Repair Center, Capitol Heights, MD.",
+  "scripts": {
+    "build": "node build.js",
+    "check": "node scripts/check.js",
+    "verify": "npm run build && npm run check",
+    "serve": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "lucide-static": "^0.469.0",
+    "tailwindcss": "^3.4.17"
+  }
+}

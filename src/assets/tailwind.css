@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Site-specific styles carried over from the original page. */
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { -webkit-font-smoothing: antialiased; }
+}
+
+@layer components {
+  .diagonal-stripe-bg {
+    background-image: repeating-linear-gradient(45deg, #1A1A1A, #1A1A1A 10px, #222222 10px, #222222 20px);
+  }
+  .prose-ybe p { margin-bottom: 1rem; line-height: 1.75; }
+  .prose-ybe p:last-child { margin-bottom: 0; }
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 100;
+    padding: 1rem; background: #E31818; color: #fff; font-weight: 700;
+  }
+  .skip-link:focus { left: 0; }
+}
+
+/*
+ * Red text on dark surfaces.
+ * Brand red (#E31818) on near-black lands around 3.4:1, which fails the WCAG AA
+ * 4.5:1 minimum for body text. On dark sections we lift it to #FF5C5C (~5.6:1)
+ * so it stays legible. Backgrounds and buttons keep the exact brand red.
+ */
+.bg-ybe-black .text-ybe-red,
+.bg-ybe-charcoal .text-ybe-red,
+.bg-black .text-ybe-red,
+.diagonal-stripe-bg .text-ybe-red,
+.bg-gradient-to-r .text-ybe-red {
+  color: #FF5C5C;
+}
+
+/* Red links on the black footer need the same lift, including on hover. */
+.bg-black a:hover.text-ybe-red,
+.bg-black a.hover\:text-ybe-red:hover {
+  color: #FF5C5C;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #222222; }
+::-webkit-scrollbar-thumb:hover { background: #E31818; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
