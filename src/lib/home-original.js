@@ -113,7 +113,8 @@ function renderHomeOriginal() {
   const assetMap = [
     ['images/YBE%20Auto%20in%20maryland.png', b.images.hero.src],
     ['images/hero%20photo.jpg', b.images.shop.src],
-    ['images/ybe%20auto.png', b.images.logo]
+    ['images/ybe%20auto.png', b.images.logo],
+    ['images/meet%20scooter.png', '/assets/img/meet-scooter.png']
   ];
   for (const [from, to] of assetMap) {
     main = main.split(`src="${from}"`).join(`src="${to}"`);

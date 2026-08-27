@@ -97,6 +97,15 @@
         ::-webkit-scrollbar-thumb { background: #222222; }
         ::-webkit-scrollbar-thumb:hover { background: #E31818; }
         
+        /* The Scooter cut-out is cropped at the waist, so its flat bottom edge
+           would otherwise read as a hard line. Fade it out and keep the shadow
+           tight to his silhouette. */
+        .hero-cutout {
+            filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.55));
+            -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+        }
+
         .diagonal-stripe-bg {
             background-image: repeating-linear-gradient(
                 45deg,
@@ -171,9 +180,9 @@
             </div>
 
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 md:mt-0">
-                <div class="flex flex-col items-center gap-12">
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-10">
                     <!-- Hero Content without CTA blocks -->
-                    <div class="max-w-3xl mx-auto text-center">
+                    <div class="md:w-3/5 max-w-3xl mx-auto text-center">
                         <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-lg">
                             Auto Repair That <span class="text-ybe-red">Gets You Back</span> on the Road
                         </h1>
@@ -181,7 +190,7 @@
                         <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl mx-auto">
                             Mechanical repairs, diagnostics, maintenance, bodywork, and roadside assistance from a trusted Capitol Heights shop serving the community since 2006.
                         </p>
-                        
+
                         <div class="mt-10 flex justify-center">
                             <a href="tel:+12024553822" class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-[0_0_20px_rgba(227,24,24,0.6)] border-2 border-ybe-red hover:border-white transition-all uppercase tracking-widest font-bold transform hover:-translate-y-1">
                                 <i data-lucide="phone" width="32" height="32" class="animate-bounce"></i>
@@ -189,8 +198,14 @@
                             </a>
                         </div>
                     </div>
-                    
 
+                    <!-- Scooter: transparent cut-out, sits straight on the background -->
+                    <div class="md:w-2/5 w-full flex justify-center md:justify-end">
+                        <img src="images/meet%20scooter.png"
+                             alt="Scooter of YBE Auto Repair Center, wearing a YBE shirt and holding a wrench"
+                             class="hero-cutout w-[230px] sm:w-[290px] md:w-full max-w-[400px] h-auto" />
+                    </div>
+                </div>
             </div>
         </section>
 
