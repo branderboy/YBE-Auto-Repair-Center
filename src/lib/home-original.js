@@ -21,6 +21,7 @@ const path = require('path');
 const { layout } = require('./layout.js');
 const { icon } = require('./icons.js');
 const T = require('./templates.js');
+const { esc } = require('./blocks.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
@@ -119,8 +120,7 @@ function renderHomeOriginal() {
   // The original page used two different stock images; each maps to its own
   // real photo so the hero background and the inset card are not identical.
   const photoMap = [
-    ['photo-1486262715619', b.images.hero],  // hero background
-    ['photo-1632731557008', b.images.shop]   // inset card + why-us section
+    ['photo-1632731557008', b.images.shop]  // why-us section background
   ];
   for (const [stockId, img] of photoMap) {
     const re = new RegExp(
@@ -130,19 +130,50 @@ function renderHomeOriginal() {
     main = main.replace(re, `src="${img.src}"$1alt="${img.alt}"`);
   }
 
-  // The real photo has a bright sky, so the hero overlay is deepened to keep the
-  // white headline readable. Same gradient direction as the original.
+  // Images are used as backgrounds only, never shown as standalone pictures.
+  // Remove the tilted inset photo card beside the hero headline and let the
+  // headline column use the full width.
   main = main.replace(
-    'bg-gradient-to-r from-black via-black/80 to-black/50',
-    'bg-gradient-to-r from-black via-black/85 to-black/60'
+    /<div class="hidden md:block md:w-1\/3">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/,
+    '</div>'
   );
-  main = main.replace('bg-black/70 z-10 md:hidden', 'bg-black/75 z-10 md:hidden');
+  main = main.replace('<div class="max-w-3xl md:w-2/3">', '<div class="max-w-3xl">');
 
-  // Add conversion tracking to the original page's call/WhatsApp/map links.
-  main = main
-    .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
-    .replace(/<a href="https:\/\/wa\.me\/12024553822"/g, '<a data-track="whatsapp" data-location="homepage" href="https://wa.me/12024553822"')
-    .replace(/<a href="https:\/\/maps\.google\.com/g, '<a data-track="directions" data-location="homepage" href="https://maps.google.com');
+  // The "why drivers trust YBE" photo becomes a background on its container so
+  // the 2006 badge stays, but no picture is presented on its own.
+  main = main.replace(
+    /<img src="[^"]*"\s+alt="[^"]*"\s+class="w-full h-auto object-cover rounded-sm[^"]*"\s*\/>/,
+    ''
+  );
+  main = main.replace(
+    'class="relative p-2 bg-white shadow-xl rounded-sm border-2 border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-500 overflow-hidden"',
+    `class="relative rounded-sm shadow-xl overflow-hidden bg-cover bg-center min-h-[320px] lg:min-h-[420px]" ` +
+      `style="background-image:url('${b.images.shop.src}')" role="img" ` +
+      `aria-label="${esc(b.images.shop.alt)}"`
+  );
+
+  // Hero photo becomes a CSS background on its container rather than an <img>.
+  main = main.replace(
+    /<div class="h-1\/2 md:h-full md:absolute md:inset-0 md:z-0">\s*<img[^>]*\/?>\s*<\/div>/,
+    `<div class="h-1/2 md:h-full md:absolute md:inset-0 md:z-0 bg-cover bg-center" ` +
+      `style="background-image:url('${b.images.hero.src}')" ` +
+      `role="img" aria-label="${esc(b.images.hero.alt)}"></div>`
+  );
+
+  // Hero gradient.
+  // The original had a left-to-right gradient on desktop but only a flat black
+  // scrim on mobile. Both are now real gradients: the photo stays visible on the
+  // right while the headline side goes dark, plus a bottom fade so the CTA and
+  // hours line keep their contrast against the lighter pavement in the photo.
+  main = main.replace(
+    '<div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/50 z-10 hidden md:block"></div>',
+    '<div class="absolute inset-0 z-10 hidden md:block bg-gradient-to-r from-black via-black/85 to-transparent"></div>' +
+      '<div class="absolute inset-0 z-10 hidden md:block bg-gradient-to-t from-black/90 via-black/20 to-black/40"></div>'
+  );
+  main = main.replace(
+    '<div class="absolute inset-0 bg-black/70 z-10 md:hidden"></div>',
+    '<div class="absolute inset-0 z-10 md:hidden bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>'
+  );
 
   return layout({
     title: `${b.name} | Auto Repair in ${primaryArea.label}`,
