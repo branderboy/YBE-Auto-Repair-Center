@@ -106,6 +106,15 @@
             mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
         }
 
+        /* Hero: solid dark on the left so the copy stays readable, easing
+           toward the right where the photo sits, plus a soft brand glow behind
+           the subject so the cut-out blends instead of floating. */
+        .hero-blend {
+            background:
+                radial-gradient(60% 70% at 78% 55%, rgba(227, 24, 24, 0.22), transparent 70%),
+                linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
+        }
+
         .diagonal-stripe-bg {
             background-image: repeating-linear-gradient(
                 45deg,
@@ -169,25 +178,35 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="relative pt-28 pb-16 md:pt-40 md:pb-32 flex items-center min-h-[90vh] bg-ybe-black">
-            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 md:mt-0">
-                <div class="flex flex-col items-center">
-                    <!-- Hero Content without CTA blocks -->
-                    <div class="max-w-3xl mx-auto text-center">
+        <section class="relative pt-28 pb-16 md:pt-32 md:pb-24 flex items-center min-h-[90vh] overflow-hidden">
+            <!-- Gradient backdrop -->
+            <div class="absolute inset-0 z-0 hero-blend"></div>
+
+            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-8">
+                    <!-- Copy and CTA, left -->
+                    <div class="md:w-3/5 text-center md:text-left">
                         <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-lg">
                             Auto Repair That <span class="text-ybe-red">Gets You Back</span> on the Road
                         </h1>
-                        <div class="w-24 h-1 bg-ybe-red mx-auto mb-6"></div>
-                        <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl mx-auto">
+                        <div class="w-24 h-1 bg-ybe-red mx-auto md:mx-0 mb-6"></div>
+                        <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl mx-auto md:mx-0">
                             Mechanical repairs, diagnostics, maintenance, bodywork, and roadside assistance from a trusted Capitol Heights shop serving the community since 2006.
                         </p>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:justify-start">
                             <a href="tel:+12024553822" class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-[0_0_20px_rgba(227,24,24,0.6)] border-2 border-ybe-red hover:border-white transition-all uppercase tracking-widest font-bold transform hover:-translate-y-1">
                                 <i data-lucide="phone" width="32" height="32" class="animate-bounce"></i>
                                 I Need Help Now!
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Photo, right -->
+                    <div class="md:w-2/5 w-full flex justify-center md:justify-end">
+                        <img src="images/meet%20scooter.png"
+                             alt="A YBE Auto Repair Center technician in a YBE shirt holding a wrench"
+                             class="hero-cutout w-[250px] sm:w-[320px] md:w-full max-w-[430px] h-auto" />
                     </div>
                 </div>
             </div>

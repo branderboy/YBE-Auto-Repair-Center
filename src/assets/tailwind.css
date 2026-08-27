@@ -12,6 +12,14 @@
   .diagonal-stripe-bg {
     background-image: repeating-linear-gradient(45deg, #1A1A1A, #1A1A1A 10px, #222222 10px, #222222 20px);
   }
+  /* Hero backdrop: dark on the left behind the copy, easing toward the photo
+     on the right, with a soft brand glow behind the subject. */
+  .hero-blend {
+    background:
+      radial-gradient(60% 70% at 78% 55%, rgba(227, 24, 24, 0.22), transparent 70%),
+      linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
+  }
+
   /* Hero cut-out photo: fade the cropped bottom edge so it does not read as a
      straight line, and keep the shadow tight to the silhouette. */
   .hero-cutout {
