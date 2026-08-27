@@ -6,7 +6,7 @@
  */
 
 const T = require('./templates.js');
-const { b, esc, icon, abs, localBusinessSchema, breadcrumbSchema } = T;
+const { b, esc, icon, abs, localBusinessSchema, webSiteSchema, webPageSchema, breadcrumbSchema } = T;
 
 function headerNav(currentPath) {
   const isActive = (url) => currentPath === url || (url !== '/' && currentPath.startsWith(url));
@@ -413,7 +413,12 @@ function layout({
    */
   fullBleed = false
 }) {
-  const graph = [localBusinessSchema(), ...schema];
+  const graph = [
+    localBusinessSchema(),
+    webSiteSchema(),
+    webPageSchema({ title, description, path }),
+    ...schema
+  ];
   if (crumbs.length > 1) graph.push(breadcrumbSchema(crumbs));
 
   const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);

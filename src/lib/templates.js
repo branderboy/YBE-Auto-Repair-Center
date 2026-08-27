@@ -12,6 +12,7 @@
  */
 
 const b = require('../data/business.js');
+const E = require('../data/entities.js');
 const { mainNav, footerServiceLinks } = require('../data/pillars.js');
 
 const esc = (s = '') =>
@@ -65,8 +66,75 @@ function localBusinessSchema() {
       '@type': 'City',
       name: `${a.name}, ${a.state}`
     })),
-    knowsAbout: [b.primaryCategory, ...b.additionalCategories],
-    hasMap: b.maps.directionsUrl
+    /*
+     * knowsAbout as Thing objects rather than bare strings. Paired with
+     * additionalType below, this lets an engine resolve what the shop does
+     * against known entities instead of parsing the category names.
+     */
+    knowsAbout: [b.primaryCategory, ...b.additionalCategories].map((name) => ({
+      '@type': 'Thing',
+      name
+    })),
+    additionalType: E.business,
+    hasMap: b.maps.directionsUrl,
+    currenciesAccepted: 'USD',
+    /* Verified attributes only. See business.js for what is deliberately unset. */
+    amenityFeature: [
+      {
+        '@type': 'LocationFeatureSpecification',
+        name: 'Wheelchair-accessible parking',
+        value: true
+      }
+    ],
+    employee: {
+      '@type': 'Person',
+      name: 'Scooter',
+      jobTitle: 'Mechanic',
+      worksFor: { '@id': `${b.siteUrl}/#business` }
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Auto repair services',
+      itemListElement: require('../data/services.js').categories.map((cat) => ({
+        '@type': 'OfferCatalog',
+        name: cat.title,
+        itemListElement: cat.services.map((svc) => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: svc.title, url: abs(svc.url) }
+        }))
+      }))
+    }
+  };
+}
+
+/** The site itself, so each page can declare what it belongs to. */
+function webSiteSchema() {
+  return {
+    '@type': 'WebSite',
+    '@id': `${b.siteUrl}/#website`,
+    url: b.siteUrl,
+    name: b.name,
+    publisher: { '@id': `${b.siteUrl}/#business` },
+    inLanguage: 'en-US'
+  };
+}
+
+/**
+ * The page. `speakable` marks which parts a voice assistant should read out,
+ * which is what answer engines look for when a question is asked hands-free.
+ */
+function webPageSchema({ title, description, path, primaryImage }) {
+  return {
+    '@type': 'WebPage',
+    '@id': `${abs(path)}#webpage`,
+    url: abs(path),
+    name: title,
+    description,
+    isPartOf: { '@id': `${b.siteUrl}/#website` },
+    about: { '@id': `${b.siteUrl}/#business` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: abs(primaryImage || b.images.ogImage) },
+    inLanguage: 'en-US',
+    speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.speakable'] }
   };
 }
 
@@ -93,16 +161,26 @@ function faqSchema(faqs) {
   };
 }
 
-function serviceSchema({ name, description, url, areaNames }) {
-  return {
+function serviceSchema({ name, description, url, areaNames, sameAs, placeSameAs }) {
+  const node = {
     '@type': 'Service',
+    '@id': `${abs(url)}#service`,
     name,
     description,
     url: abs(url),
     serviceType: name,
     provider: { '@id': `${b.siteUrl}/#business` },
-    areaServed: (areaNames || []).map((n) => ({ '@type': 'City', name: n }))
+    areaServed: (areaNames || []).map((n, i) => {
+      const city = { '@type': 'City', name: n };
+      // Tie the primary area to its Wikipedia article where one is mapped.
+      if (placeSameAs && i === 0) city.sameAs = placeSameAs;
+      return city;
+    })
   };
+  if (sameAs && sameAs.length) {
+    node.about = { '@type': 'Thing', name, sameAs };
+  }
+  return node;
 }
 
 /* ------------------------------------------------- CONVERSION COMPONENTS */
@@ -313,10 +391,13 @@ function finalCta({ heading, sub, variant = 'default' } = {}) {
 
 module.exports = {
   b,
+  E,
   esc,
   icon,
   abs,
   localBusinessSchema,
+  webSiteSchema,
+  webPageSchema,
   breadcrumbSchema,
   faqSchema,
   serviceSchema,

@@ -149,16 +149,319 @@
         }
       ],
       "knowsAbout": [
-        "Auto repair shop",
-        "Brake shop",
-        "Auto body shop",
-        "Transmission shop",
-        "Oil change service",
-        "Auto electrical service",
-        "Wheel alignment service",
-        "Auto air conditioning service"
+        {
+          "@type": "Thing",
+          "name": "Auto repair shop"
+        },
+        {
+          "@type": "Thing",
+          "name": "Brake shop"
+        },
+        {
+          "@type": "Thing",
+          "name": "Auto body shop"
+        },
+        {
+          "@type": "Thing",
+          "name": "Transmission shop"
+        },
+        {
+          "@type": "Thing",
+          "name": "Oil change service"
+        },
+        {
+          "@type": "Thing",
+          "name": "Auto electrical service"
+        },
+        {
+          "@type": "Thing",
+          "name": "Wheel alignment service"
+        },
+        {
+          "@type": "Thing",
+          "name": "Auto air conditioning service"
+        }
       ],
-      "hasMap": "https://maps.google.com/?q=8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743"
+      "additionalType": [
+        "https://en.wikipedia.org/wiki/Automobile_repair_shop",
+        "https://en.wikipedia.org/wiki/Motor_vehicle_service"
+      ],
+      "hasMap": "https://maps.google.com/?q=8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743",
+      "currenciesAccepted": "USD",
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Wheelchair-accessible parking",
+          "value": true
+        }
+      ],
+      "employee": {
+        "@type": "Person",
+        "name": "Scooter",
+        "jobTitle": "Mechanic",
+        "worksFor": {
+          "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Auto repair services",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Auto Repair and Diagnostics",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Check Engine Light Diagnostics",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/check-engine-light-diagnostics/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Engine Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/engine-repair/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Tune-Ups and Preventive Maintenance",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/tune-ups-maintenance/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Oil Changes and Fluid Service",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/oil-change/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Cooling System and Overheating Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/cooling-system-overheating/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Brake Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Brake Pad and Rotor Replacement",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-pad-rotor-replacement/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Brake Noise, Vibration and Pulling",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-noise-vibration/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Brake Fluid Service, Calipers and Brake Warning Lights",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-fluid-calipers/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Transmission Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission Repair and Diagnostics",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-repair/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission Replacement and Rebuilds",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-replacement-rebuild/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission Fluid Service and Leak Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-fluid-leaks/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Electrical and Starting Systems",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Battery, Alternator and Starter Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/battery-alternator-starter/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "No-Start Diagnostics",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/no-start-diagnostics/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wiring, Fuses, Relays and Sensor Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/wiring-sensors-fuses/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Tires, Steering and Suspension",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wheel Alignment",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/wheel-alignment/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Tire Repair, Replacement and Rotation",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/tire-repair-replacement/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Shocks, Struts and Steering Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/shocks-struts-steering/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Auto A/C and Heating",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto Air Conditioning Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Vehicle Heating System Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/heating-system-repair/"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Auto Body and Glass",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Collision and Body Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/collision-body-repair/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Dent, Scratch and Paint Repair",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/dent-scratch-paint/"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto Glass Repair and Replacement",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/auto-glass/"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#website",
+      "url": "https://branderboy.github.io/YBE-Auto-Repair-Center",
+      "name": "YBE Auto Repair Center",
+      "publisher": {
+        "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/404.html#webpage",
+      "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/404.html",
+      "name": "Page Not Found | YBE Auto Repair Center",
+      "description": "That page does not exist. Find auto repair services, roadside assistance, service areas and contact details for YBE Auto Repair Center.",
+      "isPartOf": {
+        "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#website"
+      },
+      "about": {
+        "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/assets/img/og-card.jpg"
+      },
+      "inLanguage": "en-US",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".speakable"
+        ]
+      }
     }
   ]
 }
