@@ -109,3 +109,24 @@
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/*
+ * Short desktop screens.
+ * Plenty of laptops are wide but only ~700-800px tall. The desktop hero
+ * spacing that looks right at 1080px pushes the call button below the fold
+ * there, so on a short viewport the padding and headline come back down. This
+ * keys off height, not width, because that is the actual constraint.
+ */
+@media (min-width: 768px) and (max-height: 860px) {
+  .hero-section { padding-top: 8.5rem; padding-bottom: 4rem; }
+  .hero-section h1 { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+  .hero-section .hero-rule { margin-bottom: 1.25rem; }
+  .hero-section .hero-cta { margin-top: 2.5rem; }
+}
+
+@media (min-width: 768px) and (max-height: 720px) {
+  .hero-section { padding-top: 7.5rem; padding-bottom: 3rem; min-height: 0; }
+  .hero-section h1 { font-size: 2.5rem; }
+  .hero-section p { font-size: 1rem; }
+  .hero-section .hero-cta { margin-top: 2rem; }
+}
