@@ -685,11 +685,11 @@ ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
 /* ===================================================== CAR CARE HUB */
 function renderCarCareHub() {
-  const crumbs = [HOME, { label: 'Car Care', url: '/car-care/' }];
+  const crumbs = [HOME, { label: 'Diagnose a Problem', url: '/car-care/' }];
   const body = `
 ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: `Advice and <span class="text-ybe-red">Car Care</span>`,
+  titleHtml: `Diagnose Your <span class="text-ybe-red">Car Problem</span>`,
   sub: 'Straight answers to the questions drivers ask before deciding whether to call a shop.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
@@ -727,7 +727,7 @@ ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: 'Still Not Sure?', sub: 'Describe the symptom over the phone and we will tell you what it points at.' })}`;
 
   return layout({
-    title: `Car Care Advice & Common Questions | YBE Auto`,
+    title: `Common Car Problems and What They Mean | YBE Auto`,
     description: `Answers to what drivers ask most: check-engine lights, brake noise, overheating, transmission trouble and roadside problems. YBE, ${primaryArea.label}.`,
     path: '/car-care/',
     crumbs,
@@ -738,7 +738,7 @@ ${K.contactBlock({ heading: 'Still Not Sure?', sub: 'Describe the symptom over t
 /* ===================================================== ARTICLE */
 function renderArticle(a) {
   const cluster = clusters.find((c) => c.slug === a.cluster);
-  const crumbs = [HOME, { label: 'Car Care', url: '/car-care/' }, { label: a.title, url: a.url }];
+  const crumbs = [HOME, { label: 'Diagnose a Problem', url: '/car-care/' }, { label: a.title, url: a.url }];
   const svc = lookup(a.relatedService);
   const related = (a.relatedArticles || []).map((s) => articleBySlug[s]).filter(Boolean);
 
@@ -1232,7 +1232,7 @@ ${section(
       { label: 'All Services', url: '/services/', icon: 'wrench' },
       { label: 'Roadside Assistance', url: roadsideHub.url, icon: 'truck' },
       { label: 'Service Areas', url: '/service-areas/', icon: 'map-pin' },
-      { label: 'Car Care Advice', url: '/car-care/', icon: 'help-circle' },
+      { label: 'Diagnose', url: '/car-care/', icon: 'help-circle' },
       { label: 'Contact & Directions', url: '/contact/', icon: 'navigation' },
       { label: 'Request an Appointment', url: '/request-appointment/', icon: 'calendar' }
     ]

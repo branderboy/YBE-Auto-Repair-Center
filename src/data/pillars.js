@@ -53,7 +53,7 @@ const pillars = [
     number: 3,
     name: 'Advice and Car Care',
     url: '/car-care/',
-    navLabel: 'Car Care',
+    navLabel: 'Diagnose a Problem',
     summary:
       'Straight answers to the questions drivers ask before deciding whether to call a mechanic.',
     description:
@@ -92,36 +92,28 @@ const pillars = [
 
 /** Primary site navigation, generated from the pillars above. */
 const mainNav = [
+  { label: 'Home', url: '/' },
   {
-    label: 'Services',
+    label: 'Repair Services',
     url: '/services/',
     children: categories.map((c) => ({ label: c.navLabel, url: c.url }))
   },
   {
-    label: 'Roadside',
-    url: roadsideHub.url,
-    highlight: true,
-    children: roadsideHub.services.map((s) => ({ label: s.navLabel, url: s.url }))
-  },
-  {
-    label: 'Service Areas',
+    label: 'Areas We Serve',
     url: '/service-areas/',
     children: areas.map((a) => ({ label: a.label, url: a.url }))
   },
   {
-    label: 'Car Care',
+    label: 'Diagnose a Problem',
     url: '/car-care/',
     children: clusters.map((c) => ({ label: c.name, url: `/car-care/#${c.slug}` }))
   },
+  { label: 'FAQ', url: '/faq/' },
   {
-    label: 'About',
-    url: '/about/',
-    children: [
-      { label: 'About YBE', url: '/about/' },
-      { label: 'Reviews', url: '/reviews/' },
-      { label: 'FAQ', url: '/faq/' },
-      { label: 'Contact & Directions', url: '/contact/' }
-    ]
+    label: 'Roadside Help',
+    url: roadsideHub.url,
+    highlight: true,
+    children: roadsideHub.services.map((s) => ({ label: s.navLabel, url: s.url }))
   }
 ];
 

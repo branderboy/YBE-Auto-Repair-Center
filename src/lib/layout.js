@@ -104,9 +104,10 @@ function footer() {
     .join('');
 
   const explore = [
-    { label: 'All Services', url: '/services/' },
-    { label: 'Service Areas', url: '/service-areas/' },
-    { label: 'Car Care Advice', url: '/car-care/' },
+    { label: 'Home', url: '/' },
+    { label: 'Repair Services', url: '/services/' },
+    { label: 'Areas We Serve', url: '/service-areas/' },
+    { label: 'Diagnose a Problem', url: '/car-care/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
