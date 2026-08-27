@@ -2,9 +2,10 @@
 const CACHE = 'ybe-v1';
 const PRECACHE = [
   "/",
-  "/offline.html",
+  "/no-connection.html",
   "/assets/css/site.css",
   "/assets/img/ybe-auto-logo.png",
+  "/assets/img/hero-shop.jpg",
   "/assets/fonts/caveat-700.woff2",
   "/roadside-assistance/",
   "/contact/",
@@ -48,7 +49,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match('/offline.html')))
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('/no-connection.html')))
     );
     return;
   }
