@@ -26,6 +26,10 @@ module.exports = {
           /* Green used for the numbered service labels, so the page is not
              wall-to-wall red. Passes AA against white text. */
           green: '#15803D',
+          /* Sampled from the logo artwork: #FC0101 is the letter fill,
+             #C50100 the shading behind it. */
+          logored: '#FC0101',
+          logodarkred: '#C50100',
           darkgreen: '#166534',
           darkred: '#B91414',
           black: '#1A1A1A',
