@@ -227,10 +227,16 @@
         <section class="hero-section relative pt-40 pb-12 sm:pt-48 sm:pb-20 md:pt-48 md:pb-28 lg:pt-52 lg:pb-32 flex items-center min-h-0 sm:min-h-[88svh] md:min-h-[88vh] overflow-hidden bg-ybe-black">
             <!-- Shop photo, full bleed. The subject already sits on the right of
                  this shot, so the copy has the tool bench side to itself. -->
-            <div class="absolute inset-0 z-0">
+            <!--
+                On mobile the photo starts below the fixed header. object-cover
+                shows the full height of the shot there, and his head sits near
+                the top of the frame, so a full-bleed image put his face behind
+                the header. The header is opaque, so nothing is lost by insetting.
+            -->
+            <div class="absolute inset-x-0 bottom-0 top-[104px] md:top-0 z-0">
                 <img src="images/the%20shop.jpg"
                      alt="Inside YBE Auto Repair Center: an open tool chest and a technician holding a wrench, with a vehicle up on the lift behind him"
-                     class="w-full h-full object-cover object-[68%_center] md:object-center" />
+                     class="w-full h-full object-cover object-[30%_center] md:object-[center_18%]" />
             </div>
 
             <!-- Dark on the copy side, clearing across the photo to the right -->
