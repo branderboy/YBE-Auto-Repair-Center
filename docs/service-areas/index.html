@@ -517,6 +517,25 @@
               <a href="sms:+12024553822" data-track="text" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">(202) 455-3822 (text)</a>
               <a href="https://wa.me/12024553822" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">WhatsApp Us</a></div>
           </div>
+          <div class="flex items-start gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red mt-1 flex-shrink-0" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>
+            <div class="w-full">
+              <h3 class="font-heading text-xl font-bold uppercase text-ybe-black mb-3">Follow &amp; Share</h3>
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="https://www.facebook.com/ybeauto" target="_blank" rel="noopener noreferrer" data-track="facebook" data-location="contact-block"
+                   class="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#0f5fd0] text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> Facebook</a>
+                <a href="https://www.instagram.com/yberepairshop/" target="_blank" rel="noopener noreferrer" data-track="instagram" data-location="contact-block"
+                   style="background-image:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"
+                   class="inline-flex items-center gap-2 hover:opacity-90 text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg> Instagram</a>
+                <button type="button" id="share-btn" data-track="share" data-location="contact-block"
+                   class="inline-flex items-center gap-2 bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg> <span id="share-label">Share</span></button>
+              </div>
+              <p id="share-status" role="status" aria-live="polite" class="text-sm text-gray-600 mt-2 h-5"></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="lg:w-1/2 w-full">
@@ -717,6 +736,37 @@ document.addEventListener('DOMContentLoaded', function () {
       status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', 'tel:+12024553822');
       status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = smsHref;
+    });
+  }
+
+  // Share button: device share sheet, falling back to copying the link.
+  var shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    var shareStatus = document.getElementById('share-status');
+    var shareLabel = document.getElementById('share-label');
+    shareBtn.addEventListener('click', function () {
+      var data = {
+        title: document.title,
+        text: 'Auto repair, bodywork and roadside assistance in Capitol Heights, MD.',
+        url: window.location.href
+      };
+      var done = function () {
+        if (shareLabel) shareLabel.textContent = 'Copied!';
+        if (shareStatus) shareStatus.textContent = 'Link copied to your clipboard.';
+        setTimeout(function () {
+          if (shareLabel) shareLabel.textContent = 'Share';
+          if (shareStatus) shareStatus.textContent = '';
+        }, 2500);
+      };
+      if (navigator.share) {
+        navigator.share(data).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(data.url).then(done, function () {
+          if (shareStatus) shareStatus.textContent = data.url;
+        });
+      } else if (shareStatus) {
+        shareStatus.textContent = data.url;
+      }
     });
   }
 

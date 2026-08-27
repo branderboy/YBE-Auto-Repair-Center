@@ -301,6 +301,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Share button: device share sheet, falling back to copying the link.
+  var shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    var shareStatus = document.getElementById('share-status');
+    var shareLabel = document.getElementById('share-label');
+    shareBtn.addEventListener('click', function () {
+      var data = {
+        title: document.title,
+        text: 'Auto repair, bodywork and roadside assistance in Capitol Heights, MD.',
+        url: window.location.href
+      };
+      var done = function () {
+        if (shareLabel) shareLabel.textContent = 'Copied!';
+        if (shareStatus) shareStatus.textContent = 'Link copied to your clipboard.';
+        setTimeout(function () {
+          if (shareLabel) shareLabel.textContent = 'Share';
+          if (shareStatus) shareStatus.textContent = '';
+        }, 2500);
+      };
+      if (navigator.share) {
+        navigator.share(data).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(data.url).then(done, function () {
+          if (shareStatus) shareStatus.textContent = data.url;
+        });
+      } else if (shareStatus) {
+        shareStatus.textContent = data.url;
+      }
+    });
+  }
+
   // Conversion tracking: click-to-call, click-to-text, directions, appointment.
   // Sends to dataLayer / gtag when an analytics tool is installed; harmless otherwise.
   document.querySelectorAll('[data-track]').forEach(function (el) {

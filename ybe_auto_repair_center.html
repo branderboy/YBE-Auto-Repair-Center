@@ -751,6 +751,29 @@
                                     <a href="tel:+12024553822" class="block text-gray-300 hover:text-white transition-colors">(202) 455-3822 (Call or Text)</a>
                                 </div>
                             </div>
+
+                            <div class="flex items-start gap-4">
+                                <i data-lucide="share-2" width="24" height="24" class="text-ybe-red mt-1"></i>
+                                <div class="w-full">
+                                    <h4 class="font-heading text-xl font-bold uppercase mb-3">Follow &amp; Share</h4>
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <a href="https://www.facebook.com/ybeauto" target="_blank" rel="noopener noreferrer"
+                                           class="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#0f5fd0] text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                                            <i data-lucide="facebook" width="20" height="20"></i> Facebook
+                                        </a>
+                                        <a href="https://www.instagram.com/yberepairshop/" target="_blank" rel="noopener noreferrer"
+                                           style="background-image:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"
+                                           class="inline-flex items-center gap-2 hover:opacity-90 text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-opacity">
+                                            <i data-lucide="instagram" width="20" height="20"></i> Instagram
+                                        </a>
+                                        <button type="button" id="share-btn"
+                                           class="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-ybe-black font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold border-2 border-white transition-colors">
+                                            <i data-lucide="share-2" width="20" height="20"></i> <span id="share-label">Share</span>
+                                        </button>
+                                    </div>
+                                    <p id="share-status" role="status" aria-live="polite" class="text-sm text-gray-400 mt-2 h-5"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -927,6 +950,34 @@
                     if (isMenuOpen) toggleMenu();
                 });
             });
+
+            // Share button: uses the device share sheet, falls back to copying the link.
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                const shareStatus = document.getElementById('share-status');
+                const shareLabel = document.getElementById('share-label');
+                shareBtn.addEventListener('click', async () => {
+                    const data = {
+                        title: 'YBE Auto Repair Center',
+                        text: 'Auto repair, bodywork and roadside assistance in Capitol Heights, MD.',
+                        url: window.location.href
+                    };
+                    try {
+                        if (navigator.share) {
+                            await navigator.share(data);
+                            return;
+                        }
+                        await navigator.clipboard.writeText(data.url);
+                        shareLabel.textContent = 'Copied!';
+                        shareStatus.textContent = 'Link copied to your clipboard.';
+                        setTimeout(() => { shareLabel.textContent = 'Share'; shareStatus.textContent = ''; }, 2500);
+                    } catch (err) {
+                        // The user dismissed the share sheet, or the browser blocked clipboard access.
+                        if (err && err.name === 'AbortError') return;
+                        shareStatus.textContent = window.location.href;
+                    }
+                });
+            }
 
             // FAQ Accordion Logic
             const faqButtons = document.querySelectorAll('.faq-btn');

@@ -325,6 +325,25 @@ function contactBlock({ heading, sub } = {}) {
               <a href="${b.sms.href}" data-track="text" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (text)</a>
               <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.whatsapp.display)}</a></div>
           </div>
+          <div class="flex items-start gap-4">
+            ${icon('share-2', 24, 'text-ybe-red mt-1 flex-shrink-0')}
+            <div class="w-full">
+              <h3 class="font-heading text-xl font-bold uppercase text-ybe-black mb-3">Follow &amp; Share</h3>
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" data-track="facebook" data-location="contact-block"
+                   class="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#0f5fd0] text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                  ${icon('facebook', 20)} Facebook</a>
+                <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" data-track="instagram" data-location="contact-block"
+                   style="background-image:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"
+                   class="inline-flex items-center gap-2 hover:opacity-90 text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-opacity">
+                  ${icon('instagram', 20)} Instagram</a>
+                <button type="button" id="share-btn" data-track="share" data-location="contact-block"
+                   class="inline-flex items-center gap-2 bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold transition-colors">
+                  ${icon('share-2', 20)} <span id="share-label">Share</span></button>
+              </div>
+              <p id="share-status" role="status" aria-live="polite" class="text-sm text-gray-600 mt-2 h-5"></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="lg:w-1/2 w-full">
