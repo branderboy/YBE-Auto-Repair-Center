@@ -63,23 +63,28 @@
 }
 
 /*
- * Red text on dark surfaces.
- * Brand red (#FC0101) on near-black lands around 3.4:1, which fails the WCAG AA
- * 4.5:1 minimum for body text. On dark sections we lift it to #FF5C5C (~5.6:1)
- * so it stays legible. Backgrounds and buttons keep the exact brand red.
+ * Text on dark surfaces goes white.
+ * The brand red is a step darker than the logo, so on a near-black panel or the
+ * striped footer it never reads well however it is tinted. White is simply
+ * legible. Red backgrounds, buttons and rules are untouched; this only affects
+ * text and icons that would otherwise be red on a dark panel.
+ *
+ * :not(.bg-white) matters. The roadside heading sets red text on a white pill
+ * inside the dark band; without the exclusion that text turned white on white
+ * and disappeared entirely.
  */
-.bg-ybe-black .text-ybe-red,
-.bg-ybe-charcoal .text-ybe-red,
-.bg-black .text-ybe-red,
-.diagonal-stripe-bg .text-ybe-red,
-.bg-gradient-to-r .text-ybe-red {
-  color: #FF5C5C;
+.bg-ybe-black .text-ybe-red:not(.bg-white),
+.bg-ybe-charcoal .text-ybe-red:not(.bg-white),
+.bg-black .text-ybe-red:not(.bg-white),
+.diagonal-stripe-bg .text-ybe-red:not(.bg-white),
+.bg-gradient-to-r .text-ybe-red:not(.bg-white) {
+  color: #FFFFFF;
 }
 
 /* Red links on the black footer need the same lift, including on hover. */
 .bg-black a:hover.text-ybe-red,
 .bg-black a.hover\:text-ybe-red:hover {
-  color: #FF5C5C;
+  color: #FFFFFF;
 }
 
 ::-webkit-scrollbar { width: 10px; }
