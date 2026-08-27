@@ -105,22 +105,18 @@ function renderHomeOriginal() {
   main = inlineIcons(main);
   main = linkUpSections(main);
 
-  // Logo path -> built asset.
-  main = main.replace(/src="ybe auto\.png"/g, `src="${b.images.logo}"`);
-
   /*
-   * Swap the placeholder stock photography for the shop's own photos.
-   * The hero background image becomes the wide service-bays shot; the inset
-   * card beside the headline and the why-us photo use the building-and-lot
-   * shot, so the two are not the same picture. Markup is otherwise untouched.
+   * The source file references its images relatively (images/...) so it also
+   * renders correctly when opened straight from disk. Map those to the built
+   * asset paths for the generated site.
    */
-  const photoMap = [
-    ['photo-1486262715619', b.images.hero], // hero background
-    ['photo-1632731557008', b.images.shop]  // inset card + why-us section
+  const assetMap = [
+    ['images/YBE%20Auto%20in%20maryland.png', b.images.hero.src],
+    ['images/hero%20photo.jpg', b.images.shop.src],
+    ['images/ybe%20auto.png', b.images.logo]
   ];
-  for (const [stockId, img] of photoMap) {
-    const re = new RegExp(`src="https://images\\.unsplash\\.com/${stockId}[^"]*"([^>]*?)alt="[^"]*"`, 'g');
-    main = main.replace(re, `src="${img.src}"$1alt="${esc(img.alt)}"`);
+  for (const [from, to] of assetMap) {
+    main = main.split(`src="${from}"`).join(`src="${to}"`);
   }
 
   // Conversion tracking on the original page's call / WhatsApp / map links.
