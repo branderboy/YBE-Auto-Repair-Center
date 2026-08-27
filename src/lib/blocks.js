@@ -92,7 +92,7 @@ function numberedCards(items, { cols = 'md:grid-cols-2' } = {}) {
         </div>
         <p class="text-gray-700 leading-relaxed mb-6">${esc(it.text || '')}</p>
       </div>
-      <a href="${it.href}" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+      <a href="${it.href}" class="inline-flex items-center py-2 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
         ${esc(it.cta || 'Request Service')} ${icon('arrow-right', 20, 'ml-1')}
       </a>
     </div>`
@@ -275,7 +275,7 @@ function mapAreasBlock({ heading, sub, activeSlug } = {}) {
                   a.slug === activeSlug
                     ? 'bg-ybe-red border-ybe-red text-white'
                     : 'bg-white border-gray-300 text-gray-700 hover:border-ybe-red hover:text-ybe-red'
-                } border px-3 py-1 text-sm font-semibold rounded-sm transition-colors">${esc(a.label)}</a>`
+                } border px-4 py-2.5 text-sm font-semibold rounded-sm transition-colors inline-block">${esc(a.label)}</a>`
             )
             .join('')}
         </div>
@@ -321,9 +321,9 @@ function contactBlock({ heading, sub } = {}) {
           <div class="flex items-start gap-4">
             ${icon('phone', 24, 'text-ybe-red mt-1 flex-shrink-0')}
             <div><h3 class="font-heading text-xl font-bold uppercase text-ybe-black">Contact</h3>
-              <a href="${b.phone.href}" data-track="call" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (call)</a>
-              <a href="${b.sms.href}" data-track="text" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (text)</a>
-              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.whatsapp.display)}</a></div>
+              <a href="${b.phone.href}" data-track="call" data-location="contact-block" class="block py-2 text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (call)</a>
+              <a href="${b.sms.href}" data-track="text" data-location="contact-block" class="block py-2 text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (text)</a>
+              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block py-2 text-gray-700 hover:text-ybe-red transition-colors">${esc(b.whatsapp.display)}</a></div>
           </div>
           <div class="flex items-start gap-4">
             ${icon('share-2', 24, 'text-ybe-red mt-1 flex-shrink-0')}

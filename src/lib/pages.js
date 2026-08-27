@@ -42,7 +42,7 @@ function relatedList(slugs, heading = 'Related Services') {
       ${items
         .map(
           (s) =>
-            `<li><a href="${s.url}" class="inline-flex items-center gap-2 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
+            `<li><a href="${s.url}" class="inline-flex items-center gap-2 py-2 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
           ${icon('arrow-right', 18)} ${esc(s.title)}</a></li>`
         )
         .join('')}
@@ -59,7 +59,7 @@ function areasServed() {
       ${areas
         .map(
           (a) =>
-            `<a href="${a.url}" class="bg-white border border-gray-300 hover:border-ybe-red hover:text-ybe-red text-gray-700 px-3 py-1 text-sm font-semibold rounded-sm transition-colors">${esc(a.label)}</a>`
+            `<a href="${a.url}" class="bg-white border border-gray-300 hover:border-ybe-red hover:text-ybe-red text-gray-700 px-4 py-2.5 text-sm font-semibold rounded-sm transition-colors inline-block">${esc(a.label)}</a>`
         )
         .join('')}
     </div>
@@ -285,7 +285,7 @@ ${section(
             .filter((s) => s.slug !== svc.slug)
             .map(
               (s) =>
-                `<li><a href="${s.url}" class="flex items-start gap-2 text-gray-700 hover:text-ybe-red font-medium">
+                `<li><a href="${s.url}" class="flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
             ${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(s.title)}</span></a></li>`
             )
             .join('')}
@@ -440,7 +440,7 @@ ${section(
             .filter((s) => s.slug !== svc.slug)
             .map(
               (s) =>
-                `<li><a href="${s.url}" class="flex items-start gap-2 text-gray-700 hover:text-ybe-red font-medium">
+                `<li><a href="${s.url}" class="flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
             ${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(s.title)}</span></a></li>`
             )
             .join('')}
@@ -597,7 +597,7 @@ ${section(
             .slice(0, 8)
             .map(
               (a) =>
-                `<li><a href="${a.url}" class="flex items-center gap-2 text-gray-700 hover:text-ybe-red font-medium">
+                `<li><a href="${a.url}" class="flex items-center gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
             ${icon('map-pin', 14, 'text-ybe-red flex-shrink-0')} ${esc(a.label)}</a></li>`
             )
             .join('')}
@@ -768,7 +768,7 @@ ${section(
             .filter((x) => x.slug !== a.slug)
             .map(
               (x) =>
-                `<li><a href="${x.url}" class="flex items-start gap-2 text-gray-700 hover:text-ybe-red font-medium">
+                `<li><a href="${x.url}" class="flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
             ${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(x.title)}</span></a></li>`
             )
             .join('')}

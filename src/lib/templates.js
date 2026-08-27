@@ -183,7 +183,7 @@ function breadcrumbs(crumbs) {
   const parts = crumbs.map((c, i) =>
     i === crumbs.length - 1
       ? `<span class="text-gray-500" aria-current="page">${esc(c.label)}</span>`
-      : `<a href="${c.url}" class="text-ybe-red hover:text-ybe-darkred font-semibold">${esc(c.label)}</a>`
+      : `<a href="${c.url}" class="inline-block py-2 text-ybe-red hover:text-ybe-darkred font-semibold">${esc(c.label)}</a>`
   );
   return `<nav aria-label="Breadcrumb" class="bg-gray-100 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
