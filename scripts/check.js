@@ -134,11 +134,19 @@ for (const file of files) {
     if (!/\salt="/.test(img)) errors.push(at(`img without alt: ${img.slice(0, 70)}`));
   }
 
-  // --- internal links resolve ---
+  /*
+   * Internal links resolve.
+   * The build prefixes every root-relative path with basePath so the site works
+   * from a GitHub Pages subfolder, so strip that prefix before comparing
+   * against the files on disk.
+   */
   for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {
     totalLinks++;
-    const target = m[1];
-    if (!validUrls.has(target)) errors.push(at(`broken internal link → ${target}`));
+    let target = m[1];
+    if (b.basePath && target.startsWith(b.basePath)) {
+      target = target.slice(b.basePath.length) || '/';
+    }
+    if (!validUrls.has(target)) errors.push(at(`broken internal link → ${m[1]}`));
   }
 
   // --- conversion paths present on every page ---

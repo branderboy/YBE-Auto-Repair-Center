@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ybeautorepaircenter.com/sitemap.xml
+Sitemap: https://branderboy.github.io/YBE-Auto-Repair-Center/sitemap.xml

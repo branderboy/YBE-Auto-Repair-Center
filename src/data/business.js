@@ -13,8 +13,16 @@ const business = {
   name: 'YBE Auto Repair Center',
   shortName: 'YBE',
 
-  // Set this to the live domain before launch. Used for canonicals, OG tags and sitemap.
-  siteUrl: 'https://www.ybeautorepaircenter.com',
+  /*
+   * Live location of the site. Used for canonicals, Open Graph tags and the
+   * sitemap.
+   *
+   * GitHub Pages serves a project site from a subfolder, so `basePath` is
+   * prefixed onto every internal link and asset at the end of the build.
+   * When you move to a real domain, set siteUrl to it and basePath to ''.
+   */
+  siteUrl: 'https://branderboy.github.io/YBE-Auto-Repair-Center',
+  basePath: '/YBE-Auto-Repair-Center',
 
   tagline: 'Repair • Body • Roadside',
   openedYear: 2006,
