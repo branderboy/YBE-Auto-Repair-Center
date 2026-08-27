@@ -284,24 +284,26 @@
 
         <!-- Hero Section -->
         <section class="relative pt-28 pb-16 md:pt-32 md:pb-24 flex items-center min-h-[90vh] overflow-hidden bg-ybe-black">
-            <!-- Photo occupies the right side and bleeds off the edge -->
-            <div class="absolute inset-y-0 right-0 w-full md:w-[62%] z-0">
-                <img src="/assets/img/hero-scooter.jpg"
-                     alt="A YBE Auto Repair Center technician holding a wrench in the shop, with vehicles up on the lifts behind him"
-                     class="w-full h-full object-cover object-[60%_18%] md:object-[42%_22%]" />
-                <!-- Blend the photo's left edge into the dark panel -->
-                <div class="absolute inset-0 bg-gradient-to-r from-ybe-black via-ybe-black/55 to-transparent hidden md:block"></div>
-                <div class="absolute inset-0 bg-black/75 md:hidden"></div>
+            <!-- Shop photo, full bleed. The subject already sits on the right of
+                 this shot, so the copy has the tool bench side to itself. -->
+            <div class="absolute inset-0 z-0">
+                <img src="/assets/img/hero-shop.jpg"
+                     alt="Inside YBE Auto Repair Center: an open tool chest and a technician holding a wrench, with a vehicle up on the lift behind him"
+                     class="w-full h-full object-cover object-[68%_center] md:object-center" />
             </div>
+
+            <!-- Dark on the copy side, clearing across the photo to the right -->
+            <div class="absolute inset-0 z-10 hidden md:block bg-gradient-to-r from-black/90 from-5% via-black/65 via-40% to-transparent to-72%"></div>
+            <div class="absolute inset-0 z-10 md:hidden bg-gradient-to-b from-black/85 via-black/70 to-black/90"></div>
 
             <!-- Copy and CTA, left -->
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <div class="md:w-1/2 text-center md:text-left">
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)]">
                         Auto Repair That <span class="text-ybe-red">Gets You Back</span> on the Road
                     </h1>
                     <div class="w-24 h-1 bg-ybe-red mx-auto md:mx-0 mb-6"></div>
-                    <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-xl mx-auto md:mx-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                    <p class="text-lg md:text-xl text-gray-100 font-medium leading-relaxed max-w-xl mx-auto md:mx-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                         Mechanical repairs, diagnostics, maintenance, bodywork, and roadside assistance from a trusted Capitol Heights shop serving the community since 2006.
                     </p>
 

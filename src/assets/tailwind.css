@@ -12,6 +12,24 @@
   .diagonal-stripe-bg {
     background-image: repeating-linear-gradient(45deg, #1A1A1A, #1A1A1A 10px, #222222 10px, #222222 20px);
   }
+  /* Feather the sharp photo's left edge so it dissolves into the blurred shop
+     behind it, instead of meeting it at a hard vertical seam. */
+  .hero-photo-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+  }
+
+  /* Left side of the hero: a blurred, zoomed crop of only the shop area of the
+     photo, so it reads as the shop carrying on behind the copy. */
+  .hero-shop-blur {
+    background-image: url('/assets/img/hero-scooter.jpg');
+    background-size: 260% auto;
+    background-position: 4% 42%;
+    background-repeat: no-repeat;
+    filter: blur(26px) brightness(0.75);
+    transform: scale(1.08);
+  }
+
   /* Hero backdrop: dark on the left behind the copy, easing toward the photo
      on the right, with a soft brand glow behind the subject. */
   .hero-blend {

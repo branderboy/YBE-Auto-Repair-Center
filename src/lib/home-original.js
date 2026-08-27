@@ -115,7 +115,8 @@ function renderHomeOriginal() {
     ['images/hero%20photo.jpg', b.images.shop.src],
     ['images/ybe%20auto.png', b.images.logo],
     ['images/meet%20scooter.png', '/assets/img/meet-scooter.png'],
-    ['images/hero_yBE.jpg', '/assets/img/hero-scooter.jpg']
+    ['images/hero_yBE.jpg', '/assets/img/hero-scooter.jpg'],
+    ['images/the%20shop.jpg', '/assets/img/hero-shop.jpg']
   ];
   for (const [from, to] of assetMap) {
     main = main.split(`src="${from}"`).join(`src="${to}"`);
