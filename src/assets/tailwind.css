@@ -42,7 +42,7 @@
      on the right, with a soft brand glow behind the subject. */
   .hero-blend {
     background:
-      radial-gradient(60% 70% at 78% 55%, rgba(227, 24, 24, 0.22), transparent 70%),
+      radial-gradient(60% 70% at 78% 55%, rgba(252, 1, 1, 0.22), transparent 70%),
       linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
   }
 
@@ -57,14 +57,14 @@
   .prose-ybe p:last-child { margin-bottom: 0; }
   .skip-link {
     position: absolute; left: -9999px; top: 0; z-index: 100;
-    padding: 1rem; background: #E31818; color: #fff; font-weight: 700;
+    padding: 1rem; background: #FC0101; color: #fff; font-weight: 700;
   }
   .skip-link:focus { left: 0; }
 }
 
 /*
  * Red text on dark surfaces.
- * Brand red (#E31818) on near-black lands around 3.4:1, which fails the WCAG AA
+ * Brand red (#FC0101) on near-black lands around 3.4:1, which fails the WCAG AA
  * 4.5:1 minimum for body text. On dark sections we lift it to #FF5C5C (~5.6:1)
  * so it stays legible. Backgrounds and buttons keep the exact brand red.
  */
@@ -85,7 +85,7 @@
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #222222; }
-::-webkit-scrollbar-thumb:hover { background: #E31818; }
+::-webkit-scrollbar-thumb:hover { background: #FC0101; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

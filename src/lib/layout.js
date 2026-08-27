@@ -389,7 +389,7 @@ ${noIndex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robot
 <meta name="geo.placename" content="${esc(b.address.city)}">
 <meta name="geo.position" content="${b.geo.lat};${b.geo.lng}">
 <meta name="ICBM" content="${b.geo.lat}, ${b.geo.lng}">
-<meta name="theme-color" content="#E31818">
+<meta name="theme-color" content="#FC0101">
 
 <link rel="icon" href="${b.images.logo}">
 <link rel="apple-touch-icon" href="${b.images.logo}">
