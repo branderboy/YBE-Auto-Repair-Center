@@ -25,6 +25,19 @@ const business = {
   basePath: '/YBE-Auto-Repair-Center',
 
   tagline: 'Repair • Body • Roadside',
+
+  /**
+   * The description as it appears on the Google Business Profile. Used for the
+   * schema `description` so the listing and the site say the same thing rather
+   * than two paraphrases of it.
+   */
+  gmbDescription:
+    'YBE Auto Repair Center is a Black-owned auto repair shop serving Capitol Heights, MD, and nearby communities including Washington, DC, Bowie, Hyattsville, Landover, and Upper Marlboro. Since 2006, our experienced mechanics have provided reliable automotive repair and maintenance for domestic vehicles and select luxury brands. Our services include check-engine-light diagnostics, engine repair, brake repair, oil changes, transmission service, suspension and steering repair, wheel alignments, tire services, A/C and heating repair, electrical diagnostics, battery replacement, cooling-system repair, exhaust repair, and timing belt or timing chain service. We also offer auto bodywork services. Call, text, or request an appointment with YBE Auto.',
+
+  vehiclesServed: 'Domestic vehicles and select luxury brands',
+
+  /** Statewide service areas on the profile. Mirrored in schema; no pages. */
+  serviceAreaRegions: ['Maryland', 'Virginia'],
   openedYear: 2006,
   openedDate: '2006-02-09',
 

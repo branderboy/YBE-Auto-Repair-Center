@@ -93,9 +93,12 @@
           "closes": "18:00"
         }
       ],
+      "description": "YBE Auto Repair Center is a Black-owned auto repair shop serving Capitol Heights, MD, and nearby communities including Washington, DC, Bowie, Hyattsville, Landover, and Upper Marlboro. Since 2006, our experienced mechanics have provided reliable automotive repair and maintenance for domestic vehicles and select luxury brands. Our services include check-engine-light diagnostics, engine repair, brake repair, oil changes, transmission service, suspension and steering repair, wheel alignments, tire services, A/C and heating repair, electrical diagnostics, battery replacement, cooling-system repair, exhaust repair, and timing belt or timing chain service. We also offer auto bodywork services. Call, text, or request an appointment with YBE Auto.",
       "sameAs": [
         "https://www.facebook.com/ybeauto",
-        "https://www.instagram.com/yberepairshop/"
+        "https://www.instagram.com/yberepairshop/",
+        "https://ybe-auto-repair-shop.square.site/",
+        "https://www.google.com/search?q=YBE+Auto+Repair+Center+8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743"
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -146,6 +149,14 @@
         {
           "@type": "City",
           "name": "Upper Marlboro, MD"
+        },
+        {
+          "@type": "State",
+          "name": "Maryland"
+        },
+        {
+          "@type": "State",
+          "name": "Virginia"
         }
       ],
       "knowsAbout": [
@@ -249,222 +260,448 @@
       },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Auto repair services",
+        "name": "Services",
         "itemListElement": [
           {
             "@type": "OfferCatalog",
-            "name": "Auto Repair and Diagnostics",
+            "name": "Auto repair shop",
             "itemListElement": [
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Check Engine Light Diagnostics",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/check-engine-light-diagnostics/"
+                  "name": "Air conditioning",
+                  "description": "Diagnose and repair vehicle A/C systems that blow warm air, have weak airflow, leak refrigerant, make unusual noises, or fail to cool properly.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Engine Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/engine-repair/"
+                  "name": "Auto engine diagnostic",
+                  "description": "Use diagnostic testing to identify check-engine lights, sensor failures, misfires, electrical faults, and drivability problems.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/check-engine-light-diagnostics/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Tune-Ups and Preventive Maintenance",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/tune-ups-maintenance/"
+                  "name": "Brakes",
+                  "description": "Inspect and repair brake-system components, including pads, rotors, calipers, fluid, warning lights, and brake-related electrical concerns.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Oil Changes and Fluid Service",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/oil-change/"
+                  "name": "Electrical",
+                  "description": "Diagnose and repair automotive electrical systems, including batteries, alternators, starters, wiring, fuses, relays, lights, sensors, switches, and power accessories.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Cooling System and Overheating Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/cooling-system-overheating/"
+                  "name": "A/C installation & repair",
+                  "description": "Install, diagnose, and repair vehicle A/C components including compressors, condensers, hoses, blower motors, pressure switches, and refrigerant leaks.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto A/C replacement",
+                  "description": "Replace failed or damaged A/C components, including compressors, condensers, evaporators, hoses, blower motors, and related parts.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto engine tuning",
+                  "description": "Tune-up service for rough idling, misfires, poor fuel economy, hesitation, spark plugs, ignition components, filters, and engine-performance concerns.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/tune-ups-maintenance/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto glass repair",
+                  "description": "Repair eligible windshield chips, small cracks, window leaks, and minor auto-glass damage when replacement is not necessary.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/auto-glass/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto glass replacement",
+                  "description": "Replace damaged windshields, side windows, rear windows, quarter glass, and other vehicle glass.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/auto-glass/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Auto tire replacement",
+                  "description": "Replace, mount, balance, and inspect tires to support safe traction, smoother driving, and even tire wear.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/tire-repair-replacement/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "General repairs & maintenance",
+                  "description": "General automotive repair and routine maintenance for mechanical, electrical, fluid, safety, and performance-related vehicle needs.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Steering & suspension replacement",
+                  "description": "Replace worn steering and suspension parts, including shocks, struts, control arms, ball joints, tie rods, sway-bar links, and related components.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/shocks-struts-steering/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Tire rotations",
+                  "description": "Rotate tires to promote even tread wear, improve handling, and help extend tire life.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/tire-repair-replacement/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission repair",
+                  "description": "Diagnose and repair transmission problems including slipping, hard shifting, delayed engagement, fluid leaks, warning lights, vibrations, and unusual noises.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission replacement",
+                  "description": "Remove and replace failed transmissions after diagnosing shifting, slipping, leaking, no-engagement, or internal transmission problems.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-replacement-rebuild/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wheel alignment",
+                  "description": "Adjust wheel angles to correct pulling, uneven tire wear, steering-wheel vibration, off-center steering, and handling issues.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/wheel-alignment/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Tire Repair",
+                  "description": "Inspect and repair eligible tire punctures, slow leaks, valve-stem problems, and minor tire damage when safe to repair.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/tire-repair-replacement/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Ac Service",
+                  "description": "Complete A/C system inspection, diagnosis, refrigerant service, and repair to restore cold, dependable airflow in your vehicle.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Body Repair",
+                  "description": "Repair damaged bumpers, fenders, doors, panels, dents, and collision-related exterior damage.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/collision-body-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Body Repair & Paint",
+                  "description": "Repair collision and cosmetic damage, including dents, panels, bumpers, scratches, paint preparation, color matching, and refinishing.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/dent-scratch-paint/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Brake Service",
+                  "description": "Complete brake service including inspections, pads, rotors, calipers, brake-fluid service, and repairs for noise, vibration, or stopping concerns.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-pad-rotor-replacement/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Electrical Services",
+                  "description": "Diagnose and repair electrical faults involving charging systems, no-start problems, batteries, alternators, starters, wiring, fuses, sensors, and accessories.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/battery-alternator-starter/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Engine Services",
+                  "description": "Diagnose, maintain, and repair engine issues including check-engine lights, misfires, overheating, leaks, rough idling, power loss, and performance problems.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/engine-repair/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "General Maintenance",
+                  "description": "Routine maintenance including oil changes, filters, fluid checks, inspections, belts, wipers, tire service, and manufacturer-recommended vehicle care.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/tune-ups-maintenance/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Glass Services",
+                  "description": "Repair and replace damaged windshields, side windows, rear glass, chips, cracks, and broken vehicle glass.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/auto-glass/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Oil Change",
+                  "description": "Replace engine oil and filter using the correct oil type for your vehicle, with a basic check of essential fluids and maintenance items.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-repair-diagnostics/oil-change/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Suspension Work",
+                  "description": "Inspect and repair suspension components—including shocks, struts, ball joints, control arms, and sway-bar links to improve ride quality, handling, and tire wear.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/shocks-struts-steering/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Transmission Rebuild",
+                  "description": "Inspect, disassemble, repair, and rebuild qualifying transmissions for slipping, delayed shifting, internal damage, leaks, and transmission failure.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-replacement-rebuild/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               }
             ]
           },
           {
             "@type": "OfferCatalog",
-            "name": "Brake Services",
+            "name": "Roadside assistance",
             "itemListElement": [
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Brake Pad and Rotor Replacement",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-pad-rotor-replacement/"
+                  "name": "Roadside Assistance",
+                  "description": "Mobile roadside assistance for drivers in Capitol Heights and nearby areas. We provide jump starts, flat tire assistance, spare tire changes, battery-related help, fuel delivery, lockout assistance, and select minor on-site auto repairs. Call or text YBE Auto Repair Center for fast, dependable help.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Brake Noise, Vibration and Pulling",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-noise-vibration/"
+                  "name": "Jump Start Service",
+                  "description": "Mobile jump-start service for vehicles with weak or dead batteries. We can test the battery and charging system and recommend the next step when needed.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/jump-start/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Brake Fluid Service, Calipers and Brake Warning Lights",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/brake-repair/brake-fluid-calipers/"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Transmission Services",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Transmission Repair and Diagnostics",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-repair/"
+                  "name": "Flat Tire Assistance",
+                  "description": "Roadside help for flat tires, including tire changes, spare-tire installation, tire inspection, and minor repair when safe and possible.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/flat-tire/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Transmission Replacement and Rebuilds",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-replacement-rebuild/"
+                  "name": "Car Battery Replacement",
+                  "description": "Mobile battery testing and replacement for vehicles with no-start, weak-start, or battery-related issues.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/mobile-battery-replacement/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Transmission Fluid Service and Leak Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/transmission/transmission-fluid-leaks/"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Electrical and Starting Systems",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Battery, Alternator and Starter Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/battery-alternator-starter/"
+                  "name": "Fuel Delivery",
+                  "description": "Emergency fuel delivery for drivers who run out of gas in Capitol Heights and nearby service areas.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/fuel-delivery/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "No-Start Diagnostics",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/no-start-diagnostics/"
+                  "name": "Car Lockout Service",
+                  "description": "Roadside vehicle lockout assistance for drivers who are locked out of their car.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/car-lockout/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Wiring, Fuses, Relays and Sensor Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/electrical/wiring-sensors-fuses/"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Tires, Steering and Suspension",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Wheel Alignment",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/wheel-alignment/"
+                  "name": "Mobile Auto Diagnostics",
+                  "description": "On-site diagnostic service for check-engine lights, no-start conditions, battery/charging issues, and select vehicle problems.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/roadside-mobile-diagnostics/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Tire Repair, Replacement and Rotation",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/tire-repair-replacement/"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Shocks, Struts and Steering Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/tires-alignment-suspension/shocks-struts-steering/"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Auto A/C and Heating",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Auto Air Conditioning Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/ac-repair/"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Vehicle Heating System Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-ac-heating/heating-system-repair/"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "OfferCatalog",
-            "name": "Auto Body and Glass",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Collision and Body Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/collision-body-repair/"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Dent, Scratch and Paint Repair",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/dent-scratch-paint/"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Auto Glass Repair and Replacement",
-                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/services/auto-body-glass/auto-glass/"
+                  "name": "Mobile Minor Repairs",
+                  "description": "Select roadside automotive repairs for minor mechanical or electrical issues that can safely be completed on-site.",
+                  "url": "https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/roadside-mobile-repairs/",
+                  "provider": {
+                    "@id": "https://branderboy.github.io/YBE-Auto-Repair-Center/#business"
+                  }
                 }
               }
             ]
@@ -637,6 +874,11 @@
                 <div class="border-t-4 border-ybe-red"><a href="/YBE-Auto-Repair-Center/service-areas/capitol-heights-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Capitol Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/washington-dc/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Washington, DC</a><a href="/YBE-Auto-Repair-Center/service-areas/district-heights-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">District Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/landover-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Landover, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/forestville-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Forestville, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/hillcrest-heights-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Hillcrest Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/hyattsville-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Hyattsville, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/lanham-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Lanham, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/new-carrollton-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">New Carrollton, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/bowie-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Bowie, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/upper-marlboro-md/" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Upper Marlboro, MD</a></div>
               </div>
       </div><div class="relative group">
+        <a href="/YBE-Auto-Repair-Center/car-care/" class="flex items-center gap-1 font-heading tracking-wide text-base xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap text-ybe-black hover:text-ybe-red">Car Care Tips<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></a>
+        <div class="absolute left-0 top-full w-64 bg-white border border-gray-200 shadow-xl rounded-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-150 z-50">
+                <div class="border-t-4 border-ybe-red"><a href="/YBE-Auto-Repair-Center/car-care/#diagnostics" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Diagnostics</a><a href="/YBE-Auto-Repair-Center/car-care/#brakes" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Brakes</a><a href="/YBE-Auto-Repair-Center/car-care/#transmission" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Transmission</a><a href="/YBE-Auto-Repair-Center/car-care/#tires-alignment" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Tires and Alignment</a><a href="/YBE-Auto-Repair-Center/car-care/#ac-cooling" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">A/C and Cooling</a><a href="/YBE-Auto-Repair-Center/car-care/#maintenance" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Maintenance</a><a href="/YBE-Auto-Repair-Center/car-care/#roadside" class="block px-4 py-2.5 text-ybe-black hover:bg-gray-50 hover:text-ybe-red font-medium text-sm border-b border-gray-100 last:border-0 transition-colors">Roadside Problems</a></div>
+              </div>
+      </div><div class="relative group">
         <a href="/YBE-Auto-Repair-Center/reviews/" class="flex items-center gap-1 font-heading tracking-wide text-base xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap text-ybe-black hover:text-ybe-red">Reviews</a>
         
       </div><div class="relative group">
@@ -675,6 +917,9 @@
     </div><div class="border-b border-gray-100">
       <a href="/YBE-Auto-Repair-Center/service-areas/" class="mobile-nav-link block px-3 py-3 font-heading text-xl uppercase tracking-wide text-ybe-black">Service Areas</a>
       <div class="pb-2 pl-6"><a href="/YBE-Auto-Repair-Center/service-areas/capitol-heights-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Capitol Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/washington-dc/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Washington, DC</a><a href="/YBE-Auto-Repair-Center/service-areas/district-heights-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">District Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/landover-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Landover, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/forestville-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Forestville, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/hillcrest-heights-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Hillcrest Heights, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/hyattsville-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Hyattsville, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/lanham-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Lanham, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/new-carrollton-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">New Carrollton, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/bowie-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Bowie, MD</a><a href="/YBE-Auto-Repair-Center/service-areas/upper-marlboro-md/" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Upper Marlboro, MD</a></div>
+    </div><div class="border-b border-gray-100">
+      <a href="/YBE-Auto-Repair-Center/car-care/" class="mobile-nav-link block px-3 py-3 font-heading text-xl uppercase tracking-wide text-ybe-black">Car Care Tips</a>
+      <div class="pb-2 pl-6"><a href="/YBE-Auto-Repair-Center/car-care/#diagnostics" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Diagnostics</a><a href="/YBE-Auto-Repair-Center/car-care/#brakes" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Brakes</a><a href="/YBE-Auto-Repair-Center/car-care/#transmission" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Transmission</a><a href="/YBE-Auto-Repair-Center/car-care/#tires-alignment" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Tires and Alignment</a><a href="/YBE-Auto-Repair-Center/car-care/#ac-cooling" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">A/C and Cooling</a><a href="/YBE-Auto-Repair-Center/car-care/#maintenance" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Maintenance</a><a href="/YBE-Auto-Repair-Center/car-care/#roadside" class="mobile-nav-link block py-1.5 text-sm text-gray-600 hover:text-ybe-red">Roadside Problems</a></div>
     </div><div class="border-b border-gray-100">
       <a href="/YBE-Auto-Repair-Center/reviews/" class="mobile-nav-link block px-3 py-3 font-heading text-xl uppercase tracking-wide text-ybe-black">Reviews</a>
       

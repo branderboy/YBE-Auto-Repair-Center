@@ -14,6 +14,7 @@
 const b = require('../data/business.js');
 const E = require('../data/entities.js');
 const { mainNav, footerServiceLinks } = require('../data/pillars.js');
+const GMB = require('../data/gmb-services.js');
 
 const esc = (s = '') =>
   String(s)
@@ -56,16 +57,33 @@ function localBusinessSchema() {
         closes: b.hours.closes
       }
     ],
-    sameAs: [b.social.facebook, b.social.instagram],
+    description: b.gmbDescription,
+
+    /*
+     * sameAs is entity reconciliation, so it lists every profile that is
+     * demonstrably this same business: the two social accounts, the Square
+     * booking site the profile gives as its website, and the Maps listing.
+     */
+    sameAs: [
+      b.social.facebook,
+      b.social.instagram,
+      b.booking.href,
+      b.rating.profileUrl
+    ],
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: b.rating.value,
       reviewCount: String(b.rating.count)
     },
-    areaServed: require('../data/areas.js').areas.map((a) => ({
-      '@type': 'City',
-      name: `${a.name}, ${a.state}`
-    })),
+    areaServed: [
+      ...require('../data/areas.js').areas.map((a) => ({
+        '@type': 'City',
+        name: `${a.name}, ${a.state}`
+      })),
+      // The profile also claims these statewide. Mirrored here; no pages for
+      // them, because a page per state would be a doorway with nothing in it.
+      ...b.serviceAreaRegions.map((name) => ({ '@type': 'State', name }))
+    ],
     /*
      * knowsAbout as Thing objects rather than bare strings. Paired with
      * additionalType below, this lets an engine resolve what the shop does
@@ -103,17 +121,48 @@ function localBusinessSchema() {
       jobTitle: 'Mechanic',
       worksFor: { '@id': `${b.siteUrl}/#business` }
     },
+    /*
+     * The offer catalog mirrors the Google Business Profile's service list —
+     * its names and its descriptions, not a paraphrase. Previously this was
+     * built from the site's own category names, which meant the listing and
+     * the markup described the same shop in two different vocabularies and
+     * nothing could line them up.
+     *
+     * Pages keep their own URLs; this maps the profile's wording onto them.
+     */
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Auto repair services',
-      itemListElement: require('../data/services.js').categories.map((cat) => ({
-        '@type': 'OfferCatalog',
-        name: cat.title,
-        itemListElement: cat.services.map((svc) => ({
-          '@type': 'Offer',
-          itemOffered: { '@type': 'Service', name: svc.title, url: abs(svc.url) }
-        }))
-      }))
+      name: 'Services',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: b.primaryCategory,
+          itemListElement: GMB.services.map((svc) => ({
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: svc.name,
+              description: svc.description,
+              ...(svc.page ? { url: abs(svc.page) } : {}),
+              provider: { '@id': `${b.siteUrl}/#business` }
+            }
+          }))
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Roadside assistance',
+          itemListElement: GMB.roadsideServices.map((svc) => ({
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: svc.name,
+              description: svc.description,
+              ...(svc.page ? { url: abs(svc.page) } : {}),
+              provider: { '@id': `${b.siteUrl}/#business` }
+            }
+          }))
+        }
+      ]
     }
   };
 }

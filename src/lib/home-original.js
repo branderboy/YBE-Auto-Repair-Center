@@ -24,6 +24,8 @@ const { layout } = require('./layout.js');
 const { icon } = require('./icons.js');
 const T = require('./templates.js');
 const { esc } = require('./blocks.js');
+const { articles } = require('../data/articles.js');
+const { areas } = require('../data/areas.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
@@ -130,14 +132,90 @@ function renderHomeOriginal() {
 
   return layout({
     title: `${b.name} | Auto Repair in ${primaryArea.label}`,
-    description: `Diagnostics, brakes, engines, transmissions, A/C, bodywork and roadside assistance in ${primaryArea.label}. Open seven days. Call or text ${b.phone.display}.`,
+    /*
+     * Mirrors how the Google Business Profile positions the shop: Black-owned,
+     * open since 2006, seven days. Those are the facts that separate this
+     * listing from the other repair shops in the pack, and a description that
+     * only lists services throws them away.
+     */
+    description: `Black-owned auto repair shop in ${primaryArea.label}, open seven days since ${b.openedYear}. Diagnostics, brakes, engines, transmissions, A/C, bodywork and roadside assistance. Call or text ${b.phone.display}.`,
     path: '/',
     crumbs: [{ label: 'Home', url: '/' }],
     // The hero pads for the header itself; see `fullBleed` in layout.js.
     fullBleed: true,
     schema: [T.faqSchema(faqs.slice(0, 6))],
-    body: main
+    /*
+     * The original template covers services and service categories — elements
+     * one and two — and then stops. Geographic relevance and topical relevance
+     * are elements four and three of the brief's architecture, and both were
+     * reachable only through the nav dropdown and a single footer link, which
+     * is not coverage. They are appended here rather than edited into the
+     * template markup, so the page above stays exactly as written.
+     */
+    body: main + areasSection() + carCareSection()
   });
+}
+
+/**
+ * Element 4 — geographic relevance. The neighbourhoods, on the page itself.
+ *
+ * List only, no map: the template already embeds one further up, and a second
+ * iframe of the same address is weight for nothing.
+ */
+function areasSection() {
+  return `
+<section class="py-20 bg-white border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide">
+        Neighborhoods We <span class="text-ybe-red">Serve</span>
+      </h2>
+      <p class="mt-4 text-xl text-gray-600 font-medium">${esc(
+        `${areas.length} areas across Prince George's County and Washington, DC`
+      )}</p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      ${areas
+        .map(
+          (a) => `<a href="${a.url}" class="flex items-center gap-2 border-2 ${
+            a.isPrimary ? 'border-ybe-red bg-ybe-redtint' : 'border-gray-200 bg-white'
+          } hover:border-ybe-red px-4 py-3 rounded-sm font-heading uppercase tracking-wide text-sm font-bold text-ybe-black transition-colors">
+        ${icon('map-pin', 16, 'text-ybe-red flex-shrink-0')} <span>${esc(a.label)}</span></a>`
+        )
+        .join('')}
+    </div>
+  </div>
+</section>`;
+}
+
+/** Element 3 — topical relevance. The questions people actually search. */
+function carCareSection() {
+  const picks = articles.slice(0, 6);
+  return `
+<section class="py-20 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide">
+        Car Care <span class="text-ybe-red">Tips</span>
+      </h2>
+      <p class="mt-4 text-xl text-gray-600 font-medium">Straight answers to what drivers ask us most</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      ${picks
+        .map(
+          (a) => `<a href="${a.url}" class="bg-white border border-gray-200 rounded-sm p-6 hover:border-ybe-red transition-colors group">
+        <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black group-hover:text-ybe-red mb-2">${esc(a.title)}</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">${esc(a.shortAnswer.slice(0, 120))}&hellip;</p>
+      </a>`
+        )
+        .join('')}
+    </div>
+    <div class="text-center mt-10">
+      <a href="/car-care/" class="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-wide text-ybe-red hover:text-ybe-darkred">
+        ${icon('arrow-right', 20)} All Car Care Tips</a>
+    </div>
+  </div>
+</section>`;
 }
 
 module.exports = { renderHomeOriginal };
