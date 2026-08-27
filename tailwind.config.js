@@ -22,6 +22,7 @@ module.exports = {
           /* Sampled from the logo artwork: #FC0101 is the letter fill,
              #C50100 the shading behind it. */
           red: '#FC0101',
+          redtint: '#FFF1F1',
           /* Lighter red for text sitting on dark surfaces — #FC0101 on near-black
              only reaches ~3.4:1, below the WCAG AA 4.5:1 minimum for body text. */
           redlight: '#FF5C5C',

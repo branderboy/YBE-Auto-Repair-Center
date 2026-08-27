@@ -218,7 +218,7 @@ function defaultTrustItems() {
 function reviewsBlock(cards, { heading, sub } = {}) {
   const stars = (n, size) => Array(5).fill(icon('star', size, 'fill-current')).join('');
   return `
-<section class="py-20 bg-white border-t border-gray-200">
+<section class="py-20 bg-ybe-redtint border-y border-red-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="flex justify-center mb-4">
       <div class="flex gap-1 md:gap-2 text-yellow-400 drop-shadow-[0_4px_12px_rgba(250,204,21,0.5)]">${stars(5, 64)}</div>
@@ -230,7 +230,7 @@ function reviewsBlock(cards, { heading, sub } = {}) {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       ${cards
         .map(
-          (c) => `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red shadow-sm text-left relative">
+          (c) => `<div class="bg-white p-8 rounded-sm border border-red-100 border-l-4 border-l-ybe-red shadow-sm text-left relative">
         ${icon('quote', 72, 'text-ybe-red absolute top-3 right-3 opacity-15')}
         <div class="flex gap-0.5 text-yellow-400 mb-4">${stars(5, 28)}</div>
         <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(c.title)}</h3>
