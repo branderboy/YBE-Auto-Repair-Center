@@ -47,12 +47,19 @@ function manifest() {
   );
 }
 
-/** Bumping this string retires every old cache on the next visit. */
-const CACHE_VERSION = 'ybe-v1';
-
-function serviceWorker(precache) {
+/**
+ * Cache name.
+ *
+ * Assets are served cache-first, so a returning visitor keeps whatever is in
+ * the cache until the cache name changes. A hand-bumped constant meant a CSS
+ * change could ship and never reach anyone who had already visited: they got
+ * the new HTML but the old stylesheet. The name is now derived from the
+ * content of the built assets, so any real change retires the old cache
+ * automatically on the next visit.
+ */
+function serviceWorker(precache, version) {
   return `/* YBE Auto Repair Center service worker */
-const CACHE = '${CACHE_VERSION}';
+const CACHE = 'ybe-${version}';
 const PRECACHE = ${JSON.stringify(precache, null, 2)};
 
 self.addEventListener('install', (event) => {
@@ -193,4 +200,4 @@ function offlinePage() {
 `;
 }
 
-module.exports = { manifest, serviceWorker, offlinePage, CACHE_VERSION };
+module.exports = { manifest, serviceWorker, offlinePage };

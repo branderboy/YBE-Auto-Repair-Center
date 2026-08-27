@@ -7,6 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
+const crypto = require('crypto');
 
 const b = require('./src/data/business.js');
 const { categories, roadsideHub, areas, articles } = require('./src/data/pillars.js');
@@ -107,8 +108,22 @@ function buildPwa() {
     return fs.existsSync(path.join(OUT, u.slice(1)));
   });
 
-  fs.writeFileSync(path.join(OUT, 'sw.js'), PWA.serviceWorker(precache));
-  return precache.length;
+  /*
+   * Version the cache by the content it holds. Any change to the stylesheet or
+   * the precached pages produces a new cache name, so the old one is dropped on
+   * activate and returning visitors stop being served stale assets.
+   */
+  const hash = crypto.createHash('sha1');
+  for (const rel of precache) {
+    const file = rel.endsWith('/')
+      ? path.join(OUT, rel.slice(1), 'index.html')
+      : path.join(OUT, rel.slice(1));
+    if (fs.existsSync(file)) hash.update(fs.readFileSync(file));
+  }
+  const version = hash.digest('hex').slice(0, 10);
+
+  fs.writeFileSync(path.join(OUT, 'sw.js'), PWA.serviceWorker(precache, version));
+  return { count: precache.length, version };
 }
 
 function buildSitemap() {
@@ -269,7 +284,7 @@ function run() {
 
   copyAssets();
   const cssBytes = buildCss();
-  const precached = buildPwa();
+  const pwaInfo = buildPwa();
   buildSitemap();
   buildRobots();
   const rebased = applyBasePath();
@@ -279,7 +294,7 @@ function run() {
   console.log(`  ✓ site.css compiled (${(cssBytes / 1024).toFixed(1)} KB minified)`);
   console.log(`  ✓ sitemap.xml (${pages.filter((p) => p.indexed).length} indexed URLs)`);
   console.log(`  ✓ robots.txt`);
-  console.log(`  ✓ PWA: manifest, service worker (${precached} precached), offline page`);
+  console.log(`  ✓ PWA: manifest, service worker (${pwaInfo.count} precached, cache ybe-${pwaInfo.version}), offline page`);
   console.log(`  ✓ assets copied`);
   if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files`);
   console.log(`  ✓ published ${publishedCount} entries to the repo root for GitHub Pages\n`);
