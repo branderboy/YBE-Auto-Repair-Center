@@ -115,7 +115,7 @@ function footer() {
     .map((l) => `<li><a href="${l.url}" class="inline-block py-2.5 hover:text-ybe-red transition-colors">${esc(l.label)}</a></li>`)
     .join('');
 
-  return `<footer class="bg-black text-gray-400 pt-14 pb-24 md:pb-8 border-t border-gray-800">
+  return `<footer class="diagonal-stripe-bg text-gray-400 pt-14 pb-24 md:pb-8 border-t-8 border-ybe-red">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
         <div>
