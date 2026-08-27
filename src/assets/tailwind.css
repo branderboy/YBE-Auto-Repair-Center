@@ -73,13 +73,13 @@
 .bg-black .text-ybe-red,
 .diagonal-stripe-bg .text-ybe-red,
 .bg-gradient-to-r .text-ybe-red {
-  color: #A8323E;
+  color: #FF5C5C;
 }
 
 /* Red links on the black footer need the same lift, including on hover. */
 .bg-black a:hover.text-ybe-red,
 .bg-black a.hover\:text-ybe-red:hover {
-  color: #A8323E;
+  color: #FF5C5C;
 }
 
 ::-webkit-scrollbar { width: 10px; }

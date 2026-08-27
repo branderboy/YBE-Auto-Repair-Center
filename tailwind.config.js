@@ -19,18 +19,19 @@ module.exports = {
     extend: {
       colors: {
         ybe: {
-          /* Brand burgundy. #7A0C19 base, #57070F for hover and shading,
-             #A8323E lifted for use on dark surfaces. */
-          red: '#7A0C19',
+          /* Brand red, a step darker than the logo's #FC0101 so it holds up on
+             screen. #A80707 for hover and shading, #FF5C5C lifted for use on
+             dark surfaces where the base loses contrast. */
+          red: '#D60A0A',
           redtint: '#FFF1F1',
           /* Lighter red for text sitting on dark surfaces — #FC0101 on near-black
              only reaches ~3.4:1, below the WCAG AA 4.5:1 minimum for body text. */
-          redlight: '#A8323E',
+          redlight: '#FF5C5C',
           /* Green used for the numbered service labels, so the page is not
              wall-to-wall red. Passes AA against white text. */
           green: '#15803D',
           darkgreen: '#166534',
-          darkred: '#57070F',
+          darkred: '#A80707',
           black: '#1A1A1A',
           charcoal: '#222222',
           gray: '#F3F4F6',
