@@ -79,12 +79,23 @@ function localBusinessSchema() {
     hasMap: b.maps.directionsUrl,
     currenciesAccepted: 'USD',
     /* Verified attributes only. See business.js for what is deliberately unset. */
-    amenityFeature: [
-      {
-        '@type': 'LocationFeatureSpecification',
-        name: 'Wheelchair-accessible parking',
-        value: true
-      }
+    /*
+     * Attributes straight off the Google Business Profile. Emitting the same
+     * facts the listing carries is the point: an engine comparing the two
+     * should find them saying the same thing, not merely not contradicting.
+     */
+    paymentAccepted: b.paymentMethods.join(', '),
+    availableLanguage: b.languages.map((name) => ({ '@type': 'Language', name })),
+    amenityFeature: [...b.accessibility, ...b.amenities].map((name) => ({
+      '@type': 'LocationFeatureSpecification',
+      name,
+      value: true
+    })),
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'Identifies as Black-owned', value: b.blackOwned },
+      { '@type': 'PropertyValue', name: 'Appointment required', value: b.appointmentRequired },
+      { '@type': 'PropertyValue', name: 'Onsite services available', value: b.onsiteServices },
+      { '@type': 'PropertyValue', name: 'Cash only', value: b.cashOnly }
     ],
     employee: {
       '@type': 'Person',

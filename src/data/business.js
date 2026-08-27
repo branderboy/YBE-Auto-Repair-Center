@@ -105,18 +105,39 @@ const business = {
     'Serving the community since 2006',
     'Onsite repairs and mobile roadside assistance',
     'Wheelchair-accessible parking',
-    'Appointments available',
+    'Appointment required',
     'Call or text the shop directly'
   ],
 
   /**
-   * NOT YET VERIFIED — intentionally empty.
-   * Populate only with details the business confirms. Empty arrays/strings mean
-   * the related section is skipped entirely rather than filled with guesses.
+   * VERIFIED FROM THE GOOGLE BUSINESS PROFILE
+   * These were held empty until the profile confirmed them. They now come
+   * straight off the listing's attributes, so the site and the profile agree.
+   * Warranty and financing stay empty because the profile asserts neither.
    */
-  paymentMethods: [],   // e.g. ['Cash', 'Visa', 'Mastercard'] once confirmed
-  warranty: '',         // repair/parts warranty text, only if verified
-  financing: '',        // financing or payment-plan details, only if verified
+  paymentMethods: [
+    'Credit cards',
+    'Debit cards',
+    'NFC mobile payments',
+    'Visa',
+    'Mastercard',
+    'American Express',
+    'Discover',
+    'Diners Club'
+  ],
+  cashOnly: false,
+
+  // Planning attribute on the profile. Not a suggestion — the profile says required.
+  appointmentRequired: true,
+
+  amenities: ['Mechanic on site', 'Restroom', 'Gender-neutral restroom'],
+  accessibility: ['Wheelchair-accessible parking lot'],
+  languages: ['English'],
+  onsiteServices: true,
+  blackOwned: true,
+
+  warranty: '',         // profile asserts none — leave empty
+  financing: '',        // profile asserts none — leave empty
 
   // Services YBE explicitly does NOT provide. Used to keep copy honest.
   notOffered: ['towing'],

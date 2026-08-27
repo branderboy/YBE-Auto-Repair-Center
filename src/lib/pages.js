@@ -1026,7 +1026,11 @@ ${section(
           <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Phone &amp; Text</strong>
             <a href="${b.phone.href}" data-track="call" data-location="contact-info" class="hover:text-ybe-red">${esc(b.phone.display)}</a></div></li>
         <li class="flex items-start gap-3">${icon('accessibility', 22, 'text-ybe-red flex-shrink-0 mt-0.5')}
-          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Accessibility</strong>Wheelchair-accessible parking</div></li>
+          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Accessibility</strong>${esc(b.accessibility.join(', '))}</div></li>
+        <li class="flex items-start gap-3">${icon('calendar', 22, 'text-ybe-red flex-shrink-0 mt-0.5')}
+          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Appointments</strong>${
+            b.appointmentRequired ? 'Appointment required — call or text before coming in' : 'Walk-ins welcome'
+          }</div></li>
       </ul>
     </div>
     <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
@@ -1042,6 +1046,39 @@ ${section(
     </div>
   </div>`
 )}
+
+${
+  b.paymentMethods.length
+    ? section(
+        `<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2 border-b-2 border-ybe-red pb-2">How You Can Pay</h2>
+        <p class="text-gray-600 text-sm mb-5">${b.cashOnly ? 'Cash only.' : 'We are not a cash-only shop.'}</p>
+        <ul class="flex flex-wrap gap-2">
+          ${b.paymentMethods
+            .map(
+              (m) =>
+                `<li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">${esc(m)}</li>`
+            )
+            .join('')}
+        </ul>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">At The Shop</h2>
+        <ul class="space-y-3 text-gray-700">
+          ${[...b.accessibility, ...b.amenities]
+            .map(
+              (a) =>
+                `<li class="flex items-start gap-2">${icon('check', 18, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(a)}</span></li>`
+            )
+            .join('')}
+        </ul>
+      </div>
+    </div>`,
+        { bg: 'bg-white' }
+      )
+    : ''
+}
 
 ${K.roadsideBand()}
 ${K.mapAreasBlock({ heading: `Find Us in <span class="text-ybe-red">${esc(primaryArea.name)}</span>` })}

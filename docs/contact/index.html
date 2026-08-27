@@ -188,11 +188,55 @@
       ],
       "hasMap": "https://maps.google.com/?q=8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743",
       "currenciesAccepted": "USD",
+      "paymentAccepted": "Credit cards, Debit cards, NFC mobile payments, Visa, Mastercard, American Express, Discover, Diners Club",
+      "availableLanguage": [
+        {
+          "@type": "Language",
+          "name": "English"
+        }
+      ],
       "amenityFeature": [
         {
           "@type": "LocationFeatureSpecification",
-          "name": "Wheelchair-accessible parking",
+          "name": "Wheelchair-accessible parking lot",
           "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Mechanic on site",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Restroom",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Gender-neutral restroom",
+          "value": true
+        }
+      ],
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Identifies as Black-owned",
+          "value": true
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Appointment required",
+          "value": true
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Onsite services available",
+          "value": true
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Cash only",
+          "value": false
         }
       ],
       "employee": {
@@ -631,7 +675,9 @@
           <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Phone &amp; Text</strong>
             <a href="tel:+12024553822" data-track="call" data-location="contact-info" class="hover:text-ybe-red">(202) 455-3822</a></div></li>
         <li class="flex items-start gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-0.5" aria-hidden="true" focusable="false"><circle cx="16" cy="4" r="1" /> <path d="m18 19 1-7-6 1" /> <path d="m5 8 3-3 5.5 3-2.36 3.5" /> <path d="M4.24 14.5a5 5 0 0 0 6.88 6" /> <path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg>
-          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Accessibility</strong>Wheelchair-accessible parking</div></li>
+          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Accessibility</strong>Wheelchair-accessible parking lot</div></li>
+        <li class="flex items-start gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-0.5" aria-hidden="true" focusable="false"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></svg>
+          <div><strong class="block font-heading uppercase text-sm tracking-wide text-ybe-black">Appointments</strong>Appointment required — call or text before coming in</div></li>
       </ul>
     </div>
     <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
@@ -641,6 +687,22 @@
       </ul>
     </div>
   </div></div></section>
+
+<section class="py-20 [object Object] "><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2 border-b-2 border-ybe-red pb-2">How You Can Pay</h2>
+        <p class="text-gray-600 text-sm mb-5">We are not a cash-only shop.</p>
+        <ul class="flex flex-wrap gap-2">
+          <li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Credit cards</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Debit cards</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">NFC mobile payments</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Visa</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Mastercard</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">American Express</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Discover</li><li class="border border-gray-300 bg-white px-3 py-1.5 rounded-sm text-sm font-medium text-ybe-black">Diners Club</li>
+        </ul>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">At The Shop</h2>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-1" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg> <span>Wheelchair-accessible parking lot</span></li><li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-1" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg> <span>Mechanic on site</span></li><li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-1" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg> <span>Restroom</span></li><li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red flex-shrink-0 mt-1" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" /></svg> <span>Gender-neutral restroom</span></li>
+        </ul>
+      </div>
+    </div></div></section>
 
 
 <section class="py-20 diagonal-stripe-bg text-white border-y-8 border-ybe-red relative overflow-hidden">
