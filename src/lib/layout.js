@@ -171,7 +171,7 @@ function footer() {
 }
 
 function mobileActionBar() {
-  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
     <a href="${b.phone.href}" data-track="call" data-location="mobile-bar"
        class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
       ${icon('phone-call', 22, 'mb-1 text-ybe-red')}
@@ -422,7 +422,7 @@ function layout({
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${abs(path)}">
@@ -433,12 +433,23 @@ ${noIndex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robot
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="${ogType}">
 <meta property="og:url" content="${abs(path)}">
-<meta property="og:image" content="${abs(b.images.logo)}">
+<meta property="og:image" content="${abs(b.images.ogImage)}">
+<meta property="og:image:secure_url" content="${abs(b.images.ogImage)}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(b.images.ogImageAlt)}">
 <meta property="og:locale" content="en_US">
+<meta property="og:street-address" content="${esc(b.address.street)}">
+<meta property="og:locality" content="${esc(b.address.city)}">
+<meta property="og:region" content="${esc(b.address.state)}">
+<meta property="og:postal-code" content="${esc(b.address.zip)}">
+<meta property="og:phone_number" content="${b.phone.e164}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${abs(b.images.logo)}">
+<meta name="twitter:image" content="${abs(b.images.ogImage)}">
+<meta name="twitter:image:alt" content="${esc(b.images.ogImageAlt)}">
 
 <meta name="geo.region" content="US-MD">
 <meta name="geo.placename" content="${esc(b.address.city)}">

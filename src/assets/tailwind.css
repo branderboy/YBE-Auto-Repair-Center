@@ -101,3 +101,11 @@
 }
 
 
+
+/*
+ * viewport-fit=cover lets the page use the full screen on notched iPhones, so
+ * the fixed action bar has to keep clear of the home indicator itself.
+ */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

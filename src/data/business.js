@@ -128,6 +128,15 @@ const business = {
    */
   images: {
     logo: '/assets/img/ybe-auto-logo.png',
+    /*
+     * Social share card, 1200x630 (the 1.91:1 ratio Facebook, LinkedIn, X and
+     * iMessage expect). The logo was being used here, but at 1.5:1 it gets
+     * letterboxed with grey bars and reads as a placeholder.
+     * Regenerate with: npm run og
+     */
+    ogImage: '/assets/img/og-card.jpg',
+    ogImageAlt:
+      'YBE Auto Repair Center in Capitol Heights, MD. Auto repair that gets you back on the road. Open seven days, call or text (202) 455-3822.',
     logoAlt: 'YBE Auto Repair Center logo with a speedometer, tire tread and the words Repair, Body, Roadside',
     /**
      * Hero image. To switch, point `src` at one of the images in

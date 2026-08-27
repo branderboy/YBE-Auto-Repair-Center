@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Auto Repair Shop in Capitol Heights, MD | YBE Auto Repair Center</title>
     <meta name="description" content="Call YBE Auto Repair Center for diagnostics, brakes, engines, transmissions, A/C, bodywork, tires and roadside assistance in Capitol Heights, MD. Open seven days.">
     
@@ -135,6 +135,8 @@
                 radial-gradient(60% 70% at 78% 55%, rgba(252, 1, 1, 0.22), transparent 70%),
                 linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
         }
+
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
         .diagonal-stripe-bg {
             background-image: repeating-linear-gradient(
@@ -931,7 +933,7 @@
     </footer>
 
     <!-- Mobile Action Bar -->
-    <div class="md:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
         <a href="tel:+12024553822" class="flex-1 flex flex-col items-center justify-center py-3 text-white hover:bg-ybe-charcoal transition-colors border-r border-gray-700">
             <i data-lucide="phone-call" width="24" height="24" class="mb-1 text-ybe-red"></i>
             <span class="font-heading uppercase text-sm tracking-wider font-semibold">Call</span>
