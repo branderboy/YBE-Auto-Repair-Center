@@ -36,7 +36,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        heading: ['"Barlow Condensed"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        heading: ['"Barlow Condensed"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        /* Handwriting face, used only for the hero signature. */
+        signature: ['Caveat', 'ui-rounded', 'cursive']
       },
       boxShadow: {
         funnel: '0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.2)',
