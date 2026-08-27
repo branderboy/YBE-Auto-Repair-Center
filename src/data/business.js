@@ -122,20 +122,21 @@ const business = {
     logo: '/assets/img/ybe-auto-logo.png',
     logoAlt: 'YBE Auto Repair Center logo with a speedometer, tire tread and the words Repair, Body, Roadside',
     /**
-     * Self-hosted so it always loads (the old hotlinked stock photo was an
-     * external dependency that could break at any time).
-     * To use a real photo of the shop instead, drop it in src/assets/img/,
-     * point `src` at it, and rewrite `alt` to describe that photo.
+     * Hero image. To switch, point `src` at one of the images in
+     * src/assets/img/ and update `alt` to describe that photo.
+     *   /assets/img/hero-bays.png   - the open service bays, wide crop (current)
+     *   /assets/img/hero-photo.jpg  - the building and parking lot
+     *   /assets/img/hero-model.jpg  - lifestyle ad shot
      */
     hero: {
-      src: '/assets/img/hero-garage.svg',
-      alt: 'Stylized dark garage backdrop with red speed streaks and tire tread, in YBE brand colors',
-      placeholder: true
+      src: '/assets/img/hero-bays.png',
+      alt: 'The open service bays at YBE Auto Repair Center with vehicles inside and customer cars parked outside',
+      placeholder: false
     },
     shop: {
-      src: '/assets/img/hero-garage.svg',
-      alt: 'Stylized dark garage backdrop with red speed streaks and tire tread, in YBE brand colors',
-      placeholder: true
+      src: '/assets/img/hero-photo.jpg',
+      alt: 'The YBE Auto Repair Center building and parking lot with customer vehicles waiting for service',
+      placeholder: false
     }
   }
 };

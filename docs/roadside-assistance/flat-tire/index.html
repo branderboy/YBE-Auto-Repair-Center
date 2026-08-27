@@ -234,7 +234,7 @@
       <div class="flex justify-between items-center gap-4">
         <a href="/" class="flex-shrink-0 flex items-center" aria-label="YBE Auto Repair Center home">
           <img id="header-logo" src="/assets/img/ybe-auto-logo.png" alt="YBE Auto Repair Center logo with a speedometer, tire tread and the words Repair, Body, Roadside"
-               width="240" height="152" class="transition-all duration-300 h-14 w-auto" />
+               width="240" height="152" class="transition-all duration-300 h-16 sm:h-20 lg:h-24 w-auto" />
         </a>
         <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation"><div class="relative group">
         <a href="/services/" class="flex items-center gap-1 font-heading tracking-wide text-base xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap text-ybe-black hover:text-ybe-red">Services<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></a>
@@ -305,7 +305,7 @@
       </div>
     </div>
   </header>
-<main id="main" class="pt-[76px]">
+<main id="main" class="pt-[88px] sm:pt-[104px] lg:pt-[120px]">
 <nav aria-label="Breadcrumb" class="bg-gray-100 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <div class="flex flex-wrap items-center gap-2 text-sm">
@@ -592,11 +592,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.scrollY > 50) {
       header.classList.add('shadow-lg', 'py-1');
       header.classList.remove('py-3');
-      logo.classList.add('h-11'); logo.classList.remove('h-14');
+      logo.classList.add('h-12', 'sm:h-14', 'lg:h-16');
+      logo.classList.remove('h-16', 'sm:h-20', 'lg:h-24');
     } else {
       header.classList.remove('shadow-lg', 'py-1');
       header.classList.add('py-3');
-      logo.classList.remove('h-11'); logo.classList.add('h-14');
+      logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
+      logo.classList.add('h-16', 'sm:h-20', 'lg:h-24');
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });

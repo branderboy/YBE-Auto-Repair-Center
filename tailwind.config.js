@@ -11,7 +11,8 @@ module.exports = {
    */
   safelist: [
     'hidden', 'rotate-180', 'text-ybe-redlight',
-    'shadow-lg', 'py-1', 'py-3', 'h-11', 'h-14',
+    'shadow-lg', 'py-1', 'py-3',
+    'h-12', 'sm:h-14', 'lg:h-16', 'h-16', 'sm:h-20', 'lg:h-24',
     'max-h-0', 'max-h-96', 'py-4', 'border-t', 'border-gray-100'
   ],
   theme: {

@@ -11,6 +11,7 @@ const { execFileSync } = require('child_process');
 const b = require('./src/data/business.js');
 const { categories, roadsideHub, areas, articles } = require('./src/data/pillars.js');
 const R = require('./src/lib/pages.js');
+const { renderHomeOriginal } = require('./src/lib/home-original.js');
 
 const OUT = path.join(__dirname, 'docs');
 const pages = [];
@@ -100,7 +101,8 @@ function run() {
   fs.mkdirSync(OUT, { recursive: true });
 
   // 1 + 2. Services and service categories
-  emit('/', R.renderHome(), { changefreq: 'weekly', priority: '1.0' });
+  // Homepage is the client's original page, with site nav wrapped around it.
+  emit('/', renderHomeOriginal(), { changefreq: 'weekly', priority: '1.0' });
   emit('/services/', R.renderServicesHub(), { changefreq: 'monthly', priority: '0.9' });
   categories.forEach((cat) => {
     emit(cat.url, R.renderCategoryHub(cat), { priority: '0.8' });

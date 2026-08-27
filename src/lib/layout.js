@@ -60,7 +60,7 @@ function headerNav(currentPath) {
       <div class="flex justify-between items-center gap-4">
         <a href="/" class="flex-shrink-0 flex items-center" aria-label="${esc(b.name)} home">
           <img id="header-logo" src="${b.images.logo}" alt="${esc(b.images.logoAlt)}"
-               width="240" height="152" class="transition-all duration-300 h-14 w-auto" />
+               width="240" height="152" class="transition-all duration-300 h-16 sm:h-20 lg:h-24 w-auto" />
         </a>
         <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">${desktop}</nav>
         <div class="hidden lg:flex items-center gap-2">
@@ -196,11 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.scrollY > 50) {
       header.classList.add('shadow-lg', 'py-1');
       header.classList.remove('py-3');
-      logo.classList.add('h-11'); logo.classList.remove('h-14');
+      logo.classList.add('h-12', 'sm:h-14', 'lg:h-16');
+      logo.classList.remove('h-16', 'sm:h-20', 'lg:h-24');
     } else {
       header.classList.remove('shadow-lg', 'py-1');
       header.classList.add('py-3');
-      logo.classList.remove('h-11'); logo.classList.add('h-14');
+      logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
+      logo.classList.add('h-16', 'sm:h-20', 'lg:h-24');
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -374,7 +376,7 @@ ${jsonLd}
 <body class="font-sans text-gray-900 bg-white antialiased relative pb-16 lg:pb-0">
 <a href="#main" class="skip-link">Skip to main content</a>
 ${headerNav(path)}
-<main id="main" class="pt-[76px]">
+<main id="main" class="pt-[88px] sm:pt-[104px] lg:pt-[120px]">
 ${T.breadcrumbs(crumbs)}
 ${body}
 </main>
