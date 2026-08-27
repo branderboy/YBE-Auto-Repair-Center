@@ -57,13 +57,24 @@ for (const file of files) {
   const url = urlOf(file);
   const at = (msg) => `${url} — ${msg}`;
 
+  /*
+   * The offline fallback is a self-contained shell served with no network. It
+   * is never indexed and never shared, so Open Graph, JSON-LD, canonicals and
+   * breadcrumbs do not apply. It is still checked for a title, a description,
+   * one h1, alt text, and the phone, text and address a stranded customer
+   * needs.
+   */
+  const isOfflinePage = url === '/offline.html';
+
   // --- title ---
   const title = decode((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1]);
   if (!title) errors.push(at('missing <title>'));
   else {
     if (title.length > 60) warnings.push(at(`title is ${title.length} chars (>60): "${title}"`));
-    if (titles.has(title)) errors.push(at(`duplicate title, also on ${titles.get(title)}`));
-    else titles.set(title, url);
+    if (!isOfflinePage) {
+      if (titles.has(title)) errors.push(at(`duplicate title, also on ${titles.get(title)}`));
+      else titles.set(title, url);
+    }
   }
 
   // --- meta description ---
@@ -72,15 +83,19 @@ for (const file of files) {
   else {
     if (desc.length > 165) warnings.push(at(`description is ${desc.length} chars (>165)`));
     if (desc.length < 70) warnings.push(at(`description is only ${desc.length} chars`));
-    if (descriptions.has(desc)) errors.push(at(`duplicate description, also on ${descriptions.get(desc)}`));
-    else descriptions.set(desc, url);
+    if (!isOfflinePage) {
+      if (descriptions.has(desc)) errors.push(at(`duplicate description, also on ${descriptions.get(desc)}`));
+      else descriptions.set(desc, url);
+    }
   }
 
   // --- canonical ---
+  if (!isOfflinePage) {
   const canonical = (html.match(/<link rel="canonical" href="([^"]+)">/) || [])[1];
   if (!canonical) errors.push(at('missing canonical'));
   else if (url !== '/404.html' && canonical !== `${b.siteUrl}${url}`)
     errors.push(at(`canonical mismatch: ${canonical} vs expected ${b.siteUrl}${url}`));
+  }
 
   // --- headings ---
   const h1s = html.match(/<h1[\s>]/g) || [];
@@ -88,11 +103,14 @@ for (const file of files) {
   if (h1s.length > 1) errors.push(at(`${h1s.length} <h1> tags (should be exactly 1)`));
 
   // --- open graph ---
-  ['og:title', 'og:description', 'og:url', 'og:image'].forEach((p) => {
-    if (!html.includes(`property="${p}"`)) errors.push(at(`missing ${p}`));
-  });
+  if (!isOfflinePage) {
+    ['og:title', 'og:description', 'og:url', 'og:image'].forEach((p) => {
+      if (!html.includes(`property="${p}"`)) errors.push(at(`missing ${p}`));
+    });
+  }
 
   // --- schema ---
+  if (!isOfflinePage) {
   const ld = (html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/) || [])[1];
   if (!ld) errors.push(at('missing JSON-LD'));
   else {
@@ -108,6 +126,7 @@ for (const file of files) {
     } catch (e) {
       errors.push(at(`invalid JSON-LD: ${e.message}`));
     }
+  }
   }
 
   // --- images have alt text ---
@@ -125,8 +144,10 @@ for (const file of files) {
   // --- conversion paths present on every page ---
   if (!html.includes(`href="${b.phone.href}"`)) errors.push(at('no click-to-call link'));
   if (!html.includes(`href="${b.sms.href}"`)) errors.push(at('no click-to-text link'));
-  if (!html.includes(b.maps.directionsUrl)) errors.push(at('no directions link'));
-  if (!html.includes('data-track=')) errors.push(at('no conversion tracking attributes'));
+  if (!isOfflinePage) {
+    if (!html.includes(b.maps.directionsUrl)) errors.push(at('no directions link'));
+    if (!html.includes('data-track=')) errors.push(at('no conversion tracking attributes'));
+  }
 
   // --- NAP consistency ---
   if (!html.includes(b.address.street)) errors.push(at('shop address missing from page'));
@@ -150,7 +171,7 @@ for (const u of smUrls) {
 if (smUrls.some((u) => u.includes('404'))) errors.push('sitemap.xml — includes 404 page');
 for (const f of files) {
   const u = urlOf(f);
-  if (u !== '/404.html' && !smUrls.includes(`${b.siteUrl}${u}`))
+  if (u !== '/404.html' && u !== '/offline.html' && !smUrls.includes(`${b.siteUrl}${u}`))
     warnings.push(`sitemap.xml — missing ${u}`);
 }
 

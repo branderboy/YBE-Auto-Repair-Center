@@ -19,15 +19,17 @@ module.exports = {
     extend: {
       colors: {
         ybe: {
-          red: '#E31818',
-          /* Lighter red for text sitting on dark surfaces — #E31818 on near-black
+          /* Sampled from the logo artwork: #FC0101 is the letter fill,
+             #C50100 the shading behind it. */
+          red: '#FC0101',
+          /* Lighter red for text sitting on dark surfaces — #FC0101 on near-black
              only reaches ~3.4:1, below the WCAG AA 4.5:1 minimum for body text. */
           redlight: '#FF5C5C',
           /* Green used for the numbered service labels, so the page is not
              wall-to-wall red. Passes AA against white text. */
           green: '#15803D',
           darkgreen: '#166534',
-          darkred: '#B91414',
+          darkred: '#C50100',
           black: '#1A1A1A',
           charcoal: '#222222',
           gray: '#F3F4F6',
@@ -36,7 +38,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        heading: ['"Barlow Condensed"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        heading: ['"Barlow Condensed"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        /* Handwriting face, used only for the hero signature. */
+        signature: ['Caveat', '"Segoe Script"', '"Bradley Hand"', 'cursive']
       },
       boxShadow: {
         funnel: '0 10px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.2)',

@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/caveat-700.woff2') format('woff2');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,18 +20,51 @@
   .diagonal-stripe-bg {
     background-image: repeating-linear-gradient(45deg, #1A1A1A, #1A1A1A 10px, #222222 10px, #222222 20px);
   }
+  /* Feather the sharp photo's left edge so it dissolves into the blurred shop
+     behind it, instead of meeting it at a hard vertical seam. */
+  .hero-photo-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+  }
+
+  /* Left side of the hero: a blurred, zoomed crop of only the shop area of the
+     photo, so it reads as the shop carrying on behind the copy. */
+  .hero-shop-blur {
+    background-image: url('/assets/img/hero-scooter.jpg');
+    background-size: 260% auto;
+    background-position: 4% 42%;
+    background-repeat: no-repeat;
+    filter: blur(26px) brightness(0.75);
+    transform: scale(1.08);
+  }
+
+  /* Hero backdrop: dark on the left behind the copy, easing toward the photo
+     on the right, with a soft brand glow behind the subject. */
+  .hero-blend {
+    background:
+      radial-gradient(60% 70% at 78% 55%, rgba(252, 1, 1, 0.22), transparent 70%),
+      linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
+  }
+
+  /* Hero cut-out photo: fade the cropped bottom edge so it does not read as a
+     straight line, and keep the shadow tight to the silhouette. */
+  .hero-cutout {
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.55));
+    -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+  }
   .prose-ybe p { margin-bottom: 1rem; line-height: 1.75; }
   .prose-ybe p:last-child { margin-bottom: 0; }
   .skip-link {
     position: absolute; left: -9999px; top: 0; z-index: 100;
-    padding: 1rem; background: #E31818; color: #fff; font-weight: 700;
+    padding: 1rem; background: #FC0101; color: #fff; font-weight: 700;
   }
   .skip-link:focus { left: 0; }
 }
 
 /*
  * Red text on dark surfaces.
- * Brand red (#E31818) on near-black lands around 3.4:1, which fails the WCAG AA
+ * Brand red (#FC0101) on near-black lands around 3.4:1, which fails the WCAG AA
  * 4.5:1 minimum for body text. On dark sections we lift it to #FF5C5C (~5.6:1)
  * so it stays legible. Backgrounds and buttons keep the exact brand red.
  */
@@ -44,7 +85,7 @@
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #222222; }
-::-webkit-scrollbar-thumb:hover { background: #E31818; }
+::-webkit-scrollbar-thumb:hover { background: #FC0101; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

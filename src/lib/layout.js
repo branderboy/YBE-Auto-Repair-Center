@@ -98,7 +98,7 @@ function footer() {
     .map(
       (l) =>
         `<li><a href="${l.url}" class="${
-          l.highlight ? 'text-ybe-red hover:text-white font-bold' : 'hover:text-ybe-red'
+          l.highlight ? 'inline-block py-2.5 text-ybe-red hover:text-white font-bold' : 'inline-block py-2.5 hover:text-ybe-red'
         } transition-colors">${esc(l.label)}</a></li>`
     )
     .join('');
@@ -112,7 +112,7 @@ function footer() {
     { label: 'FAQ', url: '/faq/' },
     { label: 'Contact & Directions', url: '/contact/' }
   ]
-    .map((l) => `<li><a href="${l.url}" class="hover:text-ybe-red transition-colors">${esc(l.label)}</a></li>`)
+    .map((l) => `<li><a href="${l.url}" class="inline-block py-2.5 hover:text-ybe-red transition-colors">${esc(l.label)}</a></li>`)
     .join('');
 
   return `<footer class="bg-black text-gray-400 pt-14 pb-24 md:pb-8 border-t border-gray-800">
@@ -126,9 +126,9 @@ function footer() {
             ${esc(b.address.city)} and nearby Maryland and DC communities since ${b.openedYear}.
           </p>
           <div class="flex gap-4">
-            <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Facebook" class="text-gray-500 hover:text-white transition-colors">${icon('facebook', 24)}</a>
-            <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Instagram" class="text-gray-500 hover:text-white transition-colors">${icon('instagram', 24)}</a>
-            <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center reviews on Google" class="text-gray-500 hover:text-white transition-colors">${icon('star', 24)}</a>
+            <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Facebook" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('facebook', 24)}</a>
+            <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Instagram" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('instagram', 24)}</a>
+            <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center reviews on Google" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('star', 24)}</a>
           </div>
         </div>
         <div>
@@ -137,11 +137,11 @@ function footer() {
             <li class="flex items-start gap-3">${icon('map-pin', 18, 'text-ybe-red flex-shrink-0 mt-0.5')}
               <span>${esc(b.address.oneLine)}</span></li>
             <li class="flex items-center gap-3">${icon('phone', 18, 'text-ybe-red flex-shrink-0')}
-              <a href="${b.phone.href}" data-track="call" data-location="footer" class="hover:text-white transition-colors">${esc(b.phone.display)}</a></li>
+              <a href="${b.phone.href}" data-track="call" data-location="footer" class="inline-block py-2.5 hover:text-white transition-colors">${esc(b.phone.display)}</a></li>
             <li class="flex items-center gap-3">${icon('message-square', 18, 'text-ybe-red flex-shrink-0')}
-              <a href="${b.sms.href}" data-track="text" data-location="footer" class="hover:text-white transition-colors">${esc(b.sms.display)}</a></li>
+              <a href="${b.sms.href}" data-track="text" data-location="footer" class="inline-block py-2.5 hover:text-white transition-colors">${esc(b.sms.display)}</a></li>
             <li class="flex items-center gap-3">${icon('message-circle', 18, 'text-[#25D366] flex-shrink-0')}
-              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="footer" class="hover:text-white transition-colors">${esc(b.whatsapp.display)}</a></li>
+              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="footer" class="inline-block py-2.5 hover:text-white transition-colors">${esc(b.whatsapp.display)}</a></li>
             <li class="flex items-start gap-3">${icon('clock', 18, 'text-ybe-red flex-shrink-0 mt-0.5')}
               <span>${esc(b.hours.summary)}</span></li>
           </ul>
@@ -332,6 +332,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Register the service worker so the site is installable and still gives a
+  // stranded customer the phone number with no signal.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {
+        // Registration fails on unsupported browsers or non-secure origins.
+        // The site works normally without it.
+      });
+    });
+  }
+
   // Conversion tracking: click-to-call, click-to-text, directions, appointment.
   // Sends to dataLayer / gtag when an analytics tool is installed; harmless otherwise.
   document.querySelectorAll('[data-track]').forEach(function (el) {
@@ -389,13 +400,19 @@ ${noIndex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robot
 <meta name="geo.placename" content="${esc(b.address.city)}">
 <meta name="geo.position" content="${b.geo.lat};${b.geo.lng}">
 <meta name="ICBM" content="${b.geo.lat}, ${b.geo.lng}">
-<meta name="theme-color" content="#E31818">
+<meta name="theme-color" content="#FC0101">
 
 <link rel="icon" href="${b.images.logo}">
-<link rel="apple-touch-icon" href="${b.images.logo}">
+<link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="application-name" content="${esc(b.shortName)} Auto">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="${esc(b.shortName)} Auto">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/assets/css/site.css">
 

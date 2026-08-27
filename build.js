@@ -11,6 +11,7 @@ const { execFileSync } = require('child_process');
 const b = require('./src/data/business.js');
 const { categories, roadsideHub, areas, articles } = require('./src/data/pillars.js');
 const R = require('./src/lib/pages.js');
+const PWA = require('./src/lib/pwa.js');
 const { renderHomeOriginal } = require('./src/lib/home-original.js');
 
 const OUT = path.join(__dirname, 'docs');
@@ -36,8 +37,29 @@ function copyAssets() {
   // Site imagery (hero background, any future shop photos)
   const srcImg = path.join(__dirname, 'src', 'assets', 'img');
   if (fs.existsSync(srcImg)) {
-    for (const f of fs.readdirSync(srcImg)) {
-      fs.copyFileSync(path.join(srcImg, f), path.join(imgDir, f));
+    // Files only: subdirectories (icons/) are copied separately below.
+    for (const f of fs.readdirSync(srcImg, { withFileTypes: true })) {
+      if (f.isFile()) fs.copyFileSync(path.join(srcImg, f.name), path.join(imgDir, f.name));
+    }
+  }
+
+  // PWA icons
+  const srcIcons = path.join(__dirname, 'src', 'assets', 'img', 'icons');
+  if (fs.existsSync(srcIcons)) {
+    const iconDir = path.join(imgDir, 'icons');
+    fs.mkdirSync(iconDir, { recursive: true });
+    for (const f of fs.readdirSync(srcIcons)) {
+      fs.copyFileSync(path.join(srcIcons, f), path.join(iconDir, f));
+    }
+  }
+
+  // Self-hosted fonts
+  const srcFonts = path.join(__dirname, 'src', 'assets', 'fonts');
+  if (fs.existsSync(srcFonts)) {
+    const fontDir = path.join(OUT, 'assets', 'fonts');
+    fs.mkdirSync(fontDir, { recursive: true });
+    for (const f of fs.readdirSync(srcFonts)) {
+      fs.copyFileSync(path.join(srcFonts, f), path.join(fontDir, f));
     }
   }
 
@@ -58,6 +80,34 @@ function buildCss() {
     stdio: ['ignore', 'ignore', 'pipe']
   });
   return fs.statSync(out).size;
+}
+
+/**
+ * Progressive web app files. Runs after the pages and CSS exist so the service
+ * worker precaches what was actually built.
+ */
+function buildPwa() {
+  fs.writeFileSync(path.join(OUT, 'manifest.webmanifest'), PWA.manifest());
+  fs.writeFileSync(path.join(OUT, 'offline.html'), PWA.offlinePage());
+
+  // Precache the shell plus the pages a stranded customer is most likely to need.
+  const precache = [
+    '/',
+    '/offline.html',
+    '/assets/css/site.css',
+    '/assets/img/ybe-auto-logo.png',
+    '/assets/fonts/caveat-700.woff2',
+    '/roadside-assistance/',
+    '/contact/',
+    '/services/'
+  ].filter((u) => {
+    if (u === '/') return fs.existsSync(path.join(OUT, 'index.html'));
+    if (u.endsWith('/')) return fs.existsSync(path.join(OUT, u.slice(1), 'index.html'));
+    return fs.existsSync(path.join(OUT, u.slice(1)));
+  });
+
+  fs.writeFileSync(path.join(OUT, 'sw.js'), PWA.serviceWorker(precache));
+  return precache.length;
 }
 
 function buildSitemap() {
@@ -131,6 +181,7 @@ function run() {
 
   copyAssets();
   const cssBytes = buildCss();
+  const precached = buildPwa();
   buildSitemap();
   buildRobots();
 
@@ -138,6 +189,7 @@ function run() {
   console.log(`  ✓ site.css compiled (${(cssBytes / 1024).toFixed(1)} KB minified)`);
   console.log(`  ✓ sitemap.xml (${pages.filter((p) => p.indexed).length} indexed URLs)`);
   console.log(`  ✓ robots.txt`);
+  console.log(`  ✓ PWA: manifest, service worker (${precached} precached), offline page`);
   console.log(`  ✓ assets copied\n`);
 }
 

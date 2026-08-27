@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,8 +25,8 @@
                 extend: {
                     colors: {
                         ybe: {
-                            red: '#E31818',
-                            darkred: '#B91414',
+                            red: '#FC0101',
+                            darkred: '#C50100',
                             green: '#15803D',
                             darkgreen: '#166534',
                             black: '#1A1A1A',
@@ -38,6 +38,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         heading: ['"Barlow Condensed"', 'sans-serif'],
+                        signature: ['Caveat', '"Segoe Script"', '"Bradley Hand"', 'cursive'],
                     },
                     boxShadow: {
                         'funnel': '0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2)',
@@ -95,8 +96,45 @@
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #222222; }
-        ::-webkit-scrollbar-thumb:hover { background: #E31818; }
+        ::-webkit-scrollbar-thumb:hover { background: #FC0101; }
         
+        /* The Scooter cut-out is cropped at the waist, so its flat bottom edge
+           would otherwise read as a hard line. Fade it out and keep the shadow
+           tight to his silhouette. */
+        .hero-cutout {
+            filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.55));
+            -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+        }
+
+        /* Feather the sharp photo's left edge so it dissolves into the blurred
+           shop behind it, instead of meeting it at a hard vertical seam. */
+        .hero-photo-fade {
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 12%, #000 34%);
+        }
+
+        /* Left side of the hero: a blurred, zoomed crop of only the shop area
+           of the photo (lifts and bays on its left), so it reads as the shop
+           carrying on behind the copy rather than a blurred portrait. */
+        .hero-shop-blur {
+            background-image: url('images/hero_yBE.jpg');
+            background-size: 260% auto;
+            background-position: 4% 42%;
+            background-repeat: no-repeat;
+            filter: blur(26px) brightness(0.75);
+            transform: scale(1.08);
+        }
+
+        /* Hero: solid dark on the left so the copy stays readable, easing
+           toward the right where the photo sits, plus a soft brand glow behind
+           the subject so the cut-out blends instead of floating. */
+        .hero-blend {
+            background:
+                radial-gradient(60% 70% at 78% 55%, rgba(252, 1, 1, 0.22), transparent 70%),
+                linear-gradient(90deg, #0d0d0e 0%, #141416 45%, #1f1f22 75%, #26262a 100%);
+        }
+
         .diagonal-stripe-bg {
             background-image: repeating-linear-gradient(
                 45deg,
@@ -160,37 +198,44 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="relative pt-28 pb-16 md:pt-40 md:pb-32 flex items-center min-h-[90vh]">
-            <!-- Background Image with Overlay -->
-            <div class="absolute inset-0 z-0 flex md:block flex-col">
-                <div class="h-1/2 md:h-full md:absolute md:inset-0 md:z-0">
-                    <img src="images/YBE%20Auto%20in%20maryland.png" alt="The open service bays at YBE Auto Repair Center with vehicles inside and customer cars parked outside" class="w-full h-full object-cover" />
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/50 z-10 hidden md:block"></div>
-                <div class="absolute inset-0 bg-black/70 z-10 md:hidden"></div>
+        <section class="relative pt-28 pb-16 md:pt-32 md:pb-24 flex items-center min-h-[90vh] overflow-hidden bg-ybe-black">
+            <!-- Shop photo, full bleed. The subject already sits on the right of
+                 this shot, so the copy has the tool bench side to itself. -->
+            <div class="absolute inset-0 z-0">
+                <img src="images/the%20shop.jpg"
+                     alt="Inside YBE Auto Repair Center: an open tool chest and a technician holding a wrench, with a vehicle up on the lift behind him"
+                     class="w-full h-full object-cover object-[68%_center] md:object-center" />
             </div>
 
-            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 md:mt-0">
-                <div class="flex flex-col items-center gap-12">
-                    <!-- Hero Content without CTA blocks -->
-                    <div class="max-w-3xl mx-auto text-center">
-                        <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-lg">
-                            Auto Repair That <span class="text-ybe-red">Gets You Back</span> on the Road
-                        </h1>
-                        <div class="w-24 h-1 bg-ybe-red mx-auto mb-6"></div>
-                        <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl mx-auto">
-                            Mechanical repairs, diagnostics, maintenance, bodywork, and roadside assistance from a trusted Capitol Heights shop serving the community since 2006.
-                        </p>
-                        
-                        <div class="mt-10 flex justify-center">
-                            <a href="tel:+12024553822" class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-[0_0_20px_rgba(227,24,24,0.6)] border-2 border-ybe-red hover:border-white transition-all uppercase tracking-widest font-bold transform hover:-translate-y-1">
-                                <i data-lucide="phone" width="32" height="32" class="animate-bounce"></i>
-                                I Need Help Now!
-                            </a>
-                        </div>
-                    </div>
-                    
+            <!-- Dark on the copy side, clearing across the photo to the right -->
+            <div class="absolute inset-0 z-10 hidden md:block bg-gradient-to-r from-black/90 from-5% via-black/65 via-40% to-transparent to-72%"></div>
+            <div class="absolute inset-0 z-10 md:hidden bg-gradient-to-b from-black/85 via-black/70 to-black/90"></div>
 
+            <!-- Copy and CTA, left -->
+            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)]">
+                        Auto Repair That <span class="text-ybe-red">Gets You Back</span> on the Road
+                    </h1>
+                    <div class="w-24 h-1 bg-ybe-red mx-auto md:mx-0 mb-6"></div>
+                    <p class="text-lg md:text-xl text-gray-100 font-medium leading-relaxed max-w-xl mx-auto md:mx-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                        Mechanical repairs, diagnostics, maintenance, bodywork, and roadside assistance from a trusted Capitol Heights shop serving the community since 2006.
+                    </p>
+
+                    <div class="mt-10 flex justify-center md:justify-start">
+                        <a href="tel:+12024553822" class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-[0_0_20px_rgba(252,1,1,0.6)] border-2 border-ybe-red hover:border-white transition-all uppercase tracking-widest font-bold">
+                            <i data-lucide="phone" width="32" height="32"></i>
+                            I Need Help Now!
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature, sitting under his hands -->
+            <div class="hidden md:block absolute z-20 right-[13%] bottom-[10%] text-center pointer-events-none select-none">
+                <p class="font-heading uppercase tracking-[0.25em] text-base lg:text-lg text-gray-100 font-bold mb-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">Meet Your Mechanic!</p>
+                <p class="font-signature text-6xl lg:text-7xl text-white leading-none drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">Scooter</p>
+                <div class="w-full h-0.5 bg-ybe-red mt-2 rounded-full"></div>
             </div>
         </section>
 
@@ -206,7 +251,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="alert-triangle" width="32" height="32"></i>
                         </div>
@@ -216,7 +261,7 @@
                         </span>
                     </a>
                     
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="disc" width="32" height="32"></i>
                         </div>
@@ -226,7 +271,7 @@
                         </span>
                     </a>
 
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="battery-charging" width="32" height="32"></i>
                         </div>
@@ -236,7 +281,7 @@
                         </span>
                     </a>
 
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="thermometer" width="32" height="32"></i>
                         </div>
@@ -246,7 +291,7 @@
                         </span>
                     </a>
 
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="wind" width="32" height="32"></i>
                         </div>
@@ -256,7 +301,7 @@
                         </span>
                     </a>
 
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="move" width="32" height="32"></i>
                         </div>
@@ -266,7 +311,7 @@
                         </span>
                     </a>
 
-                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red hover:-translate-y-1">
+                    <a href="#services" class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
                         <div class="p-4 rounded-full mb-4 transition-colors bg-gray-100 text-ybe-red group-hover:bg-ybe-red group-hover:text-white">
                             <i data-lucide="settings" width="32" height="32"></i>
                         </div>
@@ -315,7 +360,7 @@
                                 Check-engine lights, engine problems, tune-ups, overheating, leaks, and general mechanical repairs.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -331,7 +376,7 @@
                                 Brake pads, rotors, calipers, brake fluid, warning lights, grinding, squeaking, and vibration.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -347,7 +392,7 @@
                                 Transmission diagnostics, repair, replacement, rebuilding, leaks, slipping, and shifting problems.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -363,7 +408,7 @@
                                 Batteries, alternators, starters, wiring, sensors, charging problems, and no-start conditions.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -379,7 +424,7 @@
                                 Tire repair, replacement, rotation, wheel alignment, shocks, struts, steering, and suspension work.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -395,7 +440,7 @@
                                 A/C diagnostics, refrigerant service, compressors, condensers, blower motors, and vehicle heating.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -411,7 +456,7 @@
                                 Bumpers, fenders, panels, dents, scratches, collision damage, paint preparation, and refinishing.
                             </p>
                         </div>
-                        <a href="#contact" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#contact" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Request Service <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -427,7 +472,7 @@
                                 Jump starts, flat-tire help, mobile battery replacement, fuel delivery, lockouts, and select minor repairs.
                             </p>
                         </div>
-                        <a href="#roadside" class="inline-flex items-center font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors group-hover:translate-x-2 duration-300">
+                        <a href="#roadside" class="inline-flex items-center py-2.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred transition-colors">
                             Get Emergency Help <i data-lucide="arrow-right" width="20" height="20" class="ml-1"></i>
                         </a>
                     </div>
@@ -524,7 +569,7 @@
                     </div>
                     <div class="lg:w-1/2 w-full">
                         <!-- Image Container: Added overflow-hidden to ensure the badge stays cleanly inside -->
-                        <div class="relative p-2 bg-white shadow-xl rounded-sm border-2 border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-500 overflow-hidden">
+                        <div class="relative p-2 bg-white shadow-xl rounded-sm border-2 border-gray-100 overflow-hidden">
                             <img src="images/hero%20photo.jpg" alt="Customer vehicles parked outside the YBE Auto Repair Center service bays" class="w-full h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-500" />
                             
                             <!-- 2006 Badge: Securely anchored inside the image bounds -->
@@ -748,7 +793,7 @@
                                 <i data-lucide="phone" width="24" height="24" class="text-ybe-red mt-1"></i>
                                 <div>
                                     <h4 class="font-heading text-xl font-bold uppercase">Contact</h4>
-                                    <a href="tel:+12024553822" class="block text-gray-300 hover:text-white transition-colors">(202) 455-3822 (Call or Text)</a>
+                                    <a href="tel:+12024553822" class="block py-2.5 text-gray-300 hover:text-white transition-colors">(202) 455-3822 (Call or Text)</a>
                                 </div>
                             </div>
 
@@ -813,10 +858,10 @@
                         Trusted auto repair, maintenance, bodywork, and roadside assistance serving Capitol Heights and surrounding communities since 2006.
                     </p>
                     <div class="flex gap-4">
-                        <a href="https://www.facebook.com/ybeauto" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors">
+                        <a href="https://www.facebook.com/ybeauto" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">
                             <i data-lucide="facebook" width="24" height="24"></i>
                         </a>
-                        <a href="https://www.instagram.com/yberepairshop/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors">
+                        <a href="https://www.instagram.com/yberepairshop/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">
                             <i data-lucide="instagram" width="24" height="24"></i>
                         </a>
                     </div>
@@ -832,11 +877,11 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i data-lucide="phone" width="18" height="18" class="text-ybe-red flex-shrink-0"></i>
-                            <a href="tel:+12024553822" class="hover:text-white transition-colors">(202) 455-3822</a>
+                            <a href="tel:+12024553822" class="inline-block py-2.5 hover:text-white transition-colors">(202) 455-3822</a>
                         </li>
                         <li class="flex items-center gap-3">
                             <i data-lucide="message-circle" width="18" height="18" class="text-[#25D366] flex-shrink-0"></i>
-                            <a href="https://wa.me/12024553822" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">WhatsApp Us</a>
+                            <a href="https://wa.me/12024553822" target="_blank" rel="noopener noreferrer" class="inline-block py-2.5 hover:text-white transition-colors">WhatsApp Us</a>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="clock" width="18" height="18" class="text-ybe-red flex-shrink-0 mt-0.5"></i>
