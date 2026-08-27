@@ -186,6 +186,53 @@ function applyBasePath() {
   return touched;
 }
 
+/**
+ * Publish the built site to the repository root.
+ *
+ * GitHub Pages is serving this repo from its root, and Pages has no index.html
+ * there, so it falls back to rendering README.md. Copying the build to the root
+ * puts index.html where Pages actually looks.
+ *
+ * Source files are never touched: PROTECTED lists everything that must survive,
+ * and .published-files.json records what the previous run copied so stale pages
+ * are removed before the new ones land.
+ */
+const PROTECTED = new Set([
+  '.git', '.github', '.gitignore', 'node_modules',
+  'build.js', 'package.json', 'package-lock.json', 'tailwind.config.js',
+  'src', 'scripts', 'images', 'docs',
+  'README.md', 'project-brief.md', 'ybe_auto_repair_center.html',
+  '.published-files.json'
+]);
+
+function publishToRoot() {
+  const manifestPath = path.join(__dirname, '.published-files.json');
+
+  // Remove what the last run published, so renamed or deleted pages do not linger.
+  if (fs.existsSync(manifestPath)) {
+    let previous = [];
+    try { previous = JSON.parse(fs.readFileSync(manifestPath, 'utf8')); } catch { previous = []; }
+    for (const name of previous) {
+      if (PROTECTED.has(name)) continue;
+      const target = path.join(__dirname, name);
+      if (fs.existsSync(target)) fs.rmSync(target, { recursive: true, force: true });
+    }
+  }
+
+  const published = [];
+  for (const entry of fs.readdirSync(OUT, { withFileTypes: true })) {
+    if (PROTECTED.has(entry.name)) {
+      console.warn(`  ! skipped ${entry.name}: name collides with a source file`);
+      continue;
+    }
+    fs.cpSync(path.join(OUT, entry.name), path.join(__dirname, entry.name), { recursive: true });
+    published.push(entry.name);
+  }
+
+  fs.writeFileSync(manifestPath, JSON.stringify(published.sort(), null, 2) + '\n');
+  return published.length;
+}
+
 function run() {
   console.log(`\nBuilding ${b.name} → docs/\n`);
   fs.rmSync(OUT, { recursive: true, force: true });
@@ -226,6 +273,7 @@ function run() {
   buildSitemap();
   buildRobots();
   const rebased = applyBasePath();
+  const publishedCount = publishToRoot();
 
   console.log(`  ✓ ${pages.length} pages written`);
   console.log(`  ✓ site.css compiled (${(cssBytes / 1024).toFixed(1)} KB minified)`);
@@ -233,8 +281,8 @@ function run() {
   console.log(`  ✓ robots.txt`);
   console.log(`  ✓ PWA: manifest, service worker (${precached} precached), offline page`);
   console.log(`  ✓ assets copied`);
-  if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files\n`);
-  else console.log('');
+  if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files`);
+  console.log(`  ✓ published ${publishedCount} entries to the repo root for GitHub Pages\n`);
 }
 
 run();
