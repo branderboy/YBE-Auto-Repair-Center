@@ -53,7 +53,7 @@ const pillars = [
     number: 3,
     name: 'Advice and Car Care',
     url: '/car-care/',
-    navLabel: 'Diagnose a Problem',
+    navLabel: 'Car Care Tips',
     summary:
       'Straight answers to the questions drivers ask before deciding whether to call a mechanic.',
     description:
@@ -99,15 +99,11 @@ const mainNav = [
     children: categories.map((c) => ({ label: c.navLabel, url: c.url }))
   },
   {
-    label: 'Areas We Serve',
+    label: 'Service Areas',
     url: '/service-areas/',
     children: areas.map((a) => ({ label: a.label, url: a.url }))
   },
-  {
-    label: 'Diagnose a Problem',
-    url: '/car-care/',
-    children: clusters.map((c) => ({ label: c.name, url: `/car-care/#${c.slug}` }))
-  },
+  { label: 'Reviews', url: '/reviews/' },
   { label: 'FAQ', url: '/faq/' },
   {
     label: 'Roadside Help',

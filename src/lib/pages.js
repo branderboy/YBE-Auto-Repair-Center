@@ -685,11 +685,11 @@ ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
 /* ===================================================== CAR CARE HUB */
 function renderCarCareHub() {
-  const crumbs = [HOME, { label: 'Diagnose a Problem', url: '/car-care/' }];
+  const crumbs = [HOME, { label: 'Car Care Tips', url: '/car-care/' }];
   const body = `
 ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: `Diagnose Your <span class="text-ybe-red">Car Problem</span>`,
+  titleHtml: `Car Care <span class="text-ybe-red">Tips</span>`,
   sub: 'Straight answers to the questions drivers ask before deciding whether to call a shop.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
@@ -738,7 +738,7 @@ ${K.contactBlock({ heading: 'Still Not Sure?', sub: 'Describe the symptom over t
 /* ===================================================== ARTICLE */
 function renderArticle(a) {
   const cluster = clusters.find((c) => c.slug === a.cluster);
-  const crumbs = [HOME, { label: 'Diagnose a Problem', url: '/car-care/' }, { label: a.title, url: a.url }];
+  const crumbs = [HOME, { label: 'Car Care Tips', url: '/car-care/' }, { label: a.title, url: a.url }];
   const svc = lookup(a.relatedService);
   const related = (a.relatedArticles || []).map((s) => articleBySlug[s]).filter(Boolean);
 
@@ -1232,7 +1232,7 @@ ${section(
       { label: 'All Services', url: '/services/', icon: 'wrench' },
       { label: 'Roadside Assistance', url: roadsideHub.url, icon: 'truck' },
       { label: 'Service Areas', url: '/service-areas/', icon: 'map-pin' },
-      { label: 'Diagnose', url: '/car-care/', icon: 'help-circle' },
+      { label: 'Car Care', url: '/car-care/', icon: 'help-circle' },
       { label: 'Contact & Directions', url: '/contact/', icon: 'navigation' },
       { label: 'Request an Appointment', url: '/request-appointment/', icon: 'calendar' }
     ]
