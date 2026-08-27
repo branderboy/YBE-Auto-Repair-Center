@@ -218,29 +218,29 @@ function defaultTrustItems() {
 function reviewsBlock(cards, { heading, sub } = {}) {
   const stars = (n, size) => Array(5).fill(icon('star', size, 'fill-current')).join('');
   return `
-<section class="py-20 bg-ybe-black text-white">
+<section class="py-20 bg-gray-50 border-t border-gray-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="flex justify-center mb-4">
-      <div class="flex gap-1 text-yellow-400 bg-white/10 px-4 py-2 rounded-full">${stars(5, 28)}</div>
+      <div class="flex gap-1 text-yellow-400 bg-white border border-gray-200 shadow-sm px-4 py-2 rounded-full">${stars(5, 28)}</div>
     </div>
-    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide mb-4">
+    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide text-ybe-black mb-4">
       ${heading || `Rated ${b.rating.value} on Google`}
     </h2>
-    <p class="text-xl text-gray-400 font-medium mb-12">${esc(sub || `Based on ${b.rating.count} customer reviews.`)}</p>
+    <p class="text-xl text-gray-600 font-medium mb-12">${esc(sub || `Based on ${b.rating.count} customer reviews.`)}</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       ${cards
         .map(
-          (c) => `<div class="bg-ybe-charcoal p-8 rounded-sm border border-gray-700 text-left relative">
-        ${icon('quote', 40, 'text-ybe-red absolute top-4 right-4 opacity-20')}
+          (c) => `<div class="bg-white p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red shadow-sm text-left relative">
+        ${icon('quote', 40, 'text-ybe-red absolute top-4 right-4 opacity-15')}
         <div class="flex gap-1 text-yellow-400 mb-4">${stars(5, 16)}</div>
-        <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-white mb-2">${esc(c.title)}</h3>
-        <p class="text-gray-300 leading-relaxed">${esc(c.text)}</p>
+        <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(c.title)}</h3>
+        <p class="text-gray-700 leading-relaxed">${esc(c.text)}</p>
       </div>`
         )
         .join('')}
     </div>
     <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" data-track="reviews" data-location="reviews-block"
-       class="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-ybe-black border-2 border-white font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm">
+       class="inline-flex items-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
       ${icon('external-link', 20)} Read All Google Reviews</a>
   </div>
 </section>`;
@@ -294,51 +294,51 @@ function mapAreasBlock({ heading, sub, activeSlug } = {}) {
 /** The dark contact section that closes the homepage; used to close every page. */
 function contactBlock({ heading, sub } = {}) {
   return `
-<section id="contact" class="py-20 bg-ybe-black text-white relative">
+<section id="contact" class="py-20 bg-gray-100 text-ybe-black relative border-t border-gray-200">
   <div class="absolute top-0 left-0 w-full h-2 bg-ybe-red"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col lg:flex-row gap-12 items-center">
       <div class="lg:w-1/2">
-        <h2 class="text-4xl md:text-5xl font-heading font-extrabold uppercase tracking-wide mb-6">
+        <h2 class="text-4xl md:text-5xl font-heading font-extrabold uppercase tracking-wide text-ybe-black mb-6">
           ${heading || 'Request Service'}
         </h2>
-        <p class="text-gray-400 mb-8 font-medium">
+        <p class="text-gray-600 mb-8 font-medium">
           ${esc(sub || 'Call or text the shop, request an appointment online, or stop by. We are open seven days a week.')}
         </p>
         <div class="space-y-6">
           <div class="flex items-start gap-4">
             ${icon('map-pin', 24, 'text-ybe-red mt-1 flex-shrink-0')}
-            <div><h3 class="font-heading text-xl font-bold uppercase">Location</h3>
-              <p class="text-gray-300">${esc(b.address.oneLine)}</p>
+            <div><h3 class="font-heading text-xl font-bold uppercase text-ybe-black">Location</h3>
+              <p class="text-gray-700">${esc(b.address.oneLine)}</p>
               <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="contact-block"
-                 class="text-ybe-red hover:text-white font-semibold text-sm">Get directions</a></div>
+                 class="text-ybe-red hover:text-ybe-darkred font-semibold text-sm">Get directions</a></div>
           </div>
           <div class="flex items-start gap-4">
             ${icon('clock', 24, 'text-ybe-red mt-1 flex-shrink-0')}
-            <div><h3 class="font-heading text-xl font-bold uppercase">Hours</h3>
-              <p class="text-gray-300">${esc(b.hours.summary)}</p></div>
+            <div><h3 class="font-heading text-xl font-bold uppercase text-ybe-black">Hours</h3>
+              <p class="text-gray-700">${esc(b.hours.summary)}</p></div>
           </div>
           <div class="flex items-start gap-4">
             ${icon('phone', 24, 'text-ybe-red mt-1 flex-shrink-0')}
-            <div><h3 class="font-heading text-xl font-bold uppercase">Contact</h3>
-              <a href="${b.phone.href}" data-track="call" data-location="contact-block" class="block text-gray-300 hover:text-white transition-colors">${esc(b.phone.display)} (call)</a>
-              <a href="${b.sms.href}" data-track="text" data-location="contact-block" class="block text-gray-300 hover:text-white transition-colors">${esc(b.phone.display)} (text)</a>
-              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block text-gray-300 hover:text-white transition-colors">${esc(b.whatsapp.display)}</a></div>
+            <div><h3 class="font-heading text-xl font-bold uppercase text-ybe-black">Contact</h3>
+              <a href="${b.phone.href}" data-track="call" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (call)</a>
+              <a href="${b.sms.href}" data-track="text" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.phone.display)} (text)</a>
+              <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-block" class="block text-gray-700 hover:text-ybe-red transition-colors">${esc(b.whatsapp.display)}</a></div>
           </div>
         </div>
       </div>
       <div class="lg:w-1/2 w-full">
-        <div class="bg-ybe-charcoal p-10 rounded-sm border border-gray-700 shadow-xl text-center">
+        <div class="bg-white p-10 rounded-sm border border-gray-200 border-t-4 border-t-ybe-red shadow-xl text-center">
           ${icon('calendar', 64, 'text-ybe-red mx-auto mb-6')}
-          <h3 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4 text-white">Book Your Visit</h3>
-          <p class="text-gray-400 mb-8 font-medium">Request an appointment and we will get back to you to confirm a time.</p>
+          <h3 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4 text-ybe-black">Book Your Visit</h3>
+          <p class="text-gray-600 mb-8 font-medium">Request an appointment and we will get back to you to confirm a time.</p>
           <div class="flex flex-col gap-4">
             <a href="/request-appointment/" data-track="appointment" data-location="contact-block"
                class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
               Request Appointment ${icon('arrow-right', 20)}</a>
             <div class="text-gray-500 font-medium">OR</div>
             <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="square-booking"
-               class="w-full bg-white hover:bg-gray-100 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+               class="w-full bg-white hover:bg-gray-50 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
               ${esc(b.booking.label)} ${icon('external-link', 20)}</a>
           </div>
         </div>
