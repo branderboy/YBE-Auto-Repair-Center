@@ -41,6 +41,16 @@ function copyAssets() {
     }
   }
 
+  // Self-hosted fonts
+  const srcFonts = path.join(__dirname, 'src', 'assets', 'fonts');
+  if (fs.existsSync(srcFonts)) {
+    const fontDir = path.join(OUT, 'assets', 'fonts');
+    fs.mkdirSync(fontDir, { recursive: true });
+    for (const f of fs.readdirSync(srcFonts)) {
+      fs.copyFileSync(path.join(srcFonts, f), path.join(fontDir, f));
+    }
+  }
+
   // Tell GitHub Pages not to run Jekyll over the output.
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
 }
