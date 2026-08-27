@@ -88,14 +88,15 @@ function buildCss() {
  */
 function buildPwa() {
   fs.writeFileSync(path.join(OUT, 'manifest.webmanifest'), PWA.manifest());
-  fs.writeFileSync(path.join(OUT, 'offline.html'), PWA.offlinePage());
+  fs.writeFileSync(path.join(OUT, 'no-connection.html'), PWA.offlinePage());
 
   // Precache the shell plus the pages a stranded customer is most likely to need.
   const precache = [
     '/',
-    '/offline.html',
+    '/no-connection.html',
     '/assets/css/site.css',
     '/assets/img/ybe-auto-logo.png',
+    '/assets/img/hero-shop.jpg',
     '/assets/fonts/caveat-700.woff2',
     '/roadside-assistance/',
     '/contact/',

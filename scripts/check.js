@@ -64,7 +64,7 @@ for (const file of files) {
    * one h1, alt text, and the phone, text and address a stranded customer
    * needs.
    */
-  const isOfflinePage = url === '/offline.html';
+  const isOfflinePage = url === '/no-connection.html';
 
   // --- title ---
   const title = decode((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1]);
@@ -171,7 +171,7 @@ for (const u of smUrls) {
 if (smUrls.some((u) => u.includes('404'))) errors.push('sitemap.xml — includes 404 page');
 for (const f of files) {
   const u = urlOf(f);
-  if (u !== '/404.html' && u !== '/offline.html' && !smUrls.includes(`${b.siteUrl}${u}`))
+  if (u !== '/404.html' && u !== '/no-connection.html' && !smUrls.includes(`${b.siteUrl}${u}`))
     warnings.push(`sitemap.xml — missing ${u}`);
 }
 

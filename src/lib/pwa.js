@@ -92,7 +92,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match('/offline.html')))
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('/no-connection.html')))
     );
     return;
   }
@@ -114,15 +114,18 @@ self.addEventListener('fetch', (event) => {
 `;
 }
 
-/** Standalone offline page. Inlines its own styles so it needs no network. */
+/**
+ * Standalone "no connection" page. Inlines its own styles so it needs no
+ * network, and is served when a visitor opens a page with no signal.
+ */
 function offlinePage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Offline | ${b.name}</title>
-<meta name="description" content="You are offline. Call or text ${b.name} at ${b.phone.display}, or visit us at ${b.address.oneLine}. Open ${b.hours.summary.toLowerCase()}.">
+<title>No Connection | ${b.name}</title>
+<meta name="description" content="No internet connection. Call or text ${b.name} at ${b.phone.display}, or visit us at ${b.address.oneLine}. Open ${b.hours.summary.toLowerCase()}.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#FC0101">
 <style>
@@ -132,10 +135,27 @@ function offlinePage() {
     margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
     background: #1A1A1A; color: #fff; padding: 1.5rem; text-align: center;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    position: relative; overflow-x: hidden;
   }
-  .card { max-width: 30rem; width: 100%; }
-  h1 { font-size: 1.9rem; margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .02em; }
-  p { color: #cfcfcf; line-height: 1.6; margin: 0 0 1.5rem; }
+  /* Shop photo behind the panel. It is precached by the service worker, so it
+     shows even with no connection; if it is missing the dark background below
+     still gives readable contrast. */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('/assets/img/hero-shop.jpg');
+    background-size: cover; background-position: center;
+  }
+  .bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,11,.62) 0%, rgba(10,10,11,.48) 45%, rgba(10,10,11,.78) 100%);
+  }
+  .card { max-width: 30rem; width: 100%; position: relative; z-index: 1; }
+  .logo { width: 8.5rem; height: auto; margin: 0 auto 1.5rem; display: block; }
+  h1 {
+    font-size: 1.9rem; margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .02em;
+    text-shadow: 0 2px 12px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,.9);
+  }
+  p { color: #ececec; line-height: 1.6; margin: 0 0 1.5rem; text-shadow: 0 2px 10px rgba(0,0,0,1), 0 0 24px rgba(0,0,0,.85); }
   .bar { width: 4rem; height: 4px; background: #FC0101; margin: 0 auto 1.25rem; border-radius: 2px; }
   a.call {
     display: block; background: #FC0101; color: #fff; text-decoration: none; font-weight: 700;
@@ -146,16 +166,21 @@ function offlinePage() {
     display: block; background: #fff; color: #1A1A1A; text-decoration: none; font-weight: 700;
     font-size: 1.15rem; padding: .85rem 1.25rem; border-radius: 3px; margin-bottom: 1.5rem;
   }
-  dl { margin: 0; text-align: left; border-top: 1px solid #333; padding-top: 1.25rem; }
+  dl {
+    margin: 0; text-align: left; padding: 1.25rem;
+    background: rgba(0,0,0,.72); border: 1px solid rgba(255,255,255,.15); border-radius: 3px; backdrop-filter: blur(4px);
+  }
   dt { font-size: .72rem; text-transform: uppercase; letter-spacing: .18em; color: #FC0101; font-weight: 700; }
   dd { margin: .15rem 0 1rem; color: #e6e6e6; }
 </style>
 </head>
 <body>
+  <div class="bg"></div>
   <main class="card">
+    <img class="logo" src="${b.images.logo}" alt="${b.name}">
     <div class="bar"></div>
-    <h1>You're offline</h1>
-    <p>This page needs a connection, but you can still reach the shop.</p>
+    <h1>Still Here To Help</h1>
+    <p>This page needs an internet connection, but you can still reach the shop directly.</p>
     <a class="call" href="${b.phone.href}">Call ${b.phone.display}</a>
     <a class="sms" href="${b.sms.href}">Text ${b.phone.display}</a>
     <dl>
