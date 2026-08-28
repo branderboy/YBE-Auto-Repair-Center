@@ -7,6 +7,76 @@
 
 const T = require('./templates.js');
 const { b, esc, icon, abs, localBusinessSchema, webSiteSchema, webPageSchema, breadcrumbSchema } = T;
+const { categories } = require('../data/services.js');
+const { hub: roadsideHub } = require('../data/roadside.js');
+const { areas } = require('../data/areas.js');
+const { clusters } = require('../data/articles.js');
+
+/**
+ * SITE INDEX — every page on the site, grouped, in the footer.
+ *
+ * This is the strongest internal-linking move available to a site this size.
+ * A deep page previously depended on its one parent hub for link equity;
+ * now every page is one click and one link from every other page, and a
+ * crawler reaching any page can see the whole site from it.
+ *
+ * Built from the same data that generates the pages, so it cannot drift out
+ * of sync — a new service or article appears here automatically.
+ */
+function siteIndex() {
+  const col = (heading, url, links) => `<div class="mb-8 break-inside-avoid">
+    <h3 class="font-heading text-sm font-bold uppercase tracking-widest text-white mb-3 pb-1.5 border-b border-gray-700">
+      ${url ? `<a href="${url}" class="hover:text-ybe-red transition-colors">${esc(heading)}</a>` : esc(heading)}
+    </h3>
+    <ul class="space-y-1.5">
+      ${links
+        .map(
+          (l) =>
+            `<li><a href="${l.url}" class="text-[13px] leading-snug text-gray-400 hover:text-ybe-red transition-colors">${esc(
+              l.label
+            )}</a></li>`
+        )
+        .join('')}
+    </ul>
+  </div>`;
+
+  const serviceCols = categories
+    .map((c) => col(c.navLabel, c.url, c.services.map((sv) => ({ label: sv.title, url: sv.url }))))
+    .join('');
+
+  const roadsideCol = col(
+    'Roadside Help',
+    roadsideHub.url,
+    roadsideHub.services.map((sv) => ({ label: sv.navLabel || sv.title, url: sv.url }))
+  );
+
+  const areasCol = col(
+    'Areas We Serve',
+    '/service-areas/',
+    areas.map((a) => ({ label: a.label, url: a.url }))
+  );
+
+  const careCols = clusters
+    .filter((c) => c.articles.length)
+    .map((c) => col(c.name, `/car-care/#${c.slug}`, c.articles.map((a) => ({ label: a.title, url: a.url }))))
+    .join('');
+
+  const companyCol = col('Company', null, [
+    { label: 'Home', url: '/' },
+    { label: 'About YBE', url: '/about/' },
+    { label: 'Reviews', url: '/reviews/' },
+    { label: 'FAQ', url: '/faq/' },
+    { label: 'Contact & Directions', url: '/contact/' },
+    { label: 'Request an Appointment', url: '/request-appointment/' }
+  ]);
+
+  return `<section class="border-t border-gray-800 pt-10 mt-4">
+    <h2 class="font-heading text-xl font-bold uppercase tracking-widest text-white mb-6">Everything On This Site</h2>
+    <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-8">
+      ${serviceCols}${roadsideCol}${careCols}${areasCol}${companyCol}
+    </div>
+  </section>`;
+}
 
 function headerNav(currentPath) {
   const isActive = (url) => currentPath === url || (url !== '/' && currentPath.startsWith(url));
@@ -159,7 +229,10 @@ function footer() {
             Request Appointment</a>
         </div>
       </div>
-      <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
+
+      ${siteIndex()}
+
+      <div class="border-t border-gray-800 pt-6 mt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
         <p>&copy; <span id="year">${new Date().getFullYear()}</span> ${esc(b.name)}. All rights reserved.</p>
         <div class="flex flex-wrap justify-center gap-3">
           <span>${esc(b.address.city)}, ${esc(b.address.state)}</span><span>|</span>
