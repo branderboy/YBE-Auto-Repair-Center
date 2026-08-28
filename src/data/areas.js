@@ -18,7 +18,7 @@ const areas = [
     name: 'Capitol Heights',
     state: 'MD',
     isPrimary: true,
-    metaTitle: 'Auto Repair Shop in Capitol Heights, MD | YBE Auto',
+    metaTitle: 'Mechanic in Capitol Heights, MD | YBE Auto Repair Center',
     metaDescription:
       'YBE Auto Repair Center is at 8632 Edgeworth Dr in Capitol Heights, MD. Repairs, diagnostics, bodywork and roadside help, seven days a week. Call (202) 455-3822.',
     relationship: 'This is where the shop is.',
@@ -49,7 +49,7 @@ const areas = [
     slug: 'washington-dc',
     name: 'Washington',
     state: 'DC',
-    metaTitle: 'Auto Repair for Washington, DC Drivers | YBE Auto',
+    metaTitle: 'Mechanic in Washington, DC | YBE Auto Repair',
     metaDescription:
       'DC drivers use YBE for repairs, diagnostics, brakes, bodywork and roadside help just over the Maryland line in Capitol Heights. Call or text (202) 455-3822.',
     relationship: 'Just across the District line from the shop.',
@@ -80,7 +80,7 @@ const areas = [
     slug: 'district-heights-md',
     name: 'District Heights',
     state: 'MD',
-    metaTitle: 'Auto Repair for District Heights, MD | YBE Auto',
+    metaTitle: 'Mechanic in District Heights, MD | YBE Auto Repair',
     metaDescription:
       'District Heights drivers trust YBE for brakes, engine diagnostics, transmissions, bodywork and roadside assistance. Open seven days. Call (202) 455-3822.',
     relationship: 'Immediately south of the shop.',
@@ -110,7 +110,7 @@ const areas = [
     slug: 'landover-md',
     name: 'Landover',
     state: 'MD',
-    metaTitle: 'Auto Repair for Landover, MD | YBE Auto',
+    metaTitle: 'Mechanic in Landover, MD | YBE Auto Repair',
     metaDescription:
       'Landover drivers come to YBE in Capitol Heights for diagnostics, brakes, transmissions, electrical work and bodywork. Open seven days. Call (202) 455-3822.',
     relationship: 'Just north of the shop.',
@@ -137,10 +137,45 @@ const areas = [
       'We cover Landover for roadside calls including jump starts, flat-tire help, fuel delivery and lockouts.'
   },
   {
+    slug: 'largo-md',
+    name: 'Largo',
+    state: 'MD',
+    metaTitle: 'Mechanic in Largo, MD | Auto Repair Near Largo Town Center | YBE Auto',
+    metaDescription:
+      'Looking for a mechanic in Largo, MD? YBE Auto Repair Center handles diagnostics, brakes, transmissions, A/C and bodywork, minutes from Largo Town Center. Call or text (202) 455-3822.',
+    relationship: 'East of the shop, straight out Central Avenue.',
+    intro: [
+      'Largo sits a short run east of us on Central Avenue, and it is one of the areas our customers come from most often without us ever having advertised there. The shop is close enough that dropping a car off before work and picking it up after is straightforward.',
+      'We handle the full range here — diagnostics, brakes, transmissions, electrical, A/C and bodywork in the same building — so a Largo customer with a repair that turns out to involve more than one system does not get sent somewhere else to finish it.'
+    ],
+    localContext: [
+      'Largo driving is Beltway driving. A lot of our Largo customers commute on I-495 and the Central Avenue corridor daily, and highway miles wear a car differently than short trips do: tires and alignment take the brunt, and A/C works hard sitting in slow traffic in summer.',
+      'The other pattern we see from Largo is brake wear from stop-and-go around Largo Town Center and the arena traffic. Brakes that would last on open highway get used far harder in that kind of driving, and they wear ahead of what the mileage suggests.'
+    ],
+    roads: [
+      'Central Avenue (MD-214)',
+      'Landover Road (MD-202)',
+      'Largo Center Drive',
+      'the Capital Beltway (I-495)'
+    ],
+    landmarkNote:
+      'We are convenient to Largo Town Center and the Blue and Silver line Metro station there, which makes leaving a car with us and continuing on to work practical.',
+    priorityServices: [
+      'brake-pad-rotor-replacement',
+      'wheel-alignment',
+      'check-engine-light-diagnostics',
+      'ac-repair',
+      'transmission-repair',
+      'oil-change'
+    ],
+    roadsideNote:
+      'Largo is within our roadside coverage for jump starts, flat tires, mobile battery replacement, fuel delivery and lockouts. Call or text and we will tell you honestly how soon we can reach you.'
+  },
+  {
     slug: 'forestville-md',
     name: 'Forestville',
     state: 'MD',
-    metaTitle: 'Auto Repair for Forestville, MD | YBE Auto',
+    metaTitle: 'Mechanic in Forestville, MD | YBE Auto Repair',
     metaDescription:
       'Forestville drivers use YBE for engine diagnostics, brake repair, A/C service, transmissions and roadside help. Open seven days. Call (202) 455-3822.',
     relationship: 'A short drive south of the shop.',
@@ -170,7 +205,7 @@ const areas = [
     slug: 'hillcrest-heights-md',
     name: 'Hillcrest Heights',
     state: 'MD',
-    metaTitle: 'Auto Repair for Hillcrest Heights, MD | YBE Auto',
+    metaTitle: 'Mechanic in Hillcrest Heights, MD | YBE Auto Repair',
     metaDescription:
       'Hillcrest Heights drivers come to YBE for brakes, diagnostics, electrical repair, bodywork and roadside assistance. Open seven days. Call (202) 455-3822.',
     relationship: 'Southwest of the shop, toward the DC line.',
@@ -200,7 +235,7 @@ const areas = [
     slug: 'hyattsville-md',
     name: 'Hyattsville',
     state: 'MD',
-    metaTitle: 'Auto Repair for Hyattsville, MD | YBE Auto',
+    metaTitle: 'Mechanic in Hyattsville, MD | YBE Auto Repair',
     metaDescription:
       'Hyattsville drivers choose YBE for engine diagnostics, transmissions, brakes, auto body and glass work. Open seven days a week. Call (202) 455-3822.',
     relationship: 'North of the shop, inside the Beltway.',
@@ -230,7 +265,7 @@ const areas = [
     slug: 'lanham-md',
     name: 'Lanham',
     state: 'MD',
-    metaTitle: 'Auto Repair for Lanham, MD | YBE Auto',
+    metaTitle: 'Mechanic in Lanham, MD | YBE Auto Repair',
     metaDescription:
       'Lanham drivers use YBE for diagnostics, transmissions, cooling system repair, tires and alignment. Open seven days a week. Call (202) 455-3822.',
     relationship: 'Northeast of the shop.',
@@ -260,7 +295,7 @@ const areas = [
     slug: 'new-carrollton-md',
     name: 'New Carrollton',
     state: 'MD',
-    metaTitle: 'Auto Repair for New Carrollton, MD | YBE Auto',
+    metaTitle: 'Mechanic in New Carrollton, MD | YBE Auto Repair',
     metaDescription:
       'New Carrollton drivers trust YBE for engine diagnostics, brakes, electrical repair and bodywork. Open seven days a week. Call (202) 455-3822.',
     relationship: 'North of the shop, near the Beltway.',
@@ -290,7 +325,7 @@ const areas = [
     slug: 'bowie-md',
     name: 'Bowie',
     state: 'MD',
-    metaTitle: 'Auto Repair for Bowie, MD | YBE Auto',
+    metaTitle: 'Mechanic in Bowie, MD | YBE Auto Repair',
     metaDescription:
       'Bowie drivers come to YBE for transmission work, engine diagnostics, cooling system repair and collision work. Open seven days. Call (202) 455-3822.',
     relationship: 'Northeast, the furthest of our regular markets.',
@@ -320,7 +355,7 @@ const areas = [
     slug: 'upper-marlboro-md',
     name: 'Upper Marlboro',
     state: 'MD',
-    metaTitle: 'Auto Repair for Upper Marlboro, MD | YBE Auto',
+    metaTitle: 'Mechanic in Upper Marlboro, MD | YBE Auto Repair',
     metaDescription:
       'Upper Marlboro drivers use YBE for engine and transmission work, brakes, suspension and bodywork. Open seven days a week. Call (202) 455-3822.',
     relationship: 'Southeast of the shop, outside the Beltway.',

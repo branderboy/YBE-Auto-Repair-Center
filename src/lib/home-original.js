@@ -131,7 +131,13 @@ function renderHomeOriginal() {
     .replace(/<a href="https:\/\/maps\.google\.com/g, '<a data-track="directions" data-location="homepage" href="https://maps.google.com');
 
   return layout({
-    title: `${b.name} | Auto Repair in ${primaryArea.label}`,
+    /*
+     * "mechanic near me" is the profile's top search by a factor of two over
+     * anything else, and the word appeared in no page title on the site. It
+     * leads here now — "auto repair" still follows it, so nothing is traded
+     * away for it.
+     */
+    title: `Mechanic in ${primaryArea.label} | ${b.name} Auto Repair`,
     /*
      * Mirrors how the Google Business Profile positions the shop: Black-owned,
      * open since 2006, seven days. Those are the facts that separate this
