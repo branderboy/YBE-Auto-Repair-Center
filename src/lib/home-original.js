@@ -263,7 +263,7 @@ function offersSection() {
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group flex flex-col items-center text-center">
-        <div class="w-full bg-white border-2 border-ybe-green group-hover:border-ybe-darkgreen rounded-sm p-4 sm:p-5 flex items-center justify-center transition-colors">
+        <div class="aspect-square w-full max-w-[190px] mx-auto bg-white rounded-sm p-4 flex items-center justify-center shadow-[0_6px_16px_-4px_rgba(0,0,0,0.25)] group-hover:shadow-[0_14px_28px_-6px_rgba(0,0,0,0.35)] group-hover:-translate-y-1 transition-all duration-200">
           ${
             o.art
               ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
