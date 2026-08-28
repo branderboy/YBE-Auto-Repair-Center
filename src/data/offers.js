@@ -17,10 +17,10 @@ const offers = [
   {
     slug: 'free-brake-inspection',
     headline: 'Free Brake Inspection',
-    highlight: '+ $50 Off Brake Repairs',
+    highlight: '+ $25 Off Brake Repairs',
     icon: 'disc',
     blurb:
-      'We pull the wheels and measure what is left — pads, rotors, calipers and fluid — and tell you what we find. If the work goes ahead, $50 comes off the repair.',
+      'We pull the wheels and measure what is left — pads, rotors, calipers and fluid — and tell you what we find. If the work goes ahead, $25 comes off the repair.',
     detail: [
       'A brake inspection is not a glance through the wheel spokes. Pads wear unevenly, a caliper can be sticking on one corner only, and rotor thickness is a measurement, not an opinion.',
       'You get told what is actually left and how long it has. If nothing needs doing yet, we say that too — an inspection that always finds work is not an inspection.'

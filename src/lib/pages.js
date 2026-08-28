@@ -1411,7 +1411,9 @@ ${K.contactBlock({ heading: 'Mention The Offer When You Call' })}`;
 
   return layout({
     title: `Current Offers | ${b.name}, ${primaryArea.label}`,
-    description: `Free brake inspection with $50 off brake repairs, free check-engine-light scan, diagnostic fee waived with approved repair, and a $99 oil change at ${b.name} in ${primaryArea.label}.`,
+    description: `${activeOffers
+      .map((o) => `${o.headline}${o.highlight.startsWith('+') ? ' ' + o.highlight : ''}`)
+      .join(', ')} at ${b.name} in ${primaryArea.label}. Call or text ${b.phone.display}.`,
     path: '/offers/',
     crumbs,
     /*
