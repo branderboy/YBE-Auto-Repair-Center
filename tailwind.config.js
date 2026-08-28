@@ -4,7 +4,16 @@
  * Tailwind compiler to the browser via CDN.
  */
 module.exports = {
-  content: ['./docs/**/*.html'],
+  /*
+   * Scan whatever this build is actually producing.
+   *
+   * This was hardcoded to ./docs/, so a build writing anywhere else compiled
+   * its CSS from a different set of HTML than it shipped. The Hostinger build
+   * writes to dist-hostinger/, so any class absent from the committed docs/
+   * copy was silently dropped from the deployed stylesheet — utilities were
+   * missing on the live site with nothing failing to show it.
+   */
+  content: [`./${process.env.OUT_DIR || 'docs'}/**/*.html`],
   /**
    * These classes are applied at runtime by src/lib/layout.js (header shrink,
    * mobile menu, FAQ accordion), so they never appear in the scanned HTML.

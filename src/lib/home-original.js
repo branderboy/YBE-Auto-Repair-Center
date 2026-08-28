@@ -236,52 +236,53 @@ function carCareSection() {
 }
 
 /**
- * Offers band. Four across on desktop, two-up on a phone, each with its
- * illustration from the brand icon sheet.
+ * Offers band.
+ *
+ * Built to the template's own section pattern rather than a new one, because
+ * a section that does not match the others reads as bolted on however well it
+ * is styled in isolation. Copied from the Problem Section: py-16, the same
+ * container, text-center mb-12, the 4xl/5xl heading with its underline rule,
+ * the mt-4 text-xl sub, then the card grid.
+ *
+ * Cards use that section's card recipe too — p-6, rounded-sm, border-2,
+ * shadow-sm to hover:shadow-md, the icon in a rounded-full tint that inverts
+ * on hover, and the "Click Here" chevron underneath.
  */
 function offersSection() {
   return `
-<section class="py-10 sm:py-14 bg-white border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+<section class="py-16 bg-white border-b-4 border-ybe-red" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-6">
-      <h2 id="offers-heading" class="text-2xl md:text-3xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+    <div class="text-center mb-12">
+      <h2 id="offers-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Our New <span class="text-ybe-red">Offers</span>
         <div class="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-ybe-red"></div>
       </h2>
-      <p class="mt-2 text-base text-gray-600 font-medium">Mention the offer when you call or text</p>
+      <p class="mt-4 text-xl text-gray-600 font-medium">Mention the offer when you call or text.</p>
     </div>
-    <div class="grid ${
-      activeOffers.length >= 4
-        ? 'grid-cols-2 lg:grid-cols-4'
-        : activeOffers.length === 3
-        ? 'grid-cols-1 sm:grid-cols-3'
-        : activeOffers.length === 2
-        ? 'grid-cols-1 sm:grid-cols-2'
-        : 'grid-cols-1 max-w-sm mx-auto'
-    } gap-4 sm:gap-6">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       ${activeOffers
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
-        class="group flex flex-col items-center text-center">
-        ${
-          o.art
-            ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                 class="w-12 h-12 sm:w-14 sm:h-14 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
-            : icon(o.icon, 44, 'text-ybe-red group-hover:-translate-y-1 transition-transform duration-200')
-        }
-        <h3 class="mt-3 font-heading text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
-          o.headline
-        )}</h3>
-        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1.5">${esc(
-          o.highlight
-        )}</p>
+        class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
+        <div class="p-5 rounded-full mb-4 transition-colors bg-gray-100 group-hover:bg-ybe-redtint">
+          ${
+            o.art
+              ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
+                   class="w-14 h-14 object-contain">`
+              : icon(o.icon, 32, 'text-ybe-red group-hover:text-white')
+          }
+        </div>
+        <h3 class="text-xl font-heading font-bold uppercase tracking-wide">${esc(o.headline)}</h3>
+        <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-ybe-red">${esc(o.highlight)}</p>
         ${
           o.regularPrice
-            ? `<p class="mt-1.5 text-sm text-gray-500 font-medium">Regularly <span class="line-through">${esc(
-                o.regularPrice
-              )}</span></p>`
+            ? `<p class="mt-1 text-sm text-gray-500">Regularly <span class="line-through">${esc(o.regularPrice)}</span></p>`
             : ''
         }
+        <span class="mt-2 flex items-center text-sm font-semibold uppercase tracking-wider text-ybe-red">
+          Click Here ${icon('chevron-right', 16)}
+        </span>
       </a>`
         )
         .join('')}
