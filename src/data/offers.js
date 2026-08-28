@@ -31,19 +31,19 @@ const offers = [
     active: true
   },
   {
-    slug: 'free-check-engine-scan',
-    headline: 'Free Check-Engine-Light Scan',
-    highlight: 'Know the code before you decide',
+    slug: 'diagnostic-80',
+    headline: '$80 Diagnostic',
+    highlight: 'Check-engine light and drivability faults',
     icon: 'alert-circle',
     blurb:
-      'Light on? We read the stored codes at no charge and tell you what they point at, so you know what you are dealing with before committing to anything.',
+      'We read the stored codes and then test what they point at, so you learn which part actually failed rather than which circuit reported a problem.',
     detail: [
-      'The scan tells you which system reported a fault. That is genuinely useful and it costs you nothing here.',
-      'What it does not do is name the broken part — a code points at a circuit, and several different failures can set the same one. If pinning it down takes testing, we explain what that involves before starting.'
+      'A code names a circuit, not a broken part. The same code can be set by a failed sensor, a vacuum leak, an exhaust leak, corroded wiring or an engine genuinely running rich — five causes, five different repairs.',
+      'That is what the $80 covers: the testing that separates them. It is the step that stops you buying parts you did not need, and if you go ahead with the repair it comes off the bill.'
     ],
-    cta: 'Get Your Codes Read Free',
+    cta: 'Book a Diagnostic',
     service: '/services/auto-repair-diagnostics/check-engine-light-diagnostics/',
-    fineprint: 'Free code scan. Further diagnostic testing is quoted before any work begins.',
+    fineprint: 'Applied toward the cost of the repair when you go ahead with it.',
     active: true
   },
   {

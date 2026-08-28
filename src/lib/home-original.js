@@ -254,14 +254,16 @@ function offersSection() {
       ${activeOffers
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
-        class="group bg-white border-2 border-gray-200 hover:border-ybe-red rounded-sm p-5 sm:p-6 flex flex-col items-center text-center transition-colors">
-        ${
-          o.art
-            ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain mb-4">`
-            : icon(o.icon, 44, 'text-ybe-red mb-4')
-        }
-        <h3 class="font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight">${esc(
+        class="group flex flex-col items-center text-center">
+        <div class="w-full bg-white border-2 border-gray-200 group-hover:border-ybe-red rounded-sm p-5 sm:p-7 flex items-center justify-center transition-colors">
+          ${
+            o.art
+              ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
+                   class="w-24 h-24 sm:w-32 sm:h-32 object-contain">`
+              : icon(o.icon, 56, 'text-ybe-red')
+          }
+        </div>
+        <h3 class="mt-4 font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight group-hover:text-ybe-red transition-colors">${esc(
           o.headline
         )}</h3>
         <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1">${esc(
