@@ -264,7 +264,7 @@ function offersSection() {
       ${activeOffers
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
-        class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
+        class="group p-4 flex flex-col items-center text-center cursor-pointer text-ybe-black">
         <div class="offer-art">
           ${
             o.art
