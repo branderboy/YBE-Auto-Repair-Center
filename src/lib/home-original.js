@@ -250,7 +250,7 @@ function carCareSection() {
  */
 function offersSection() {
   return `
-<section class="py-16 bg-white border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+<section class="py-16 bg-white" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
       <h2 id="offers-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
