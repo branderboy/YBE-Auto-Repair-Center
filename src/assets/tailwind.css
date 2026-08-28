@@ -141,22 +141,30 @@
  * each file happens to measure, and nothing is cropped or re-encoded.
  */
 .offer-art {
-  height: 260px;
+  height: 92px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
+/*
+ * Explicit size rather than max-width percentages.
+ *
+ * The percentage form rendered at 43px when the rule said 96 — the image is a
+ * flex item and was shrinking below its own constraints, so the number in the
+ * stylesheet was not the number on the screen. A fixed box with contain makes
+ * the rendered size exactly what is written here, and keeps the three equal
+ * despite their differing source dimensions.
+ */
 .offer-art img {
-  max-width: 72%;
-  max-height: 240px;
-  width: auto;
-  height: auto;
+  width: 64px;
+  height: 64px;
+  flex: none;
   object-fit: contain;
 }
 
 @media (max-width: 640px) {
-  .offer-art { height: 210px; }
-  .offer-art img { max-width: 65%; max-height: 190px; }
+  .offer-art { height: 80px; }
+  .offer-art img { width: 54px; height: 54px; }
 }

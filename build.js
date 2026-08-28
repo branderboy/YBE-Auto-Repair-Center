@@ -86,11 +86,31 @@ function buildCss() {
   const bin = path.join(__dirname, 'node_modules', '.bin', 'tailwindcss');
   const out = path.join(OUT, 'assets', 'css', 'site.css');
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  execFileSync(bin, ['-i', 'src/assets/tailwind.css', '-o', out, '--minify'], {
-    cwd: __dirname,
-    stdio: ['ignore', 'ignore', 'pipe']
-  });
-  return fs.statSync(out).size;
+  /*
+   * Fail loudly on a broken stylesheet.
+   *
+   * A malformed rule makes the CLI exit without writing site.css, and the
+   * build carried on and deployed a site with no stylesheet at all — every
+   * image at its natural size, every layout gone, and nothing in the output
+   * saying so. Surfacing the CLI's stderr and refusing an implausibly small
+   * file turns that into a build failure instead of a live incident.
+   */
+  try {
+    execFileSync(bin, ['-i', 'src/assets/tailwind.css', '-o', out, '--minify'], {
+      cwd: __dirname,
+      stdio: ['ignore', 'ignore', 'pipe']
+    });
+  } catch (e) {
+    const detail = (e.stderr && e.stderr.toString().trim()) || e.message;
+    throw new Error(`CSS build failed — site.css was not written:\n${detail}`);
+  }
+
+  if (!fs.existsSync(out)) throw new Error('CSS build produced no site.css');
+  const size = fs.statSync(out).size;
+  // A real build of this site is ~30KB. Anything tiny means the content scan
+  // found nothing and the utilities are missing.
+  if (size < 5000) throw new Error(`site.css is only ${size} bytes — utilities are missing`);
+  return size;
 }
 
 /**
