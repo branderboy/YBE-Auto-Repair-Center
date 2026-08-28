@@ -80,6 +80,31 @@ const offers = [
   }
 ];
 
+/*
+ * Offer photography.
+ *
+ * Each offer names the file it wants. Drop a photo at that path and it appears
+ * on the homepage row and the offers page; leave it out and the layout falls
+ * back to the icon, which is why the site looks finished either way rather
+ * than showing a broken image while photos are being taken.
+ *
+ * Landscape, roughly 4:3 or 16:9, at least 800px wide. A real photo of the
+ * actual work beats stock — people can tell, and a generic garage image on all
+ * four reads as filler.
+ */
+const fs = require('fs');
+const path = require('path');
+const PHOTO_DIR = path.join(__dirname, '..', 'assets', 'img', 'offers');
+
+for (const o of offers) {
+  const file = `${o.slug}.jpg`;
+  o.photo = fs.existsSync(path.join(PHOTO_DIR, file)) ? `/assets/img/offers/${file}` : null;
+  o.photoAlt = o.photoAlt || `${o.headline} at YBE Auto Repair Center in Capitol Heights, MD`;
+}
+
 const activeOffers = offers.filter((o) => o.active);
 
-module.exports = { offers, activeOffers };
+/** What still needs shooting — surfaced by `npm run offers:photos`. */
+const missingPhotos = offers.filter((o) => o.active && !o.photo).map((o) => `${o.slug}.jpg`);
+
+module.exports = { offers, activeOffers, missingPhotos, PHOTO_DIR };

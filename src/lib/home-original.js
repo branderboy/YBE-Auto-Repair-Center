@@ -250,12 +250,20 @@ function offersStrip() {
       ${activeOffers
         .map(
           (o) => `<a href="/offers/#${o.slug}" data-track="offer" data-location="homepage-strip"
-        class="group bg-ybe-charcoal border border-gray-700 hover:border-ybe-red rounded-sm p-4 sm:p-5 flex flex-col transition-colors">
-        ${icon(o.icon, 24, 'text-ybe-red mb-3 flex-shrink-0')}
+        class="group bg-ybe-charcoal border border-gray-700 hover:border-ybe-red rounded-sm overflow-hidden flex flex-col transition-colors">
+        ${
+          o.photo
+            ? `<img src="${o.photo}" alt="${esc(o.photoAlt)}" width="600" height="400" loading="lazy"
+                 class="w-full h-28 sm:h-36 object-cover">`
+            : ''
+        }
+        <div class="p-4 sm:p-5 flex flex-col flex-1">
+        ${o.photo ? '' : icon(o.icon, 24, 'text-ybe-red mb-3 flex-shrink-0')}
         <h3 class="font-heading text-base sm:text-xl font-bold uppercase tracking-wide text-white leading-tight mb-1">${esc(
           o.headline
         )}</h3>
         <p class="text-ybe-redlight font-semibold text-xs sm:text-sm leading-snug">${esc(o.highlight)}</p>
+        </div>
       </a>`
         )
         .join('')}

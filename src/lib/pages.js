@@ -1363,6 +1363,12 @@ ${section(
     ${activeOffers
       .map(
         (o) => `<div id="${o.slug}" class="scroll-mt-32 bg-white border-2 border-gray-200 hover:border-ybe-red rounded-sm overflow-hidden flex flex-col transition-colors">
+      ${
+        o.photo
+          ? `<img src="${o.photo}" alt="${esc(o.photoAlt)}" width="800" height="500" loading="lazy"
+               class="w-full h-52 md:h-60 object-cover">`
+          : ''
+      }
       <div class="bg-ybe-black p-6 border-b-4 border-ybe-red">
         <div class="flex items-start gap-3">
           ${icon(o.icon, 30, 'text-ybe-red flex-shrink-0 mt-1')}
@@ -1435,6 +1441,7 @@ ${K.contactBlock({ heading: 'Mention The Offer When You Call' })}`;
             url: `${b.siteUrl}/offers/#${o.slug}`,
             availableAtOrFrom: { '@id': `${b.siteUrl}/#business` },
             seller: { '@id': `${b.siteUrl}/#business` },
+            ...(o.photo ? { image: `${b.siteUrl}${o.photo}` } : {}),
             itemOffered: { '@type': 'Service', name: o.headline, url: `${b.siteUrl}${o.service}` }
           }
         }))

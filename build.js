@@ -43,6 +43,14 @@ function copyAssets() {
     // Files only: subdirectories (icons/) are copied separately below.
     for (const f of fs.readdirSync(srcImg, { withFileTypes: true })) {
       if (f.isFile()) fs.copyFileSync(path.join(srcImg, f.name), path.join(imgDir, f.name));
+      // Offer photos live in their own folder so they are easy to drop in.
+      if (f.isDirectory() && f.name === 'offers') {
+        const dst = path.join(imgDir, 'offers');
+        fs.mkdirSync(dst, { recursive: true });
+        for (const o of fs.readdirSync(path.join(srcImg, 'offers'))) {
+          fs.copyFileSync(path.join(srcImg, 'offers', o), path.join(dst, o));
+        }
+      }
     }
   }
 
