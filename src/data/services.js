@@ -34,7 +34,8 @@ const categories = [
       'Tune-ups and scheduled maintenance',
       'Cooling-system and overheating repair',
       'Oil changes and fluid service',
-      'General mechanical repairs'
+      'General mechanical repairs',
+      'Repairs for failed Maryland state inspections'
     ],
     services: [
       {
@@ -75,6 +76,47 @@ const categories = [
           'There is also a practical reason not to wait: with the light on, the computer has already given up monitoring some systems. If a second, more serious fault develops, you will not get a new warning. It is already on.'
         ],
         related: ['engine-repair', 'tune-ups-maintenance', 'cooling-system-overheating']
+      },
+      {
+        slug: 'state-inspection-repairs',
+        navLabel: 'Inspection Repairs',
+        title: 'Maryland State Inspection Repairs',
+        metaTitle: 'Inspection Repairs in Capitol Heights, MD | YBE Auto',
+        metaDescription:
+          'Failed a Maryland inspection? YBE repairs what fails it — brakes, tires, steering, lights, exhaust — in Capitol Heights, MD. Call (202) 455-3822.',
+        customerVoice: 'My car failed its Maryland inspection.',
+        problem: [
+          'Start with the part most shops bury: we are not a Maryland state inspection station. We do not perform the inspection and we cannot issue the certificate. Only stations licensed by the Maryland State Police can do that, and if a shop tells you otherwise, walk.',
+          'What we do is the work on either side of it. We fix the items that failed so the vehicle can pass reinspection, and we go over a car before you take it in so you find out what needs attention on your terms instead of on a failure sheet.',
+          'Maryland requires a safety inspection when a used vehicle is being titled and registered in the state, so this usually lands on someone who has just bought a car and needs it road-legal. That is a bad moment to be handed a list you do not understand.'
+        ],
+        whatWeDo: [
+          'If you already failed, bring the sheet. It lists exactly what the inspector rejected, and we go through it with you line by line — what each item means, what it takes to correct, and which ones are safety issues you would want fixed regardless of any certificate.',
+          'If you have not gone yet, we put the vehicle on the lift and check the same systems an inspector will: brakes, tires, steering and suspension, lights, glass and wipers, exhaust, and leaks. You get told what would fail before you spend the inspection fee finding out.',
+          'Either way you decide what gets repaired. We do the work, and you take the vehicle back to the station that inspected it for reinspection.'
+        ],
+        warningSigns: [
+          'You just bought a used car and need it titled in Maryland',
+          'You have a failure sheet and do not know what half of it means',
+          'Brake, tire or suspension wear you already suspect will fail',
+          'A check-engine light on before an inspection',
+          'Exhaust noise, a cracked windshield, or lights that are out',
+          'A car that has sat unused for a long stretch'
+        ],
+        includes: [
+          'A walk through the failure sheet in plain language',
+          'Pre-inspection check of the systems an inspector examines',
+          'Repair of the failed items — brakes, tires, steering, suspension, lights, glass, exhaust',
+          'Diagnostics where the cause is not obvious from the symptom',
+          'A clear account of what we found and what it takes to fix',
+          'Honesty about anything we cannot correct here'
+        ],
+        whyNotIgnore: [
+          'An inspection failure is not paperwork. The items on that sheet are the ones that stop a car, steer it and let other drivers see it, and they failed against a minimum standard rather than a strict one.',
+          'Reinspection rules are set by the station and the state, and they generally allow a limited window and mileage before a full re-inspection is required. Ask the station that failed you what their window is, and get the repairs done inside it rather than paying for the whole inspection twice.',
+          'If you have just bought the car, every day it sits unregistered is a day you cannot legally drive it. That tends to be the real cost.'
+        ],
+        related: ['brake-pad-rotor-replacement', 'shocks-struts-steering', 'check-engine-light-diagnostics']
       },
       {
         slug: 'engine-repair',

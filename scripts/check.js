@@ -167,6 +167,31 @@ for (const file of files) {
 
   // --- honesty guard: never advertise towing as a service we provide ---
   if (/\bwe (also )?(provide|offer) towing\b/i.test(html)) errors.push(at('page appears to advertise towing'));
+
+  /*
+   * Honesty guard: YBE repairs what fails a Maryland state inspection but is
+   * not a licensed inspection station and cannot issue the certificate.
+   * Claiming otherwise is a regulatory problem, not just a copy problem.
+   *
+   * The guard has to read negation, or it flags the very sentence that states
+   * the limit — "we do not perform the inspection" is the correct copy, not a
+   * violation. Each match is re-checked for a negation before it counts.
+   */
+  const inspectionClaims = [
+    /\bwe\b[^.]{0,50}\b(perform|provide|offer|do)\b[^.]{0,40}\b(state )?inspections?\b/gi,
+    /\bwe (are|'re) (an?|the)\b[^.]{0,40}\binspection station\b/gi,
+    /\bwe\b[^.]{0,40}\b(issue|provide)\b[^.]{0,30}\binspection certificate/gi
+  ];
+  const negated = (text) => /\b(not|never|cannot|can't|don't|do not|neither|nor)\b/i.test(text);
+  for (const re of inspectionClaims) {
+    let m;
+    while ((m = re.exec(html))) {
+      if (!negated(m[0])) {
+        errors.push(at('page appears to claim YBE performs state inspections or issues certificates'));
+        break;
+      }
+    }
+  }
 }
 
 // --- sitemap sanity ---

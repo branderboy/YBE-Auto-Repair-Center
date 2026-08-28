@@ -166,7 +166,13 @@ const business = {
   financing: '',        // profile asserts none — leave empty
 
   // Services YBE explicitly does NOT provide. Used to keep copy honest.
-  notOffered: ['towing'],
+  /*
+   * Things the shop does NOT do. Copy is checked against this so no page can
+   * quietly start advertising them. State inspection is here because YBE
+   * repairs what fails one but is not a licensed Maryland inspection station
+   * and cannot issue the certificate — a distinction worth never blurring.
+   */
+  notOffered: ['towing', 'Maryland state inspection certificates'],
 
   /**
    * Placeholder photography carried over from the original page.
