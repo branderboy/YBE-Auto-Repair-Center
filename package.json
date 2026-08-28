@@ -10,7 +10,8 @@
     "verify": "npm run build && npm run check",
     "serve": "node scripts/serve.js",
     "links:external": "node scripts/check-links-external.js",
-    "test:links": "node scripts/test-link-checker.js"
+    "test:links": "node scripts/test-link-checker.js",
+    "build:hostinger": "node scripts/build-hostinger.js"
   },
   "engines": {
     "node": ">=18"

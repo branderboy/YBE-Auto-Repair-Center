@@ -21,8 +21,21 @@ const business = {
    * prefixed onto every internal link and asset at the end of the build.
    * When you move to a real domain, set siteUrl to it and basePath to ''.
    */
-  siteUrl: 'https://branderboy.github.io/YBE-Auto-Repair-Center',
-  basePath: '/YBE-Auto-Repair-Center',
+  /*
+   * Both are overridable at build time so one codebase can target either host.
+   *
+   *   GitHub Pages  serves from a subfolder, so every link needs the prefix.
+   *   Hostinger     serves from the domain root, where that same prefix would
+   *                 404 every link and asset on the site.
+   *
+   *   SITE_URL=https://example.com BASE_PATH= npm run build
+   *
+   * BASE_PATH is checked with `in` rather than a truthiness test: an empty
+   * string is the meaningful value for a root-served host, and `||` would
+   * silently discard it and put the GitHub prefix back.
+   */
+  siteUrl: process.env.SITE_URL || 'https://branderboy.github.io/YBE-Auto-Repair-Center',
+  basePath: 'BASE_PATH' in process.env ? process.env.BASE_PATH : '/YBE-Auto-Repair-Center',
 
   tagline: 'Repair • Body • Roadside',
 

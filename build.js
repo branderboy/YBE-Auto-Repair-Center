@@ -15,7 +15,9 @@ const R = require('./src/lib/pages.js');
 const PWA = require('./src/lib/pwa.js');
 const { renderHomeOriginal } = require('./src/lib/home-original.js');
 
-const OUT = path.join(__dirname, 'docs');
+const OUT = process.env.OUT_DIR
+  ? path.resolve(__dirname, process.env.OUT_DIR)
+  : path.join(__dirname, 'docs');
 const pages = [];
 
 function emit(urlPath, html, { changefreq = 'monthly', priority = '0.7', lastmod = true } = {}) {
@@ -288,7 +290,9 @@ function run() {
   buildSitemap();
   buildRobots();
   const rebased = applyBasePath();
-  const publishedCount = publishToRoot();
+  // Publishing to the repo root is how GitHub Pages serves this. Other hosts
+  // take the output directory as-is and must not have the repo rewritten.
+  const publishedCount = process.env.SKIP_ROOT_PUBLISH ? 0 : publishToRoot();
 
   console.log(`  ✓ ${pages.length} pages written`);
   console.log(`  ✓ site.css compiled (${(cssBytes / 1024).toFixed(1)} KB minified)`);
@@ -297,7 +301,11 @@ function run() {
   console.log(`  ✓ PWA: manifest, service worker (${pwaInfo.count} precached, cache ybe-${pwaInfo.version}), offline page`);
   console.log(`  ✓ assets copied`);
   if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files`);
-  console.log(`  ✓ published ${publishedCount} entries to the repo root for GitHub Pages\n`);
+  if (publishedCount) {
+    console.log(`  ✓ published ${publishedCount} entries to the repo root for GitHub Pages\n`);
+  } else {
+    console.log(`  ✓ output written to ${path.relative(__dirname, OUT)}/\n`);
+  }
 }
 
 run();
