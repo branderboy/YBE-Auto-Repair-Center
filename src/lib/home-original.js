@@ -272,11 +272,11 @@ function offersSection() {
               : icon(o.icon, 96, 'text-ybe-red')
           }
         </div>
-        <h3 class="text-xl font-heading font-bold uppercase tracking-wide">${esc(o.headline)}</h3>
-        <p class="mt-1 text-sm font-semibold uppercase tracking-wide text-ybe-red">${esc(o.highlight)}</p>
+        <h3 class="text-2xl sm:text-3xl font-heading font-extrabold uppercase tracking-wide leading-none">${esc(o.headline)}</h3>
+        <p class="mt-2 text-base sm:text-lg font-bold uppercase tracking-wide text-ybe-red">${esc(o.highlight)}</p>
         ${
           o.regularPrice
-            ? `<p class="mt-1 text-sm text-gray-500">Regularly <span class="line-through">${esc(o.regularPrice)}</span></p>`
+            ? `<p class="mt-2 text-base text-gray-500">Regularly <span class="line-through">${esc(o.regularPrice)}</span></p>`
             : ''
         }
       </a>`
