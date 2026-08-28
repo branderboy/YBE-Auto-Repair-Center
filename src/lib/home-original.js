@@ -241,14 +241,14 @@ function carCareSection() {
  */
 function offersSection() {
   return `
-<section class="py-14 sm:py-20 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+<section class="py-10 sm:py-14 bg-white border-b-4 border-ybe-red" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-7">
-      <h2 id="offers-heading" class="text-3xl md:text-4xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+    <div class="text-center mb-6">
+      <h2 id="offers-heading" class="text-2xl md:text-3xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Our New <span class="text-ybe-red">Offers</span>
         <div class="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-ybe-red"></div>
       </h2>
-      <p class="mt-3 text-lg text-gray-600 font-medium">Mention the offer when you call or text</p>
+      <p class="mt-2 text-base text-gray-600 font-medium">Mention the offer when you call or text</p>
     </div>
     <div class="grid ${
       activeOffers.length >= 4
@@ -266,8 +266,8 @@ function offersSection() {
         ${
           o.art
             ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                 class="w-20 h-20 sm:w-24 sm:h-24 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
-            : icon(o.icon, 72, 'text-ybe-red group-hover:-translate-y-1 transition-transform duration-200')
+                 class="w-12 h-12 sm:w-14 sm:h-14 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
+            : icon(o.icon, 44, 'text-ybe-red group-hover:-translate-y-1 transition-transform duration-200')
         }
         <h3 class="mt-3 font-heading text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
           o.headline
