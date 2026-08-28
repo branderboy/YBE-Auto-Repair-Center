@@ -241,7 +241,7 @@ function carCareSection() {
  */
 function offersSection() {
   return `
-<section class="py-10 sm:py-14 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+<section class="py-14 sm:py-20 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-7">
       <h2 id="offers-heading" class="text-3xl md:text-4xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
@@ -266,18 +266,18 @@ function offersSection() {
         ${
           o.art
             ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                 class="w-28 h-28 sm:w-32 sm:h-32 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
+                 class="w-20 h-20 sm:w-24 sm:h-24 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
             : icon(o.icon, 72, 'text-ybe-red group-hover:-translate-y-1 transition-transform duration-200')
         }
-        <h3 class="mt-4 font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
+        <h3 class="mt-3 font-heading text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
           o.headline
         )}</h3>
-        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-base sm:text-lg leading-tight mt-2">${esc(
+        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1.5">${esc(
           o.highlight
         )}</p>
         ${
           o.regularPrice
-            ? `<p class="mt-2 text-base text-gray-500 font-medium">Regularly <span class="line-through">${esc(
+            ? `<p class="mt-1.5 text-sm text-gray-500 font-medium">Regularly <span class="line-through">${esc(
                 o.regularPrice
               )}</span></p>`
             : ''
