@@ -32,7 +32,7 @@ function siteIndex() {
       ${links
         .map(
           (l) =>
-            `<li><a href="${l.url}" class="text-[13px] leading-snug text-gray-400 hover:text-ybe-red transition-colors">${esc(
+            `<li><a href="${l.url}" class="text-[13px] leading-snug text-white hover:text-ybe-red transition-colors">${esc(
               l.label
             )}</a></li>`
         )
@@ -186,20 +186,20 @@ function footer() {
     .map((l) => `<li><a href="${l.url}" class="inline-block py-2.5 hover:text-ybe-red transition-colors">${esc(l.label)}</a></li>`)
     .join('');
 
-  return `<footer class="diagonal-stripe-bg text-gray-400 pt-14 pb-24 md:pb-8 border-t-8 border-ybe-red">
+  return `<footer class="diagonal-stripe-bg text-white pt-14 pb-24 md:pb-8 border-t-8 border-ybe-red">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
         <div>
           <img src="${b.images.logo}" alt="${esc(b.images.logoAlt)}" width="240" height="152" loading="lazy"
-               class="h-16 w-auto bg-white p-1 rounded-sm mb-5" />
+               class="h-16 w-auto mb-5" />
           <p class="mb-4 text-sm leading-relaxed">
             Auto repair, diagnostics, maintenance, bodywork and roadside assistance serving
             ${esc(b.address.city)} and nearby Maryland and DC communities since ${b.openedYear}.
           </p>
           <div class="flex gap-4">
-            <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Facebook" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('facebook', 24)}</a>
-            <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Instagram" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('instagram', 24)}</a>
-            <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center reviews on Google" class="inline-flex items-center justify-center w-11 h-11 text-gray-500 hover:text-white transition-colors">${icon('star', 24)}</a>
+            <a href="${b.social.facebook}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Facebook" class="inline-flex items-center justify-center w-11 h-11 text-white hover:text-ybe-red transition-colors">${icon('facebook', 24)}</a>
+            <a href="${b.social.instagram}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center on Instagram" class="inline-flex items-center justify-center w-11 h-11 text-white hover:text-ybe-red transition-colors">${icon('instagram', 24)}</a>
+            <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" aria-label="YBE Auto Repair Center reviews on Google" class="inline-flex items-center justify-center w-11 h-11 text-white hover:text-ybe-red transition-colors">${icon('star', 24)}</a>
           </div>
         </div>
         <div>
@@ -232,7 +232,7 @@ function footer() {
 
       ${siteIndex()}
 
-      <div class="border-t border-gray-800 pt-6 mt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
+      <div class="border-t border-gray-800 pt-6 mt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white">
         <p>&copy; <span id="year">${new Date().getFullYear()}</span> ${esc(b.name)}. All rights reserved.</p>
         <div class="flex flex-wrap justify-center gap-3">
           <span>${esc(b.address.city)}, ${esc(b.address.state)}</span><span>|</span>
