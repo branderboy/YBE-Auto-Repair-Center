@@ -18,7 +18,7 @@ const areas = [
     name: 'Capitol Heights',
     state: 'MD',
     isPrimary: true,
-    metaTitle: 'Mechanic in Capitol Heights, MD | YBE Auto Repair Center',
+    metaTitle: 'Capitol Heights Mechanic & Auto Repair | YBE Auto',
     metaDescription:
       'YBE Auto Repair Center is at 8632 Edgeworth Dr in Capitol Heights, MD. Repairs, diagnostics, bodywork and roadside help, seven days a week. Call (202) 455-3822.',
     relationship: 'This is where the shop is.',
@@ -140,9 +140,9 @@ const areas = [
     slug: 'largo-md',
     name: 'Largo',
     state: 'MD',
-    metaTitle: 'Mechanic in Largo, MD | Auto Repair Near Largo Town Center | YBE Auto',
+    metaTitle: 'Mechanic in Largo, MD | YBE Auto Repair',
     metaDescription:
-      'Looking for a mechanic in Largo, MD? YBE Auto Repair Center handles diagnostics, brakes, transmissions, A/C and bodywork, minutes from Largo Town Center. Call or text (202) 455-3822.',
+      'Mechanic in Largo, MD. Diagnostics, brakes, transmissions, A/C and bodywork, minutes from Largo Town Center. Call or text (202) 455-3822.',
     relationship: 'East of the shop, straight out Central Avenue.',
     intro: [
       'Largo sits a short run east of us on Central Avenue, and it is one of the areas our customers come from most often without us ever having advertised there. The shop is close enough that dropping a car off before work and picking it up after is straightforward.',

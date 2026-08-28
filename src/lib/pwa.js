@@ -132,7 +132,7 @@ function offlinePage() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>No Connection | ${b.name}</title>
-<meta name="description" content="No internet connection. Call or text ${b.name} at ${b.phone.display}, or visit us at ${b.address.oneLine}. Open ${b.hours.summary.toLowerCase()}.">
+<meta name="description" content="No internet connection. Call or text ${b.shortName} at ${b.phone.display}, or visit ${b.address.street}, ${b.address.city}. Open ${b.hours.summary.toLowerCase()}.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#FC0101">
 <style>

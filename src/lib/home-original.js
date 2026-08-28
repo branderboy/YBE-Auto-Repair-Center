@@ -148,14 +148,14 @@ function renderHomeOriginal() {
      * leads here now — "auto repair" still follows it, so nothing is traded
      * away for it.
      */
-    title: `Mechanic in ${primaryArea.label} | ${b.name} Auto Repair`,
+    title: `Mechanic in ${primaryArea.label} | ${b.name}`,
     /*
      * Mirrors how the Google Business Profile positions the shop: Black-owned,
      * open since 2006, seven days. Those are the facts that separate this
      * listing from the other repair shops in the pack, and a description that
      * only lists services throws them away.
      */
-    description: `Black-owned auto repair shop in ${primaryArea.label}, open seven days since ${b.openedYear}. Diagnostics, brakes, engines, transmissions, A/C, bodywork and roadside assistance. Call or text ${b.phone.display}.`,
+    description: `Black-owned mechanic in ${primaryArea.label}, open seven days since ${b.openedYear}. Diagnostics, brakes, transmissions, A/C, bodywork and roadside help. Call ${b.phone.display}.`,
     path: '/',
     crumbs: [{ label: 'Home', url: '/' }],
     // The hero pads for the header itself; see `fullBleed` in layout.js.

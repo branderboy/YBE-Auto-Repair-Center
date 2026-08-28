@@ -12,7 +12,17 @@
 
 /* Site-specific styles carried over from the original page. */
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  /*
+   * No sideways scroll, ever.
+   *
+   * One over-wide element — a skewed heading, a stray transform — makes the
+   * whole document scrollable horizontally, and on a phone that reads as the
+   * page wobbling under your thumb. This clips it at the root so a single
+   * mistake cannot do that again. `clip` rather than `hidden` because hidden
+   * on the root element silently breaks position: sticky.
+   */
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; overflow-x: clip; }
+  body { overflow-x: clip; }
   body { -webkit-font-smoothing: antialiased; }
 }
 
@@ -167,4 +177,20 @@
 @media (max-width: 640px) {
   .offer-art { height: 100px; }
   .offer-art img { width: 72px; height: 72px; }
+}
+
+
+/*
+ * Rating stars.
+ *
+ * Five 64px stars plus their gaps measure 336px — wider than a 320px phone,
+ * so the last one was cut off at the screen edge. The size lives on the SVG's
+ * width/height attributes, so it takes a rule to override rather than a
+ * utility class on the parent.
+ */
+@media (max-width: 640px) {
+  .star-row svg {
+    width: 44px;
+    height: 44px;
+  }
 }

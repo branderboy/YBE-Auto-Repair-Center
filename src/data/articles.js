@@ -1105,7 +1105,7 @@ const articles = [
     title: 'What affects the cost of battery and alternator work?',
     metaTitle: 'What Affects Battery And Alternator Cost? | YBE Auto',
     metaDescription:
-      'Why battery and charging-system prices vary: battery type, registration on modern cars, and telling a battery fault from an alternator fault. YBE Auto, Capitol Heights, MD.',
+      'Why battery and charging prices vary: battery type, registration on newer cars, and telling a battery fault from an alternator. YBE Auto, Capitol Heights, MD.',
     shortAnswer:
       'Testing first is what controls the cost. A battery and an alternator produce nearly identical symptoms, and replacing the wrong one means paying twice and still being stranded. Battery prices themselves vary by type, and many newer cars require the new battery to be registered to the charging system.',
     sections: [
