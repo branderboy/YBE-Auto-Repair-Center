@@ -36,9 +36,13 @@ on:
   workflow_dispatch:
 
 concurrency:
-  # Never let two deploys write to the same directory at once.
+  # Never let two deploys write to the same directory at once. Queue the second
+  # one rather than cancelling the first: cancel-in-progress kills an upload
+  # mid-transfer, and a half-written site is worse than a slightly stale one.
+  # An FTP sync is not idempotent partway through — some files are new, some
+  # are not, and nothing records which.
   group: hostinger-deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
