@@ -26,6 +26,7 @@ const T = require('./templates.js');
 const { esc } = require('./blocks.js');
 const { articles } = require('../data/articles.js');
 const { areas } = require('../data/areas.js');
+const { activeOffers } = require('../data/offers.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
@@ -124,6 +125,16 @@ function renderHomeOriginal() {
     main = main.split(`src="${from}"`).join(`src="${to}"`);
   }
 
+  /*
+   * The offers band goes after the hero as its own section — light ground, its
+   * own heading and its own padding. The previous attempt put dark cards
+   * immediately below a dark hero, which read as part of the hero rather than
+   * as a section of its own.
+   */
+  if (activeOffers.length) {
+    main = main.replace('</section>', '</section>' + offersSection(), 1);
+  }
+
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
@@ -219,6 +230,45 @@ function carCareSection() {
     <div class="text-center mt-10">
       <a href="/car-care/" class="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-wide text-ybe-red hover:text-ybe-darkred">
         ${icon('arrow-right', 20)} All Car Care Tips</a>
+    </div>
+  </div>
+</section>`;
+}
+
+/**
+ * Offers band. Four across on desktop, two-up on a phone, each with its
+ * illustration from the brand icon sheet.
+ */
+function offersSection() {
+  return `
+<section class="py-14 sm:py-20 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 id="offers-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide">
+        Our New <span class="text-ybe-red">Offers</span>
+      </h2>
+      <p class="mt-4 text-xl text-gray-600 font-medium">Mention the offer when you call or text</p>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      ${activeOffers
+        .map(
+          (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
+        class="group bg-white border-2 border-gray-200 hover:border-ybe-red rounded-sm p-5 sm:p-6 flex flex-col items-center text-center transition-colors">
+        ${
+          o.art
+            ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain mb-4">`
+            : icon(o.icon, 44, 'text-ybe-red mb-4')
+        }
+        <h3 class="font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight">${esc(
+          o.headline
+        )}</h3>
+        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1">${esc(
+          o.highlight
+        )}</p>
+      </a>`
+        )
+        .join('')}
     </div>
   </div>
 </section>`;
