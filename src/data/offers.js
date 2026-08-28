@@ -33,7 +33,7 @@ const offers = [
   {
     slug: 'diagnostic-80',
     headline: '$80 Diagnostic',
-    highlight: 'Know the code before you decide',
+    highlight: 'Codes read and tested',
     icon: 'alert-circle',
     blurb:
       'Get the codes read and tested before your next Maryland inspection. A check-engine light is one of the things that will hold you up, and knowing the cause first means you decide what to fix instead of finding out on a failure sheet.',
