@@ -263,8 +263,10 @@ function offersSection() {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr">
       ${activeOffers
         .map(
-          (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
-        class="group p-4 flex flex-col items-center text-center cursor-pointer text-ybe-black">
+          (o, i) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
+        class="group p-4 flex flex-col items-center text-center cursor-pointer text-ybe-black${
+          i < activeOffers.length - 1 ? ' md:border-r md:border-gray-200' : ''
+        }">
         <div class="offer-art">
           ${
             o.art
