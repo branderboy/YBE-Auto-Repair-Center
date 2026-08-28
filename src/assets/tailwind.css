@@ -141,7 +141,7 @@
  * each file happens to measure, and nothing is cropped or re-encoded.
  */
 .offer-art {
-  height: 92px;
+  height: 116px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,13 +158,13 @@
  * despite their differing source dimensions.
  */
 .offer-art img {
-  width: 64px;
-  height: 64px;
+  width: 88px;
+  height: 88px;
   flex: none;
   object-fit: contain;
 }
 
 @media (max-width: 640px) {
-  .offer-art { height: 80px; }
-  .offer-art img { width: 54px; height: 54px; }
+  .offer-art { height: 100px; }
+  .offer-art img { width: 72px; height: 72px; }
 }
