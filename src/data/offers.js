@@ -65,17 +65,17 @@ const offers = [
   {
     slug: 'oil-change-99',
     headline: '$99 Oil Change',
-    highlight: 'Oil, filter and a look underneath',
+    highlight: 'Includes oil and filter',
     icon: 'droplet',
     blurb:
-      'Oil and filter changed, fluid levels checked, and a look at tires, brakes and anything visibly wearing while the car is up on the lift.',
+      'Oil and filter are both included in the $99. We also check your fluid levels and look over tires, brakes and anything visibly wearing while the car is up on the lift.',
     detail: [
       'An oil change is the one time a technician is under your car on a schedule. A shop that only drains and fills wastes the most useful part of the visit.',
       'We check the other fluids, look at tire condition, and tell you about anything that is starting to wear — so nothing surprises you three months from now.'
     ],
     cta: 'Book an Oil Change',
     service: '/services/auto-repair-diagnostics/oil-change/',
-    fineprint: 'Call or text with your year, make and model to confirm the oil your vehicle takes.',
+    fineprint: 'Includes oil and filter. Call or text with your year, make and model when you book so we have the right oil and filter on hand.',
     active: true
   }
 ];
