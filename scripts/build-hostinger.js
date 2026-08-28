@@ -111,10 +111,21 @@ AddType application/manifest+json .webmanifest
 
 fs.writeFileSync(path.join(OUT, '.htaccess'), htaccess);
 
-// Zip it so it can be dropped straight into hPanel's File Manager.
+/*
+ * Zip it so it can be dropped straight into hPanel's File Manager.
+ *
+ * Convenience only: CI uploads dist-hostinger/ over FTP and never looks at the
+ * archive, so a runner without `zip` must not fail the deploy over it.
+ */
 const zipPath = path.join(ROOT, `${OUT_DIR}.zip`);
-fs.rmSync(zipPath, { force: true });
-execFileSync('zip', ['-r', '-q', zipPath, '.'], { cwd: OUT });
+let zipped = false;
+try {
+  fs.rmSync(zipPath, { force: true });
+  execFileSync('zip', ['-r', '-q', zipPath, '.'], { cwd: OUT });
+  zipped = true;
+} catch {
+  console.log('  · zip unavailable — skipping the archive, directory output is complete');
+}
 
 const count = (dir) =>
   fs.readdirSync(dir, { withFileTypes: true }).reduce(
@@ -124,5 +135,7 @@ const count = (dir) =>
 
 console.log(`  ✓ .htaccess written (https, no-www, compression, caching)`);
 console.log(`  ✓ ${count(OUT)} files in ${OUT_DIR}/`);
-console.log(`  ✓ ${OUT_DIR}.zip  (${(fs.statSync(zipPath).size / 1024 / 1024).toFixed(1)} MB)\n`);
+if (zipped) {
+  console.log(`  ✓ ${OUT_DIR}.zip  (${(fs.statSync(zipPath).size / 1024 / 1024).toFixed(1)} MB)\n`);
+}
 console.log(`Upload the CONTENTS of the zip into public_html/ on ${DOMAIN}.\n`);
