@@ -241,14 +241,14 @@ function carCareSection() {
  */
 function offersSection() {
   return `
-<section class="py-14 sm:py-20 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
+<section class="py-10 sm:py-14 bg-gray-50 border-b-4 border-ybe-red" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-10">
-      <h2 id="offers-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+    <div class="text-center mb-7">
+      <h2 id="offers-heading" class="text-3xl md:text-4xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Our New <span class="text-ybe-red">Offers</span>
         <div class="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-ybe-red"></div>
       </h2>
-      <p class="mt-4 text-xl text-gray-600 font-medium">Mention the offer when you call or text</p>
+      <p class="mt-3 text-lg text-gray-600 font-medium">Mention the offer when you call or text</p>
     </div>
     <div class="grid ${
       activeOffers.length >= 4
@@ -263,23 +263,23 @@ function offersSection() {
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group flex flex-col items-center text-center">
-        <div class="w-full bg-white border-2 border-ybe-green group-hover:border-ybe-darkgreen rounded-sm p-5 sm:p-6 flex items-center justify-center transition-colors">
+        <div class="w-full bg-white border-2 border-ybe-green group-hover:border-ybe-darkgreen rounded-sm p-4 sm:p-5 flex items-center justify-center transition-colors">
           ${
             o.art
               ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                   class="w-28 h-28 sm:w-36 sm:h-36 object-contain">`
-              : icon(o.icon, 64, 'text-ybe-red')
+                   class="w-24 h-24 sm:w-28 sm:h-28 object-contain">`
+              : icon(o.icon, 48, 'text-ybe-red')
           }
         </div>
-        <h3 class="mt-4 font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight group-hover:text-ybe-red transition-colors">${esc(
+        <h3 class="mt-4 font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
           o.headline
         )}</h3>
-        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1">${esc(
+        <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-base sm:text-lg leading-tight mt-2">${esc(
           o.highlight
         )}</p>
         ${
           o.regularPrice
-            ? `<p class="mt-1 text-sm text-gray-500 font-medium">Regularly <span class="line-through">${esc(
+            ? `<p class="mt-2 text-base text-gray-500 font-medium">Regularly <span class="line-through">${esc(
                 o.regularPrice
               )}</span></p>`
             : ''
