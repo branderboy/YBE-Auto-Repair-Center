@@ -260,17 +260,16 @@ function offersSection() {
       <p class="mt-4 text-xl text-gray-600 font-medium">Mention the offer when you call or text.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr">
       ${activeOffers
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group p-6 rounded-sm border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-sm hover:shadow-md bg-white border-gray-200 text-ybe-black hover:border-ybe-red">
-        <div class="p-5 rounded-full mb-4 transition-colors bg-gray-100 group-hover:bg-ybe-redtint">
+        <div class="offer-art">
           ${
             o.art
-              ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                   class="w-14 h-14 object-contain">`
-              : icon(o.icon, 32, 'text-ybe-red group-hover:text-white')
+              ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy">`
+              : icon(o.icon, 96, 'text-ybe-red')
           }
         </div>
         <h3 class="text-xl font-heading font-bold uppercase tracking-wide">${esc(o.headline)}</h3>
@@ -280,9 +279,6 @@ function offersSection() {
             ? `<p class="mt-1 text-sm text-gray-500">Regularly <span class="line-through">${esc(o.regularPrice)}</span></p>`
             : ''
         }
-        <span class="mt-2 flex items-center text-sm font-semibold uppercase tracking-wider text-ybe-red">
-          Click Here ${icon('chevron-right', 16)}
-        </span>
       </a>`
         )
         .join('')}
