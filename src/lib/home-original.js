@@ -26,6 +26,7 @@ const T = require('./templates.js');
 const { esc } = require('./blocks.js');
 const { articles } = require('../data/articles.js');
 const { areas } = require('../data/areas.js');
+const { activeOffers } = require('../data/offers.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
@@ -124,6 +125,16 @@ function renderHomeOriginal() {
     main = main.split(`src="${from}"`).join(`src="${to}"`);
   }
 
+  /*
+   * Offers go directly under the hero — the first thing after the headline,
+   * before the problem tiles. One row of four on desktop, two-up on a phone.
+   * 81% of this profile's discovery is mobile, so the row has to survive a
+   * narrow screen without becoming a wall.
+   */
+  if (activeOffers.length) {
+    main = main.replace('</section>', '</section>' + offersStrip(), 1);
+  }
+
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
@@ -219,6 +230,35 @@ function carCareSection() {
     <div class="text-center mt-10">
       <a href="/car-care/" class="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-wide text-ybe-red hover:text-ybe-darkred">
         ${icon('arrow-right', 20)} All Car Care Tips</a>
+    </div>
+  </div>
+</section>`;
+}
+
+/** The offers row that sits under the hero. Reads from src/data/offers.js. */
+function offersStrip() {
+  return `
+<section class="bg-ybe-black border-b-4 border-ybe-red py-8 sm:py-10" aria-labelledby="offers-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+      <h2 id="offers-heading" class="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-wide text-white">
+        Current <span class="text-ybe-red">Offers</span>
+      </h2>
+      <a href="/offers/" class="font-heading uppercase tracking-wide text-sm font-bold text-ybe-red hover:text-white transition-colors">See All Details</a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      ${activeOffers
+        .map(
+          (o) => `<a href="/offers/#${o.slug}" data-track="offer" data-location="homepage-strip"
+        class="group bg-ybe-charcoal border border-gray-700 hover:border-ybe-red rounded-sm p-4 sm:p-5 flex flex-col transition-colors">
+        ${icon(o.icon, 24, 'text-ybe-red mb-3 flex-shrink-0')}
+        <h3 class="font-heading text-base sm:text-xl font-bold uppercase tracking-wide text-white leading-tight mb-1">${esc(
+          o.headline
+        )}</h3>
+        <p class="text-ybe-redlight font-semibold text-xs sm:text-sm leading-snug">${esc(o.highlight)}</p>
+      </a>`
+        )
+        .join('')}
     </div>
   </div>
 </section>`;

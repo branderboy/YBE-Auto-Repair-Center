@@ -282,6 +282,7 @@ function run() {
   emit('/contact/', R.renderContact(), { priority: '0.9' });
   emit('/request-appointment/', R.renderAppointment(), { priority: '0.9' });
   emit('/faq/', R.renderFaq(), { priority: '0.7' });
+  emit('/offers/', R.renderOffers(), { priority: '0.9' });
   emit('/404.html', R.render404());
 
   copyAssets();
