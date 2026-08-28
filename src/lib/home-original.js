@@ -26,7 +26,6 @@ const T = require('./templates.js');
 const { esc } = require('./blocks.js');
 const { articles } = require('../data/articles.js');
 const { areas } = require('../data/areas.js');
-const { activeOffers } = require('../data/offers.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
@@ -125,16 +124,6 @@ function renderHomeOriginal() {
     main = main.split(`src="${from}"`).join(`src="${to}"`);
   }
 
-  /*
-   * Offers go directly under the hero — the first thing after the headline,
-   * before the problem tiles. One row of four on desktop, two-up on a phone.
-   * 81% of this profile's discovery is mobile, so the row has to survive a
-   * narrow screen without becoming a wall.
-   */
-  if (activeOffers.length) {
-    main = main.replace('</section>', '</section>' + offersStrip(), 1);
-  }
-
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
@@ -230,54 +219,6 @@ function carCareSection() {
     <div class="text-center mt-10">
       <a href="/car-care/" class="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-wide text-ybe-red hover:text-ybe-darkred">
         ${icon('arrow-right', 20)} All Car Care Tips</a>
-    </div>
-  </div>
-</section>`;
-}
-
-/**
- * The coupon row under the hero. Reads from src/data/offers.js.
- *
- * Styled as tear-out coupons: light tickets on the black band, dashed rule,
- * the deal set large. A coupon reads as something you claim, where a flat card
- * reads as decoration — and the claim is the point of the row.
- */
-function offersStrip() {
-  return `
-<section class="bg-ybe-black border-b-4 border-ybe-red py-8 sm:py-12" aria-labelledby="offers-heading">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-6">
-      <h2 id="offers-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-wide text-white">
-        Our New <span class="text-ybe-red">Offers</span>
-      </h2>
-      <a href="/offers/" class="font-heading uppercase tracking-wide text-sm font-bold text-ybe-red hover:text-white transition-colors">See All Details</a>
-    </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-      ${activeOffers
-        .map(
-          (o) => `<a href="/offers/#${o.slug}" data-track="offer" data-location="homepage-coupon"
-        class="group relative bg-white border-2 border-dashed border-ybe-red hover:border-ybe-black rounded-sm overflow-hidden flex flex-col transition-colors">
-        ${
-          o.photo
-            ? `<img src="${o.photo}" alt="${esc(o.photoAlt)}" width="600" height="400" loading="lazy"
-                 class="w-full h-24 sm:h-32 object-cover border-b-2 border-dashed border-ybe-red">`
-            : ''
-        }
-        <div class="p-4 sm:p-5 flex flex-col flex-1 text-center">
-          ${o.photo ? '' : icon(o.icon, 26, 'text-ybe-red mx-auto mb-2')}
-          <h3 class="font-heading text-base sm:text-xl font-extrabold uppercase tracking-tight text-ybe-black leading-tight">${esc(
-            o.headline
-          )}</h3>
-          <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-lg leading-tight mt-1">${esc(
-            o.highlight
-          )}</p>
-          <p class="mt-3 pt-2 border-t border-dashed border-gray-300 text-[11px] sm:text-xs uppercase tracking-widest text-gray-500 font-semibold">
-            Mention this offer
-          </p>
-        </div>
-      </a>`
-        )
-        .join('')}
     </div>
   </div>
 </section>`;
