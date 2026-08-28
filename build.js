@@ -82,6 +82,50 @@ function copyAssets() {
  * Compile the real stylesheet. Runs AFTER pages are written because Tailwind
  * scans the generated HTML to decide which utilities to emit.
  */
+/**
+ * Content-version every asset URL in the markup.
+ *
+ * .htaccess tells browsers to cache CSS, JS and images for a year, which is
+ * correct — but only if the URL changes when the file does. It did not:
+ * site.css kept its name forever, so a visitor held a stale stylesheet against
+ * fresh HTML for up to a year, and no redeploy could reach them. Every sizing
+ * change looked like it had not shipped.
+ *
+ * Appending a short content hash gives each version its own URL, so the long
+ * cache stays and a changed file is fetched immediately.
+ */
+function versionAssets() {
+  const hashes = new Map();
+  const hashOf = (rel) => {
+    if (hashes.has(rel)) return hashes.get(rel);
+    const file = path.join(OUT, rel);
+    if (!fs.existsSync(file)) return null;
+    const h = crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex').slice(0, 8);
+    hashes.set(rel, h);
+    return h;
+  };
+
+  let rewritten = 0;
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { walk(full); continue; }
+      if (!e.name.endsWith('.html')) continue;
+      const before = fs.readFileSync(full, 'utf8');
+      const after = before.replace(
+        /(href|src)="(\/assets\/[^"?#]+)"/g,
+        (m, attr, url) => {
+          const h = hashOf(url.replace(/^\//, ''));
+          return h ? `${attr}="${url}?v=${h}"` : m;
+        }
+      );
+      if (after !== before) { fs.writeFileSync(full, after); rewritten++; }
+    }
+  };
+  walk(OUT);
+  return { files: rewritten, assets: hashes.size };
+}
+
 function buildCss() {
   const bin = path.join(__dirname, 'node_modules', '.bin', 'tailwindcss');
   const out = path.join(OUT, 'assets', 'css', 'site.css');
@@ -317,6 +361,7 @@ function run() {
   const pwaInfo = buildPwa();
   buildSitemap();
   buildRobots();
+  const versioned = versionAssets();
   const rebased = applyBasePath();
   // Publishing to the repo root is how GitHub Pages serves this. Other hosts
   // take the output directory as-is and must not have the repo rewritten.
@@ -328,6 +373,7 @@ function run() {
   console.log(`  ✓ robots.txt`);
   console.log(`  ✓ PWA: manifest, service worker (${pwaInfo.count} precached, cache ybe-${pwaInfo.version}), offline page`);
   console.log(`  ✓ assets copied`);
+  console.log(`  ✓ asset URLs versioned (${versioned.assets} assets across ${versioned.files} pages)`);
   if (rebased) console.log(`  ✓ base path ${b.basePath} applied to ${rebased} files`);
   if (publishedCount) {
     console.log(`  ✓ published ${publishedCount} entries to the repo root for GitHub Pages\n`);
