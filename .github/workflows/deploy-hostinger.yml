@@ -10,6 +10,10 @@
 #   FTP_PASSWORD  that account's password
 #
 # Optional:
+#   FTP_PROTOCOL    ftp (default) or ftps. Hostinger accepts plain FTP on
+#                   port 21; some accounts require explicit TLS, which refuses
+#                   the login rather than the connection. Set this to ftps if
+#                   the credentials are known good and login is still rejected.
 #   FTP_REMOTE_DIR  where this site lives on the server. Defaults to
 #                   public_html/, which is correct only when this domain is the
 #                   plan's PRIMARY domain. An addon domain lives somewhere else
@@ -72,6 +76,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist-hostinger/
           server-dir: ${{ secrets.FTP_REMOTE_DIR || 'public_html/' }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftp' }}
           # Only changed files are transferred; the action keeps a state file
           # on the server to work that out. Nothing on the server is deleted
           # that the build does not replace.
