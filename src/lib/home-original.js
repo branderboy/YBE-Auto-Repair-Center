@@ -235,34 +235,45 @@ function carCareSection() {
 </section>`;
 }
 
-/** The offers row that sits under the hero. Reads from src/data/offers.js. */
+/**
+ * The coupon row under the hero. Reads from src/data/offers.js.
+ *
+ * Styled as tear-out coupons: light tickets on the black band, dashed rule,
+ * the deal set large. A coupon reads as something you claim, where a flat card
+ * reads as decoration — and the claim is the point of the row.
+ */
 function offersStrip() {
   return `
-<section class="bg-ybe-black border-b-4 border-ybe-red py-8 sm:py-10" aria-labelledby="offers-heading">
+<section class="bg-ybe-black border-b-4 border-ybe-red py-8 sm:py-12" aria-labelledby="offers-heading">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-5">
-      <h2 id="offers-heading" class="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-wide text-white">
-        Current <span class="text-ybe-red">Offers</span>
+    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-6">
+      <h2 id="offers-heading" class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-wide text-white">
+        Our New <span class="text-ybe-red">Offers</span>
       </h2>
       <a href="/offers/" class="font-heading uppercase tracking-wide text-sm font-bold text-ybe-red hover:text-white transition-colors">See All Details</a>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
       ${activeOffers
         .map(
-          (o) => `<a href="/offers/#${o.slug}" data-track="offer" data-location="homepage-strip"
-        class="group bg-ybe-charcoal border border-gray-700 hover:border-ybe-red rounded-sm overflow-hidden flex flex-col transition-colors">
+          (o) => `<a href="/offers/#${o.slug}" data-track="offer" data-location="homepage-coupon"
+        class="group relative bg-white border-2 border-dashed border-ybe-red hover:border-ybe-black rounded-sm overflow-hidden flex flex-col transition-colors">
         ${
           o.photo
             ? `<img src="${o.photo}" alt="${esc(o.photoAlt)}" width="600" height="400" loading="lazy"
-                 class="w-full h-28 sm:h-36 object-cover">`
+                 class="w-full h-24 sm:h-32 object-cover border-b-2 border-dashed border-ybe-red">`
             : ''
         }
-        <div class="p-4 sm:p-5 flex flex-col flex-1">
-        ${o.photo ? '' : icon(o.icon, 24, 'text-ybe-red mb-3 flex-shrink-0')}
-        <h3 class="font-heading text-base sm:text-xl font-bold uppercase tracking-wide text-white leading-tight mb-1">${esc(
-          o.headline
-        )}</h3>
-        <p class="text-ybe-redlight font-semibold text-xs sm:text-sm leading-snug">${esc(o.highlight)}</p>
+        <div class="p-4 sm:p-5 flex flex-col flex-1 text-center">
+          ${o.photo ? '' : icon(o.icon, 26, 'text-ybe-red mx-auto mb-2')}
+          <h3 class="font-heading text-base sm:text-xl font-extrabold uppercase tracking-tight text-ybe-black leading-tight">${esc(
+            o.headline
+          )}</h3>
+          <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-lg leading-tight mt-1">${esc(
+            o.highlight
+          )}</p>
+          <p class="mt-3 pt-2 border-t border-dashed border-gray-300 text-[11px] sm:text-xs uppercase tracking-widest text-gray-500 font-semibold">
+            Mention this offer
+          </p>
         </div>
       </a>`
         )

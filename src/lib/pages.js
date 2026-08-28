@@ -1352,7 +1352,7 @@ function renderOffers() {
   const body = `
 ${K.heroBlock({
   eyebrow: `${activeOffers.length} current offers`,
-  titleHtml: `Current <span class="text-ybe-red">Offers</span>`,
+  titleHtml: `Our New <span class="text-ybe-red">Offers</span>`,
   sub: `Straightforward savings at ${b.name}. No coupon to print — mention the offer when you call or text.`,
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Request Appointment', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
