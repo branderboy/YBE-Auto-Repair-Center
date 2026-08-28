@@ -263,14 +263,12 @@ function offersSection() {
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group flex flex-col items-center text-center">
-        <div class="aspect-square w-full max-w-[190px] mx-auto bg-white rounded-sm p-4 flex items-center justify-center shadow-[0_6px_16px_-4px_rgba(0,0,0,0.25)] group-hover:shadow-[0_14px_28px_-6px_rgba(0,0,0,0.35)] group-hover:-translate-y-1 transition-all duration-200">
-          ${
-            o.art
-              ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                   class="w-24 h-24 sm:w-28 sm:h-28 object-contain">`
-              : icon(o.icon, 48, 'text-ybe-red')
-          }
-        </div>
+        ${
+          o.art
+            ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
+                 class="w-28 h-28 sm:w-32 sm:h-32 object-contain group-hover:-translate-y-1 transition-transform duration-200">`
+            : icon(o.icon, 72, 'text-ybe-red group-hover:-translate-y-1 transition-transform duration-200')
+        }
         <h3 class="mt-4 font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-ybe-black leading-none group-hover:text-ybe-red transition-colors">${esc(
           o.headline
         )}</h3>
