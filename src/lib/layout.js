@@ -63,7 +63,6 @@ function siteIndex() {
 
   const companyCol = col('Company', null, [
     { label: 'Home', url: '/' },
-    { label: 'Current Offers', url: '/offers/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },

@@ -1004,7 +1004,7 @@ const articles = [
         h2: 'Ask what happens to the fee',
         paras: [
           'Practice varies between shops, so ask directly: is the diagnostic fee applied toward the repair if you go ahead? Is there a set amount of time included, and what happens if the fault turns out to be deeper than that?',
-          'Those are fair questions and any shop should answer them plainly before starting work. Ours: the check-engine-light scan is free, and where a fault needs real diagnostic time, that fee comes off the bill when you go ahead with the repair.'
+          'Those are fair questions and any shop should answer them plainly before starting work.'
         ]
       }
     ],

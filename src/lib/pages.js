@@ -19,7 +19,6 @@ const { categories, allServices, roadsideHub, areas, primaryArea, articles, clus
   require('../data/pillars.js');
 const { serviceBySlug } = require('../data/services.js');
 const E = require('../data/entities.js');
-const { activeOffers } = require('../data/offers.js');
 const { roadsideBySlug } = require('../data/roadside.js');
 const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 const b = require('../data/business.js');
@@ -1345,115 +1344,10 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
   });
 }
 
-/* ==================================================================== OFFERS */
-function renderOffers() {
-  const crumbs = [HOME, { label: 'Offers', url: '/offers/' }];
-
-  const body = `
-${K.heroBlock({
-  eyebrow: `${activeOffers.length} current offers`,
-  titleHtml: `Our New <span class="text-ybe-red">Offers</span>`,
-  sub: `Straightforward savings at ${b.name}. No coupon to print — mention the offer when you call or text.`,
-  ctaLabel: 'Call The Shop',
-  secondary: { label: 'Request Appointment', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
-})}
-
-${section(
-  `<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    ${activeOffers
-      .map(
-        (o) => `<div id="${o.slug}" class="scroll-mt-32 bg-white border-2 border-gray-200 hover:border-ybe-red rounded-sm overflow-hidden flex flex-col transition-colors">
-      ${
-        o.photo
-          ? `<img src="${o.photo}" alt="${esc(o.photoAlt)}" width="800" height="500" loading="lazy"
-               class="w-full h-52 md:h-60 object-cover">`
-          : ''
-      }
-      <div class="bg-ybe-black p-6 border-b-4 border-ybe-red">
-        <div class="flex items-start gap-3">
-          ${icon(o.icon, 30, 'text-ybe-red flex-shrink-0 mt-1')}
-          <div>
-            <h2 class="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide text-white leading-tight">${esc(
-              o.headline
-            )}</h2>
-            <p class="text-ybe-redlight font-bold uppercase tracking-wide text-sm mt-1">${esc(o.highlight)}</p>
-          </div>
-        </div>
-      </div>
-      <div class="p-6 flex flex-col flex-1">
-        <p class="text-lg text-gray-800 leading-relaxed mb-4">${esc(o.blurb)}</p>
-        <div class="prose-ybe text-gray-700 mb-5">${paras(o.detail)}</div>
-        <p class="text-sm text-gray-500 border-t border-gray-200 pt-3 mb-5">${esc(o.fineprint)}</p>
-        <div class="mt-auto flex flex-col sm:flex-row gap-3">
-          <a href="${b.phone.href}" data-track="call" data-location="offer-${o.slug}"
-             class="flex-1 text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading uppercase tracking-wide font-bold px-5 py-3 rounded-sm transition-colors">
-            ${esc(o.cta)}</a>
-          <a href="${o.service}" class="flex-1 text-center border-2 border-ybe-black hover:bg-gray-100 text-ybe-black font-heading uppercase tracking-wide font-bold px-5 py-3 rounded-sm transition-colors">
-            About This Service</a>
-        </div>
-      </div>
-    </div>`
-      )
-      .join('')}
-  </div>`
-)}
-
-${section(
-  `<div class="bg-gray-50 border-l-4 border-ybe-black p-8 rounded-sm">
-    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3">How To Use These</h2>
-    <p class="text-gray-700 text-lg leading-relaxed mb-3">
-      There is nothing to print and no code to enter. Call or text ${esc(b.phone.display)}, or request an
-      appointment, and say which offer you are coming in for.
-    </p>
-    <p class="text-gray-700 text-lg leading-relaxed">
-      We work by appointment, so let us know before you come in and we will tell you when to bring the vehicle.
-      We are open ${esc(b.hours.summary.toLowerCase())}.
-    </p>
-  </div>`,
-  { bg: 'bg-white' }
-)}
-
-${K.contactBlock({ heading: 'Mention The Offer When You Call' })}`;
-
-  return layout({
-    title: `Current Offers | ${b.name}, ${primaryArea.label}`,
-    description: `${activeOffers
-      .map((o) => `${o.headline}${o.highlight.startsWith('+') ? ' ' + o.highlight : ''}`)
-      .join(', ')} at ${b.name} in ${primaryArea.label}. Call or text ${b.phone.display}.`,
-    path: '/offers/',
-    crumbs,
-    /*
-     * Offer schema so the terms are machine-readable alongside the page. Each
-     * one points at the business and at the service it applies to, and carries
-     * the same wording shown on the page rather than a cleaned-up version.
-     */
-    schema: [
-      {
-        '@type': 'ItemList',
-        name: 'Current offers',
-        itemListElement: activeOffers.map((o, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          item: {
-            '@type': 'Offer',
-            name: `${o.headline} — ${o.highlight}`,
-            description: o.blurb,
-            url: `${b.siteUrl}/offers/#${o.slug}`,
-            availableAtOrFrom: { '@id': `${b.siteUrl}/#business` },
-            seller: { '@id': `${b.siteUrl}/#business` },
-            ...(o.photo ? { image: `${b.siteUrl}${o.photo}` } : {}),
-            itemOffered: { '@type': 'Service', name: o.headline, url: `${b.siteUrl}${o.service}` }
-          }
-        }))
-      }
-    ],
-    body
-  });
-}
 
 module.exports = {
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,
   renderCarCareHub, renderArticle, renderAbout, renderReviews,
-  renderContact, renderAppointment, renderFaq, renderOffers, render404
+  renderContact, renderAppointment, renderFaq, render404
 };
