@@ -33,33 +33,19 @@ const offers = [
   {
     slug: 'diagnostic-80',
     headline: '$80 Diagnostic',
-    highlight: 'Check-engine light and drivability faults',
+    highlight: 'Know the code before you decide',
     icon: 'alert-circle',
     blurb:
-      'We read the stored codes and then test what they point at, so you learn which part actually failed rather than which circuit reported a problem.',
+      'Get the codes read and tested before your next Maryland inspection. A check-engine light is one of the things that will hold you up, and knowing the cause first means you decide what to fix instead of finding out on a failure sheet.',
     detail: [
-      'A code names a circuit, not a broken part. The same code can be set by a failed sensor, a vacuum leak, an exhaust leak, corroded wiring or an engine genuinely running rich — five causes, five different repairs.',
-      'That is what the $80 covers: the testing that separates them. It is the step that stops you buying parts you did not need, and if you go ahead with the repair it comes off the bill.'
+      'A code names a circuit, not a broken part. The same code can come from a failed sensor, a vacuum leak, an exhaust leak, corroded wiring or an engine genuinely running rich — five causes, five different repairs, one light on the dash.',
+      'The $80 covers the testing that separates them, so you go into an inspection knowing what you are dealing with rather than guessing. We are not an inspection station and cannot issue the certificate, but we can tell you what would hold you up and fix it.',
+      'You leave knowing which part failed and what it costs to fix, and you decide from there.'
     ],
+    regularPrice: '$125',
     cta: 'Book a Diagnostic',
-    service: '/services/auto-repair-diagnostics/check-engine-light-diagnostics/',
-    fineprint: 'Applied toward the cost of the repair when you go ahead with it.',
-    active: true
-  },
-  {
-    slug: 'free-diagnostic-with-repair',
-    headline: 'Diagnostic Fee Waived',
-    highlight: 'With approved repair',
-    icon: 'search',
-    blurb:
-      'When a fault needs real diagnostic time and you go ahead with the repair, the diagnostic fee comes off the bill. You pay for the fix, not for finding it.',
-    detail: [
-      'Some faults are not readable from a code — intermittent electrical problems, a no-start that only happens cold, a leak that shows up under load. Those take a technician and time.',
-      'That time is worth paying for, because it is what stops you buying parts you did not need. If we do the repair, you are not paying for it twice.'
-    ],
-    cta: 'Talk To Us About Your Fault',
-    service: '/services/auto-repair-diagnostics/',
-    fineprint: 'Diagnostic fee applied toward the cost of the approved repair.',
+    service: '/services/auto-repair-diagnostics/state-inspection-repairs/',
+    fineprint: 'Covers the diagnostic testing. Any repair is quoted separately before work begins.',
     active: true
   },
   {
@@ -73,12 +59,24 @@ const offers = [
       'An oil change is the one time a technician is under your car on a schedule. A shop that only drains and fills wastes the most useful part of the visit.',
       'We check the other fluids, look at tire condition, and tell you about anything that is starting to wear — so nothing surprises you three months from now.'
     ],
+    regularPrice: '$117',
     cta: 'Book an Oil Change',
     service: '/services/auto-repair-diagnostics/oil-change/',
     fineprint: 'Includes oil and filter. Call or text with your year, make and model when you book so we have the right oil and filter on hand.',
     active: true
   }
 ];
+
+/*
+ * Regular price, shown struck through beside the offer price.
+ *
+ * Left null until the business supplies real figures. An invented "was" price
+ * is the oldest trick in retail and it is not one this site will run — a
+ * discount measured against a number nobody ever charged is a lie, and in
+ * advertising it is an actionable one.
+ *
+ * Fill in regularPrice on each offer and the comparison renders itself.
+ */
 
 /*
  * Offer artwork.
@@ -96,6 +94,7 @@ for (const o of offers) {
   const file = `${o.slug}.png`;
   o.art = fs.existsSync(path.join(ART_DIR, file)) ? `/assets/img/offers/${file}` : null;
   o.artAlt = `${o.headline} illustration`;
+  o.regularPrice = o.regularPrice || null;
 }
 
 const activeOffers = offers.filter((o) => o.active);

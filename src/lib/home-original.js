@@ -250,17 +250,25 @@ function offersSection() {
       </h2>
       <p class="mt-4 text-xl text-gray-600 font-medium">Mention the offer when you call or text</p>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid ${
+      activeOffers.length >= 4
+        ? 'grid-cols-2 lg:grid-cols-4'
+        : activeOffers.length === 3
+        ? 'grid-cols-1 sm:grid-cols-3'
+        : activeOffers.length === 2
+        ? 'grid-cols-1 sm:grid-cols-2'
+        : 'grid-cols-1 max-w-sm mx-auto'
+    } gap-4 sm:gap-6">
       ${activeOffers
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group flex flex-col items-center text-center">
-        <div class="w-full bg-white border-2 border-gray-200 group-hover:border-ybe-red rounded-sm p-5 sm:p-7 flex items-center justify-center transition-colors">
+        <div class="w-full bg-white border-2 border-gray-200 group-hover:border-ybe-red rounded-sm p-4 sm:p-5 flex items-center justify-center transition-colors">
           ${
             o.art
               ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                   class="w-24 h-24 sm:w-32 sm:h-32 object-contain">`
-              : icon(o.icon, 56, 'text-ybe-red')
+                   class="w-16 h-16 sm:w-20 sm:h-20 object-contain">`
+              : icon(o.icon, 40, 'text-ybe-red')
           }
         </div>
         <h3 class="mt-4 font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight group-hover:text-ybe-red transition-colors">${esc(
@@ -269,6 +277,13 @@ function offersSection() {
         <p class="text-ybe-red font-heading font-bold uppercase tracking-wide text-sm sm:text-base leading-tight mt-1">${esc(
           o.highlight
         )}</p>
+        ${
+          o.regularPrice
+            ? `<p class="mt-1 text-sm text-gray-500 font-medium">Regularly <span class="line-through">${esc(
+                o.regularPrice
+              )}</span></p>`
+            : ''
+        }
       </a>`
         )
         .join('')}
