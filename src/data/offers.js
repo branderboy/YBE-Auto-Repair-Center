@@ -15,22 +15,6 @@
 
 const offers = [
   {
-    slug: 'brake-inspection',
-    headline: 'Brake Inspection',
-    highlight: 'Pads, rotors, calipers and fluid checked',
-    icon: 'disc',
-    blurb:
-      'We pull the wheels and measure what is left — pads, rotors, calipers and fluid — and tell you exactly what you have left and how long it has.',
-    detail: [
-      'A brake inspection is not a glance through the wheel spokes. Pads wear unevenly, a caliper can be sticking on one corner only, and rotor thickness is a measurement, not an opinion.',
-      'You get told what is actually left and how long it has. If nothing needs doing yet, we say that too — an inspection that always finds work is not an inspection.'
-    ],
-    cta: 'Book a Brake Inspection',
-    service: '/services/brake-repair/',
-    fineprint: 'Any repair is quoted before work begins.',
-    active: true
-  },
-  {
     slug: 'diagnostic-80',
     headline: '$80 Diagnostic',
     highlight: 'For your next Maryland inspection',
@@ -46,6 +30,22 @@ const offers = [
     cta: 'Book a Diagnostic',
     service: '/services/auto-repair-diagnostics/state-inspection-repairs/',
     fineprint: 'Covers the diagnostic testing. Any repair is quoted separately before work begins.',
+    active: true
+  },
+  {
+    slug: 'brake-inspection',
+    headline: 'Brake Inspection',
+    highlight: 'Pads, rotors, calipers and fluid checked',
+    icon: 'disc',
+    blurb:
+      'We pull the wheels and measure what is left — pads, rotors, calipers and fluid — and tell you exactly what you have left and how long it has.',
+    detail: [
+      'A brake inspection is not a glance through the wheel spokes. Pads wear unevenly, a caliper can be sticking on one corner only, and rotor thickness is a measurement, not an opinion.',
+      'You get told what is actually left and how long it has. If nothing needs doing yet, we say that too — an inspection that always finds work is not an inspection.'
+    ],
+    cta: 'Book a Brake Inspection',
+    service: '/services/brake-repair/',
+    fineprint: 'Any repair is quoted before work begins.',
     active: true
   },
   {

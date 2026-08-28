@@ -263,12 +263,12 @@ function offersSection() {
         .map(
           (o) => `<a href="${o.service}" data-track="offer" data-location="homepage-offers"
         class="group flex flex-col items-center text-center">
-        <div class="w-full bg-white border-2 border-gray-200 group-hover:border-ybe-red rounded-sm p-4 sm:p-5 flex items-center justify-center transition-colors">
+        <div class="w-full bg-white border-2 border-ybe-green group-hover:border-ybe-darkgreen rounded-sm p-5 sm:p-6 flex items-center justify-center transition-colors">
           ${
             o.art
               ? `<img src="${o.art}" alt="${esc(o.artAlt)}" width="560" height="560" loading="lazy"
-                   class="w-16 h-16 sm:w-20 sm:h-20 object-contain">`
-              : icon(o.icon, 40, 'text-ybe-red')
+                   class="w-28 h-28 sm:w-36 sm:h-36 object-contain">`
+              : icon(o.icon, 64, 'text-ybe-red')
           }
         </div>
         <h3 class="mt-4 font-heading text-base sm:text-xl font-bold uppercase tracking-tight text-ybe-black leading-tight group-hover:text-ybe-red transition-colors">${esc(
