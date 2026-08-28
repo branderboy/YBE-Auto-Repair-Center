@@ -878,6 +878,56 @@ ${section(
       <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(about.story)}</div>
       <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">How We Work</h2>
       <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(about.approach)}</div>
+
+      <!--
+        Element 5 — trust. Every line below is a fact the Google Business
+        Profile confirms, or a description of the process itself. Nothing here
+        asserts a certification, warranty or turnaround time, because none of
+        those are verified. Telling someone what will actually happen is worth
+        more than a badge they cannot check.
+      -->
+      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">What To Expect</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+        ${[
+          {
+            icon: 'calendar',
+            title: 'Call or text first',
+            body: `We work by appointment, so call or text ${b.phone.display} before coming in and we will tell you when to bring it.`
+          },
+          {
+            icon: 'search',
+            title: 'Diagnosis before parts',
+            body: 'We find out what failed before anything gets replaced. A code points at a circuit, not a broken part, and guessing is how people pay twice.'
+          },
+          {
+            icon: 'message-square',
+            title: 'You hear it before we do it',
+            body: 'We tell you what we found and what it takes to fix before the work starts. No repair happens that you did not agree to.'
+          },
+          {
+            icon: 'wrench',
+            title: 'One shop, most jobs',
+            body: 'Mechanical repair, diagnostics, electrical and bodywork happen in the same building, so a repair that crosses systems does not bounce you between shops.'
+          },
+          {
+            icon: 'clock',
+            title: 'Open seven days',
+            body: `${b.hours.summary}, including weekends, so getting the car looked at does not have to cost you a work day.`
+          },
+          {
+            icon: 'credit-card',
+            title: 'Pay how you like',
+            body: `We take cards, debit and tap-to-pay${b.cashOnly ? '' : ' — we are not a cash-only shop'}.`
+          }
+        ]
+          .map(
+            (t) => `<div class="bg-white border border-gray-200 rounded-sm p-6">
+          <div class="flex items-center gap-3 mb-2">${icon(t.icon, 22, 'text-ybe-red flex-shrink-0')}
+            <h3 class="font-heading text-lg font-bold uppercase tracking-wide text-ybe-black">${esc(t.title)}</h3></div>
+          <p class="text-gray-600 leading-relaxed">${esc(t.body)}</p></div>`
+          )
+          .join('')}
+      </div>
       <div class="bg-gray-50 border-l-4 border-ybe-black p-8 rounded-sm">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3">What We Do Not Claim</h2>
         <p class="text-gray-700 leading-relaxed">

@@ -17,7 +17,8 @@ const clusters = [
   { slug: 'tires-alignment', name: 'Tires and Alignment', blurb: 'Pulling, uneven wear and punctures.' },
   { slug: 'ac-cooling', name: 'A/C and Cooling', blurb: 'Warm air, overheating and coolant leaks.' },
   { slug: 'maintenance', name: 'Maintenance', blurb: 'Oil, tune-ups and keeping an older car going.' },
-  { slug: 'roadside', name: 'Roadside Problems', blurb: 'What to do when you are stuck right now.' }
+  { slug: 'roadside', name: 'Roadside Problems', blurb: 'What to do when you are stuck right now.' },
+  { slug: 'costs', name: 'Repair Costs', blurb: 'What actually drives the price of a repair, and what you control.' }
 ];
 
 const articles = [
@@ -819,6 +820,374 @@ const articles = [
     ],
     relatedService: 'flat-tire',
     relatedArticles: ['can-a-punctured-tire-be-repaired', 'jump-start-vs-battery-replacement']
+  },
+// --------------------------------------------------------------------- COSTS
+  {
+    slug: 'what-affects-brake-repair-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of a brake job?',
+    metaTitle: 'What Affects Brake Repair Cost? | YBE Auto',
+    metaDescription:
+      'What actually drives the price of a brake job: pads only versus pads and rotors, calipers, and vehicle type. From YBE Auto Repair Center in Capitol Heights, MD.',
+    shortAnswer:
+      'The single biggest factor is how far the wear went before you came in. Pads alone is the cheapest brake job there is. Pads plus rotors costs more. Once a caliper seizes or a rotor scores badly, you are paying for parts that would still have been fine a few thousand miles earlier.',
+    sections: [
+      {
+        h2: 'What you are actually paying for',
+        paras: [
+          'A brake job is not one price because it is not one repair. Front and rear are separate jobs, and each axle can need anything from pads only to pads, rotors, hardware and a caliper.',
+          'Ask any shop to tell you which of those you are getting. A quote for "brakes" that does not say what is included cannot be compared against another quote for "brakes."'
+        ],
+        list: [
+          'Pads only — the cheapest outcome, possible when rotors are still within spec',
+          'Pads and rotors — the most common brake job on a car that waited',
+          'Calipers — added when one seizes, sticks or leaks',
+          'Hardware and fluid — small parts that stop noise and uneven wear coming back'
+        ]
+      },
+      {
+        h2: 'Why waiting costs more',
+        paras: [
+          'Brake pads have friction material on a steel backing plate. When the material wears away, the backing plate contacts the rotor directly. That is the grinding sound, and by the time you hear it the rotor is usually being cut.',
+          'A pad set is the cheap part of the system. A rotor is not. Coming in when you first hear a squeal rather than a grind is often the difference between the two jobs, and it is entirely under your control.'
+        ]
+      },
+      {
+        h2: 'Vehicle differences are real',
+        paras: [
+          'A large SUV has bigger, heavier brake components than a compact sedan, and the parts cost more. Some vehicles need the electronic parking brake retracted with a scan tool before the rear pads can come out, which adds time.',
+          'Performance and some European models use different rotor materials and wear sensors that have to be replaced along with the pads. None of this is upselling — it is what the vehicle requires.'
+        ]
+      },
+      {
+        h2: 'How to compare quotes honestly',
+        paras: [
+          'Get the quote broken into front and rear, and into parts and labor. Ask whether rotors are included or resurfaced. Ask whether the price covers one axle or both. Those three questions make two quotes comparable.',
+          'A price that seems far lower than everyone else is usually quoting less work, not the same work cheaper.'
+        ]
+      }
+    ],
+    relatedService: 'brake-pad-rotor-replacement',
+    relatedArticles: ['signs-brake-pads-need-replacement', 'what-affects-alignment-cost']
+  },
+  {
+    slug: 'what-affects-transmission-repair-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of transmission repair?',
+    metaTitle: 'What Affects Transmission Repair Cost? | YBE Auto',
+    metaDescription:
+      'Why transmission prices vary so much: fluid service versus repair versus rebuild versus replacement, and what diagnosis decides. YBE Auto, Capitol Heights, MD.',
+    shortAnswer:
+      'Transmission work spans a wider price range than any other repair on a car, because "transmission problem" covers everything from a fluid service to replacing the whole unit. Which one you need is decided by diagnosis, not by the symptom, and the same symptom can point to either end of that range.',
+    sections: [
+      {
+        h2: 'Four very different jobs',
+        paras: [
+          'People hear "transmission" and assume the worst. Often it is not the worst. The four outcomes differ by an order of magnitude, and diagnosis exists to tell them apart before anyone spends money.'
+        ],
+        list: [
+          'Fluid and filter service — the cheapest outcome, and sometimes the whole fix',
+          'External repair — solenoids, sensors, wiring or a leaking seal, done without opening the case',
+          'Rebuild — the unit comes apart and worn internals are replaced',
+          'Replacement — a remanufactured or used unit goes in'
+        ]
+      },
+      {
+        h2: 'Why diagnosis comes first and is worth paying for',
+        paras: [
+          'Slipping can be low fluid. It can also be worn clutch packs. Those two have nothing in common in cost, and no one can tell which by hearing the symptom described over the phone.',
+          'A shop that quotes a rebuild before diagnosing is guessing, and the guess is always expensive. Paying for diagnosis is how you avoid paying for a rebuild you did not need.'
+        ]
+      },
+      {
+        h2: 'Rebuild or replace',
+        paras: [
+          'When internals are worn, the choice is rebuilding your unit or fitting a remanufactured one. Rebuilding keeps your original unit and can cost less on common vehicles. A remanufactured unit is often faster and comes with a parts warranty from the remanufacturer.',
+          'The right answer depends on the vehicle, its mileage and how long you plan to keep it. A car with a tired engine and rust is a different decision from a clean car you intend to drive for another five years.'
+        ]
+      },
+      {
+        h2: 'The part you control',
+        paras: [
+          'Transmission fluid is not lifetime fluid, whatever the marketing says. Heat breaks it down, and stop-and-go driving in traffic is the hardest kind on it.',
+          'Servicing fluid on schedule is the cheapest transmission work there is, and it is the only stage where you are choosing the price rather than being handed it.'
+        ]
+      }
+    ],
+    relatedService: 'transmission-repair',
+    relatedArticles: ['signs-of-a-failing-transmission', 'transmission-repair-rebuild-or-replace']
+  },
+  {
+    slug: 'what-affects-ac-repair-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of car A/C repair?',
+    metaTitle: 'What Affects Car A/C Repair Cost? | YBE Auto',
+    metaDescription:
+      'Why A/C repair prices vary: a recharge versus finding the leak, compressor replacement, and refrigerant type. YBE Auto Repair Center, Capitol Heights, MD.',
+    shortAnswer:
+      'A/C is a sealed system, so if it is low on refrigerant there is a leak somewhere. The cost depends almost entirely on where that leak is. A leaking O-ring is a small job. A leaking evaporator sits behind the dashboard and is one of the most labor-intensive repairs on the car.',
+    sections: [
+      {
+        h2: 'A recharge is not a repair',
+        paras: [
+          'A can of refrigerant from a parts store will blow cold for a while. It is not a fix, because the refrigerant that leaked out will leak out again, and the additives in those cans can contaminate the system and complicate the real repair later.',
+          'The question worth paying to answer is where the refrigerant is going. That is what leak detection does, and it is what turns an unknown bill into a known one.'
+        ]
+      },
+      {
+        h2: 'Location decides the price',
+        paras: [
+          'Everything in an A/C system carries the same refrigerant, but the parts are not equally easy to reach. This is the whole reason two cars with identical symptoms get very different quotes.'
+        ],
+        list: [
+          'O-rings and hose fittings — accessible, and the least expensive leaks to fix',
+          'Condenser — in front of the radiator, exposed to road debris, moderate labor',
+          'Compressor — driven by the belt, more parts and more labor',
+          'Evaporator — behind the dash, often requiring dash removal, the most expensive by far'
+        ]
+      },
+      {
+        h2: 'Refrigerant type matters more than it used to',
+        paras: [
+          'Older vehicles use R-134a. Most newer vehicles use R-1234yf, which costs substantially more per pound and needs separate equipment.',
+          'This is why the same repair on a newer car can cost noticeably more than on an older one, even when the labor is identical. It is worth knowing which your vehicle takes before comparing prices.'
+        ]
+      },
+      {
+        h2: 'When a compressor fails, it is rarely alone',
+        paras: [
+          'A compressor that fails internally sends metal debris through the system. Replacing only the compressor puts a new part into a contaminated system, and it will fail again.',
+          'A correct job replaces the compressor along with the receiver-drier or accumulator and flushes the lines. A quote that covers only the compressor is cheaper because it is doing less, not because it is a better deal.'
+        ]
+      }
+    ],
+    relatedService: 'ac-repair',
+    relatedArticles: ['why-is-my-car-ac-blowing-warm', 'what-affects-diagnostic-cost']
+  },
+  {
+    slug: 'what-affects-diagnostic-cost',
+    cluster: 'costs',
+    title: 'Why do shops charge for diagnostics?',
+    metaTitle: 'Why Do Shops Charge For Diagnostics? | YBE Auto',
+    metaDescription:
+      'What a paid diagnosis buys that a free code read does not, and why it usually saves money. YBE Auto Repair Center in Capitol Heights, MD.',
+    shortAnswer:
+      'A free code read at a parts counter tells you which circuit reported a fault. A paid diagnosis tells you which part actually failed. Those are different answers, and the gap between them is the reason people replace sensors that were working fine.',
+    sections: [
+      {
+        h2: 'What the free scan actually gives you',
+        paras: [
+          'A parts store scan pulls the stored code and hands you the description. That description names a circuit or a symptom — not a broken component.',
+          'A code pointing at an oxygen sensor means readings from that circuit are out of range. That can be the sensor, a vacuum leak, an exhaust leak, wiring, or an engine genuinely running rich. Five causes, one code, wildly different repairs.'
+        ]
+      },
+      {
+        h2: 'What you are paying a technician to do',
+        paras: [
+          'Diagnostic time is testing, not reading. It is the difference between a guess and a decision, and it is the only part of the process that prevents you buying parts you did not need.'
+        ],
+        list: [
+          'Reading freeze-frame data to see what the engine was doing when the fault set',
+          'Testing the circuit itself — voltage, ground, signal — rather than assuming',
+          'Checking for related faults that share one root cause',
+          'Confirming the diagnosis before any part is ordered'
+        ]
+      },
+      {
+        h2: 'The arithmetic',
+        paras: [
+          'Replacing a sensor on a guess costs the part plus the labor to fit it. If the guess is wrong, that money is gone and the fault is still there — and the next guess starts from the same place.',
+          'Paying once to know is almost always cheaper than paying twice to guess. On an intermittent fault, it is not close.'
+        ]
+      },
+      {
+        h2: 'Ask what happens to the fee',
+        paras: [
+          'Practice varies between shops, so ask directly: is the diagnostic fee applied toward the repair if you go ahead? Is there a set amount of time included, and what happens if the fault turns out to be deeper than that?',
+          'Those are fair questions and any shop should answer them plainly before starting work.'
+        ]
+      }
+    ],
+    relatedService: 'check-engine-light-diagnostics',
+    relatedArticles: ['why-is-my-check-engine-light-on', 'what-affects-transmission-repair-cost']
+  },
+  {
+    slug: 'what-affects-oil-change-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of an oil change?',
+    metaTitle: 'What Affects Oil Change Cost? | YBE Auto',
+    metaDescription:
+      'Why oil change prices differ: conventional versus synthetic, capacity, filter type and what the vehicle actually requires. YBE Auto, Capitol Heights, MD.',
+    shortAnswer:
+      'Oil type and capacity account for most of the difference. Full synthetic costs more than conventional, and an engine holding eight quarts costs more to fill than one holding four. Neither is optional — the manufacturer specifies both, and using the cheaper oil in an engine that requires synthetic is a false economy.',
+    sections: [
+      {
+        h2: 'The oil itself is most of the difference',
+        paras: [
+          'Conventional, synthetic blend and full synthetic differ in price per quart, and many modern engines require full synthetic. That is not a preference, it is a specification — turbocharged engines in particular run hot enough that conventional oil breaks down.',
+          'Using the wrong grade to save money risks the engine, which makes it the most expensive way to save on an oil change.'
+        ]
+      },
+      {
+        h2: 'Capacity and filter',
+        paras: [
+          'A four-cylinder sedan might hold four and a half quarts. A V8 truck can hold eight or more. That difference alone is most of the price gap between two otherwise identical services.',
+          'Filters vary too. Some are simple spin-on canisters; others are cartridge filters in housings that take longer to reach.'
+        ]
+      },
+      {
+        h2: 'What should be included',
+        paras: [
+          'An oil change is the one time a technician is under your car on a schedule. A shop that only drains and fills is wasting the most useful part of the visit.'
+        ],
+        list: [
+          'A new filter every time, not every other time',
+          'A check of the other fluid levels',
+          'A look at tire condition and pressure',
+          'A note of anything visibly wearing, so nothing surprises you later'
+        ]
+      },
+      {
+        h2: 'Interval matters more than price',
+        paras: [
+          'Chasing the cheapest possible oil change while stretching the interval is the wrong trade. Oil that has broken down does not protect the engine regardless of what you paid for it.',
+          'Short trips and stop-and-go traffic are harder on oil than highway miles, which is exactly the driving most people do around Capitol Heights.'
+        ]
+      }
+    ],
+    relatedService: 'oil-change',
+    relatedArticles: ['how-often-should-you-change-your-oil', 'what-affects-alignment-cost']
+  },
+  {
+    slug: 'what-affects-alignment-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of a wheel alignment?',
+    metaTitle: 'What Affects Wheel Alignment Cost? | YBE Auto',
+    metaDescription:
+      'Two-wheel versus four-wheel alignment, worn parts that must be replaced first, and why alignment saves tire money. YBE Auto, Capitol Heights, MD.',
+    shortAnswer:
+      'A straightforward alignment is a set procedure at a set price. It goes up when the suspension has worn parts that must be replaced first, because you cannot hold an alignment on worn ball joints or tie rods — the adjustment will not stay where it was set.',
+    sections: [
+      {
+        h2: 'Two-wheel or four-wheel',
+        paras: [
+          'A front-end alignment adjusts the front wheels only. A four-wheel alignment squares all four to the vehicle centerline and is what most modern cars with independent rear suspension need.',
+          'The four-wheel version costs more because it is more work. On a vehicle that requires it, the two-wheel version is not a cheaper alternative — it is an incomplete job.'
+        ]
+      },
+      {
+        h2: 'Worn parts have to come first',
+        paras: [
+          'Alignment sets angles. If a tie rod end or ball joint is worn, those angles move as you drive and the alignment will not hold.',
+          'A shop that finds worn steering or suspension parts should tell you before aligning, not after. Aligning a car with a worn tie rod means charging for work that will not last, and any honest shop will say so up front.'
+        ]
+      },
+      {
+        h2: 'What it saves you',
+        paras: [
+          'A car out of alignment scrubs tread off the tires every mile. A set of tires ruined early costs far more than the alignment that would have prevented it.',
+          'The roads around Capitol Heights and the Beltway are hard on alignment — potholes and rough pavement knock it out, and the first sign is usually uneven wear on one edge of a front tire.'
+        ],
+        list: [
+          'Pulling to one side on a flat road',
+          'Steering wheel off-center when driving straight',
+          'Wear on only the inner or outer edge of a tire',
+          'A new set of tires — always align when fitting them'
+        ]
+      }
+    ],
+    relatedService: 'wheel-alignment',
+    relatedArticles: ['why-does-my-car-pull-to-one-side', 'what-affects-brake-repair-cost']
+  },
+  {
+    slug: 'what-affects-battery-alternator-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of battery and alternator work?',
+    metaTitle: 'What Affects Battery And Alternator Cost? | YBE Auto',
+    metaDescription:
+      'Why battery and charging-system prices vary: battery type, registration on modern cars, and telling a battery fault from an alternator fault. YBE Auto, Capitol Heights, MD.',
+    shortAnswer:
+      'Testing first is what controls the cost. A battery and an alternator produce nearly identical symptoms, and replacing the wrong one means paying twice and still being stranded. Battery prices themselves vary by type, and many newer cars require the new battery to be registered to the charging system.',
+    sections: [
+      {
+        h2: 'Same symptom, two very different parts',
+        paras: [
+          'A weak crank, dim lights and a no-start can come from a dying battery or a failing alternator. Guessing between them is a coin flip on a bill.',
+          'A charging-system test settles it in minutes: it checks whether the battery holds a charge and whether the alternator is actually producing one. That test is the cheapest step in the whole process.'
+        ]
+      },
+      {
+        h2: 'Not all batteries are the same price',
+        paras: [
+          'Conventional flooded batteries cost the least. Vehicles with engine stop-start systems usually require AGM batteries, which cost more and are not optional — a standard battery in a stop-start car fails early.',
+          'Group size, cold-cranking amps and where the battery physically sits all vary. Some are under a seat or in the trunk, which adds labor.'
+        ]
+      },
+      {
+        h2: 'Battery registration on newer cars',
+        paras: [
+          'Many recent vehicles monitor battery age and adjust charging to suit. Fitting a new battery without registering it to the system means the car keeps charging as if the battery were old, which shortens the new one’s life.',
+          'It is a quick step with the right scan tool, and skipping it is a common reason a new battery does not last as long as it should.'
+        ]
+      },
+      {
+        h2: 'When the alternator is the answer',
+        paras: [
+          'An alternator that is not charging will kill a brand-new battery within days. If your battery was replaced recently and the car is dead again, the charging system is the place to look.',
+          'Warning signs include a battery light on the dash, headlights that dim at idle and brighten when you rev, and electrical accessories behaving strangely.'
+        ]
+      }
+    ],
+    relatedService: 'battery-alternator-starter',
+    relatedArticles: ['jump-start-vs-battery-replacement', 'what-affects-diagnostic-cost']
+  },
+  {
+    slug: 'what-affects-body-repair-cost',
+    cluster: 'costs',
+    title: 'What affects the cost of auto body repair?',
+    metaTitle: 'What Affects Auto Body Repair Cost? | YBE Auto',
+    metaDescription:
+      'What drives collision and dent repair pricing: panel damage, paint blending, and repair versus replace. YBE Auto Repair Center, Capitol Heights, MD.',
+    shortAnswer:
+      'Two things drive body repair pricing: whether the panel can be repaired or has to be replaced, and how much paint work the color match requires. A dent in the middle of a door panel is a very different job from the same dent on a body line or an edge.',
+    sections: [
+      {
+        h2: 'Repair or replace the panel',
+        paras: [
+          'A shallow dent in flat sheet metal with the paint intact can often be worked out. Once the metal is stretched, creased along a body line, or the paint is broken, the calculation changes.',
+          'Sometimes replacing a panel is genuinely cheaper than the hours it would take to bring the original back correctly. A shop should tell you which it is and why.'
+        ]
+      },
+      {
+        h2: 'Paint is usually the bigger half',
+        paras: [
+          'Matching automotive paint is not simply ordering your color code. Paint fades with sun exposure, so a factory-code match on a ten-year-old car will not match the panels beside it.',
+          'This is why painters blend into adjacent panels — so the eye never catches an edge. Blending costs more than spraying one panel, and it is the difference between a repair you cannot see and one you can spot from across a parking lot.'
+        ],
+        list: [
+          'Metallic and pearl finishes are harder to match than solid colors',
+          'Three-stage paints add a step and cost more',
+          'Sun-faded paint means blending into neighbouring panels',
+          'Edge-to-edge spraying is cheaper and shows'
+        ]
+      },
+      {
+        h2: 'What is behind the panel',
+        paras: [
+          'Visible damage is only the estimate’s starting point. Impacts push into what sits behind the panel — brackets, mounts, sensors and wiring — and none of that shows in a photo.',
+          'Modern bumpers in particular carry parking sensors and cameras that may need replacing and recalibrating. A quote given from a photograph is a guess until the panel comes off.'
+        ]
+      },
+      {
+        h2: 'Questions worth asking',
+        paras: [
+          'Ask whether the quote assumes repair or replacement, whether paint will be blended into adjacent panels, and what happens if hidden damage turns up once the panel is off.',
+          'A shop that has already thought about the third question will tell you how they handle it rather than being surprised by it.'
+        ]
+      }
+    ],
+    relatedService: 'collision-body-repair',
+    relatedArticles: ['what-affects-brake-repair-cost', 'what-affects-ac-repair-cost']
   }
 ];
 
