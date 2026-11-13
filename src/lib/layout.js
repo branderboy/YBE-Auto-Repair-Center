@@ -260,7 +260,7 @@ function mobileActionBar() {
     <a href="${b.phone.href}" data-track="call" data-location="mobile-bar"
        class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
       ${icon('phone-call', 22, 'mb-1 text-ybe-red')}
-      <span class="font-heading uppercase text-sm tracking-wider font-semibold">Call Now</span></a>
+      <span class="font-heading text-sm tracking-wide font-semibold whitespace-nowrap">${esc(b.phone.display)}</span></a>
     <a href="${b.sms.href}" data-track="text" data-location="mobile-bar"
        class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
       ${icon('message-square', 22, 'mb-1 text-white')}

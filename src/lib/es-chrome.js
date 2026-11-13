@@ -121,7 +121,7 @@ function mobileBar() {
     `<a href="${href}" ${extra} data-track="${track}" data-location="mobile-bar-es" class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700 last:border-r-0">
       ${icon(ic, 22, `mb-1 ${color}`)}<span class="font-heading uppercase text-sm tracking-wider font-semibold">${label}</span></a>`;
   return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
-    ${item(b.phone.href, 'call', 'phone-call', 'text-ybe-red', 'Llamar')}
+    ${item(b.phone.href, 'call', 'phone-call', 'text-ybe-red', esc(b.phone.display))}
     ${item(b.sms.href, 'text', 'message-square', 'text-white', 'Mensaje')}
     ${item(b.maps.directionsUrl, 'directions', 'map-pin', 'text-ybe-red', 'Cómo llegar', 'target="_blank" rel="noopener noreferrer"')}
   </div>`;
