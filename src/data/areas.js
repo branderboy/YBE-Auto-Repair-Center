@@ -125,12 +125,14 @@ const areas = [
     roads: ['Landover Road (MD-202)', 'Sheriff Road', 'Martin Luther King Jr. Highway (MD-704)', 'the Capital Beltway (I-495)'],
     landmarkNote:
       'From the Landover Road corridor, the shop is a short trip south toward Central Avenue.',
+    // Search Console, 2026-11-13: number 3 page, searched as general
+    // "mechanic" and "auto repair", so general repair leads the list.
     priorityServices: [
-      'cooling-system-overheating',
-      'tire-repair-replacement',
-      'wheel-alignment',
+      'check-engine-light-diagnostics',
+      'brake-pad-rotor-replacement',
+      'engine-repair',
       'transmission-repair',
-      'brake-noise-vibration',
+      'cooling-system-overheating',
       'collision-body-repair'
     ],
     roadsideNote:
@@ -370,13 +372,15 @@ const areas = [
     roads: ['Pennsylvania Avenue (MD-4)', 'Crain Highway (US-301)', 'Old Marlboro Pike', 'Water Street'],
     landmarkNote:
       'From Upper Marlboro, the shop is northwest along Route 4 toward Capitol Heights.',
+    // Search Console, 2026-11-13: number 2 page ("upper marlboro mechanic",
+    // "upper marlboro auto repair"), so general repair leads the list.
     priorityServices: [
-      'shocks-struts-steering',
-      'wheel-alignment',
-      'tire-repair-replacement',
+      'check-engine-light-diagnostics',
+      'brake-pad-rotor-replacement',
+      'engine-repair',
       'transmission-repair',
-      'cooling-system-overheating',
-      'brake-pad-rotor-replacement'
+      'shocks-struts-steering',
+      'wheel-alignment'
     ],
     roadsideNote:
       'Upper Marlboro sits toward the edge of our roadside range. Call and describe your location, and we will tell you straight whether we can reach you promptly.'

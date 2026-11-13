@@ -1,0 +1,83 @@
+{
+  "site": "pgcountyautorepair.com",
+  "source": "Google Search Console, GSC Insights tab of ybe-auto-seo-and-gmb-research-2026-11-13_1.xlsx (viewed 2026-11-13)",
+  "range": "Last 3 months, Aug 27 to Nov 10, 2026, unless noted",
+  "rule": "One query per page. The page's title, description and H1 are generated from its query by src/lib/search-meta.js. `fixes` is the page's own short list of what it fixes, used inside the description template.",
+  "pages": {
+    "/": {
+      "query": "mechanic near me",
+      "impressions": 114,
+      "clicks": 0,
+      "also": "auto repair near me",
+      "fixes": "Diagnostics, brakes, transmissions, A/C, bodywork and roadside help from a Black-owned shop since 2006"
+    },
+    "/services/auto-body-glass/dent-scratch-paint/": {
+      "query": "car paint scratch repair near me",
+      "impressions": 170,
+      "clicks": 0,
+      "fixes": "YBE repairs scratches, dents and door dings and refinishes the panel to match"
+    },
+    "/services/auto-repair-diagnostics/oil-change/": {
+      "query": "oil change near me",
+      "impressions": 169,
+      "clicks": 0,
+      "fixes": "Oil and filter change with an under-car check, walk-ins welcome"
+    },
+    "/services/auto-ac-heating/ac-repair/": {
+      "query": "auto ac repair near me",
+      "impressions": 164,
+      "clicks": 0,
+      "fixes": "YBE finds the leak or failed part instead of just recharging it"
+    },
+    "/services/electrical/battery-alternator-starter/": {
+      "query": "alternator repair washington dc",
+      "impressions": 134,
+      "clicks": 0,
+      "fixes": "YBE tests the charging system, then repairs the alternator, battery or starter"
+    },
+    "/services/auto-repair-diagnostics/tune-ups-maintenance/": {
+      "query": "tune up washington dc",
+      "impressions": 101,
+      "clicks": 0,
+      "fixes": "Plugs, filters, fluids and scheduled maintenance for daily drivers"
+    },
+    "/services/transmission/transmission-replacement-rebuild/": {
+      "query": "transmission replacement capitol heights md",
+      "impressions": 73,
+      "clicks": 0,
+      "fixes": "Replacement or rebuild, with a straight answer on cost versus the car's value"
+    },
+    "/services/auto-repair-diagnostics/engine-repair/": {
+      "query": "engine repair capitol heights md",
+      "impressions": 73,
+      "clicks": 0,
+      "fixes": "Knocking, misfires, oil leaks and lost power diagnosed and repaired"
+    },
+    "/services/brake-repair/brake-fluid-calipers/": {
+      "query": "brake fluid flush washington dc",
+      "impressions": 52,
+      "clicks": 0,
+      "range": "Last 28 days",
+      "fixes": "Brake fluid flush, sticking calipers and brake warning lights fixed"
+    },
+    "/service-areas/upper-marlboro-md/": {
+      "query": "upper marlboro mechanic",
+      "impressions": 78,
+      "clicks": 0,
+      "also": "upper marlboro auto repair",
+      "note": "Number 2 page on the site: 812 impressions in 3 months, 0 clicks."
+    },
+    "/service-areas/landover-md/": {
+      "query": null,
+      "impressions": null,
+      "clicks": null,
+      "note": "No Landover query in the export. Number 3 page on the site: 669 impressions in 3 months, 1 click. Uses the area template in the standard search form."
+    },
+    "/service-areas/forestville-md/": {
+      "query": null,
+      "impressions": null,
+      "clicks": null,
+      "note": "No Forestville query in the export. Number 8 page: 236 impressions in 3 months, 0 clicks. Uses the area template in the standard search form."
+    }
+  }
+}

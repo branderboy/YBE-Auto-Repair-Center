@@ -13,6 +13,11 @@ const T = require('./templates.js');
 const { layout } = require('./layout.js');
 const { icon, esc } = { icon: require('./icons.js').icon, esc: require('./blocks.js').esc };
 const K = require('./blocks.js');
+const SM = require('./search-meta.js');
+/** Keyword H1 (Core 5): generated from Search Console when the page has a query, else the title's search phrase. */
+const kwH1 = (path, title, ctx) => { const g = SM.metaFor(path, ctx); return g ? g.h1 : SM.h1For(path, title); };
+const kwTitle = (path, rec, ctx) => { const g = SM.metaFor(path, ctx); return g ? { title: g.title, description: g.description } : { title: rec.metaTitle, description: rec.metaDescription }; };
+const h1Html = (h1) => SM.accentH1(h1, esc);
 const { faqAccordion, faqSchema, serviceSchema } = T;
 
 const { categories, allServices, roadsideHub, areas, primaryArea, articles, clusters } =
@@ -186,7 +191,7 @@ function renderServicesHub() {
   const body = `
 ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: `Comprehensive <span class="text-ybe-red">Auto Services</span>`,
+  titleHtml: h1Html('Auto Repair Services in Capitol Heights, MD'),
   sub: 'From minor maintenance to major mechanical and body repairs, our Capitol Heights shop handles it all.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
@@ -258,7 +263,7 @@ function renderCategoryHub(cat) {
   const body = `
 ${K.heroBlock({
   eyebrow: `${cat.title} · ${primaryArea.label}`,
-  titleHtml: esc(cat.title),
+  titleHtml: h1Html(kwH1(cat.url, cat.metaTitle)),
   sub: cat.blurb,
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
@@ -304,8 +309,7 @@ ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: `Need ${esc(cat.navLabel)}?` })}`;
 
   return layout({
-    title: cat.metaTitle,
-    description: cat.metaDescription,
+    ...kwTitle(cat.url, cat),
     path: cat.url,
     crumbs,
     schema: [serviceSchema({ name: cat.title, description: cat.metaDescription, url: cat.url, areaNames })],
@@ -324,8 +328,8 @@ function renderServicePage(svc, cat) {
 
   const body = `
 ${K.heroBlock({
-  eyebrow: `${cat.title} · ${primaryArea.label}`,
-  titleHtml: esc(svc.title),
+  eyebrow: `${cat.title} · ${svc.title}`,
+  titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : cat.blurb,
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
@@ -409,8 +413,7 @@ ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: `Need ${esc(svc.navLabel || svc.title)}?` })}`;
 
   return layout({
-    title: svc.metaTitle,
-    description: svc.metaDescription,
+    ...kwTitle(svc.url, svc),
     path: svc.url,
     crumbs,
     schema: [serviceSchema({ name: svc.title, description: svc.metaDescription, url: svc.url, areaNames })],
@@ -431,7 +434,7 @@ function renderRoadsideHub() {
   const body = `
 ${K.heroBlock({
   eyebrow: `Mobile Help · ${primaryArea.label}`,
-  titleHtml: `Roadside <span class="text-ybe-red">Assistance</span>`,
+  titleHtml: h1Html(kwH1(roadsideHub.url, roadsideHub.metaTitle)),
   sub: 'Stuck right now? Calling is faster than any form on this page.',
   ctaLabel: 'Call For Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
@@ -487,7 +490,7 @@ function renderRoadsidePage(svc) {
   const body = `
 ${K.heroBlock({
   eyebrow: `${svc.calm ? 'Mobile Service' : 'Roadside Assistance'} · ${primaryArea.label}`,
-  titleHtml: esc(svc.title),
+  titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : '',
   ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Roadside Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
@@ -563,8 +566,7 @@ ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: svc.calm ? 'Call For An Offer' : 'Stuck? Call The Shop.' })}`;
 
   return layout({
-    title: svc.metaTitle,
-    description: svc.metaDescription,
+    ...kwTitle(svc.url, svc),
     path: svc.url,
     crumbs,
     schema: [serviceSchema({ name: svc.title, description: svc.metaDescription, url: svc.url, areaNames })],
@@ -582,7 +584,7 @@ function renderAreasHub() {
   const body = `
 ${K.heroBlock({
   eyebrow: `Based in ${primaryArea.label}`,
-  titleHtml: `Service <span class="text-ybe-red">Areas</span>`,
+  titleHtml: h1Html('Auto Repair Service Areas Near Capitol Heights, MD'),
   sub: 'The Maryland and DC communities we genuinely serve — not a list of every city within fifty miles.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -637,6 +639,15 @@ ${K.contactBlock({ heading: 'Bring It To The Shop' })}`;
 function renderAreaPage(area) {
   const crumbs = [HOME, { label: 'Service Areas', url: '/service-areas/' }, { label: area.label, url: area.url }];
   const svcs = (area.priorityServices || []).map(lookup).filter(Boolean);
+  // Short names for the generated area description (src/lib/search-meta.js).
+  const SHORT = {
+    'check-engine-light-diagnostics': 'diagnostics', 'brake-pad-rotor-replacement': 'brakes', 'brake-noise-vibration': 'brakes',
+    'engine-repair': 'engine repair', 'transmission-repair': 'transmissions', 'shocks-struts-steering': 'suspension',
+    'wheel-alignment': 'alignment', 'tire-repair-replacement': 'tires', 'cooling-system-overheating': 'overheating',
+    'ac-repair': 'A/C', 'collision-body-repair': 'bodywork', 'dent-scratch-paint': 'bodywork', 'oil-change': 'oil changes',
+    'battery-alternator-starter': 'batteries and alternators'
+  };
+  area.priorityServiceNames = [...new Set(svcs.map((s) => SHORT[s.slug] || s.title.toLowerCase()))];
   const cards = svcs.map((s) => ({
     title: s.title,
     text: s.customerVoice ? `“${s.customerVoice}”` : '',
@@ -647,9 +658,10 @@ function renderAreaPage(area) {
   const body = `
 ${K.heroBlock({
   eyebrow: `${area.isPrimary ? 'Our Location' : 'Service Area'} · ${esc(area.relationship)}`,
-  titleHtml: area.isPrimary
-    ? `Auto Repair Shop in <span class="text-ybe-red">${esc(area.name)}, ${esc(area.state)}</span>`
-    : `Auto Repair for <span class="text-ybe-red">${esc(area.name)}, ${esc(area.state)}</span>`,
+  titleHtml: (() => {
+    const h = area.isPrimary ? `Auto Repair Shop in ${area.label}` : kwH1(area.url, area.metaTitle, { area });
+    return / (in|Near|for) /.test(h) ? h1Html(h) : `<span class="text-ybe-red">${esc(area.label)}</span> ${esc(h.slice(area.label.length + 1))}`;
+  })(),
   sub: area.intro[0],
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -739,8 +751,7 @@ ${K.mapAreasBlock({ activeSlug: area.slug })}
 ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
   return layout({
-    title: area.metaTitle,
-    description: area.metaDescription,
+    ...kwTitle(area.url, area, { area }),
     path: area.url,
     crumbs,
     schema: [
@@ -1080,7 +1091,7 @@ function renderAbout() {
   const body = `
 ${K.heroBlock({
   eyebrow: `Since ${b.openedYear} · ${primaryArea.label}`,
-  titleHtml: `About <span class="text-ybe-red">YBE Auto Repair</span>`,
+  titleHtml: h1Html('About YBE Auto Repair Center in Capitol Heights, MD'),
   sub: `A Black-owned, independent auto repair shop in ${primaryArea.label}, open seven days a week since ${b.openedYear}.`,
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -1208,7 +1219,7 @@ function renderReviews() {
   const body = `
 ${K.heroBlock({
   eyebrow: `${b.rating.count} Google Reviews`,
-  titleHtml: `Rated <span class="text-ybe-red">${b.rating.value}</span> on Google`,
+  titleHtml: `YBE Auto Repair Center <span class="text-ybe-red">Reviews</span>`,
   sub: 'What customers mention most, drawn from our Google reviews.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Read on Google', href: b.rating.profileUrl, icon: 'external-link', track: 'reviews' }
@@ -1227,6 +1238,18 @@ ${section(
         )
         .join('')}
     </div>`
+)}
+
+${section(
+  `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red flex flex-col md:flex-row md:items-center gap-6 justify-between">
+    <div>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Been To YBE? Leave A Review</h2>
+      <p class="text-gray-300 leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
+    </div>
+    <a href="${b.rating.listingUrl}" target="_blank" rel="noopener noreferrer" data-track="review" data-location="reviews-page"
+       class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
+      ${icon('star', 24)} Review On Google</a>
+  </div>`
 )}
 
 ${K.reviewsBlock(quotes.map((q) => ({ title: 'Google Review', text: q.text })), {
@@ -1261,7 +1284,7 @@ function renderContact() {
   const body = `
 ${K.heroBlock({
   eyebrow: `Open ${esc(b.hours.summary)}`,
-  titleHtml: `Contact and <span class="text-ybe-red">Directions</span>`,
+  titleHtml: h1Html('Contact and Directions in Capitol Heights, MD'),
   sub: b.address.oneLine,
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -1391,7 +1414,7 @@ function renderAppointment() {
   const body = `
 ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: `Request an <span class="text-ybe-red">Appointment</span>`,
+  titleHtml: h1Html('Request an Auto Repair Appointment in Capitol Heights, MD'),
   sub: 'Tell us about your vehicle and what it is doing. We will get back to you to confirm a time.',
   ctaLabel: 'Call Instead',
   secondary: { label: 'Book on Square', href: b.booking.href, icon: 'external-link', track: 'appointment' }
@@ -1477,7 +1500,7 @@ function renderFaq() {
   const body = `
 ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: `Frequently Asked <span class="text-ybe-red">Questions</span>`,
+  titleHtml: h1Html('Auto Repair Questions for Capitol Heights, MD'),
   sub: 'Hours, walk-ins, roadside assistance, towing, and what we do and do not offer.',
   ctaLabel: 'Call The Shop',
   secondary: { label: 'Contact Us', href: '/contact/', icon: 'map-pin' }

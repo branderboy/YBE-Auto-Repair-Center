@@ -240,6 +240,12 @@ const roadsideServices = [
     description:
       'Select roadside automotive repairs for minor mechanical or electrical issues that can safely be completed on-site.',
     page: '/roadside-assistance/roadside-mobile-repairs/'
+  },
+  {
+    // Added per the owner's Google profile plan, 2026-11-13.
+    name: 'Junk Car Pickup',
+    description: 'Cash paid for junk cars, picked up running or not.',
+    page: '/roadside-assistance/junk-car-pickup/'
   }
 ];
 

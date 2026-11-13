@@ -44,8 +44,15 @@ const business = {
    * schema `description` so the listing and the site say the same thing rather
    * than two paraphrases of it.
    */
+  /*
+   * Updated 2026-11-13 to the owner's Google profile plan
+   * (ybe-auto-google-profile-optimization-2026-11-13.md, "paste in full").
+   */
   gmbDescription:
-    'YBE Auto Repair Center is a Black-owned auto repair shop serving Capitol Heights, MD, and nearby communities including Washington, DC, Bowie, Hyattsville, Landover, and Upper Marlboro. Since 2006, our experienced mechanics have provided reliable automotive repair and maintenance for domestic vehicles and select luxury brands. Our services include check-engine-light diagnostics, engine repair, brake repair, oil changes, transmission service, suspension and steering repair, wheel alignments, tire services, A/C and heating repair, electrical diagnostics, battery replacement, cooling-system repair, exhaust repair, and timing belt or timing chain service. We also offer auto bodywork services. Call, text, or request an appointment with YBE Auto.',
+    'YBE Auto Repair Center is a Black-owned auto repair shop in Capitol Heights, MD, serving the community since 2006. Bring your car to the shop at 8632 Edgeworth Dr, or get roadside help where you sit. ' +
+    'Shop services: auto repair and diagnostics, check engine light diagnosis, brake repair, transmission service, electrical and starting problems, batteries, alternators and starters, tires, wheel alignment and suspension, AC and heating, auto body and paint, oil changes and tune-ups. ' +
+    'Roadside assistance in Capitol Heights and nearby communities: jump starts, mobile battery replacement, car lockouts, flat tire help, and fuel delivery. YBE provides roadside assistance, not towing. ' +
+    'Open seven days a week, 8:30 AM to 6:00 PM. Walk-ins welcome. Call or text (202) 455-3822, or message us on WhatsApp.',
 
   vehiclesServed: 'Domestic vehicles and select luxury brands',
 
@@ -56,13 +63,14 @@ const business = {
 
   // --- Google Business Profile categories ---
   primaryCategory: 'Auto repair shop',
+  // Owner's Google profile plan, 2026-11-13: the categories to carry on the profile.
   additionalCategories: [
     'Brake shop',
-    'Auto body shop',
     'Transmission shop',
-    'Oil change service',
     'Auto electrical service',
-    'Wheel alignment service',
+    'Tire shop',
+    'Auto body shop',
+    'Oil change service',
     'Auto air conditioning service'
   ],
 
@@ -117,6 +125,13 @@ const business = {
   rating: {
     value: '4.8',
     count: 29,
+    /*
+     * The Google listing itself, where a customer can leave a review. The CID
+     * is the listing ID inside maps.embedUrl below (0x2b9c4391cd42e4e4).
+     * The profile plan (2026-11-13) puts reviews as the biggest gap: 29 against
+     * 538 at the roadside competitor in the same town.
+     */
+    listingUrl: 'https://maps.google.com/?cid=3142460933490795748',
     profileUrl:
       'https://www.google.com/search?q=YBE+Auto+Repair+Center+8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743'
   },

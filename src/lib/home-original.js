@@ -30,6 +30,7 @@ const { activeOffers } = require('../data/offers.js');
 const b = require('../data/business.js');
 const { categories, roadsideHub, primaryArea } = require('../data/pillars.js');
 const { faqs } = require('../data/trust.js');
+const SM = require('./search-meta.js');
 
 const SOURCE = path.join(__dirname, '..', '..', 'ybe_auto_repair_center.html');
 
@@ -137,6 +138,17 @@ function renderHomeOriginal() {
 
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
+    /*
+     * Core 5 hero rule: the H1 is the page's search phrase, from Search
+     * Console ("mechanic near me", "auto repair near me"). The original
+     * slogan stays, set smaller directly above it.
+     */
+    .replace(
+      /(<h1 [^>]*>)\s*Auto Repair That <span>Gets You Back<\/span> on the Road\s*<\/h1>/,
+      (m, open) =>
+        `<p class="font-heading text-sm sm:text-lg md:text-xl font-bold uppercase tracking-widest text-white/90 mb-1 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">Auto Repair That Gets You Back on the Road</p>\n` +
+        `${open}${SM.accentH1(SM.metaFor('/').h1, (x) => x)}</h1>`
+    )
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
     .replace(/<a href="https:\/\/wa\.me\/12024553822"/g, '<a data-track="whatsapp" data-location="homepage" href="https://wa.me/12024553822"')
     .replace(/<a href="https:\/\/maps\.google\.com/g, '<a data-track="directions" data-location="homepage" href="https://maps.google.com');
@@ -148,14 +160,15 @@ function renderHomeOriginal() {
      * leads here now — "auto repair" still follows it, so nothing is traded
      * away for it.
      */
-    title: `Mechanic in ${primaryArea.label} | ${b.name}`,
+    title: SM.metaFor('/').title,
     /*
      * Mirrors how the Google Business Profile positions the shop: Black-owned,
      * open since 2006, seven days. Those are the facts that separate this
      * listing from the other repair shops in the pack, and a description that
      * only lists services throws them away.
      */
-    description: `Black-owned mechanic in ${primaryArea.label}, open seven days since ${b.openedYear}. Diagnostics, brakes, transmissions, A/C, bodywork and roadside help. Call ${b.phone.display}.`,
+    // Generated from the page's Search Console query (src/data/search-queries.json).
+    description: SM.metaFor('/').description,
     path: '/',
     crumbs: [{ label: 'Home', url: '/' }],
     // The hero pads for the header itself; see `fullBleed` in layout.js.
