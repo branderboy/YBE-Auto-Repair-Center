@@ -155,6 +155,8 @@ for (const file of files) {
   if (!isOfflinePage) {
     if (!html.includes(b.maps.directionsUrl)) errors.push(at('no directions link'));
     if (!html.includes('data-track=')) errors.push(at('no conversion tracking attributes'));
+    const ga4Id = (b.analytics && b.analytics.ga4Id || '').trim();
+    if (ga4Id && !html.includes(`gtag/js?id=${ga4Id}`)) errors.push(at(`Google Analytics tag ${ga4Id} missing`));
   }
 
   // --- NAP consistency ---

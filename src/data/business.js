@@ -91,6 +91,15 @@ const business = {
     display: 'WhatsApp Us',
     href: 'https://wa.me/12024553822'
   },
+  /*
+   * Google Analytics 4. Paste the Measurement ID (looks like G-XXXXXXXXXX,
+   * from GA4 -> Admin -> Data streams -> Web) and rebuild. Empty means no tag
+   * is loaded. The GA4_ID environment variable overrides it at build time.
+   */
+  analytics: {
+    ga4Id: process.env.GA4_ID || ''
+  },
+
   booking: {
     label: 'Book Appointment',
     href: 'https://ybe-auto-repair-shop.square.site/'

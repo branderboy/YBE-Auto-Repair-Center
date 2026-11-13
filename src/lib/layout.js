@@ -470,6 +470,24 @@ document.addEventListener('DOMContentLoaded', function () {
 });`;
 
 /**
+ * Google Analytics 4. Rendered only when a Measurement ID is set in
+ * business.js, so a build without one ships no third-party script.
+ * The conversion_click events below flow into GA4 through gtag once it loads.
+ */
+function gaTag() {
+  const id = (b.analytics && b.analytics.ga4Id || '').trim();
+  if (!/^G-[A-Z0-9]+$/.test(id)) return '';
+  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${id}');
+</script>
+`;
+}
+
+/**
  * Render a complete page.
  */
 function layout({
@@ -549,7 +567,7 @@ ${noIndex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robot
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/assets/css/site.css">
-
+${gaTag()}
 <script type="application/ld+json">
 ${jsonLd}
 </script>
