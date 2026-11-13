@@ -152,6 +152,13 @@ function renderHomeOriginal() {
     .replace(/<div class="flex justify-center mb-6">\s*<div class="star-row[\s\S]*?<\/div>\s*<\/div>\s*/, '')
     .replace(/Rated <span class="text-ybe-red">4\.8<\/span> on Google/, 'What Customers <span class="text-ybe-red">Say</span>')
     .replace(/Based on 29 verified customer reviews\./, 'From our Google reviews.')
+    // Hours and the number in the hero, so a phone shows both on the first screen.
+    .replace(
+      /(community since 2006\.\s*<\/p>)/,
+      `$1\n<p class="mt-2 sm:mt-4 flex flex-wrap justify-center md:justify-start items-center gap-x-4 gap-y-1 text-sm sm:text-base md:text-lg font-semibold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">` +
+        `<span class="inline-flex items-center gap-1.5">${icon('clock', 18, 'text-ybe-red')} ${b.hours.short}</span>` +
+        `<a data-track="call" data-location="homepage-hero-hours" href="${b.phone.href}" class="inline-flex items-center gap-1.5 underline-offset-4 hover:underline">${icon('phone', 18, 'text-ybe-red')} ${b.phone.display}</a></p>`
+    )
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
     .replace(/<a href="https:\/\/wa\.me\/12024553822"/g, '<a data-track="whatsapp" data-location="homepage" href="https://wa.me/12024553822"')
     .replace(/<a href="https:\/\/maps\.google\.com/g, '<a data-track="directions" data-location="homepage" href="https://maps.google.com');
