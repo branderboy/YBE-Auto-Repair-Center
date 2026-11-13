@@ -78,6 +78,12 @@ function siteIndex() {
   </section>`;
 }
 
+const ES = {
+  header: (p) => require('./es-chrome.js').header(p),
+  footer: () => require('./es-chrome.js').footer(),
+  mobileBar: () => require('./es-chrome.js').mobileBar()
+};
+
 function headerNav(currentPath) {
   const isActive = (url) => currentPath === url || (url !== '/' && currentPath.startsWith(url));
 
@@ -134,6 +140,8 @@ function headerNav(currentPath) {
         </a>
         <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">${desktop}</nav>
         <div class="hidden lg:flex items-center gap-2">
+          <a href="${require('../data/es.js').EN_TO_ES[currentPath] || '/es/'}" hreflang="es" lang="es"
+             class="font-heading text-base font-semibold uppercase tracking-wide text-ybe-black hover:text-ybe-red px-2 py-2 whitespace-nowrap">Español</a>
           <a href="${b.sms.href}" data-track="text" data-location="header"
              class="hidden xl:flex bg-white hover:bg-gray-100 text-ybe-black font-heading text-base px-3 py-2 rounded-sm border-2 border-ybe-black transition-all items-center gap-2 uppercase tracking-wide font-bold whitespace-nowrap">
             ${icon('message-square', 18)} Text</a>
@@ -152,6 +160,9 @@ function headerNav(currentPath) {
     <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-200 absolute w-full shadow-lg max-h-[80vh] overflow-y-auto">
       <div class="px-2 pt-2 pb-4">
         ${mobile}
+        <div class="border-b border-gray-100">
+          <a href="${require('../data/es.js').EN_TO_ES[currentPath] || '/es/'}" hreflang="es" lang="es" class="mobile-nav-link block px-3 py-3 font-heading text-xl uppercase tracking-wide text-ybe-black">Español</a>
+        </div>
         <div class="grid grid-cols-2 gap-2 mt-4 px-1">
           <a href="${b.phone.href}" data-track="call" data-location="mobile-menu"
              class="text-center bg-ybe-red text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Call Now</a>
@@ -474,6 +485,20 @@ document.addEventListener('DOMContentLoaded', function () {
  * business.js, so a build without one ships no third-party script.
  * The conversion_click events below flow into GA4 through gtag once it loads.
  */
+/**
+ * hreflang pairs for pages that exist in both languages (src/data/es.js).
+ * Pages with no Spanish version get none.
+ */
+function hreflang(path) {
+  const { EN_TO_ES, ES_TO_EN } = require('../data/es.js');
+  const en = ES_TO_EN[path] || (EN_TO_ES[path] ? path : null);
+  const es = EN_TO_ES[path] || (ES_TO_EN[path] ? path : null);
+  if (!en || !es) return '';
+  return `<link rel="alternate" hreflang="en-US" href="${b.siteUrl}${en}">
+<link rel="alternate" hreflang="es-US" href="${b.siteUrl}${es}">
+<link rel="alternate" hreflang="x-default" href="${b.siteUrl}${en}">`;
+}
+
 function gaTag() {
   const id = (b.analytics && b.analytics.ga4Id || '').trim();
   if (!/^G-[A-Z0-9]+$/.test(id)) return '';
@@ -499,6 +524,8 @@ function layout({
   body,
   ogType = 'website',
   noIndex = false,
+  /* 'es' for the Spanish pages under /es/: Spanish header, footer, phone bar and lang tags. */
+  lang = 'en',
   /*
    * The homepage hero clears the fixed header with its own top padding, so the
    * usual <main> offset would double it and push the copy down the screen.
@@ -515,7 +542,7 @@ function layout({
   const graph = [
     localBusinessSchema(),
     webSiteSchema(),
-    webPageSchema({ title, description, path }),
+    webPageSchema({ title, description, path, lang }),
     ...schema
   ];
   if (crumbs.length > 1) graph.push(breadcrumbSchema(crumbs));
@@ -523,7 +550,7 @@ function layout({
   const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
 
   return `<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="${lang}" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -543,7 +570,8 @@ ${noIndex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robot
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(b.images.ogImageAlt)}">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="${lang === 'es' ? 'es_US' : 'en_US'}">
+${hreflang(path)}
 <meta property="og:street-address" content="${esc(b.address.street)}">
 <meta property="og:locality" content="${esc(b.address.city)}">
 <meta property="og:region" content="${esc(b.address.state)}">
@@ -581,14 +609,14 @@ ${jsonLd}
 
 </head>
 <body class="font-sans text-gray-900 bg-white antialiased relative pb-16 lg:pb-0">
-<a href="#main" class="skip-link">Skip to main content</a>
-${headerNav(path)}
+<a href="#main" class="skip-link">${lang === 'es' ? 'Saltar al contenido' : 'Skip to main content'}</a>
+${lang === 'es' ? ES.header(path) : headerNav(path)}
 <main id="main" class="${fullBleed ? '' : 'pt-[88px] sm:pt-[104px] lg:pt-[120px]'}">
 ${T.breadcrumbs(crumbs)}
 ${body}
 </main>
-${footer()}
-${mobileActionBar()}
+${lang === 'es' ? ES.footer() : footer()}
+${lang === 'es' ? ES.mobileBar() : mobileActionBar()}
 <script>${SITE_JS}</script>
 </body>
 </html>`;

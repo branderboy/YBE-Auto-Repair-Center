@@ -118,7 +118,7 @@ for (const file of files) {
       const parsed = JSON.parse(ld);
       const types = (parsed['@graph'] || []).map((n) => n['@type']);
       if (!types.includes('AutoRepair')) errors.push(at('schema missing AutoRepair'));
-      if (url !== '/' && url !== '/404.html' && !types.includes('BreadcrumbList'))
+      if (url !== '/' && url !== '/es/' && url !== '/404.html' && !types.includes('BreadcrumbList'))
         warnings.push(at('no BreadcrumbList schema'));
       // FAQ schema must only appear where FAQs are visible on the page
       if (types.includes('FAQPage') && !html.includes('faq-btn'))

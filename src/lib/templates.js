@@ -35,6 +35,7 @@ function localBusinessSchema() {
     '@type': 'AutoRepair',
     '@id': `${b.siteUrl}/#business`,
     name: b.name,
+    alternateName: [b.mobileName],
     url: b.siteUrl,
     image: abs(b.images.logo),
     logo: abs(b.images.logo),
@@ -178,7 +179,7 @@ function webSiteSchema() {
  * The page. `speakable` marks which parts a voice assistant should read out,
  * which is what answer engines look for when a question is asked hands-free.
  */
-function webPageSchema({ title, description, path, primaryImage }) {
+function webPageSchema({ title, description, path, primaryImage, lang = 'en' }) {
   return {
     '@type': 'WebPage',
     '@id': `${abs(path)}#webpage`,
@@ -188,7 +189,7 @@ function webPageSchema({ title, description, path, primaryImage }) {
     isPartOf: { '@id': `${b.siteUrl}/#website` },
     about: { '@id': `${b.siteUrl}/#business` },
     primaryImageOfPage: { '@type': 'ImageObject', url: abs(primaryImage || b.images.ogImage) },
-    inLanguage: 'en-US',
+    inLanguage: lang === 'es' ? 'es-US' : 'en-US',
     speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.speakable'] }
   };
 }

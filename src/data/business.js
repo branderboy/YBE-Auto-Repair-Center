@@ -12,6 +12,12 @@
 const business = {
   name: 'YBE Auto Repair Center',
   shortName: 'YBE',
+  /*
+   * The shop's mobile and roadside name (owner, 2026-11-13). A MapQuest
+   * listing at this address spells it "Ybe Mechanic On Mheelz"; correct that
+   * listing to this spelling.
+   */
+  mobileName: 'YBE Mechanic On Wheelz',
 
   /*
    * Live location of the site. Used for canonicals, Open Graph tags and the

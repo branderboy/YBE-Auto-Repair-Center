@@ -31,9 +31,11 @@ const areas = [
       'Capitol Heights driving is mostly short trips, stop-and-go traffic on Central Avenue, and rough pavement. That combination is hard on specific things: brakes wear faster than the mileage suggests, alignment gets knocked out by potholes, and batteries never get the long runs they need to fully recharge.',
       'Those are the three complaints we see most from customers right here in the neighborhood, and they are the reason we check brakes, tires and battery condition whenever a car is up on the lift for something else.'
     ],
-    roads: ['Central Avenue (MD-214)', 'Southern Avenue', 'East Capitol Street', 'the Capital Beltway (I-495)'],
+    // Ritchie Road added 2026-11-13: owner confirmed the shop is not far from it, and
+    // the Google profile showed for a search for a mechanic on Ritchie Road.
+    roads: ['Central Avenue (MD-214)', 'Ritchie Road', 'Southern Avenue', 'East Capitol Street', 'the Capital Beltway (I-495)'],
     landmarkNote:
-      'The shop is convenient to the Capitol Heights Metro station on the Blue and Silver lines, which makes dropping a car off and continuing on to work straightforward.',
+      'The shop is not far from Ritchie Road and convenient to the Capitol Heights Metro station on the Blue and Silver lines, which makes dropping a car off and continuing on to work straightforward.',
     priorityServices: [
       'check-engine-light-diagnostics',
       'brake-pad-rotor-replacement',

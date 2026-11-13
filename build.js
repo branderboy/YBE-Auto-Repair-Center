@@ -356,6 +356,8 @@ function run() {
   emit('/request-appointment/', R.renderAppointment(), { priority: '0.9' });
   emit('/faq/', R.renderFaq(), { priority: '0.7' });
   require('./src/data/faq-pages.js').faqPages.forEach((q) => emit(q.url, R.renderFaqQuestionPage(q), { priority: '0.6' }));
+  // Spanish core pages (/es/), paired with their English pages by hreflang.
+  require('./src/lib/es-pages.js').renderAllEs().forEach(([url, html]) => emit(url, html, { priority: url === '/es/' ? '0.8' : '0.6' }));
   emit('/404.html', R.render404());
 
   copyAssets();

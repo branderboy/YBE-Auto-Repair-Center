@@ -18,7 +18,7 @@ const hub = {
     'Stranded? YBE provides mobile roadside assistance for dead batteries, flat tires, lockouts and fuel in Capitol Heights, MD and nearby areas. Call (202) 455-3822.',
   intro: [
     'If you are stuck on the side of the road right now, calling is faster than anything else on this page. We answer the shop phone seven days a week from 8:30 AM to 6:00 PM.',
-    'YBE has been sending mobile help to drivers around Capitol Heights, DC and Prince George’s County for years. Dead batteries, flat tires, lockouts, running out of fuel, and vehicles that will not start are the calls we get most, and most of them can be handled where the vehicle sits.',
+    'YBE has been sending mobile help, as YBE Mechanic On Wheelz, to drivers around Capitol Heights, DC and Prince George’s County for years. Dead batteries, flat tires, lockouts, running out of fuel, and vehicles that will not start are the calls we get most, and most of them can be handled where the vehicle sits.',
     'What we cannot do is tow. If the vehicle needs to come off the road entirely, we will tell you that honestly so you can arrange a tow instead of waiting on help that will not solve the problem.'
   ],
   covers: [
