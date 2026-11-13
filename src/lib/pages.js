@@ -15,8 +15,9 @@ const { icon, esc } = { icon: require('./icons.js').icon, esc: require('./blocks
 const K = require('./blocks.js');
 const SM = require('./search-meta.js');
 /** Keyword H1 (Core 5): generated from Search Console when the page has a query, else the title's search phrase. */
-const kwH1 = (path, title, ctx) => { const g = SM.metaFor(path, ctx); return g ? g.h1 : SM.h1For(path, title); };
-const kwTitle = (path, rec, ctx) => { const g = SM.metaFor(path, ctx); return g ? { title: g.title, description: g.description } : { title: rec.metaTitle, description: rec.metaDescription }; };
+const kwH1 = (path, title) => SM.h1For(path, title);
+// Record meta; layout() swaps in the generated row from research/meta/meta-output.csv when there is one.
+const kwTitle = (path, rec) => ({ title: rec.metaTitle, description: rec.metaDescription });
 const h1Html = (h1) => SM.accentH1(h1, esc);
 const { faqAccordion, faqSchema, serviceSchema } = T;
 
@@ -27,6 +28,7 @@ const E = require('../data/entities.js');
 const { roadsideBySlug } = require('../data/roadside.js');
 const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 require('../data/area-services.js'); // attaches area.servicePages
+const { faqPages } = require('../data/faq-pages.js');
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -146,7 +148,10 @@ function namedSources(a) {
  * one way. This closes the loop and gives each topic a proper hub.
  */
 function relatedQuestions(serviceSlug) {
-  const matches = allArticles.filter((a) => a.relatedService === serviceSlug);
+  const matches = [
+    ...faqPages.filter((q) => q.relatedService === serviceSlug).map((q) => ({ url: q.url, title: SM.h1For(q.url, '') })),
+    ...allArticles.filter((a) => a.relatedService === serviceSlug)
+  ];
   if (!matches.length) return '';
   return `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
     <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Common Questions</h2>
@@ -639,15 +644,6 @@ ${K.contactBlock({ heading: 'Bring It To The Shop' })}`;
 function renderAreaPage(area) {
   const crumbs = [HOME, { label: 'Service Areas', url: '/service-areas/' }, { label: area.label, url: area.url }];
   const svcs = (area.priorityServices || []).map(lookup).filter(Boolean);
-  // Short names for the generated area description (src/lib/search-meta.js).
-  const SHORT = {
-    'check-engine-light-diagnostics': 'diagnostics', 'brake-pad-rotor-replacement': 'brakes', 'brake-noise-vibration': 'brakes',
-    'engine-repair': 'engine repair', 'transmission-repair': 'transmissions', 'shocks-struts-steering': 'suspension',
-    'wheel-alignment': 'alignment', 'tire-repair-replacement': 'tires', 'cooling-system-overheating': 'overheating',
-    'ac-repair': 'A/C', 'collision-body-repair': 'bodywork', 'dent-scratch-paint': 'bodywork', 'oil-change': 'oil changes',
-    'battery-alternator-starter': 'batteries and alternators'
-  };
-  area.priorityServiceNames = [...new Set(svcs.map((s) => SHORT[s.slug] || s.title.toLowerCase()))];
   const cards = svcs.map((s) => ({
     title: s.title,
     text: s.customerVoice ? `“${s.customerVoice}”` : '',
@@ -659,8 +655,8 @@ function renderAreaPage(area) {
 ${K.heroBlock({
   eyebrow: `${area.isPrimary ? 'Our Location' : 'Service Area'} · ${esc(area.relationship)}`,
   titleHtml: (() => {
-    const h = area.isPrimary ? `Auto Repair Shop in ${area.label}` : kwH1(area.url, area.metaTitle, { area });
-    return / (in|Near|for) /.test(h) ? h1Html(h) : `<span class="text-ybe-red">${esc(area.label)}</span> ${esc(h.slice(area.label.length + 1))}`;
+    const h = area.isPrimary ? `Auto Repair Shop in ${area.label}` : kwH1(area.url, area.metaTitle);
+    return h1Html(h);
   })(),
   sub: area.intro[0],
   ctaLabel: 'Call The Shop',
@@ -751,7 +747,7 @@ ${K.mapAreasBlock({ activeSlug: area.slug })}
 ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
   return layout({
-    ...kwTitle(area.url, area, { area }),
+    ...kwTitle(area.url, area),
     path: area.url,
     crumbs,
     schema: [
@@ -837,8 +833,8 @@ function renderAreaServicePage(page) {
   const body = `
 ${K.heroBlock({
   eyebrow: `${esc(area.label)} · ${page.mobile ? 'We Come To You' : esc(area.relationship)}`,
-  titleHtml: esc(page.title),
-  sub: page.metaDescription.replace(/ Call( or text)? \(202\) 455-3822\.$/, ''),
+  titleHtml: h1Html(kwH1(page.url, page.title)),
+  sub: (SM.metaFor(page.url) || page).description || page.metaDescription,
   ctaLabel: page.mobile ? 'Call For Roadside Help' : 'Call The Shop',
   secondary: page.mobile
     ? { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
@@ -1510,6 +1506,17 @@ ${K.heroBlock({
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     ${K.heading2Center('Frequently Asked Questions')}
     ${faqAccordion(faqs)}
+    <div class="mt-10 bg-white p-8 rounded-sm border border-gray-200">
+      <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Cost And Repair Questions</h2>
+      <ul class="space-y-2">
+        ${faqPages
+          .map(
+            (q) =>
+              `<li><a href="${q.url}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('help-circle', 18, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(SM.h1For(q.url, ''))}</span></a></li>`
+          )
+          .join('')}
+      </ul>
+    </div>
     <div class="mt-10 bg-white border-l-4 border-ybe-red p-8 rounded-sm">
       <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3">Question Not Answered?</h2>
       <p class="text-gray-700 leading-relaxed mb-6">Call or text the shop. We would rather answer a question than have you guessing.</p>
@@ -1535,6 +1542,87 @@ ${K.contactBlock({ heading: 'Still Have Questions?' })}`;
     path: '/faq/',
     crumbs,
     schema: [faqSchema(faqs)],
+    body
+  });
+}
+
+/* ===================================================== FAQ QUESTION PAGE */
+/** One key question from the generated meta set, answered: cost factors, time, process. */
+function renderFaqQuestionPage(q) {
+  const question = SM.h1For(q.url, '');
+  const crumbs = [HOME, { label: 'FAQ', url: '/faq/' }, { label: question, url: q.url }];
+  const svc = lookup(q.relatedService);
+  const related = (q.relatedArticles || []).map((s) => articleBySlug[s]).filter(Boolean);
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const link = (href, label) => `<li><a href="${href}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(label)}</span></a></li>`;
+
+  const body = `
+${K.heroBlock({
+  eyebrow: `Common Question · ${esc(primaryArea.label)}`,
+  titleHtml: esc(question),
+  sub: q.shortAnswer,
+  ctaLabel: 'Call For A Quote',
+  secondary: svc ? { label: 'The Service', href: svc.url, icon: 'wrench' } : undefined
+})}
+
+${section(
+  `<div class="flex flex-col lg:flex-row gap-12">
+    <article class="lg:w-2/3">
+      ${h2('What Sets The Cost')}
+      <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm mb-4">${K.checkList(q.costFactors)}</div>
+      <p class="text-sm text-gray-600 mb-12">YBE quotes the price for your car before work starts: call ${esc(b.phone.display)}.</p>
+      ${h2('How Long It Takes')}
+      <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(q.time)}</div>
+      ${h2('How YBE Handles It')}
+      <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(q.process)}</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        ${svc ? `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">The Service</h2>
+          <ul>${link(svc.url, svc.title)}</ul></div>` : ''}
+        ${related.length ? `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Related Reading</h2>
+          <ul>${related.map((r) => link(r.url, r.title)).join('')}</ul></div>` : ''}
+      </div>
+    </article>
+    <aside class="lg:w-1/3 space-y-8">
+      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get A Price</h2>
+        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
+        <div class="flex flex-col gap-3">
+          <a href="${b.phone.href}" data-track="call" data-location="faq-question" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
+          <a href="${b.sms.href}" data-track="text" data-location="faq-question" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="faq-question" class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
+        </div>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">More Questions</h2>
+        <ul class="space-y-1">${faqPages.filter((x) => x.slug !== q.slug).map((x) => link(x.url, SM.h1For(x.url, ''))).join('')}</ul>
+      </div>
+    </aside>
+  </div>`
+)}
+
+${K.contactBlock({ heading: 'Get It Priced' })}`;
+
+  return layout({
+    title: question,
+    description: q.shortAnswer,
+    path: q.url,
+    crumbs,
+    ogType: 'article',
+    schema: [
+      {
+        '@type': 'Article',
+        headline: question,
+        description: q.shortAnswer,
+        url: T.abs(q.url),
+        author: { '@id': `${b.siteUrl}/#business` },
+        publisher: { '@id': `${b.siteUrl}/#business` },
+        mainEntityOfPage: T.abs(q.url),
+        datePublished: '2026-11-13',
+        dateModified: '2026-11-13'
+      }
+    ],
     body
   });
 }
@@ -1585,6 +1673,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 module.exports = {
   renderAreaServicePage,
+  renderFaqQuestionPage,
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,
   renderCarCareHub, renderArticle, renderAbout, renderReviews,

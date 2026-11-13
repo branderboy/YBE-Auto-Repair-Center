@@ -1,118 +1,109 @@
 /**
- * DYNAMIC META AND KEYWORD H1s (owner's Core 5 rule)
+ * META AND KEYWORD H1s
  *
- * Core 5, hero headline rule: the H1 is the in-demand search phrase for the
- * page, picked from real Search Console data when it exists; otherwise the
- * standard search form, service then place. A slogan may sit above or below
- * it, never in its place.
+ * Titles and descriptions come from the owner's generated meta set:
+ * research/meta/meta-output.csv, produced by scripts/dynamic-meta.js (the
+ * Trades Meta Rule: key question in, title and description out). Nothing
+ * here writes meta; this file only reads that output and maps each row to
+ * the page it describes.
  *
- * Pages listed in src/data/search-queries.json get their title, description
- * and H1 generated from their own query, one query per page. Every other page
- * keeps its hand-set meta, and its H1 is the search phrase from its title
- * (the part before " | ").
+ * The CSV's slugs describe pages by name; several differ from this site's
+ * URLs, which are already indexed and are kept. SLUG_TO_URL maps the
+ * difference. A page with no row keeps the meta on its own record.
+ *
+ * Core 5 hero rule: the H1 is the page's search phrase. For statement pages
+ * that is the generated title; for FAQ pages it is the key question; for a
+ * page with no row it is the search phrase of its own title (before " | ").
  */
 
-const b = require('../data/business.js');
-const DATA = require('../data/search-queries.json');
+const fs = require('fs');
+const path = require('path');
 
-const TITLE_MAX = 60;
-const DESC_MAX = 165;
-const PLACE = `${b.address.city}, ${b.address.state}`; // Capitol Heights, MD
+const CSV = path.join(__dirname, '..', '..', 'research', 'meta', 'meta-output.csv');
 
-const titleCase = (s) =>
-  s.replace(/\b([a-z])([a-z]*)/g, (m, f, r) => (['and', 'or', 'in', 'of', 'to'].includes(m) ? m : f.toUpperCase() + r))
-    .replace(/\bAc\b/g, 'AC')
-    .replace(/\bUp\b/g, 'Up');
-
-/**
- * Split a query into the service phrase and the place it names.
- *   "oil change near me"                -> Oil Change           in Capitol Heights, MD
- *   "alternator repair washington dc"   -> Alternator Repair    Near Washington, DC
- *   "engine repair capitol heights md"  -> Engine Repair        in Capitol Heights, MD
- * The shop is in Capitol Heights, so a DC search reads "Near", never "in".
- */
-function parseQuery(q) {
-  let phrase = q.toLowerCase().trim();
-  let place = `in ${PLACE}`;
-  if (/ near me$/.test(phrase)) phrase = phrase.replace(/ near me$/, '');
-  else if (/ washington dc$/.test(phrase)) { phrase = phrase.replace(/ washington dc$/, ''); place = 'Near Washington, DC'; }
-  else if (/ capitol heights md$/.test(phrase)) phrase = phrase.replace(/ capitol heights md$/, '');
-  phrase = phrase.replace(/^tune up$/, 'tune-up');
-  return { phrase: titleCase(phrase), place };
-}
-
-function fit(parts, max) {
-  // parts: ordered list of candidate strings, longest first; take the first that fits
-  return parts.find((p) => p.length <= max) || parts[parts.length - 1];
-}
-
-function article(phrase) {
-  return /^[aeiou]/i.test(phrase) ? 'an' : 'a';
-}
-
-/** Statement page (home, service): service and place first, call line last. */
-function statementMeta(row) {
-  let { phrase, place } = parseQuery(row.query);
-  const first = phrase;
-  // A second query for the same place joins the headline: "Mechanic & Auto Repair".
-  if (row.also) {
-    const also = parseQuery(row.also);
-    if (also.place === place) phrase = `${phrase} & ${also.phrase}`;
+/** Minimal RFC 4180 parser: quoted cells, doubled quotes, commas inside quotes. */
+function parseCsv(text) {
+  const rows = [];
+  let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') q = false;
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell); cell = '';
+      if (row.some((x) => x !== '')) rows.push(row);
+      row = [];
+    } else cell += c;
   }
-  const h1 = `${phrase} ${place}`;
-  const title = fit([`${h1} | YBE Auto`, `${h1} | YBE`, h1], TITLE_MAX);
-  // Lower-case for the question, keeping acronyms such as AC.
-  const lower = first.replace(/\b(?!AC\b)\w+/g, (w) => w.toLowerCase());
-  const countable = /^(mechanic|tune-up|oil change|brake fluid flush)$/.test(lower);
-  const ask = countable ? `Need ${article(lower)} ${lower}` : `Need ${lower}`;
-  const where = place.startsWith('Near') ? ' near DC' : ' in Capitol Heights';
-  const tails = where === ' in Capitol Heights'
-    ? [` Open 7 days at 8632 Edgeworth Dr. Call ${b.phone.display}.`, ` Open 7 days. Call ${b.phone.display}.`, ` Call ${b.phone.display}.`]
-    : [` Open 7 days at 8632 Edgeworth Dr, Capitol Heights. Call ${b.phone.display}.`, ` Open 7 days in Capitol Heights. Call ${b.phone.display}.`, ` Call ${b.phone.display}.`];
-  const description = fit(tails.map((t) => `${ask}${where}? ${row.fixes}.${t}`), DESC_MAX);
-  return { title, description, h1 };
+  if (cell || row.length) { row.push(cell); if (row.some((x) => x !== '')) rows.push(row); }
+  return rows;
 }
 
-/** Area page: "<Town>, MD Mechanic & Auto Repair", the form the town's searches take. */
-function areaMeta(row, area) {
-  const h1 = `${area.label} Mechanic & Auto Repair`;
-  const title = fit([`${h1} | YBE Auto`, `${h1} | YBE`, h1], TITLE_MAX);
-  const names = area.priorityServiceNames || [];
-  const list = (n) => {
-    const xs = names.slice(0, n);
-    return xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join('');
+const AREA = (city) => (city === 'washington' ? 'washington-dc' : `${city}-md`);
+
+/** CSV slug -> this site's URL, where they differ. */
+function toUrl(slug) {
+  let s = slug.trim().replace(/\s+/g, '-');
+  const fixed = {
+    '/services/auto-repair-and-diagnostics/': '/services/auto-repair-diagnostics/',
+    '/services/transmission-service/': '/services/transmission/',
+    '/services/electrical-and-starting/': '/services/electrical/',
+    '/services/ac-and-heating/': '/services/auto-ac-heating/',
+    '/services/auto-body-and-paint/': '/services/auto-body-glass/',
+    '/services/roadside-assistance/': '/roadside-assistance/',
+    '/services/junk-car-pickup/': '/roadside-assistance/junk-car-pickup/',
+    '/services/jump-start-service/': '/roadside-assistance/jump-start/',
+    '/services/mobile-battery-replacement/': '/roadside-assistance/mobile-battery-replacement/',
+    '/services/car-lockout-service/': '/roadside-assistance/car-lockout/',
+    '/services/flat-tire-help/': '/roadside-assistance/flat-tire/',
+    '/services/fuel-delivery/': '/roadside-assistance/fuel-delivery/'
   };
-  const description = fit(
-    [4, 3, 2, 1].flatMap((n) => [
-      `Need a mechanic in ${area.name}? YBE handles ${list(n)}, plus roadside help. Open 7 days in Capitol Heights. Call ${b.phone.display}.`,
-      `Need a mechanic in ${area.name}? YBE handles ${list(n)}. Open 7 days in Capitol Heights. Call ${b.phone.display}.`
-    ]),
-    DESC_MAX
-  );
-  return { title, description, h1 };
+  if (fixed[s]) return fixed[s];
+  let m = s.match(/^\/services\/(roadside-assistance|brake-repair|jump-start-service)\/([a-z-]+)\/$/);
+  if (m) {
+    const type = m[1] === 'jump-start-service' ? 'jump-start' : m[1];
+    return `/service-areas/${AREA(m[2])}/${type}/`;
+  }
+  return s;
 }
 
-/** Generated meta for a path, or null when the page has no query entry. */
-function metaFor(path, ctx = {}) {
-  const row = DATA.pages[path];
-  if (!row) return null;
-  if (ctx.area) return areaMeta(row, ctx.area);
-  return statementMeta(row);
+const META = {};
+const rows = parseCsv(fs.readFileSync(CSV, 'utf8'));
+const head = rows.shift();
+const col = (name) => head.indexOf(name);
+for (const r of rows) {
+  const url = toUrl(r[col('Slug')]);
+  META[url] = {
+    page: r[col('Page')],
+    csvSlug: r[col('Slug')],
+    type: r[col('Page Type')],
+    keyQuestion: r[col('Key Question')],
+    title: r[col('Title')],
+    description: r[col('Description')],
+    flags: r[col('Flags')]
+  };
 }
 
-/** The keyword H1 for any page: generated, else the search phrase of its title. */
-function h1For(path, title) {
-  return title.split(' | ')[0].trim();
+const metaFor = (url) => META[url] || null;
+
+/** Keyword H1 for a page: generated title (statement) or key question (FAQ), else its own title's phrase. */
+function h1For(url, fallbackTitle) {
+  const m = META[url];
+  if (m) return m.type === 'faq' ? m.keyQuestion : m.title;
+  return fallbackTitle.split(' | ')[0].trim();
 }
 
-/**
- * Wrap the place in the brand-red accent span, matching the site's hero style:
- * "Oil Change <span>in Capitol Heights, MD</span>".
- */
+/** Accent the place in the site's hero style: "Brake Repair <span>in Bowie, MD</span>". */
 function accentH1(h1, esc) {
+  if (/\?$/.test(h1)) return esc(h1);
   const m = h1.match(/^(.*?)( (?:in|Near|for) .+)$/);
   if (!m) return esc(h1);
   return `${esc(m[1])}<span class="text-ybe-red">${esc(m[2])}</span>`;
 }
 
-module.exports = { metaFor, h1For, accentH1, parseQuery, DATA };
+module.exports = { META, metaFor, h1For, accentH1, toUrl };

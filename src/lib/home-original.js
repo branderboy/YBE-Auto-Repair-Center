@@ -139,15 +139,14 @@ function renderHomeOriginal() {
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
     /*
-     * Core 5 hero rule: the H1 is the page's search phrase, from Search
-     * Console ("mechanic near me", "auto repair near me"). The original
-     * slogan stays, set smaller directly above it.
+     * Core 5 hero rule: the H1 is the page's search phrase, the generated
+     * home title. The original slogan stays, set smaller directly above it.
      */
     .replace(
       /(<h1 [^>]*>)\s*Auto Repair That <span>Gets You Back<\/span> on the Road\s*<\/h1>/,
       (m, open) =>
         `<p class="font-heading text-sm sm:text-lg md:text-xl font-bold uppercase tracking-widest text-white/90 mb-1 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">Auto Repair That Gets You Back on the Road</p>\n` +
-        `${open}${SM.accentH1(SM.metaFor('/').h1, (x) => x)}</h1>`
+        `${open}${SM.accentH1(SM.h1For('/', ''), (x) => x)}</h1>`
     )
     // Rating removed on the owner's instruction (2026-11-13): no star row, no number, no count.
     .replace(/<div class="flex justify-center mb-6">\s*<div class="star-row[\s\S]*?<\/div>\s*<\/div>\s*/, '')
@@ -164,14 +163,13 @@ function renderHomeOriginal() {
      * leads here now — "auto repair" still follows it, so nothing is traded
      * away for it.
      */
-    title: SM.metaFor('/').title,
+    title: SM.metaFor('/').title, // generated: research/meta/meta-output.csv
     /*
      * Mirrors how the Google Business Profile positions the shop: Black-owned,
      * open since 2006, seven days. Those are the facts that separate this
      * listing from the other repair shops in the pack, and a description that
      * only lists services throws them away.
      */
-    // Generated from the page's Search Console query (src/data/search-queries.json).
     description: SM.metaFor('/').description,
     path: '/',
     crumbs: [{ label: 'Home', url: '/' }],

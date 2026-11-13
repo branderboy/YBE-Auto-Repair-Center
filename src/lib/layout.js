@@ -505,6 +505,13 @@ function layout({
    */
   fullBleed = false
 }) {
+  /*
+   * Generated meta (research/meta/meta-output.csv via src/lib/search-meta.js)
+   * replaces the record's title and description wherever the page has a row.
+   */
+  const gen = require('./search-meta.js').metaFor(path);
+  if (gen) { title = gen.title; description = gen.description; }
+
   const graph = [
     localBusinessSchema(),
     webSiteSchema(),

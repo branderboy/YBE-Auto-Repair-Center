@@ -355,6 +355,7 @@ function run() {
   emit('/contact/', R.renderContact(), { priority: '0.9' });
   emit('/request-appointment/', R.renderAppointment(), { priority: '0.9' });
   emit('/faq/', R.renderFaq(), { priority: '0.7' });
+  require('./src/data/faq-pages.js').faqPages.forEach((q) => emit(q.url, R.renderFaqQuestionPage(q), { priority: '0.6' }));
   emit('/404.html', R.render404());
 
   copyAssets();

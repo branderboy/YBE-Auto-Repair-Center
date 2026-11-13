@@ -31,7 +31,15 @@ structure cannot drift away from the plan.
 | 4 | Geographic relevance | `/service-areas/<city>/` + `/service-areas/<city>/<service>/` | 12 areas + 33 roadside, jump start and brake pages (`src/data/area-services.js`) |
 | 5 | Trust & decision support | `/about/` `/reviews/` `/contact/` `/request-appointment/` `/faq/` | 5 |
 
-**128 indexed pages.** Question-to-page map: `research/question-map.md`.
+**136 indexed pages.** Question-to-page map: `research/question-map.md`.
+
+### Meta
+
+Titles and descriptions come from the owner's generated set,
+`research/meta/meta-output.csv`, produced by `scripts/dynamic-meta.js` (the Trades
+Meta Rule). `src/lib/search-meta.js` reads it, maps each row's slug to this site's URL
+(indexed URLs are kept), and `layout()` applies it. A page with no row keeps the meta
+on its own record. To change meta, regenerate the CSV from the page records and rebuild.
 
 ---
 
