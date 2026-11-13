@@ -92,11 +92,25 @@ function sourcesBlock(article) {
  * exactly as before.
  */
 function priceGuideTop(a) {
-  if (!a.factors || !a.factors.length) return '';
+  if (!a.price) return '';
+  const row = (label, value) => `<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 py-4 border-b border-gray-200 last:border-0">
+      <dt class="sm:w-32 flex-shrink-0 font-heading text-lg font-bold uppercase tracking-wide text-gray-500">${label}</dt>
+      <dd class="text-xl font-semibold text-ybe-black">${esc(value)}</dd>
+    </div>`;
   return `<div class="mb-12">
-    <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">What Moves The Price</h2>
-    <div class="bg-gray-50 border-l-4 border-ybe-black p-6 rounded-sm">${K.checkList(a.factors)}</div>
-    <p class="text-sm text-gray-600 mt-3">YBE quotes the price for your car before work starts: call ${esc(b.phone.display)}.</p>
+    <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">Published Price Range</h2>
+    <dl class="bg-gray-50 border-l-4 border-ybe-red rounded-sm px-6">
+      ${row('Low', a.price.low)}
+      ${row('Typical', a.price.typical)}
+      ${row('High', a.price.high)}
+    </dl>
+    <p class="text-sm text-gray-600 mt-3">Market ranges from the sources listed below, not YBE’s prices.${a.price.note ? ' ' + esc(a.price.note) : ''} YBE quotes the price for your car before work starts: call ${esc(b.phone.display)}.</p>
+    ${
+      a.factors && a.factors.length
+        ? `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mt-12 mb-5">What Moves The Price</h2>
+    <div class="bg-gray-50 border-l-4 border-ybe-black p-6 rounded-sm">${K.checkList(a.factors)}</div>`
+        : ''
+    }
     ${a.updated ? `<p class="text-sm text-gray-500 mt-4">Updated <time datetime="${a.updated}">${esc(new Date(a.updated + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</time></p>` : ''}
   </div>`;
 }
@@ -112,8 +126,8 @@ function priceGuideFaqs(a) {
 function namedSources(a) {
   if (!a.sources || !a.sources.length) return '';
   return `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 mt-12">
-    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3 border-b-2 border-ybe-red pb-2">Sources</h2>
-    <p class="text-gray-600 text-sm mb-4">Where the information on this page comes from.</p>
+    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3 border-b-2 border-ybe-red pb-2">Price Sources</h2>
+    <p class="text-gray-600 text-sm mb-4">Where the ranges on this page come from.</p>
     <ul class="space-y-2">
       ${a.sources
         .map((src) =>
