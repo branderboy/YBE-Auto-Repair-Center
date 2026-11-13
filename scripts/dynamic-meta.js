@@ -49,7 +49,32 @@ function trimQuestionFromEnd(q, max = TITLE_MAX) {
   return t;
 }
 
+/*
+ * Steer, 2026-11-13 (Old Ox Tire pattern): service, service area and location
+ * titles end with the phone: "<service> in <town>, <state> | Call 202-455-3822",
+ * 60 characters at most. When the statement is too long, the state goes first,
+ * then the whole town; a town is never cut in half.
+ */
+function withPhone(statement, r) {
+  // Old Ox's title format for the phone ("Call 202-481-0685"): two characters
+  // shorter than the description's "(202) 455-3822", so full town names fit.
+  const digits = String(r.phone).replace(/\D/g, '');
+  const tail = ` | Call ${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  const room = TITLE_MAX - tail.length;
+  let base = statement;
+  if (base.length > room) base = base.replace(/, [A-Z]{2}$/, '');
+  // Never half a town: if the town still does not fit, drop it whole.
+  if (base.length > room) base = base.replace(/ in [^|]+$/, '');
+  return `${base}${tail}`;
+}
+
 function buildTitle(r) {
+  const t = statementTitle(r);
+  if (t && ['service', 'service_location', 'location'].includes(r.page_type)) return withPhone(t, r);
+  return t;
+}
+
+function statementTitle(r) {
   switch (r.page_type) {
     case "faq":
     case "blog":

@@ -95,7 +95,8 @@ const metaFor = (url) => META[url] || null;
 /** Keyword H1 for a page: generated title (statement) or key question (FAQ), else its own title's phrase. */
 function h1For(url, fallbackTitle) {
   const m = META[url];
-  if (m) return m.type === 'faq' ? m.keyQuestion : m.title;
+  // The phone ends the title only; the H1 is the statement before it.
+  if (m) return m.type === 'faq' ? m.keyQuestion : m.title.replace(/ \| Call [\d-]+$/, '');
   return fallbackTitle.split(' | ')[0].trim();
 }
 

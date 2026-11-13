@@ -1214,6 +1214,8 @@ const PLANNED_EXPANSION = [
 
 // Price guides: published market ranges, sources named on each guide.
 articles.push(...require('./price-guides.js').priceGuides);
+// Question posts, batch 1 (Old Ox pattern, 2026-11-13).
+articles.push(...require('./question-posts.js').posts);
 
 articles.forEach((a) => {
   a.url = `/car-care/${a.slug}/`;

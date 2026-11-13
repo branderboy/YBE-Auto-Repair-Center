@@ -97,6 +97,9 @@ const records = [
   q('/car-care/what-to-do-after-a-flat-tire/', 'What should you do right after getting a flat tire?')
 ];
 
+// Question posts, batch 1: the key question is the page's title and H1.
+require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
+
 records.forEach((r) => { r.slug = r.url; r.phone = PHONE; });
 
 module.exports = { records, TRUSTS };
