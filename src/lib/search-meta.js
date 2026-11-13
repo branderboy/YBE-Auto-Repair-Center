@@ -65,7 +65,8 @@ function toUrl(slug) {
   };
   if (fixed[s]) return fixed[s];
   let m = s.match(/^\/services\/(roadside-assistance|brake-repair|jump-start-service)\/([a-z-]+)\/$/);
-  if (m) {
+  const TOWNS = ['district-heights', 'landover', 'largo', 'forestville', 'hillcrest-heights', 'hyattsville', 'lanham', 'new-carrollton', 'bowie', 'upper-marlboro', 'washington'];
+  if (m && TOWNS.includes(m[2])) {
     const type = m[1] === 'jump-start-service' ? 'jump-start' : m[1];
     return `/service-areas/${AREA(m[2])}/${type}/`;
   }

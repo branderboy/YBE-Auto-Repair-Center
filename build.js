@@ -9,6 +9,16 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const crypto = require('crypto');
 
+// Dynamic meta first: regenerate research/meta/meta-output.csv from the page
+// records with scripts/dynamic-meta.js, and stop the build on any flagged record.
+{
+  const meta = require('./scripts/build-meta.js').run();
+  if (meta.flagged.length) {
+    meta.flagged.forEach((o) => console.error(`  ✗ meta ${o.r.slug}: ${o.flags.join('; ')}`));
+    throw new Error(`${meta.flagged.length} page record(s) flagged by the meta rule`);
+  }
+}
+
 const b = require('./src/data/business.js');
 const { categories, roadsideHub, areas, articles } = require('./src/data/pillars.js');
 const R = require('./src/lib/pages.js');

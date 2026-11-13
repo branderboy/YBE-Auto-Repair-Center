@@ -35,11 +35,17 @@ structure cannot drift away from the plan.
 
 ### Meta
 
-Titles and descriptions come from the owner's generated set,
-`research/meta/meta-output.csv`, produced by `scripts/dynamic-meta.js` (the Trades
-Meta Rule). `src/lib/search-meta.js` reads it, maps each row's slug to this site's URL
-(indexed URLs are kept), and `layout()` applies it. A page with no row keeps the meta
-on its own record. To change meta, regenerate the CSV from the page records and rebuild.
+Generated, never hand-written. `npm run build` first runs `scripts/build-meta.js`, which
+feeds every page record through `scripts/dynamic-meta.js` (the Trades Meta Rule) and writes
+`research/meta/meta-output.csv`. Records live in two places:
+
+- `research/meta/page-records.json`: Muse's 67 records
+- `src/data/page-records.js`: records for the rest of the site (service pages, cost guides)
+
+A flagged record (length, missing key question, duplicate key question) stops the build.
+To change a title or description, change its record and rebuild. Pages with no record
+(Spanish pages, non-cost car-care articles, about, reviews, contact, appointment) keep the
+meta on their own data.
 
 ---
 

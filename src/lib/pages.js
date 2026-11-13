@@ -962,7 +962,7 @@ function renderArticle(a) {
   const body = `
 ${K.heroBlock({
   eyebrow: esc(cluster.name),
-  titleHtml: esc(a.title),
+  titleHtml: esc(SM.h1For(a.url, a.title)),
   sub: a.shortAnswer,
   ctaLabel: 'Call The Shop',
   secondary: svc ? { label: 'The Fix', href: svc.url, icon: 'wrench' } : undefined
