@@ -121,10 +121,11 @@ const business = {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   },
 
-  // --- Ratings: single source of truth. Update these two numbers only. ---
+  /*
+   * Google listing links. The star rating and review count were removed from
+   * the site on the owner's instruction (2026-11-13); nothing renders them.
+   */
   rating: {
-    value: '4.8',
-    count: 29,
     /*
      * The Google listing itself, where a customer can leave a review. The CID
      * is the listing ID inside maps.embedUrl below (0x2b9c4391cd42e4e4).

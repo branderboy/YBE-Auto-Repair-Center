@@ -222,13 +222,10 @@ function reviewsBlock(cards, { heading, sub } = {}) {
   return `
 <section class="py-20 bg-ybe-redtint border-y border-red-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="flex justify-center mb-4">
-      <div class="flex gap-1 md:gap-2 drop-shadow-[0_3px_8px_rgba(0,0,0,0.18)]">${stars(5, 64)}</div>
-    </div>
     <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide text-ybe-black mb-4">
-      ${heading || `Rated ${b.rating.value} on Google`}
+      ${heading || `What Customers <span class="text-ybe-red">Say</span>`}
     </h2>
-    <p class="text-xl text-gray-600 font-medium mb-12">${esc(sub || `Based on ${b.rating.count} customer reviews.`)}</p>
+    <p class="text-xl text-gray-600 font-medium mb-12">${esc(sub || 'From our Google reviews.')}</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       ${cards
         .map(

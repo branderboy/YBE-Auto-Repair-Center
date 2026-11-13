@@ -1218,7 +1218,7 @@ function renderReviews() {
   const crumbs = [HOME, { label: 'Reviews', url: '/reviews/' }];
   const body = `
 ${K.heroBlock({
-  eyebrow: `${b.rating.count} Google Reviews`,
+  eyebrow: 'Google Reviews',
   titleHtml: `YBE Auto Repair Center <span class="text-ybe-red">Reviews</span>`,
   sub: 'What customers mention most, drawn from our Google reviews.',
   ctaLabel: 'Call The Shop',
@@ -1264,7 +1264,7 @@ ${K.contactBlock({ heading: 'See For Yourself' })}`;
 
   return layout({
     title: `Reviews | YBE Auto Repair, ${primaryArea.label}`,
-    description: `${b.name} is rated ${b.rating.value} on Google from ${b.rating.count} reviews. Customers mention fair pricing, fast turnaround, weekend hours and help in urgent situations.`,
+    description: `What customers say about ${b.name} in Capitol Heights, MD: fair pricing, fast turnaround and weekend hours. Call ${b.phone.display}.`,
     path: '/reviews/',
     crumbs,
     body

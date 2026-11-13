@@ -70,11 +70,6 @@ function localBusinessSchema() {
       b.booking.href,
       b.rating.profileUrl
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: b.rating.value,
-      reviewCount: String(b.rating.count)
-    },
     areaServed: [
       ...require('../data/areas.js').areas.map((a) => ({
         '@type': 'City',
@@ -292,7 +287,7 @@ function ctaButtons({ variant = 'default', className = '' } = {}) {
 
 function trustStrip() {
   const items = [
-    { icon: 'star', label: `${b.rating.value} on Google`, sub: `${b.rating.count} reviews` },
+    { icon: 'message-square', label: 'Walk-Ins Welcome', sub: 'Call, text or WhatsApp' },
     { icon: 'calendar-check', label: `Since ${b.openedYear}`, sub: `${b.yearsInBusiness} years serving the area` },
     { icon: 'clock', label: 'Open 7 Days', sub: '8:30 AM–6:00 PM' },
     { icon: 'award', label: 'Black-Owned', sub: 'Local, independent shop' }

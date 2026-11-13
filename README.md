@@ -39,21 +39,18 @@ structure cannot drift away from the plan.
 
 ### Business facts — change them in ONE place
 
-Everything (address, phone, hours, rating, socials, booking link) lives in
+Everything (address, phone, hours, Google listing links, socials, booking link) lives in
 **`src/data/business.js`**. Nothing is hard-coded in templates.
 
-```js
-rating: { value: '4.8', count: 29 }   // update these two numbers, rebuild, done
-```
-
-That rating flows to the homepage, the reviews page, every trust strip, and the
-`aggregateRating` in schema on all 74 pages.
+The star rating and review count were removed from the site on the owner's
+instruction (2026-11-13). No page shows a rating number, and no `aggregateRating`
+is emitted in schema.
 
 ### Where each kind of content lives
 
 | Content | File |
 |---------|------|
-| Business facts, NAP, hours, rating | `src/data/business.js` |
+| Business facts, NAP, hours, Google listing links | `src/data/business.js` |
 | Service categories & service pages | `src/data/services.js`, `src/data/service-categories/*.js` |
 | Roadside services | `src/data/roadside.js` |
 | Service areas | `src/data/areas.js` |
@@ -128,7 +125,7 @@ Also deliberate:
 
 - **No towing claims anywhere.** YBE provides roadside assistance, not towing. A check
   fails the build if a page starts advertising towing.
-- **No `Review` schema.** Only the verified 4.8/29 `aggregateRating` is emitted. The three
+- **No rating or `Review` schema.** No `aggregateRating` is emitted. The three
   quotes on `/reviews/` are client-supplied paraphrases, not verbatim attributed reviews.
   To add `Review` markup later, replace them with verbatim text plus reviewer name and
   date, then set `verbatim: true` in `src/data/trust.js`.

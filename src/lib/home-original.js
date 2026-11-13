@@ -149,6 +149,10 @@ function renderHomeOriginal() {
         `<p class="font-heading text-sm sm:text-lg md:text-xl font-bold uppercase tracking-widest text-white/90 mb-1 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">Auto Repair That Gets You Back on the Road</p>\n` +
         `${open}${SM.accentH1(SM.metaFor('/').h1, (x) => x)}</h1>`
     )
+    // Rating removed on the owner's instruction (2026-11-13): no star row, no number, no count.
+    .replace(/<div class="flex justify-center mb-6">\s*<div class="star-row[\s\S]*?<\/div>\s*<\/div>\s*/, '')
+    .replace(/Rated <span class="text-ybe-red">4\.8<\/span> on Google/, 'What Customers <span class="text-ybe-red">Say</span>')
+    .replace(/Based on 29 verified customer reviews\./, 'From our Google reviews.')
     .replace(/<a href="tel:\+12024553822"/g, '<a data-track="call" data-location="homepage" href="tel:+12024553822"')
     .replace(/<a href="https:\/\/wa\.me\/12024553822"/g, '<a data-track="whatsapp" data-location="homepage" href="https://wa.me/12024553822"')
     .replace(/<a href="https:\/\/maps\.google\.com/g, '<a data-track="directions" data-location="homepage" href="https://maps.google.com');

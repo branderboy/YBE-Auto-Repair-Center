@@ -130,7 +130,6 @@ const about = {
     { label: 'Location', value: '8632 Edgeworth Dr, Capitol Heights, MD 20743' },
     { label: 'Hours', value: '8:30 AM–6:00 PM, seven days a week' },
     { label: 'Ownership', value: 'Black-owned business' },
-    { label: 'Google rating', value: '4.8 stars' },
     { label: 'Services', value: 'Onsite repair and mobile roadside assistance' },
     { label: 'Accessibility', value: 'Wheelchair-accessible parking' },
     { label: 'Appointments', value: 'Available — walk-ins also welcome' }

@@ -85,7 +85,7 @@ const pillars = [
     summary:
       'Who we are, what customers say, where to find us, and how to book — the facts you need before handing over your keys.',
     description:
-      'Verified facts only: since 2006, Black-owned, open seven days, and a 4.8 Google rating.',
+      'Verified facts only: since 2006, Black-owned, open seven days, walk-ins welcome.',
     count: 5
   }
 ];
