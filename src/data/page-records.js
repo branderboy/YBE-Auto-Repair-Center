@@ -76,7 +76,25 @@ const records = [
   q('/car-care/junk-car-value/', 'How much is my junk car worth in Capitol Heights, MD?'),
   q('/car-care/alternator-replacement-cost/', 'How much does alternator replacement cost near me?'),
   q('/car-care/starter-replacement-cost/', 'How much does starter replacement cost in Capitol Heights?'),
-  q('/car-care/brake-pad-replacement-cost/', 'How much does brake pad replacement cost in Capitol Heights?')
+  q('/car-care/brake-pad-replacement-cost/', 'How much does brake pad replacement cost in Capitol Heights?'),
+
+  // Car-care articles
+  q('/car-care/why-is-my-check-engine-light-on/', 'Why is my check engine light on, and is it safe to drive?'),
+  q('/car-care/why-wont-my-car-start/', "Why won't my car start, and what should I check first?"),
+  q('/car-care/signs-brake-pads-need-replacement/', 'What are the signs my brake pads need to be replaced?'),
+  q('/car-care/why-do-brakes-squeak-or-grind/', 'Why do my brakes squeak or grind when I stop the car?'),
+  q('/car-care/signs-of-a-failing-transmission/', 'What are the warning signs of a failing transmission?'),
+  q('/car-care/transmission-repair-rebuild-or-replace/', 'Should I repair, rebuild or replace my transmission?'),
+  q('/car-care/why-does-my-car-pull-to-one-side/', 'Why does my car pull to one side when I am driving?'),
+  q('/car-care/can-a-punctured-tire-be-repaired/', 'Can a punctured tire be repaired, or does it need replacing?'),
+  q('/car-care/why-is-my-car-ac-blowing-warm/', 'Why is my car AC blowing warm air instead of cold air?'),
+  q('/car-care/why-is-my-car-overheating/', 'Why is my car overheating, and what should I do first?'),
+  q('/car-care/how-often-should-you-change-your-oil/', 'How often should you really change the oil in your car?'),
+  q('/car-care/what-is-included-in-a-tune-up/', 'What is included in a car tune-up at a repair shop?'),
+  q('/car-care/preventive-maintenance-older-vehicles/', 'What preventive maintenance does an older car need?'),
+  q('/car-care/car-maintenance-before-a-long-trip/', 'What car maintenance should I do before a long road trip?'),
+  q('/car-care/jump-start-vs-battery-replacement/', 'Do I need a jump start or a new car battery replacement?'),
+  q('/car-care/what-to-do-after-a-flat-tire/', 'What should you do right after getting a flat tire?')
 ];
 
 records.forEach((r) => { r.slug = r.url; r.phone = PHONE; });
