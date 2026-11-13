@@ -8,8 +8,7 @@
  *
  * The generated description promises "cost factors, time, and process", so
  * every page answers those three. Rules:
- *  - No YBE price is published. A dollar range appears only where a price
- *    guide on this site already carries a sourced one.
+ *  - No prices.
  *  - Times are typical shop ranges, stated as typical; YBE confirms the time
  *    when it quotes.
  */
@@ -18,7 +17,7 @@ const faqPages = [
   {
     slug: 'alternator-repair-washington-dc',
     shortAnswer:
-      'Published figures put alternator replacement at $747 to $1,088 for most cars, and the part is most of that. DC drivers who come to YBE in Capitol Heights, just over the line, get the charging system tested first and a price before any work starts.',
+      'Alternator repair cost comes down mostly to the part, plus the labor to reach it. DC drivers who come to YBE in Capitol Heights, just over the line, get the charging system tested first and a price before any work starts.',
     costFactors: [
       'The alternator itself, which is most of the bill',
       'New or remanufactured part',
