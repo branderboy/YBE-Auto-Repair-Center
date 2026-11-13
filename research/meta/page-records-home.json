@@ -1,0 +1,17 @@
+[
+  {
+    "_note": "Home record reconstructed 2026-11-13 from the generated row in meta-output.csv (reproduces it exactly), then primary_service changed from 'Auto Repair' to 'Mechanic and Auto Repair': 'mechanic near me' is the profile's top search (156 of 180, Google Business Profile performance export) and the site's top GSC query for the home page. Replace with the owner's page-records.json when it arrives.",
+    "page": "Home",
+    "slug": "/",
+    "page_type": "home",
+    "key_question": "How much does a mobile mechanic cost?",
+    "primary_service": "Mechanic and Auto Repair",
+    "service_area": "Capitol Heights, MD",
+    "problem": "a car that will not start",
+    "top_service_1": "Auto repair",
+    "top_service_2": "brake repair",
+    "top_service_3": "roadside help",
+    "trust_signal": "Serving the community since 2006",
+    "phone": "(202) 455-3822"
+  }
+]
