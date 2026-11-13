@@ -21,6 +21,7 @@ const { serviceBySlug } = require('../data/services.js');
 const E = require('../data/entities.js');
 const { roadsideBySlug } = require('../data/roadside.js');
 const { articleBySlug, articles: allArticles } = require('../data/articles.js');
+require('../data/area-services.js'); // attaches area.servicePages
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -72,6 +73,60 @@ function sourcesBlock(article) {
             `<li><a href="${u}" target="_blank" rel="noopener noreferrer nofollow"
           class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">
           ${icon('external-link', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(label(u))} &mdash; Wikipedia</span></a></li>`
+        )
+        .join('')}
+    </ul>
+  </div>`;
+}
+
+/**
+ * Price guide blocks. Only articles from src/data/price-guides.js carry
+ * `price`, `factors`, `faqs` and named `sources`; every other article renders
+ * exactly as before.
+ */
+function priceGuideTop(a) {
+  if (!a.price) return '';
+  const row = (label, value) => `<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 py-4 border-b border-gray-200 last:border-0">
+      <dt class="sm:w-32 flex-shrink-0 font-heading text-lg font-bold uppercase tracking-wide text-gray-500">${label}</dt>
+      <dd class="text-xl font-semibold text-ybe-black">${esc(value)}</dd>
+    </div>`;
+  return `<div class="mb-12">
+    <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">Published Price Range</h2>
+    <dl class="bg-gray-50 border-l-4 border-ybe-red rounded-sm px-6">
+      ${row('Low', a.price.low)}
+      ${row('Typical', a.price.typical)}
+      ${row('High', a.price.high)}
+    </dl>
+    <p class="text-sm text-gray-600 mt-3">Market ranges from the sources listed below, not YBE’s prices.${a.price.note ? ' ' + esc(a.price.note) : ''} YBE quotes the price for your car before work starts: call ${esc(b.phone.display)}.</p>
+    ${
+      a.factors && a.factors.length
+        ? `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mt-12 mb-5">What Moves The Price</h2>
+    <div class="bg-gray-50 border-l-4 border-ybe-black p-6 rounded-sm">${K.checkList(a.factors)}</div>`
+        : ''
+    }
+    ${a.updated ? `<p class="text-sm text-gray-500 mt-4">Updated <time datetime="${a.updated}">${esc(new Date(a.updated + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</time></p>` : ''}
+  </div>`;
+}
+
+function priceGuideFaqs(a) {
+  if (!a.faqs || !a.faqs.length) return '';
+  return `<div class="mb-12">
+    <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">Common Questions</h2>
+    ${faqAccordion(a.faqs)}
+  </div>`;
+}
+
+function namedSources(a) {
+  if (!a.sources || !a.sources.length) return '';
+  return `<div class="bg-gray-50 p-8 rounded-sm border border-gray-200 mt-12">
+    <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-3 border-b-2 border-ybe-red pb-2">Price Sources</h2>
+    <p class="text-gray-600 text-sm mb-4">Where the ranges on this page come from.</p>
+    <ul class="space-y-2">
+      ${a.sources
+        .map((src) =>
+          src.url
+            ? `<li><a href="${src.url}" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('external-link', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(src.name)}</span></a></li>`
+            : `<li class="flex items-start gap-2 py-1.5 text-gray-700 font-medium">${icon('file-text', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(src.name)}</span></li>`
         )
         .join('')}
     </ul>
@@ -431,14 +486,14 @@ function renderRoadsidePage(svc) {
 
   const body = `
 ${K.heroBlock({
-  eyebrow: `Roadside Assistance · ${primaryArea.label}`,
+  eyebrow: `${svc.calm ? 'Mobile Service' : 'Roadside Assistance'} · ${primaryArea.label}`,
   titleHtml: esc(svc.title),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : '',
-  ctaLabel: 'Call For Roadside Help',
+  ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Roadside Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
-${K.roadsideBand({
+${svc.calm ? '' : K.roadsideBand({
   heading: `Stuck? <span class="text-ybe-red bg-white px-2 rounded-sm inline-block transform -skew-x-12">Call Now</span>`,
   sub: 'Tell us where you are and what the vehicle is doing. Open seven days a week, 8:30 AM to 6:00 PM.'
 })}
@@ -478,8 +533,8 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Call For Roadside Help</h2>
-        <p class="mb-6 text-sm leading-relaxed text-white/90">Tell us where you are and what happened.</p>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${svc.calm ? 'Call For An Offer' : 'Call For Roadside Help'}</h2>
+        <p class="mb-6 text-sm leading-relaxed text-white/90">${svc.calm ? 'Tell us the year, make, model and condition.' : 'Tell us where you are and what happened.'}</p>
         <a href="${b.phone.href}" data-track="call" data-location="roadside-sidebar"
            class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">
           ${esc(b.phone.display)}</a>
@@ -505,7 +560,7 @@ ${section(
 )}
 
 ${K.mapAreasBlock()}
-${K.contactBlock({ heading: 'Stuck? Call The Shop.' })}`;
+${K.contactBlock({ heading: svc.calm ? 'Call For An Offer' : 'Stuck? Call The Shop.' })}`;
 
   return layout({
     title: svc.metaTitle,
@@ -628,6 +683,18 @@ ${section(
             ${icon('info', 20)} Roadside Services</a>
         </div>
       </div>
+
+      <div class="mt-8 bg-white border border-gray-200 p-8 rounded-sm">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-4 border-b-2 border-ybe-red pb-2">${esc(area.name)} Service Pages</h2>
+        <ul class="space-y-2">
+          ${(area.servicePages || [])
+            .map(
+              (p) =>
+                `<li><a href="${p.url}" class="inline-flex items-center gap-2 py-1.5 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred">${icon('arrow-right', 18)} ${esc(p.title)}</a></li>`
+            )
+            .join('')}
+        </ul>
+      </div>
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
@@ -679,6 +746,149 @@ ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
     schema: [
       serviceSchema({ name: `Auto Repair in ${area.label}`, description: area.metaDescription, url: area.url, areaNames: [area.label] })
     ],
+    body
+  });
+}
+
+/* ===================================================== SERVICE x AREA */
+/**
+ * Roadside assistance, jump start and brake repair for one area. Every
+ * paragraph comes from the area's record or the service's record; see
+ * src/data/area-services.js.
+ */
+function renderAreaServicePage(page) {
+  const { area } = page;
+  const crumbs = [
+    HOME,
+    { label: 'Service Areas', url: '/service-areas/' },
+    { label: area.label, url: area.url },
+    { label: page.navLabel, url: page.url }
+  ];
+  const guide = (slug) => articleBySlug[slug];
+  const linkItem = (href, label, sub = '') =>
+    `<li><a href="${href}" class="flex items-start gap-2 py-2 text-gray-700 hover:text-ybe-red font-medium">
+      ${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span><span class="font-semibold">${esc(label)}</span>${sub ? `<span class="block text-sm text-gray-500">${esc(sub)}</span>` : ''}</span></a></li>`;
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const roadsList = `<p class="text-gray-700 leading-relaxed text-lg mb-12">${
+    page.mobile
+      ? `We reach drivers along ${esc(area.roads.join(', '))}. Tell us the cross street or a landmark when you call.`
+      : `${esc(area.landmarkNote)} The shop is at <strong>${esc(b.address.oneLine)}</strong>, open ${esc(b.hours.summary)}.`
+  }</p>`;
+
+  let main = '';
+  let guides = [];
+  if (page.type === 'roadside-assistance') {
+    const svcs = roadsideHub.services.filter((s) => !s.calm);
+    guides = ['jump-start-cost', 'flat-tire-help-cost', 'car-lockout-cost', 'fuel-delivery-cost'];
+    main = `
+      ${h2(`Roadside Help in ${esc(area.name)}`)}
+      <div class="prose-ybe text-lg text-gray-700 mb-6"><p>${esc(area.roadsideNote)}</p><p>${esc(area.intro[1] || area.intro[0])}</p></div>
+      ${roadsList}
+      ${h2('What We Handle Where You Sit')}
+      <ul class="bg-gray-50 border-l-4 border-ybe-red rounded-sm p-6 mb-12">${svcs.map((s) => linkItem(s.url, s.title, s.customerVoice ? `“${s.customerVoice}”` : '')).join('')}</ul>
+      <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-12">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Roadside Assistance, Not Towing</h2>
+        <p class="text-gray-300 leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
+      </div>`;
+  } else if (page.type === 'jump-start') {
+    const js = roadsideBySlug['jump-start'];
+    guides = ['jump-start-cost', 'car-battery-replacement-cost', 'alternator-replacement-cost'];
+    main = `
+      ${h2(`Dead Battery in ${esc(area.name)}?`)}
+      <div class="prose-ybe text-lg text-gray-700 mb-6">${paras(js.problem.slice(0, 1))}<p>${esc(area.relationship)} ${esc(area.roadsideNote)}</p><p>${esc(area.localContext[area.localContext.length - 1])}</p></div>
+      ${roadsList}
+      ${h2('What Happens When We Get There')}
+      <div class="prose-ybe text-lg text-gray-700 mb-8">${paras(js.whatWeDo)}</div>
+      <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm mb-12">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-4">Signs It Is The Battery</h2>
+        ${K.checkList(js.warningSigns)}
+      </div>`;
+  } else {
+    const pads = serviceBySlug['brake-pad-rotor-replacement'];
+    const brakeSvcs = ['brake-pad-rotor-replacement', 'brake-noise-vibration', 'brake-fluid-calipers'].map((s) => serviceBySlug[s]).filter(Boolean);
+    guides = ['brake-pad-replacement-cost', 'what-affects-brake-repair-cost', 'signs-brake-pads-need-replacement'];
+    main = `
+      ${h2(`What We See From ${esc(area.name)} Drivers`)}
+      <div class="prose-ybe text-lg text-gray-700 mb-6">${paras(area.localContext)}</div>
+      ${h2(area.isPrimary ? 'Find The Shop' : `From ${esc(area.name)} To The Shop`)}
+      ${roadsList}
+      ${h2('Brake Work We Do')}
+      <ul class="bg-gray-50 border-l-4 border-ybe-red rounded-sm p-6 mb-12">${brakeSvcs.map((s) => linkItem(s.url, s.title, s.customerVoice ? `“${s.customerVoice}”` : '')).join('')}</ul>
+      <div class="bg-gray-50 border-l-4 border-ybe-black p-6 rounded-sm mb-12">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-4">Signs Your Brakes Need Attention</h2>
+        ${K.checkList(pads.warningSigns)}
+      </div>`;
+  }
+
+  const guideLinks = guides.map(guide).filter(Boolean);
+  const siblings = area.servicePages.filter((p) => p.type !== page.type);
+
+  const body = `
+${K.heroBlock({
+  eyebrow: `${esc(area.label)} · ${page.mobile ? 'We Come To You' : esc(area.relationship)}`,
+  titleHtml: esc(page.title),
+  sub: page.metaDescription.replace(/ Call( or text)? \(202\) 455-3822\.$/, ''),
+  ctaLabel: page.mobile ? 'Call For Roadside Help' : 'Call The Shop',
+  secondary: page.mobile
+    ? { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+    : { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
+})}
+
+${section(
+  `<div class="flex flex-col lg:flex-row gap-12">
+    <article class="lg:w-2/3">
+      ${main}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Price Guides</h2>
+          <ul>${guideLinks.map((g) => linkItem(g.url, g.title)).join('')}</ul>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">More For ${esc(area.name)}</h2>
+          <ul>
+            ${linkItem(area.url, `Auto repair for ${area.label}`)}
+            ${siblings.map((p) => linkItem(p.url, p.title)).join('')}
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <aside class="lg:w-1/3 space-y-8">
+      <div class="${page.mobile ? 'bg-ybe-red' : 'bg-ybe-black border-t-4 border-ybe-red'} text-white p-8 rounded-sm lg:sticky lg:top-32">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Book From ${esc(area.name)}`}</h2>
+        <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or request an appointment online.'}</p>
+        <div class="flex flex-col gap-3">
+          <a href="${b.phone.href}" data-track="call" data-location="area-service-sidebar"
+             class="w-full text-center ${page.mobile ? 'bg-white text-ybe-red' : 'bg-ybe-red hover:bg-ybe-darkred text-white'} font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
+          <a href="${b.sms.href}" data-track="text" data-location="area-service-sidebar"
+             class="w-full text-center ${page.mobile ? 'bg-ybe-black text-white' : 'bg-white hover:bg-gray-100 text-ybe-black'} font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+          ${page.mobile ? '' : `<a href="/request-appointment/" data-track="appointment" data-location="area-service-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>`}
+        </div>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">${esc(page.navLabel)} Nearby</h2>
+        <ul class="space-y-1">
+          ${areas
+            .filter((a) => a.slug !== area.slug)
+            .map((a) => a.servicePages.find((p) => p.type === page.type))
+            .map((p) => `<li><a href="${p.url}" class="flex items-center gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('map-pin', 14, 'text-ybe-red flex-shrink-0')} ${esc(p.area.label)}</a></li>`)
+            .join('')}
+        </ul>
+      </div>
+    </aside>
+  </div>`
+)}
+
+${page.mobile ? '' : K.roadsideBand()}
+${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
+
+  return layout({
+    title: page.metaTitle,
+    description: page.metaDescription,
+    path: page.url,
+    crumbs,
+    schema: [serviceSchema({ name: page.title, description: page.metaDescription, url: page.url, areaNames: [area.label] })],
     body
   });
 }
@@ -754,6 +964,7 @@ ${K.heroBlock({
 ${section(
   `<div class="flex flex-col lg:flex-row gap-12">
     <article class="lg:w-2/3">
+      ${priceGuideTop(a)}
       ${a.sections
         .map(
           (s) => `<div class="mb-12">
@@ -785,6 +996,8 @@ ${section(
           : ''
       }
 
+      ${priceGuideFaqs(a)}
+      ${namedSources(a)}
       ${sourcesBlock(a)}
 
       ${
@@ -852,8 +1065,10 @@ ${K.contactBlock({ heading: 'Get It Looked At' })}`;
         url: T.abs(a.url),
         author: { '@id': `${b.siteUrl}/#business` },
         publisher: { '@id': `${b.siteUrl}/#business` },
-        mainEntityOfPage: T.abs(a.url)
-      }
+        mainEntityOfPage: T.abs(a.url),
+        ...(a.updated ? { datePublished: a.updated, dateModified: a.updated } : {})
+      },
+      ...(a.faqs && a.faqs.length ? [faqSchema(a.faqs)] : [])
     ],
     body
   });
@@ -1346,6 +1561,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 
 module.exports = {
+  renderAreaServicePage,
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,
   renderCarCareHub, renderArticle, renderAbout, renderReviews,

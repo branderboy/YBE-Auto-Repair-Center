@@ -343,6 +343,7 @@ function run() {
   // 4. Geographic relevance
   emit('/service-areas/', R.renderAreasHub(), { priority: '0.8' });
   areas.forEach((a) => emit(a.url, R.renderAreaPage(a), { priority: a.isPrimary ? '0.9' : '0.7' }));
+  require('./src/data/area-services.js').areaServicePages.forEach((p) => emit(p.url, R.renderAreaServicePage(p), { priority: '0.6' }));
 
   // 3. Topical relevance
   emit('/car-care/', R.renderCarCareHub(), { priority: '0.7' });

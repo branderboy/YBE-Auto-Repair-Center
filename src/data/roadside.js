@@ -28,7 +28,8 @@ const hub = {
     'Fuel delivery',
     'Vehicle lockouts',
     'Mobile diagnostics',
-    'Minor roadside repairs'
+    'Minor roadside repairs',
+    'Junk car pickup for cash'
   ],
   services: [
     {
@@ -303,6 +304,48 @@ const hub = {
         'Problems like a slipping belt or a weeping hose almost always come back, usually further from home than the first time.'
       ],
       related: ['roadside-mobile-diagnostics', 'jump-start', 'flat-tire']
+    },
+    {
+      /*
+       * Source: owner-supplied Google profile plan and research workbook
+       * (2026-11-13): "Cash paid for junk cars, picked up running or not."
+       * Not an emergency service, so the page drops the stranded-driver band.
+       */
+      slug: 'junk-car-pickup',
+      calm: true,
+      title: 'Junk Car Pickup',
+      navLabel: 'Junk Car Pickup',
+      metaTitle: 'Junk Car Pickup for Cash in Capitol Heights, MD | YBE Auto',
+      metaDescription:
+        'YBE pays cash for junk cars and picks them up, running or not, around Capitol Heights, MD and nearby areas. Call (202) 455-3822 for an offer.',
+      customerVoice: 'I have a car that is not worth fixing. Will you buy it?',
+      problem: [
+        'Some cars reach the point where the repair costs more than the car is worth. Others have been sitting in a driveway or behind a building for years with flat tires and a dead battery, taking up space and drawing notices.',
+        'Either way, the car still has value as metal and parts, and getting it gone should not take a weekend of phone calls.'
+      ],
+      whatWeDo: [
+        'YBE pays cash for junk cars and picks them up, running or not. Call with the year, make, model and condition, and we give you an offer before anyone comes out.',
+        'If the car might be worth repairing instead, we will say so. We look at cars every day and can tell you honestly whether a repair makes sense or whether selling it is the better call.'
+      ],
+      warningSigns: [
+        'The repair estimate is more than the car is worth',
+        'The car has been sitting and no longer runs',
+        'It failed inspection and fixing it is not worth it',
+        'You need the parking space back',
+        'Flat tires and a dead battery from years of sitting',
+        'You have already replaced the car'
+      ],
+      includes: [
+        'A cash offer based on the car you describe',
+        'Pickup of running and non-running cars',
+        'An honest answer if the car is worth repairing instead',
+        'Help understanding what you need to bring, such as the title'
+      ],
+      whyNotIgnore: [
+        'A car that sits keeps losing value: tires rot, fluids leak, and rodents move into the wiring. The offer for it usually goes down the longer it waits.',
+        'Have the title ready if you can. Most buyers pay less without one, and a lost Maryland title can be replaced through the MVA.'
+      ],
+      related: ['roadside-mobile-diagnostics', 'engine-repair', 'state-inspection-repairs']
     }
   ]
 };

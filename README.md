@@ -25,13 +25,13 @@ structure cannot drift away from the plan.
 
 | # | Element | Where it lives | Pages |
 |---|---------|----------------|-------|
-| 1 | Services | `/services/<category>/<service>/` | 22 + 7 roadside |
+| 1 | Services | `/services/<category>/<service>/` | 22 + 8 roadside (incl. junk car pickup) |
 | 2 | Service categories | `/services/<category>/`, `/roadside-assistance/` | 8 hubs |
-| 3 | Topical relevance | `/car-care/<article>/` | 16 articles |
-| 4 | Geographic relevance | `/service-areas/<city>/` | 11 areas |
+| 3 | Topical relevance | `/car-care/<article>/` | 24 articles + 11 price guides (`src/data/price-guides.js`) |
+| 4 | Geographic relevance | `/service-areas/<city>/` + `/service-areas/<city>/<service>/` | 12 areas + 33 roadside, jump start and brake pages (`src/data/area-services.js`) |
 | 5 | Trust & decision support | `/about/` `/reviews/` `/contact/` `/request-appointment/` `/faq/` | 5 |
 
-**74 pages total.**
+**128 indexed pages.** Question-to-page map: `research/question-map.md`.
 
 ---
 

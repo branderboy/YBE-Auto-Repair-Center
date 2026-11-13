@@ -18,7 +18,8 @@ const clusters = [
   { slug: 'ac-cooling', name: 'A/C and Cooling', blurb: 'Warm air, overheating and coolant leaks.' },
   { slug: 'maintenance', name: 'Maintenance', blurb: 'Oil, tune-ups and keeping an older car going.' },
   { slug: 'roadside', name: 'Roadside Problems', blurb: 'What to do when you are stuck right now.' },
-  { slug: 'costs', name: 'Repair Costs', blurb: 'What actually drives the price of a repair, and what you control.' }
+  { slug: 'costs', name: 'Repair Costs', blurb: 'What actually drives the price of a repair, and what you control.' },
+  { slug: 'price-guides', name: 'Price Guides', blurb: 'Published price ranges for common repairs and roadside calls, with the sources named.' }
 ];
 
 const articles = [
@@ -1210,6 +1211,9 @@ const PLANNED_EXPANSION = [
   'What should you do when your car will not start?',
   'When can a mobile mechanic fix the problem roadside?'
 ];
+
+// Price guides: published market ranges, sources named on each guide.
+articles.push(...require('./price-guides.js').priceGuides);
 
 articles.forEach((a) => {
   a.url = `/car-care/${a.slug}/`;
