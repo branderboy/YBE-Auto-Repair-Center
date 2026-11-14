@@ -186,7 +186,7 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: h1Html('Auto Repair Services in Capitol Heights, MD'),
   sub: 'From minor maintenance to major mechanical and body repairs, our Capitol Heights shop handles it all.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -258,7 +258,7 @@ ${K.heroBlock({
   eyebrow: `${cat.title} · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(cat.url, cat.metaTitle)),
   sub: cat.blurb,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -325,7 +325,7 @@ ${K.heroBlock({
   eyebrow: `${cat.title} · ${svc.title}`,
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : cat.blurb,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -430,7 +430,7 @@ ${K.heroBlock({
   eyebrow: `Mobile Help · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(roadsideHub.url, roadsideHub.metaTitle)),
   sub: 'Stuck right now? Calling is faster than any form on this page.',
-  ctaLabel: 'Call For Help',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -486,7 +486,7 @@ ${K.heroBlock({
   eyebrow: `${svc.calm ? 'Mobile Service' : 'Roadside Assistance'} · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : '',
-  ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Help',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -581,7 +581,7 @@ ${K.heroBlock({
   eyebrow: `Based in ${primaryArea.label}`,
   titleHtml: h1Html('Auto Repair Service Areas Near Capitol Heights, MD'),
   sub: 'The Maryland and DC communities we genuinely serve — not a list of every city within fifty miles.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -649,7 +649,7 @@ ${K.heroBlock({
     return h1Html(h);
   })(),
   sub: area.intro[0],
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -676,7 +676,7 @@ ${section(
         <div class="flex flex-wrap gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-roadside"
              class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center gap-2">
-            ${icon('phone', 20)} Call For Help</a>
+            ${icon('phone', 20)} Call Now</a>
           <a href="${roadsideHub.url}" class="bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
             ${icon('info', 20)} Roadside Services</a>
         </div>
@@ -825,7 +825,7 @@ ${K.heroBlock({
   eyebrow: `${esc(area.label)} · ${page.mobile ? 'We Come To You' : esc(area.relationship)}`,
   titleHtml: h1Html(kwH1(page.url, page.title)),
   sub: (SM.metaFor(page.url) || page).description || page.metaDescription,
-  ctaLabel: page.mobile ? 'Call For Help' : 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: page.mobile
     ? { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
     : { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -898,7 +898,7 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: `Car Care <span class="text-ybe-red">Tips</span>`,
   sub: 'Straight answers to the questions drivers ask before deciding whether to call a shop.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
 })}
 
@@ -954,7 +954,7 @@ ${K.heroBlock({
   eyebrow: esc(cluster.name),
   titleHtml: esc(SM.h1For(a.url, a.title)),
   sub: a.shortAnswer,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: svc ? { label: 'The Fix', href: svc.url, icon: 'wrench' } : undefined
 })}
 
@@ -1079,7 +1079,7 @@ ${K.heroBlock({
   eyebrow: `Since ${b.openedYear} · ${primaryArea.label}`,
   titleHtml: h1Html('About YBE Auto Repair Center in Capitol Heights, MD'),
   sub: `A Black-owned, independent auto repair shop in ${primaryArea.label}, open seven days a week since ${b.openedYear}.`,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1207,7 +1207,7 @@ ${K.heroBlock({
   eyebrow: 'Google Reviews',
   titleHtml: `YBE Auto Repair Center <span class="text-ybe-red">Reviews</span>`,
   sub: 'What customers mention most, drawn from our Google reviews.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Read on Google', href: b.rating.profileUrl, icon: 'external-link', track: 'reviews' }
 })}
 
@@ -1272,7 +1272,7 @@ ${K.heroBlock({
   eyebrow: `Open ${esc(b.hours.summary)}`,
   titleHtml: h1Html('Contact and Directions in Capitol Heights, MD'),
   sub: b.address.oneLine,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1375,7 +1375,7 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: h1Html('Auto Repair Questions for Capitol Heights, MD'),
   sub: 'Hours, walk-ins, roadside assistance, towing, and what we do and do not offer.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Contact Us', href: '/contact/', icon: 'map-pin' }
 })}
 
@@ -1438,7 +1438,7 @@ ${K.heroBlock({
   eyebrow: `Common Question · ${esc(primaryArea.label)}`,
   titleHtml: esc(question),
   sub: q.shortAnswer,
-  ctaLabel: 'Call For A Quote',
+  ctaLabel: 'Call Now',
   secondary: svc ? { label: 'The Service', href: svc.url, icon: 'wrench' } : undefined
 })}
 
@@ -1542,7 +1542,7 @@ ${K.heroBlock({
   eyebrow: `Commercial · ${esc(primaryArea.label)} · Open 7 Days`,
   titleHtml: h1Html(SM.h1For(COMMERCIAL_FORM_URL, 'Commercial Service Request')),
   sub: 'Fleets, dealers, auction buyers, rideshare and rental vehicles, and public agencies: tell us about your vehicles and what they need, and we will get back to you.',
-  ctaLabel: 'Call Instead',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 ${section(
@@ -1605,7 +1605,7 @@ ${section(
       ${icon('calendar', 28)} ${esc(b.booking.label)}</a>
     <p class="text-gray-600 mt-4">Opens our Square booking site in a new tab.</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
-      ${step(1, 'Open Square', 'Tap Book Online to open our Square booking site.')}
+      ${step(1, 'Open Square', 'Tap Book Now to open our Square booking site.')}
       ${step(2, 'Pick A Service And Time', 'Choose the service you need and a time that works for you.')}
       ${step(3, 'Bring The Car In', `Come to ${b.address.street}, ${b.address.city}. We are open seven days a week, 8:30 AM to 6:00 PM.`)}
     </div>
@@ -1673,7 +1673,7 @@ ${K.heroBlock({
   eyebrow: `Roadside Assistance · ${esc(primaryArea.label)}`,
   titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Help')),
   sub: 'Dead battery, flat tire, locked out or out of gas? Call for the fastest help. If you cannot talk, send your location and what happened by text or email below.',
-  ctaLabel: 'Call For Help',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 ${section(
@@ -1749,7 +1749,7 @@ ${K.heroBlock({
   eyebrow: `${isDealer ? 'Bought From' : 'Bought At'} ${esc(c.name)}`,
   titleHtml: h1Html(h1),
   sub: intro[0],
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1814,7 +1814,7 @@ ${K.heroBlock({
   eyebrow: `Independent Repair Shop · ${esc(primaryArea.label)}`,
   titleHtml: h1Html(SM.h1For(CO.hub.url, CO.hub.title)),
   sub: 'Bought a used car from a dealer or at auction? We check it over and repair what it needs. Independent, open seven days, and a quote before any work.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 ${section(`${K.heading2('Bought From A <span class="text-ybe-red">Dealer</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.dealers.map(card).join('')}</div>`)}
@@ -1868,7 +1868,7 @@ ${K.heroBlock({
   eyebrow: `Prince George’s County · Since ${b.openedYear}`,
   titleHtml: h1Html(SM.h1For(ORG.hub.url, ORG.hub.title)),
   sub: ORG.hub.description,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 ${section(`${K.heading2('Fleet <span class="text-ybe-red">Networks</span>')}<div class="grid grid-cols-1 md:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'fleet').map(card).join('')}</div>`)}
@@ -1885,7 +1885,7 @@ ${K.heroBlock({
   eyebrow: 'Page Not Found',
   titleHtml: `That Page <span class="text-ybe-red">Doesn't Exist</span>`,
   sub: 'The link may be old or mistyped. Here is where to go instead.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
 })}
 

@@ -241,7 +241,7 @@ function footer() {
           <ul class="space-y-2 text-sm font-medium mb-5">${explore}</ul>
           <a href="/#call-back" data-track="callback-link" data-location="footer"
              class="block w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-lg px-4 py-2.5 rounded-sm transition-all uppercase tracking-wide font-bold">
-            Request A Call Back</a>
+            Call Me Back</a>
         </div>
       </div>
 
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
           '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to ${b.commercialEmail}. Press send. If it does not open, email that address or call the shop.</p>' +
           '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
-          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
         cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         window.location.href = mailHref;
       });
@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
           '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
           '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
-          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
         est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         window.location.href = href;
       });

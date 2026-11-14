@@ -142,7 +142,7 @@ function roadsideBand({ heading, sub } = {}) {
     <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
       <a href="${b.phone.href}" data-track="call" data-location="roadside-band"
          class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
-        ${icon('phone', 32)} Call For Help</a>
+        ${icon('phone', 32)} Call Now</a>
       <a href="${b.sms.href}" data-track="text" data-location="roadside-band"
          class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
         ${icon('message-square', 32)} Text Us</a>
@@ -242,7 +242,7 @@ function reviewsBlock(cards, { heading, sub } = {}) {
     </div>
     <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" data-track="reviews" data-location="reviews-block"
        class="inline-flex items-center justify-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
-      ${icon('external-link', 20)} Read Google Reviews</a>
+      ${icon('external-link', 20)} Read Reviews</a>
   </div>
 </section>`;
 }
