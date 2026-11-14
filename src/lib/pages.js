@@ -29,6 +29,7 @@ const { roadsideBySlug } = require('../data/roadside.js');
 const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 require('../data/area-services.js'); // attaches area.servicePages
 const { faqPages } = require('../data/faq-pages.js');
+const CO = require('../data/company-pages.js');
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -1613,6 +1614,107 @@ ${K.contactBlock({ heading: 'Get It Priced' })}`;
   });
 }
 
+/* ===================================================== COMPANY PAGES */
+/** One dealer group or auction from src/data/company-pages.js. */
+function renderCompanyPage(c) {
+  const isDealer = c.kind === 'dealer';
+  const h1 = SM.h1For(c.url, c.label);
+  const crumbs = [HOME, { label: 'Used & Auction Car Repairs', url: CO.hub.url }, { label: c.name, url: c.url }];
+  const where = c.locations.length === 1 ? c.locations[0] : `${c.locations.slice(0, -1).join('; ')} and ${c.locations[c.locations.length - 1]}`;
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const link = (href, label) => `<li><a href="${href}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(label)}</span></a></li>`;
+
+  const intro = isDealer
+    ? [`${c.name} sells used cars from ${c.locations.length > 1 ? 'locations in' : ''} ${where}. If you bought a car there and want it checked over, or something needs fixing, YBE Auto Repair Center is an independent repair shop at ${b.address.oneLine}, open seven days a week.`,
+       'An independent check gives you a second set of eyes on what you bought: warning lights, brakes, tires, fluids, leaks and anything that feels or sounds wrong.']
+    : [`${c.name} sells vehicles at ${where}. Auction cars are sold as they are, and many need work before they are ready for the road or the lot. YBE Auto Repair Center is an independent repair shop at ${b.address.oneLine}, open seven days a week.`,
+       'Bring the car in after the sale and we will tell you what you have: what it needs to be roadworthy, what is optional, and what it will take.'];
+  const checks = isDealer
+    ? ['Check engine and other warning lights', 'Brakes, tires and steering', 'Fluids, leaks and belts', 'Battery and charging system', 'Suspension noises and alignment', 'Anything the car is doing that worries you']
+    : ['Post-purchase diagnostic and code scan', 'No-start diagnosis', 'Roadworthiness check: brakes, tires, steering, lights', 'Fluids and leaks', 'Written estimate: needed now versus optional', 'Body and mechanical work in one shop'];
+  const related = isDealer
+    ? [lookup('check-engine-light-diagnostics'), lookup('brake-pad-rotor-replacement'), lookup('tire-repair-replacement')]
+    : [lookup('auction-vehicle-repair'), lookup('no-start-diagnostics'), lookup('used-car-dealer-reconditioning')];
+  const others = CO.companies.filter((x) => x.kind === c.kind && x.slug !== c.slug);
+
+  const body = `
+${K.heroBlock({
+  eyebrow: `${isDealer ? 'Bought From' : 'Bought At'} ${esc(c.name)}`,
+  titleHtml: h1Html(h1),
+  sub: intro[0],
+  ctaLabel: 'Call The Shop',
+  secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
+})}
+
+${section(
+  `<div class="flex flex-col lg:flex-row gap-12">
+    <article class="lg:w-2/3">
+      <div class="prose-ybe text-lg text-gray-700 mb-10"><p>${esc(intro[1])}</p></div>
+      ${h2('What We Check')}
+      <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm mb-4">${K.checkList(checks)}</div>
+      <p class="text-sm text-gray-600 mb-10">You get a quote before any work starts.</p>
+      ${isDealer ? `${h2('Under Warranty?')}
+      <div class="prose-ybe text-lg text-gray-700 mb-10"><p>If your purchase came with a warranty or service contract, read its terms before any repair. Some require the work to be done or approved by a specific shop. Bring the paperwork and we will look at it with you.</p></div>` : ''}
+      <div class="bg-gray-100 border border-gray-200 p-5 rounded-sm text-sm text-gray-600 mb-10">
+        YBE Auto Repair Center is an independent repair shop. We are not affiliated with, endorsed by or a partner of ${esc(c.name)}. ${esc(c.name)} is named only to describe where you bought the vehicle.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Related Services</h2>
+          <ul>${related.filter(Boolean).map((r) => link(r.url, r.title)).join('')}</ul>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
+          <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">${isDealer ? 'Other Dealers' : 'Other Auctions'}</h2>
+          <ul>${others.map((x) => link(x.url, x.name)).join('')}</ul>
+        </div>
+      </div>
+    </article>
+    <aside class="lg:w-1/3 space-y-8">
+      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get It Checked</h2>
+        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
+        <div class="flex flex-col gap-3">
+          <a href="${b.phone.href}" data-track="call" data-location="company-page" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
+          <a href="${b.sms.href}" data-track="text" data-location="company-page" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+          <a href="/request-appointment/" data-track="appointment" data-location="company-page" class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>
+        </div>
+      </div>
+    </aside>
+  </div>`
+)}
+
+${K.contactBlock({ heading: 'Bring It In' })}`;
+
+  return layout({
+    title: c.label,
+    description: CO.hub.metaDescription,
+    path: c.url,
+    crumbs,
+    schema: [serviceSchema({ name: h1, description: intro[0], url: c.url, areaNames })],
+    body
+  });
+}
+
+function renderCompanyHub() {
+  const crumbs = [HOME, { label: 'Used & Auction Car Repairs', url: CO.hub.url }];
+  const card = (c) => `<a href="${c.url}" class="block bg-gray-50 border border-gray-200 border-l-4 border-l-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
+      <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-1">${esc(c.name)}</h3>
+      <p class="text-gray-600 text-sm">${esc(c.locations.join(' · '))}</p></a>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Independent Repair Shop · ${esc(primaryArea.label)}`,
+  titleHtml: h1Html(SM.h1For(CO.hub.url, CO.hub.title)),
+  sub: 'Bought a used car from a dealer or at auction? We check it over and repair what it needs. Independent, open seven days, and a quote before any work.',
+  ctaLabel: 'Call The Shop',
+  secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
+})}
+${section(`${K.heading2('Bought From A <span class="text-ybe-red">Dealer</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.dealers.map(card).join('')}</div>`)}
+${section(`${K.heading2('Bought At <span class="text-ybe-red">Auction</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.auctions.map(card).join('')}</div>
+  <p class="text-sm text-gray-600 mt-8">YBE Auto Repair Center is an independent repair shop and is not affiliated with any company listed here.</p>`, 'bg-gray-50')}
+${K.contactBlock({ heading: 'Bring It In' })}`;
+  return layout({ title: CO.hub.metaTitle, description: CO.hub.metaDescription, path: CO.hub.url, crumbs, body });
+}
+
 /* ===================================================== 404 */
 function render404() {
   const body = `
@@ -1659,6 +1761,8 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 module.exports = {
   renderAreaServicePage,
+  renderCompanyPage,
+  renderCompanyHub,
   renderFaqQuestionPage,
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,

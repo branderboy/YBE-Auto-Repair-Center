@@ -109,6 +109,15 @@ records.push(
   svc('/services/commercial-rideshare/used-car-dealer-reconditioning/', 'Dealer Reconditioning', ['written estimates', 'approved repairs', 'overflow work']),
   svc('/services/commercial-rideshare/auction-vehicle-repair/', 'Auction Car Repair', ['post-purchase diagnostics', 'no-starts', 'roadworthiness checks'])
 );
+// Used and auction car repair pages (owner, 2026-11-14)
+records.push(svc('/used-car-repair/', 'Used and Auction Car Repairs', ['post-purchase checks', 'warning lights and brakes', 'repairs after you buy']));
+require('./company-pages.js').companies.forEach((c) => records.push({
+  ...svc(c.url, c.label, c.kind === 'dealer'
+    ? ['post-purchase checks', 'warning lights and brakes', 'repairs after you buy']
+    : ['post-sale diagnostics', 'no-starts', 'roadworthiness checks']),
+  service_lower: `${c.short} ${c.kind === 'dealer' ? 'used car repairs' : 'car repairs'}`,
+  key_question: `Who can repair a car I bought ${c.kind === 'dealer' ? 'from' : 'at'} ${c.name}?`
+}));
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 

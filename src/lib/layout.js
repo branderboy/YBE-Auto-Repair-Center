@@ -189,6 +189,7 @@ function footer() {
     { label: 'All Services', url: '/services/' },
     { label: 'Service Areas', url: '/service-areas/' },
     { label: 'Car Care Tips', url: '/car-care/' },
+    { label: 'Used & Auction Car Repairs', url: '/used-car-repair/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
