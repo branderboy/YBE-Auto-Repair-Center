@@ -290,14 +290,11 @@ function callbackSection() {
       <p class="mt-6 text-lg text-gray-600">Leave your number and we will call you back during business hours, 8:30 AM to 6:00 PM, seven days a week.</p>
     </div>
     <form id="callback-form" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8 max-w-3xl mx-auto" data-send="sms" data-title="CALL BACK REQUEST" novalidate>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-5 md:items-end">
         <div>${lab('cb_name', 'Your Name', true)}<input type="text" id="cb_name" required autocomplete="name" class="${cls}"></div>
         <div>${lab('cb_phone', 'Phone Number', true)}<input type="tel" id="cb_phone" required autocomplete="tel" class="${cls}" placeholder="(202) 555-0123"></div>
-        <div>${lab('cb_time', 'Best Time To Call', true)}<select id="cb_time" required class="${cls}">
-          ${['Select one…', 'As soon as possible', 'Morning', 'Afternoon', 'Before 6 PM'].map((o) => `<option value="${o}">${o}</option>`).join('')}</select></div>
-        <div>${lab('cb_about', 'What Is It About?', false)}<input type="text" id="cb_about" class="${cls}" placeholder="Brakes, check engine light, a quote…"></div>
+        <button type="submit" data-track="callback-form" data-location="homepage" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-2.5 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center justify-center gap-2 whitespace-nowrap">${icon('phone-incoming', 20)} Call Me Back</button>
       </div>
-      <button type="submit" data-track="callback-form" data-location="homepage" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon('phone-incoming', 24)} Request Call Back</button>
       <p class="text-sm text-gray-600 mt-3 text-center">Sends to ${b.phone.display} by text. Need us now? <a href="${b.phone.href}" data-track="call" data-location="homepage-callback" class="text-ybe-red font-semibold hover:underline">Call ${b.phone.display}</a>.</p>
       <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
     </form>
