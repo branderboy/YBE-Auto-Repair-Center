@@ -68,6 +68,7 @@ function localBusinessSchema() {
     sameAs: [
       b.social.facebook,
       b.social.instagram,
+      b.booking.href,
       b.rating.profileUrl
     ],
     areaServed: [
