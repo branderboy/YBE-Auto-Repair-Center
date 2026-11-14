@@ -29,6 +29,7 @@ const { roadsideBySlug } = require('../data/roadside.js');
 const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 require('../data/area-services.js'); // attaches area.servicePages
 const { faqPages } = require('../data/faq-pages.js');
+const { insights: SEARCH } = require('../data/search-insights.js');
 const CO = require('../data/company-pages.js');
 const ORG = require('../data/org-pages.js');
 const b = require('../data/business.js');
@@ -311,6 +312,17 @@ ${K.contactBlock({ heading: `Need ${esc(cat.navLabel)}?` })}`;
   });
 }
 
+/* Search Console focus (2026-11-14): an H2 and paragraph naming the search
+ * and the town it comes from, only on pages the report flagged. */
+function searchFocus(svc) {
+  const f = SEARCH[svc.url];
+  if (!f) return '';
+  return `
+      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${esc(f.h2)}</h2>
+      <div class="prose-ybe text-lg text-gray-700 mb-12"><p>Drivers from ${esc(f.areas.join(' and '))} searching for ${esc(f.terms[0])} can bring the car to YBE at ${esc(b.address.oneLine)}. The shop is open seven days a week, 8:30 AM to 6:00 PM, and walk-ins are welcome. Call or text ${esc(b.phone.display)} and tell us what the car is doing.</p></div>
+`;
+}
+
 /* ===================================================== SERVICE PAGE */
 function renderServicePage(svc, cat) {
   const crumbs = [
@@ -332,12 +344,12 @@ ${K.heroBlock({
 ${section(
   `<div class="flex flex-col lg:flex-row gap-12">
     <article class="lg:w-2/3">
-      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">What You May Be Noticing</h2>
+      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">Signs You Need ${esc(svc.title)}</h2>
       <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(svc.problem)}</div>
 
-      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">What YBE Checks and Repairs</h2>
+      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${esc(svc.title)} at YBE</h2>
       <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(svc.whatWeDo)}</div>
-
+${searchFocus(svc)}
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red">
           <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5">Common Warning Signs</h2>
@@ -410,7 +422,7 @@ ${K.contactBlock({ heading: `Need ${esc(svc.navLabel || svc.title)}?` })}`;
     ...kwTitle(svc.url, svc),
     path: svc.url,
     crumbs,
-    schema: [serviceSchema({ name: svc.title, description: svc.metaDescription, url: svc.url, areaNames })],
+    schema: [serviceSchema({ name: svc.title, description: svc.metaDescription, url: svc.url, areaNames: SEARCH[svc.url] ? [...new Set([...SEARCH[svc.url].areas, ...areaNames])] : areaNames, alternateName: SEARCH[svc.url] && SEARCH[svc.url].terms })],
     body
   });
 }
@@ -741,7 +753,7 @@ ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
     path: area.url,
     crumbs,
     schema: [
-      serviceSchema({ name: `Auto Repair in ${area.label}`, description: area.metaDescription, url: area.url, areaNames: [area.label] })
+      serviceSchema({ name: `Auto Repair in ${area.label}`, description: area.metaDescription, url: area.url, areaNames: [area.label], alternateName: SEARCH[area.url] && SEARCH[area.url].terms })
     ],
     body
   });
