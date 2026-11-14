@@ -109,6 +109,7 @@ const mainNav = [
     children: clusters.map((c) => ({ label: c.name, url: `/car-care/#${c.slug}` }))
   },
   { label: 'FAQ', url: '/faq/' },
+  { label: 'Book', url: '/book-appointment/' },
   {
     label: 'Roadside Help',
     url: roadsideHub.url,

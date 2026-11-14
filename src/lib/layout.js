@@ -96,7 +96,7 @@ function headerNav(currentPath) {
         )
         .join('');
       return `<div class="relative group">
-        <a href="${item.url}" class="flex items-center gap-1 font-heading tracking-wide text-base xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap ${
+        <a href="${item.url}" class="flex items-center gap-1 font-heading tracking-wide text-[15px] xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap ${
           item.highlight ? 'text-ybe-red hover:text-ybe-darkred' : active ? 'text-ybe-red' : 'text-ybe-black hover:text-ybe-red'
         }">${esc(item.label)}${children ? icon('chevron-down', 16) : ''}</a>
         ${
@@ -137,7 +137,7 @@ function headerNav(currentPath) {
           <img id="header-logo" src="${b.images.logo}" alt="${esc(b.images.logoAlt)}"
                width="240" height="152" class="transition-all duration-300 h-20 sm:h-24 lg:h-24 w-auto" />
         </a>
-        <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">${desktop}</nav>
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-5" aria-label="Main navigation">${desktop}</nav>
         <div class="hidden lg:flex items-center gap-2">
           <a href="${require('../data/es.js').EN_TO_ES[currentPath] || '/es/'}" hreflang="es" lang="es"
              class="font-heading text-base font-semibold uppercase tracking-wide text-ybe-black hover:text-ybe-red px-2 py-2 whitespace-nowrap">Español</a>
