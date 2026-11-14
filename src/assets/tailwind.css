@@ -83,45 +83,18 @@
  * inside the dark band; without the exclusion that text turned white on white
  * and disappeared entirely.
  */
-.bg-gradient-to-r .text-ybe-red:not(.bg-white),
-.hero-section .text-ybe-red:not(.bg-white) { color: #FFFFFF; }
-@media (min-width: 768px) {
-  .bg-ybe-black .text-ybe-red:not(.bg-white),
-  .bg-ybe-charcoal .text-ybe-red:not(.bg-white),
-  .bg-black .text-ybe-red:not(.bg-white),
-  .diagonal-stripe-bg .text-ybe-red:not(.bg-white) {
-    color: #FFFFFF;
-  }
+.bg-ybe-black .text-ybe-red:not(.bg-white),
+.bg-ybe-charcoal .text-ybe-red:not(.bg-white),
+.bg-black .text-ybe-red:not(.bg-white),
+.diagonal-stripe-bg .text-ybe-red:not(.bg-white),
+.bg-gradient-to-r .text-ybe-red:not(.bg-white) {
+  color: #FFFFFF;
 }
 
 /* Red links on the black footer need the same lift, including on hover. */
 .bg-black a:hover.text-ybe-red,
 .bg-black a.hover\:text-ybe-red:hover {
   color: #FFFFFF;
-}
-
-/*
- * Phones only: no black backgrounds (owner, 2026-11-14). Below 768px every
- * black, charcoal and striped panel, band, sidebar, footer and the phone bar is
- * a light surface, and text written white for dark panels goes dark. Desktop
- * keeps the original dark design. The homepage hero sits on its photo and is
- * left alone. Red and green buttons keep white text.
- */
-@media (max-width: 767px) {
-  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) {
-    background-color: #F4F4F5 !important;
-    background-image: none !important;
-    color: #1A1A1A;
-  }
-  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section):is(.text-white),
-  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) :is(.text-white, .text-gray-100, .text-gray-200, .text-gray-300, .text-gray-400, [class*="text-white/"]):not(:is(.bg-ybe-red, .bg-ybe-green, .bg-ybe-red *, .bg-ybe-green *, .hero-section *)) {
-    color: #1A1A1A;
-  }
-  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) :is(.border-white, .border-gray-500, .border-gray-600, .border-gray-700, .border-gray-800):not(.hero-section *) {
-    border-color: #D4D4D8;
-  }
-  /* Page title bands (white text on the dark band on desktop). */
-  section.bg-ybe-black:not(.hero-section) h1, section.bg-ybe-black:not(.hero-section) .text-gray-200 { color: #1A1A1A; }
 }
 
 ::-webkit-scrollbar { width: 10px; }
