@@ -369,7 +369,7 @@ function run() {
   // Spanish core pages (/es/), paired with their English pages by hreflang.
   require('./src/lib/es-pages.js').renderAllEs().forEach(([url, html]) => emit(url, html, { priority: url === '/es/' ? '0.8' : '0.6' }));
   emit('/commercial-service-request/', R.renderCommercialForm(), { priority: '0.7' });
-  emit('/roadside-request/', R.renderRoadsideForm(), { priority: '0.8' });
+  emit('/emergency-roadside-help/', R.renderRoadsideForm(), { priority: '0.8' });
   // Used and auction car repair pages, one per dealer group and auction.
   emit('/used-car-repair/', R.renderCompanyHub(), { priority: '0.6' });
   require('./src/data/company-pages.js').companies.forEach((c) => emit(c.url, R.renderCompanyPage(c), { priority: '0.5' }));

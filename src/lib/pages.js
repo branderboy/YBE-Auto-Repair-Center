@@ -1688,16 +1688,16 @@ ${K.contactBlock({ heading: 'Talk To The Shop' })}`;
   return layout({ title: 'Commercial Service Request', description: CO.hub.metaDescription, path: COMMERCIAL_FORM_URL, crumbs, body });
 }
 
-/* ===================================================== EMERGENCY ROADSIDE FORM */
-const ROADSIDE_FORM_URL = '/roadside-request/';
+/* ===================================================== EMERGENCY ROADSIDE HELP */
+const ROADSIDE_FORM_URL = '/emergency-roadside-help/';
 
-/** Link to the emergency roadside request form, used on every roadside page. */
+/** Link to the emergency roadside help page, used on every roadside page. */
 function roadsideRequestCta(where) {
   return `<section class="py-12 bg-ybe-red text-white">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
-      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Emergency Roadside Request</h2>
-      <p class="text-white/90 leading-relaxed">Stuck and cannot talk? Send your location and what happened, and the shop gets it by text.</p>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Emergency Roadside Help</h2>
+      <p class="text-white/90 leading-relaxed">Stuck and cannot talk? Send your location and what happened by text or email.</p>
     </div>
     <a href="${ROADSIDE_FORM_URL}" data-track="roadside-form" data-location="${esc(where)}"
        class="flex-shrink-0 bg-white text-ybe-red font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
@@ -1706,59 +1706,86 @@ function roadsideRequestCta(where) {
 </section>`;
 }
 
+/** One emergency form. `send` is 'sms' (shop phone) or 'email' (owner's email); `p` prefixes field ids. */
+function emergencyForm(p, send) {
+  const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
+  const lab = (id, text, req) => `<label for="${p}${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  const toSms = send === 'sms';
+  return `<form id="${p}form" data-send="${send}" data-subject="Emergency roadside request" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 ${toSms ? 'border-t-ybe-red' : 'border-t-ybe-black'} rounded-sm p-6 md:p-8" novalidate>
+    <h2 class="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide text-ybe-black mb-1 flex items-center gap-2">${icon(toSms ? 'message-square' : 'mail', 26, 'text-ybe-red')} ${toSms ? 'Text The Shop' : 'Email The Owner'}</h2>
+    <p class="text-gray-600 mb-6">Sends to <strong>${esc(toSms ? b.phone.display : b.commercialEmail)}</strong>${toSms ? ' by text' : ''}.</p>
+    <div class="grid grid-cols-1 gap-5">
+      <div>${lab('name', 'Your Name', true)}<input type="text" id="${p}name" required autocomplete="name" class="${inputCls}"></div>
+      <div>${lab('phone', 'Phone Number', true)}<input type="tel" id="${p}phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
+      <div>${lab('location', 'Where Are You?', true)}
+        <input type="text" id="${p}location" required class="${inputCls}" placeholder="Street address, cross streets or a landmark">
+        <button type="button" data-locate="${p}location" class="mt-3 inline-flex items-center gap-2 bg-ybe-black text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold">${icon('locate', 20)} Use My Location</button>
+        <p data-locate-status="${p}location" class="text-sm text-gray-600 mt-2" aria-live="polite"></p></div>
+      <div>${lab('problem', 'What Happened?', true)}<select id="${p}problem" required class="${inputCls}">
+        ${['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
+      <div>${lab('vehicle', 'Vehicle', false)}<input type="text" id="${p}vehicle" class="${inputCls}" placeholder="Year, make, model, color"></div>
+      <div>${lab('notes', 'Anything Else?', false)}<textarea id="${p}notes" rows="3" class="${inputCls}" placeholder="Which side of the road, which direction, anything we should know."></textarea></div>
+    </div>
+    <button type="submit" data-track="${toSms ? 'roadside-form-text' : 'roadside-form-email'}" data-location="emergency-page" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon(toSms ? 'send' : 'mail', 24)} ${toSms ? 'Send By Text' : 'Send By Email'}</button>
+    <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
+  </form>`;
+}
+
 function renderRoadsideForm() {
-  const crumbs = [HOME, { label: 'Roadside Assistance', url: roadsideHub.url }, { label: 'Emergency Request', url: ROADSIDE_FORM_URL }];
-  const field = (id, label, type = 'text', opts = {}) => `
-    <div class="${opts.full ? 'md:col-span-2' : ''}">
-      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
-        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
-      ${
-        type === 'textarea'
-          ? `<textarea id="${id}" name="${id}" rows="3" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}"></textarea>`
-          : type === 'select'
-          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
-              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
-          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''} ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}">`
-      }
-    </div>`;
+  const crumbs = [HOME, { label: 'Roadside Assistance', url: roadsideHub.url }, { label: 'Emergency Roadside Help', url: ROADSIDE_FORM_URL }];
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const help = roadsideHub.services.filter((x) => !x.calm);
   const body = `
 ${K.heroBlock({
   eyebrow: `Roadside Assistance · ${esc(primaryArea.label)}`,
-  titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Request')),
-  sub: 'Stuck? Calling is fastest. If you cannot talk, send your location and what happened, and the shop gets it by text.',
+  titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Help')),
+  sub: 'Dead battery, flat tire, locked out or out of gas? Call for the fastest help. If you cannot talk, send your location and what happened by text or email below.',
   ctaLabel: 'Call For Roadside Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 ${section(
-  `<div class="max-w-4xl mx-auto">
-    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 rounded-sm mb-8">
-      <p class="font-heading text-xl uppercase tracking-wide font-bold mb-2">${icon('alert-triangle', 22, 'inline text-ybe-red')} In danger or blocking traffic? Call 911 first.</p>
-      <p class="text-gray-300 leading-relaxed">If a child or pet is locked in the car, call 911. Our phone is answered ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing.</p>
+  `<div class="max-w-5xl mx-auto">
+    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 md:p-8 rounded-sm mb-12">
+      <p class="font-heading text-2xl uppercase tracking-wide font-bold mb-3 flex items-center gap-2">${icon('alert-triangle', 26, 'text-ybe-red')} Safety First</p>
+      <ul class="space-y-3">${[
+        'In danger, injured or blocking traffic: call 911 first',
+        'A child or pet locked in the car: call 911 now',
+        'On a busy shoulder: stay in the car with your seat belt on and your hazards flashing',
+        'If you can, move the car fully off the road before calling'
+      ].map((t) => `<li class="flex items-start gap-3 text-white text-lg leading-snug">${icon('alert-circle', 22, 'text-ybe-red flex-shrink-0 mt-0.5')} <span>${esc(t)}</span></li>`).join('')}</ul>
     </div>
-    <form id="roadside-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        ${field('rs_name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
-        ${field('rs_phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
-        <div class="md:col-span-2">
-          <label for="rs_location" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Where Are You? <span class="text-ybe-red">*</span></label>
-          <input type="text" id="rs_location" name="rs_location" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Street address, cross streets or a landmark">
-          <button type="button" id="rs_locate" class="mt-3 inline-flex items-center gap-2 bg-ybe-black text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold">${icon('locate', 20)} Use My Location</button>
-          <p id="rs_locate_status" class="text-sm text-gray-600 mt-2" aria-live="polite"></p>
-        </div>
-        ${field('rs_problem', 'What Happened?', 'select', { required: true, options: ['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'] })}
-        ${field('rs_vehicle', 'Vehicle', 'text', { placeholder: 'Year, make, model, color' })}
-        ${field('rs_notes', 'Anything Else?', 'textarea', { full: true, placeholder: 'Which side of the road, which direction, anything we should know.' })}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+      <div>
+        ${h2('What We Help With')}
+        <ul class="space-y-1">${help.map((x) => `<li><a href="${x.url}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(x.title)}</span></a></li>`).join('')}</ul>
       </div>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        <button type="submit" data-track="roadside-form" data-location="roadside-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center gap-2">${icon('siren', 24)} Send Request</button>
-        <p class="text-sm text-gray-600">Faster: call <a href="${b.phone.href}" data-track="call" data-location="roadside-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+      <div>
+        ${h2('While You Wait')}
+        ${K.checkList([
+          'Keep your hazard lights on',
+          'Stay with the vehicle if it is safe',
+          'Have your keys, ID and registration ready',
+          'Note the cross street, exit or a landmark',
+          'Keep your phone on so we can call you back'
+        ])}
       </div>
-      <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
-    </form>
+    </div>
+
+    <div class="bg-gray-100 border border-gray-200 p-5 rounded-sm text-gray-700 mb-12">
+      Our phone is answered ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing. If the vehicle needs a tow, we will tell you so you can arrange one.
+    </div>
+
+    ${h2('Send Your Request')}
+    <p class="text-gray-700 text-lg mb-8">Fill in either form. Calling <a href="${b.phone.href}" data-track="call" data-location="emergency-page" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> is still the fastest way.</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      ${emergencyForm('es_sms_', 'sms')}
+      ${emergencyForm('es_mail_', 'email')}
+    </div>
   </div>`
 )}
 ${K.contactBlock({ heading: 'Stuck? Call The Shop.' })}`;
-  return layout({ title: 'Emergency Roadside Request', description: roadsideHub.metaDescription, path: ROADSIDE_FORM_URL, crumbs, body });
+  return layout({ title: 'Emergency Roadside Help', description: roadsideHub.metaDescription, path: ROADSIDE_FORM_URL, crumbs, body });
 }
 
 /* ===================================================== COMPANY PAGES */

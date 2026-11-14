@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=99a771f2">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=d231a227">
 
 <script type="application/ld+json">
 {
@@ -1180,7 +1180,7 @@
         </div>
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Explore</h2>
-          <ul class="space-y-2 text-sm font-medium mb-5"><li><a href="/YBE-Auto-Repair-Center/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Home</a></li><li><a href="/YBE-Auto-Repair-Center/services/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">All Services</a></li><li><a href="/YBE-Auto-Repair-Center/service-areas/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Service Areas</a></li><li><a href="/YBE-Auto-Repair-Center/car-care/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Car Care Tips</a></li><li><a href="/YBE-Auto-Repair-Center/used-car-repair/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Used &amp; Auction Car Repairs</a></li><li><a href="/YBE-Auto-Repair-Center/fleet-and-government/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Fleet &amp; Government</a></li><li><a href="/YBE-Auto-Repair-Center/commercial-service-request/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Commercial Service Request</a></li><li><a href="/YBE-Auto-Repair-Center/roadside-request/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Emergency Roadside Request</a></li><li><a href="/YBE-Auto-Repair-Center/about/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">About YBE</a></li><li><a href="/YBE-Auto-Repair-Center/reviews/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Reviews</a></li><li><a href="/YBE-Auto-Repair-Center/faq/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">FAQ</a></li><li><a href="/YBE-Auto-Repair-Center/contact/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Contact &amp; Directions</a></li></ul>
+          <ul class="space-y-2 text-sm font-medium mb-5"><li><a href="/YBE-Auto-Repair-Center/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Home</a></li><li><a href="/YBE-Auto-Repair-Center/services/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">All Services</a></li><li><a href="/YBE-Auto-Repair-Center/service-areas/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Service Areas</a></li><li><a href="/YBE-Auto-Repair-Center/car-care/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Car Care Tips</a></li><li><a href="/YBE-Auto-Repair-Center/used-car-repair/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Used &amp; Auction Car Repairs</a></li><li><a href="/YBE-Auto-Repair-Center/fleet-and-government/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Fleet &amp; Government</a></li><li><a href="/YBE-Auto-Repair-Center/commercial-service-request/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Commercial Service Request</a></li><li><a href="/YBE-Auto-Repair-Center/emergency-roadside-help/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Emergency Roadside Help</a></li><li><a href="/YBE-Auto-Repair-Center/about/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">About YBE</a></li><li><a href="/YBE-Auto-Repair-Center/reviews/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Reviews</a></li><li><a href="/YBE-Auto-Repair-Center/faq/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">FAQ</a></li><li><a href="/YBE-Auto-Repair-Center/contact/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Contact &amp; Directions</a></li></ul>
           <a href="/YBE-Auto-Repair-Center/request-appointment/" data-track="appointment" data-location="footer"
              class="block w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-lg px-4 py-2.5 rounded-sm transition-all uppercase tracking-wide font-bold">
             Request Appointment</a>
@@ -1554,57 +1554,62 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Emergency roadside request: location button, then a text to the shop.
-  var rform = document.getElementById('roadside-form');
-  if (rform) {
-    var rstatus = document.getElementById('form-status');
-    var locBtn = document.getElementById('rs_locate');
-    var locMsg = document.getElementById('rs_locate_status');
-    var locInput = document.getElementById('rs_location');
-    if (locBtn) locBtn.addEventListener('click', function () {
-      if (!navigator.geolocation) { locMsg.textContent = 'Your browser cannot share location. Type where you are instead.'; return; }
-      locMsg.textContent = 'Finding your location…';
+  // Emergency roadside help: location buttons, and two forms, one sending a
+  // text to the shop phone (data-send="sms"), one an email to the owner
+  // (data-send="email").
+  document.querySelectorAll('[data-locate]').forEach(function (btn) {
+    var input = document.getElementById(btn.getAttribute('data-locate'));
+    var msg = document.querySelector('[data-locate-status="' + btn.getAttribute('data-locate') + '"]');
+    btn.addEventListener('click', function () {
+      if (!navigator.geolocation) { msg.textContent = 'Your browser cannot share location. Type where you are instead.'; return; }
+      msg.textContent = 'Finding your location…';
       navigator.geolocation.getCurrentPosition(function (pos) {
-        var lat = pos.coords.latitude.toFixed(5), lng = pos.coords.longitude.toFixed(5);
-        var link = 'https://maps.google.com/?q=' + lat + ',' + lng;
-        locInput.value = (locInput.value ? locInput.value + ' ' : '') + link;
-        locMsg.textContent = 'Location added.';
-      }, function () { locMsg.textContent = 'Could not get your location. Type where you are instead.'; }, { enableHighAccuracy: true, timeout: 10000 });
+        var link = 'https://maps.google.com/?q=' + pos.coords.latitude.toFixed(5) + ',' + pos.coords.longitude.toFixed(5);
+        input.value = (input.value ? input.value + ' ' : '') + link;
+        msg.textContent = 'Location added.';
+      }, function () { msg.textContent = 'Could not get your location. Type where you are instead.'; }, { enableHighAccuracy: true, timeout: 10000 });
     });
-    rform.addEventListener('submit', function (e) {
+  });
+  document.querySelectorAll('form.emergency-form').forEach(function (ef) {
+    var est = ef.querySelector('[data-form-status]');
+    ef.addEventListener('submit', function (e) {
       e.preventDefault();
       var missing = [];
-      rform.querySelectorAll('[required]').forEach(function (el) {
+      ef.querySelectorAll('[required]').forEach(function (el) {
         var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
         el.classList.toggle('border-ybe-red', empty);
         el.classList.toggle('border-2', empty);
         if (empty) {
-          var lab = rform.querySelector('label[for="' + el.id + '"]');
+          var lab = ef.querySelector('label[for="' + el.id + '"]');
           missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
         }
       });
       if (missing.length) {
-        rstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
-        var bad = rform.querySelector('.border-ybe-red');
+        est.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = ef.querySelector('.border-ybe-red');
         if (bad) bad.focus();
         return;
       }
-      var lines = ['ROADSIDE REQUEST from the website'];
-      rform.querySelectorAll('input, select, textarea').forEach(function (el) {
+      var lines = ['EMERGENCY ROADSIDE REQUEST from the website'];
+      ef.querySelectorAll('input, select, textarea').forEach(function (el) {
         if (!el.value.trim()) return;
-        var lab = rform.querySelector('label[for="' + el.id + '"]');
+        var lab = ef.querySelector('label[for="' + el.id + '"]');
         lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
       });
-      var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + encodeURIComponent(lines.join('\n'));
-      rstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+      var text = encodeURIComponent(lines.join('\n'));
+      var byEmail = ef.getAttribute('data-send') === 'email';
+      var href = byEmail
+        ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+        : 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
+      est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
-        '<a href="' + smsHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+        '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
+        '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
         '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      rstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      window.location.href = href;
     });
-  }
+  });
 
   // Share button: device share sheet, falling back to copying the link.
   var shareBtn = document.getElementById('share-btn');
