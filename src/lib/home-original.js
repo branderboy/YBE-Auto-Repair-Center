@@ -81,7 +81,7 @@ function linkUpSections(html) {
   }
 
   html = html.replace(/<a href="#roadside"/g, `<a href="${roadsideHub.url}"`);
-  html = html.replace(/<a href="#contact"/g, '<a href="/request-appointment/"');
+  html = html.replace(/<a href="#contact"/g, '<a href="#call-back"');
 
   const problems = [
     ['My check-engine light is on', '/services/auto-repair-diagnostics/check-engine-light-diagnostics/'],
@@ -135,6 +135,9 @@ function renderHomeOriginal() {
   if (activeOffers.length) {
     main = main.replace('</section>', '</section>' + offersSection(), 1);
   }
+
+  // Call-back request form, just above the original contact section.
+  main = main.replace('<section id="contact"', callbackSection() + '\n        <section id="contact"');
 
   // Conversion tracking on the original page's call / WhatsApp / map links.
   main = main
@@ -270,6 +273,36 @@ function carCareSection() {
  * shadow-sm to hover:shadow-md, the icon in a rounded-full tint that inverts
  * on hover, and the "Click Here" chevron underneath.
  */
+/**
+ * Call-back request (owner, 2026-11-14). Light section in the homepage's own
+ * style; the request goes to the shop line by text, like the other forms.
+ */
+function callbackSection() {
+  const cls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
+  const lab = (id, t, req) => `<label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${t}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  return `<section id="call-back" class="py-16 bg-white border-t border-gray-200" aria-labelledby="callback-heading">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 id="callback-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+        Request A <span class="text-ybe-red">Call Back</span>
+        <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-ybe-red"></span>
+      </h2>
+      <p class="mt-6 text-lg text-gray-600">Leave your number and we will call you back during business hours, 8:30 AM to 6:00 PM, seven days a week.</p>
+    </div>
+    <form id="callback-form" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8 max-w-3xl mx-auto" data-send="sms" data-title="CALL BACK REQUEST" novalidate>
+      <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-5 md:items-end">
+        <div>${lab('cb_name', 'Your Name', true)}<input type="text" id="cb_name" required autocomplete="name" class="${cls}"></div>
+        <div>${lab('cb_phone', 'Phone Number', true)}<input type="tel" id="cb_phone" required autocomplete="tel" class="${cls}" placeholder="(202) 555-0123"></div>
+        <button type="submit" data-track="callback-form" data-location="homepage" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-2.5 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center justify-center gap-2 whitespace-nowrap">${icon('phone-incoming', 20)} Call Me Back</button>
+      </div>
+      <p class="text-sm text-gray-600 mt-3 text-center">Sends to ${b.phone.display} by text. Need us now? <a href="${b.phone.href}" data-track="call" data-location="homepage-callback" class="text-ybe-red font-semibold hover:underline">Call ${b.phone.display}</a>.</p>
+      <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
+    </form>
+  </div>
+</section>`;
+}
+
 function offersSection() {
   return `
 <section class="py-16 bg-white" aria-labelledby="offers-heading">

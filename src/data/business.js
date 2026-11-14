@@ -18,6 +18,8 @@ const business = {
    * listing to this spelling.
    */
   mobileName: 'YBE Mechanic On Wheelz',
+  // Commercial service requests go to the owner (2026-11-14).
+  commercialEmail: 'mechaniconwheelz@gmail.com',
 
   /*
    * Live location of the site. Used for canonicals, Open Graph tags and the
@@ -115,7 +117,7 @@ const business = {
   },
 
   booking: {
-    label: 'Book Appointment',
+    label: 'Book Now',
     href: 'https://ybe-auto-repair-shop.square.site/'
   },
 

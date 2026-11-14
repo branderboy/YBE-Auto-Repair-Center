@@ -118,6 +118,21 @@ require('./company-pages.js').companies.forEach((c) => records.push({
   service_lower: `${c.short} ${c.kind === 'dealer' ? 'used car repairs' : 'car repairs'}`,
   key_question: `Who can repair a car I bought ${c.kind === 'dealer' ? 'from' : 'at'} ${c.name}?`
 }));
+// Fleet network and government profile pages (owner, 2026-11-14)
+records.push(svc('/fleet-and-government/', 'Fleet and Government Vehicle Repair', ['scheduled maintenance', 'mechanical and body repairs', 'roadside help']));
+require('./org-pages.js').orgs.forEach((o) => records.push({
+  ...svc(o.url, o.label, o.kind === 'fleet'
+    ? ['scheduled maintenance', 'mechanical and body repairs', 'authorized before work']
+    : ['vehicle maintenance', 'mechanical and body repairs', 'roadside help']),
+  service_lower: `${o.short} vehicle repair`,
+  key_question: `How can YBE help ${o.name} with vehicle repair?`
+}));
+// Commercial service request form (owner, 2026-11-14)
+records.push(svc('/commercial-service-request/', 'Commercial Service Request', ['fleets and dealers', 'rideshare and rental', 'agencies']));
+// Emergency roadside request form (owner, 2026-11-14)
+records.push(svc('/emergency-roadside-help/', 'Emergency Roadside Help', ['jump starts and flat tires', 'lockouts and fuel', 'request by text or email']));
+// Square booking page (owner, 2026-11-14)
+records.push(svc('/book-appointment/', 'Book Appointment', ['book online with Square', 'pick a service and time', 'open 7 days']));
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 

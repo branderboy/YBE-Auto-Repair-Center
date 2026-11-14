@@ -30,6 +30,7 @@ const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 require('../data/area-services.js'); // attaches area.servicePages
 const { faqPages } = require('../data/faq-pages.js');
 const CO = require('../data/company-pages.js');
+const ORG = require('../data/org-pages.js');
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -185,8 +186,8 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: h1Html('Auto Repair Services in Capitol Heights, MD'),
   sub: 'From minor maintenance to major mechanical and body repairs, our Capitol Heights shop handles it all.',
-  ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -257,8 +258,8 @@ ${K.heroBlock({
   eyebrow: `${cat.title} · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(cat.url, cat.metaTitle)),
   sub: cat.blurb,
-  ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -298,6 +299,7 @@ ${section(
 ${K.roadsideBand()}
 ${K.checklistBlock()}
 ${K.mapAreasBlock()}
+${cat.slug === 'commercial-rideshare' ? commercialCta('commercial-hub') : ''}
 ${K.contactBlock({ heading: `Need ${esc(cat.navLabel)}?` })}`;
 
   return layout({
@@ -323,8 +325,8 @@ ${K.heroBlock({
   eyebrow: `${cat.title} · ${svc.title}`,
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : cat.blurb,
-  ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -350,7 +352,7 @@ ${section(
       <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Why This Should Not Wait</h2>
-        <div class="prose-ybe text-gray-300 text-lg">${paras(svc.whyNotIgnore)}</div>
+        <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -363,7 +365,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get This Handled</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+        <p class="text-white mb-6 text-sm leading-relaxed">
           Call or text the shop and describe what the car is doing. Open ${esc(b.hours.summary.toLowerCase())}.
         </p>
         <div class="flex flex-col gap-3">
@@ -373,11 +375,10 @@ ${section(
           <a href="${b.sms.href}" data-track="text" data-location="service-sidebar"
              class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
             Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="service-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
-            Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="service-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-700 text-sm text-gray-400 space-y-2">
+        <div class="mt-6 pt-6 border-t border-gray-700 text-sm text-white space-y-2">
           <p class="flex items-start gap-2">${icon('map-pin', 16, 'text-ybe-red flex-shrink-0 mt-0.5')} ${esc(b.address.oneLine)}</p>
           <p class="flex items-start gap-2">${icon('clock', 16, 'text-ybe-red flex-shrink-0 mt-0.5')} ${esc(b.hours.summary)}</p>
         </div>
@@ -400,6 +401,7 @@ ${section(
 )}
 
 ${K.checklistBlock({ heading: `Why Drivers Choose <span class="text-ybe-red">YBE</span>` })}
+${cat.slug === 'commercial-rideshare' ? commercialCta('commercial-service') : ''}
 ${K.roadsideBand()}
 ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: `Need ${esc(svc.navLabel || svc.title)}?` })}`;
@@ -428,7 +430,7 @@ ${K.heroBlock({
   eyebrow: `Mobile Help · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(roadsideHub.url, roadsideHub.metaTitle)),
   sub: 'Stuck right now? Calling is faster than any form on this page.',
-  ctaLabel: 'Call For Help',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -457,7 +459,7 @@ ${section(
   'bg-gray-50'
 )}
 
-${K.roadsideBand()}
+${roadsideRequestCta('roadside-hub')}
 ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: 'Need Help On The Road?', sub: 'Call the shop directly. Tell us your location and what the vehicle is doing.' })}`;
 
@@ -484,7 +486,7 @@ ${K.heroBlock({
   eyebrow: `${svc.calm ? 'Mobile Service' : 'Roadside Assistance'} · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : '',
-  ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Roadside Help',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -516,7 +518,7 @@ ${section(
       <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Worth Knowing</h2>
-        <div class="prose-ybe text-gray-300 text-lg">${paras(svc.whyNotIgnore)}</div>
+        <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -528,7 +530,7 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${svc.calm ? 'Call For An Offer' : 'Call For Roadside Help'}</h2>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${svc.calm ? 'Call For An Offer' : 'Call For Help'}</h2>
         <p class="mb-6 text-sm leading-relaxed text-white/90">${svc.calm ? 'Tell us the year, make, model and condition.' : 'Tell us where you are and what happened.'}</p>
         <a href="${b.phone.href}" data-track="call" data-location="roadside-sidebar"
            class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">
@@ -555,6 +557,7 @@ ${section(
 )}
 
 ${K.mapAreasBlock()}
+${svc.calm ? '' : roadsideRequestCta('roadside-page')}
 ${K.contactBlock({ heading: svc.calm ? 'Call For An Offer' : 'Stuck? Call The Shop.' })}`;
 
   return layout({
@@ -578,7 +581,7 @@ ${K.heroBlock({
   eyebrow: `Based in ${primaryArea.label}`,
   titleHtml: h1Html('Auto Repair Service Areas Near Capitol Heights, MD'),
   sub: 'The Maryland and DC communities we genuinely serve — not a list of every city within fifty miles.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -646,7 +649,7 @@ ${K.heroBlock({
     return h1Html(h);
   })(),
   sub: area.intro[0],
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -673,7 +676,7 @@ ${section(
         <div class="flex flex-wrap gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-roadside"
              class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center gap-2">
-            ${icon('phone', 20)} Call For Help</a>
+            ${icon('phone', 20)} Call Now</a>
           <a href="${roadsideHub.url}" class="bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
             ${icon('info', 20)} Roadside Services</a>
         </div>
@@ -694,15 +697,15 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Book From ${esc(area.name)}</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Call or text the shop, or request an appointment online.</p>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Call From ${esc(area.name)}</h2>
+        <p class="text-white mb-6 text-sm leading-relaxed">Call or text the shop, or stop by. Open seven days a week.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-sidebar"
              class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="area-sidebar"
              class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="area-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="area-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
@@ -782,7 +785,7 @@ function renderAreaServicePage(page) {
       <ul class="bg-gray-50 border-l-4 border-ybe-red rounded-sm p-6 mb-12">${svcs.map((s) => linkItem(s.url, s.title, s.customerVoice ? `“${s.customerVoice}”` : '')).join('')}</ul>
       <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Roadside Assistance, Not Towing</h2>
-        <p class="text-gray-300 leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
+        <p class="text-white leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
       </div>`;
   } else if (page.type === 'jump-start') {
     const js = roadsideBySlug['jump-start'];
@@ -822,7 +825,7 @@ ${K.heroBlock({
   eyebrow: `${esc(area.label)} · ${page.mobile ? 'We Come To You' : esc(area.relationship)}`,
   titleHtml: h1Html(kwH1(page.url, page.title)),
   sub: (SM.metaFor(page.url) || page).description || page.metaDescription,
-  ctaLabel: page.mobile ? 'Call For Roadside Help' : 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: page.mobile
     ? { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
     : { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -849,15 +852,15 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="${page.mobile ? 'bg-ybe-red' : 'bg-ybe-black border-t-4 border-ybe-red'} text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Book From ${esc(area.name)}`}</h2>
-        <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or request an appointment online.'}</p>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Call From ${esc(area.name)}`}</h2>
+        <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or stop by. Open seven days a week.'}</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-service-sidebar"
              class="w-full text-center ${page.mobile ? 'bg-white text-ybe-red' : 'bg-ybe-red hover:bg-ybe-darkred text-white'} font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="area-service-sidebar"
              class="w-full text-center ${page.mobile ? 'bg-ybe-black text-white' : 'bg-white hover:bg-gray-100 text-ybe-black'} font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          ${page.mobile ? '' : `<a href="/request-appointment/" data-track="appointment" data-location="area-service-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>`}
+          ${page.mobile ? '' : `<a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="area-service-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>`}
         </div>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
@@ -874,7 +877,7 @@ ${section(
   </div>`
 )}
 
-${page.mobile ? '' : K.roadsideBand()}
+${page.mobile ? roadsideRequestCta('area-roadside') : K.roadsideBand()}
 ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
   return layout({
@@ -895,7 +898,7 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: `Car Care <span class="text-ybe-red">Tips</span>`,
   sub: 'Straight answers to the questions drivers ask before deciding whether to call a shop.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
 })}
 
@@ -951,7 +954,7 @@ ${K.heroBlock({
   eyebrow: esc(cluster.name),
   titleHtml: esc(SM.h1For(a.url, a.title)),
   sub: a.shortAnswer,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: svc ? { label: 'The Fix', href: svc.url, icon: 'wrench' } : undefined
 })}
 
@@ -973,7 +976,7 @@ ${section(
         svc
           ? `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4">Need This Fixed?</h2>
-        <p class="text-gray-300 leading-relaxed mb-6 text-lg">
+        <p class="text-white leading-relaxed mb-6 text-lg">
           YBE handles this at the ${esc(primaryArea.name)} shop, seven days a week. Read about
           <a href="${svc.url}" class="text-ybe-red hover:text-white font-semibold underline">${esc(svc.title)}</a>,
           or call and describe what your car is doing.
@@ -1014,7 +1017,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Talk To A Mechanic</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary.toLowerCase())} in ${esc(primaryArea.label)}.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary.toLowerCase())} in ${esc(primaryArea.label)}.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="article-sidebar"
              class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
@@ -1076,7 +1079,7 @@ ${K.heroBlock({
   eyebrow: `Since ${b.openedYear} · ${primaryArea.label}`,
   titleHtml: h1Html('About YBE Auto Repair Center in Capitol Heights, MD'),
   sub: `A Black-owned, independent auto repair shop in ${primaryArea.label}, open seven days a week since ${b.openedYear}.`,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1204,7 +1207,7 @@ ${K.heroBlock({
   eyebrow: 'Google Reviews',
   titleHtml: `YBE Auto Repair Center <span class="text-ybe-red">Reviews</span>`,
   sub: 'What customers mention most, drawn from our Google reviews.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Read on Google', href: b.rating.profileUrl, icon: 'external-link', track: 'reviews' }
 })}
 
@@ -1227,7 +1230,7 @@ ${section(
   `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
       <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Been To YBE? Leave A Review</h2>
-      <p class="text-gray-300 leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
+      <p class="text-white leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
     </div>
     <a href="${b.rating.listingUrl}" target="_blank" rel="noopener noreferrer" data-track="review" data-location="reviews-page"
        class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
@@ -1269,7 +1272,7 @@ ${K.heroBlock({
   eyebrow: `Open ${esc(b.hours.summary)}`,
   titleHtml: h1Html('Contact and Directions in Capitol Heights, MD'),
   sub: b.address.oneLine,
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1306,7 +1309,7 @@ ${section(
     </div>
     <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
       <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-5">Weekly Hours</h2>
-      <ul class="space-y-1 text-gray-300">
+      <ul class="space-y-1 text-white">
         ${b.hours.days
           .map(
             (d) =>
@@ -1364,119 +1367,6 @@ ${K.contactBlock({ heading: 'We Are Open Today' })}`;
   });
 }
 
-/* ===================================================== REQUEST APPOINTMENT */
-function renderAppointment() {
-  const crumbs = [HOME, { label: 'Request an Appointment', url: '/request-appointment/' }];
-  const field = (id, label, type = 'text', opts = {}) => `
-    <div class="${opts.full ? 'md:col-span-2' : ''}">
-      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
-        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
-      ${
-        type === 'textarea'
-          ? `<textarea id="${id}" name="${id}" rows="4" ${opts.required ? 'required' : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"
-              placeholder="${esc(opts.placeholder || '')}"></textarea>`
-          : type === 'select'
-          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
-              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
-          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''}
-              ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"
-              placeholder="${esc(opts.placeholder || '')}">`
-      }
-    </div>`;
-
-  const serviceOptions = [
-    'Select a service…',
-    ...categories.flatMap((c) => c.services.map((s) => s.title)),
-    ...roadsideHub.services.map((s) => s.title),
-    'Not sure — please advise'
-  ];
-
-  const body = `
-${K.heroBlock({
-  eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: h1Html('Request an Auto Repair Appointment in Capitol Heights, MD'),
-  sub: 'Tell us about your vehicle and what it is doing. We will get back to you to confirm a time.',
-  ctaLabel: 'Call Instead',
-  secondary: { label: 'Book on Square', href: b.booking.href, icon: 'external-link', track: 'appointment' }
-})}
-
-${section(
-  `<div class="flex flex-col lg:flex-row gap-12">
-    <div class="lg:w-2/3">
-      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mb-10">
-        <p class="text-gray-800 leading-relaxed">
-          <strong class="font-heading uppercase tracking-wide">This is a request, not a confirmed booking.</strong>
-          Your appointment is not scheduled until someone from YBE contacts you to confirm the time.
-          If you need help today, calling is faster.
-        </p>
-      </div>
-
-      <form id="appointment-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          ${field('name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
-          ${field('phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
-          ${field('email', 'Email', 'email', { autocomplete: 'email' })}
-          ${field('preferred_contact', 'Preferred Contact Method', 'select', { options: ['Phone call', 'Text message', 'Email', 'WhatsApp'] })}
-          ${field('vehicle_year', 'Vehicle Year', 'text', { required: true, placeholder: '2015' })}
-          ${field('vehicle_make', 'Vehicle Make', 'text', { required: true, placeholder: 'Honda' })}
-          ${field('vehicle_model', 'Vehicle Model', 'text', { required: true, placeholder: 'Accord' })}
-          ${field('preferred_date', 'Preferred Date', 'date')}
-          ${field('service', 'Service Needed', 'select', { full: true, required: true, options: serviceOptions })}
-          ${field('problem', 'Describe the Problem', 'textarea', {
-            full: true,
-            required: true,
-            placeholder: 'What are you noticing? Any noises, warning lights, or when it happens.'
-          })}
-        </div>
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <button type="submit" data-track="appointment" data-location="appointment-form"
-            class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">
-            ${icon('calendar-check', 24)} Send Request</button>
-          <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="appointment-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> to speak with us now.</p>
-        </div>
-        <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
-      </form>
-    </div>
-
-    <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Need Help Today?</h2>
-        <p class="mb-6 text-sm leading-relaxed text-white/90">Calling gets a faster answer than any form, especially for urgent problems.</p>
-        <a href="${b.phone.href}" data-track="call" data-location="appointment-sidebar"
-           class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">${esc(b.phone.display)}</a>
-        <a href="${b.sms.href}" data-track="text" data-location="appointment-sidebar"
-           class="block w-full text-center bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us Instead</a>
-      </div>
-      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Good To Know</h2>
-        ${K.checkList([
-          'Walk-ins are welcome, but calling ahead helps us get to you faster',
-          'Open seven days a week, 8:30 AM to 6:00 PM',
-          'Wheelchair-accessible parking on site',
-          'Roadside assistance available — call, do not fill out a form',
-          'We will confirm your appointment before it is scheduled'
-        ])}
-      </div>
-    </aside>
-  </div>`
-)}
-
-${K.roadsideBand()}
-${K.mapAreasBlock()}
-${K.contactBlock({ heading: 'Questions Before Booking?' })}`;
-
-  return layout({
-    title: `Request an Appointment | YBE Auto, ${primaryArea.label}`,
-    description: `Request a service appointment at YBE in ${primaryArea.label}. Tell us about your vehicle and the problem and we will confirm a time. Call ${b.phone.display}.`,
-    path: '/request-appointment/',
-    crumbs,
-    body
-  });
-}
-
 /* ===================================================== FAQ */
 function renderFaq() {
   const crumbs = [HOME, { label: 'FAQ', url: '/faq/' }];
@@ -1485,7 +1375,7 @@ ${K.heroBlock({
   eyebrow: `${primaryArea.label} · Open 7 Days`,
   titleHtml: h1Html('Auto Repair Questions for Capitol Heights, MD'),
   sub: 'Hours, walk-ins, roadside assistance, towing, and what we do and do not offer.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Contact Us', href: '/contact/', icon: 'map-pin' }
 })}
 
@@ -1548,7 +1438,7 @@ ${K.heroBlock({
   eyebrow: `Common Question · ${esc(primaryArea.label)}`,
   titleHtml: esc(question),
   sub: q.shortAnswer,
-  ctaLabel: 'Call For A Quote',
+  ctaLabel: 'Call Now',
   secondary: svc ? { label: 'The Service', href: svc.url, icon: 'wrench' } : undefined
 })}
 
@@ -1574,7 +1464,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get A Price</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="faq-question" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="faq-question" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
@@ -1614,6 +1504,223 @@ ${K.contactBlock({ heading: 'Get It Priced' })}`;
   });
 }
 
+/* ===================================================== COMMERCIAL FORM */
+const COMMERCIAL_FORM_URL = '/commercial-service-request/';
+
+/** Link to the commercial service request form, used on every commercial page. */
+function commercialCta(where) {
+  return `<section class="py-12 bg-ybe-black text-white border-y-4 border-ybe-red">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+    <div>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Commercial Service Request</h2>
+      <p class="text-white leading-relaxed">Fleets, dealers, auction buyers, rideshare and rental vehicles, and agencies: tell us about your vehicles and what they need.</p>
+    </div>
+    <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="${esc(where)}"
+       class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center justify-center gap-2">
+      ${icon('clipboard-list', 24)} Request Service</a>
+  </div>
+</section>`;
+}
+
+function renderCommercialForm() {
+  const crumbs = [HOME, { label: 'Commercial Service Request', url: COMMERCIAL_FORM_URL }];
+  const field = (id, label, type = 'text', opts = {}) => `
+    <div class="${opts.full ? 'md:col-span-2' : ''}">
+      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
+        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
+      ${
+        type === 'textarea'
+          ? `<textarea id="${id}" name="${id}" rows="4" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}"></textarea>`
+          : type === 'select'
+          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
+              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
+          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''} ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}">`
+      }
+    </div>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Commercial · ${esc(primaryArea.label)} · Open 7 Days`,
+  titleHtml: h1Html(SM.h1For(COMMERCIAL_FORM_URL, 'Commercial Service Request')),
+  sub: 'Fleets, dealers, auction buyers, rideshare and rental vehicles, and public agencies: tell us about your vehicles and what they need, and we will get back to you.',
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+})}
+${section(
+  `<div class="max-w-4xl mx-auto">
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mb-10">
+      <p class="text-gray-800 leading-relaxed"><strong class="font-heading uppercase tracking-wide">This is a request.</strong> Someone from YBE will contact you about your vehicles. For a vehicle that needs help today, call.</p>
+    </div>
+    <form id="commercial-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
+      <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        ${field('company', 'Company or Organization', 'text', { required: true, autocomplete: 'organization' })}
+        ${field('contact_name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
+        ${field('phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
+        ${field('email', 'Email', 'email', { autocomplete: 'email' })}
+        ${field('business_type', 'Type of Business', 'select', { required: true, options: ['Select one…', 'Commercial fleet', 'Fleet management company', 'Rideshare driver', 'Rental or car-share host', 'Used-car dealer', 'Auction buyer or wholesaler', 'Government agency', 'Other'] })}
+        ${field('vehicle_count', 'Number of Vehicles', 'text', { placeholder: 'e.g. 1, 5, 20+' })}
+        ${field('vehicle_types', 'Vehicle Types', 'text', { full: true, placeholder: 'Cars, SUVs, vans, light trucks' })}
+        ${field('services', 'Services Needed', 'select', { full: true, required: true, options: ['Select one…', 'Scheduled maintenance', 'Mechanical repairs', 'Diagnostics', 'Body and collision repair', 'Reconditioning or vehicle prep', 'Roadside help', 'Several of these', 'Not sure, please advise'] })}
+        ${field('message', 'Tell Us More', 'textarea', { full: true, required: true, placeholder: 'How your vehicles are used, how often they need service, or the job you need done.' })}
+      </div>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <button type="submit" data-track="commercial-form" data-location="commercial-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 24)} Send Request</button>
+        <p class="text-sm text-gray-600">Sends to <a href="mailto:${b.commercialEmail}" class="text-ybe-red font-semibold hover:underline">${esc(b.commercialEmail)}</a>. Or call <a href="${b.phone.href}" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+      </div>
+      <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
+    </form>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: 'Commercial Service Request', description: CO.hub.metaDescription, path: COMMERCIAL_FORM_URL, crumbs, body });
+}
+
+/* ===================================================== BOOK APPOINTMENT (owner, 2026-11-14) */
+// Booking is done on the shop's Square site; this page sends customers there.
+const BOOKING_URL = '/book-appointment/';
+function renderBooking() {
+  const crumbs = [HOME, { label: 'Book Appointment', url: BOOKING_URL }];
+  const step = (n, title, text) => `
+      <div class="bg-white border border-gray-200 rounded-sm p-6 shadow-sm">
+        <div class="font-heading text-4xl font-bold text-ybe-red mb-2">${n}</div>
+        <h3 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(title)}</h3>
+        <p class="text-gray-700 leading-relaxed">${esc(text)}</p>
+      </div>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Book Online · ${esc(primaryArea.label)} · Open 7 Days`,
+  titleHtml: h1Html(SM.h1For(BOOKING_URL, 'Book Appointment')),
+  sub: 'Book your visit online through our Square booking site. Pick the service and a time that works for you.',
+  ctaLabel: b.booking.label,
+  ctaHref: b.booking.href,
+  ctaTrack: 'appointment',
+  ctaIcon: 'calendar',
+  ctaNewTab: true,
+  secondary: { label: 'Call Now', href: b.phone.href, icon: 'phone', track: 'call' }
+})}
+${section(
+  `<div class="max-w-4xl mx-auto text-center">
+    <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="booking-page"
+       class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl sm:text-3xl px-8 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold">
+      ${icon('calendar', 28)} ${esc(b.booking.label)}</a>
+    <p class="text-gray-600 mt-4">Opens our Square booking site in a new tab.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
+      ${step(1, 'Open Square', 'Tap Book Now to open our Square booking site.')}
+      ${step(2, 'Pick A Service And Time', 'Choose the service you need and a time that works for you.')}
+      ${step(3, 'Bring The Car In', `Come to ${b.address.street}, ${b.address.city}. We are open seven days a week, 8:30 AM to 6:00 PM.`)}
+    </div>
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mt-12 text-left">
+      <p class="text-gray-800 leading-relaxed"><strong class="font-heading uppercase tracking-wide">Don't see your job on Square, or need help today?</strong> Call or text <a href="${b.phone.href}" data-track="call" data-location="booking-page" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> and tell us what the car is doing.</p>
+    </div>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: 'Book Appointment', description: `Book your visit to ${b.name} online through our Square booking site. Open seven days a week in ${primaryArea.label}. Call ${b.phone.display}.`, path: BOOKING_URL, crumbs, body });
+}
+
+/* ===================================================== EMERGENCY ROADSIDE HELP */
+const ROADSIDE_FORM_URL = '/emergency-roadside-help/';
+
+/** Link to the emergency roadside help page, used on every roadside page. */
+function roadsideRequestCta(where) {
+  return `<section class="py-12 bg-ybe-red text-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+    <div>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Emergency Roadside Help</h2>
+      <p class="text-white/90 leading-relaxed">Stuck and cannot talk? Send your location and what happened by text or email.</p>
+    </div>
+    <a href="${ROADSIDE_FORM_URL}" data-track="roadside-form" data-location="${esc(where)}"
+       class="flex-shrink-0 bg-white text-ybe-red font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center justify-center gap-2">
+      ${icon('siren', 24)} Request Help</a>
+  </div>
+</section>`;
+}
+
+/** One emergency form. `send` is 'sms' (shop phone) or 'email' (owner's email); `p` prefixes field ids. */
+function emergencyForm(p, send) {
+  const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
+  const lab = (id, text, req) => `<label for="${p}${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  const toSms = send === 'sms';
+  return `<form id="${p}form" data-send="${send}" data-subject="Emergency roadside request" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 ${toSms ? 'border-t-ybe-red' : 'border-t-ybe-black'} rounded-sm p-6 md:p-8" novalidate>
+    <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <h2 class="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide text-ybe-black mb-1 flex items-center gap-2">${icon(toSms ? 'message-square' : 'mail', 26, 'text-ybe-red')} ${toSms ? 'Text The Shop' : 'Email The Owner'}</h2>
+    <p class="text-gray-600 mb-6">Sends to <strong>${esc(toSms ? b.phone.display : b.commercialEmail)}</strong>${toSms ? ' by text' : ''}.</p>
+    <div class="grid grid-cols-1 gap-5">
+      <div>${lab('name', 'Your Name', true)}<input type="text" id="${p}name" required autocomplete="name" class="${inputCls}"></div>
+      <div>${lab('phone', 'Phone Number', true)}<input type="tel" id="${p}phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
+      <div>${lab('location', 'Where Are You?', true)}
+        <div class="relative">
+          <input type="text" id="${p}location" required autocomplete="off" data-address-lookup class="${inputCls}" placeholder="Start typing a street address or landmark" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${p}location-list">
+          <ul id="${p}location-list" role="listbox" class="address-list hidden absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-300 rounded-sm shadow-lg max-h-64 overflow-y-auto"></ul>
+        </div>
+        <p class="text-xs text-gray-600 mt-1">Address suggestions from OpenStreetMap.</p></div>
+      <div>${lab('problem', 'What Happened?', true)}<select id="${p}problem" required class="${inputCls}">
+        ${['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
+      <div>${lab('vehicle', 'Vehicle', false)}<input type="text" id="${p}vehicle" class="${inputCls}" placeholder="Year, make, model, color"></div>
+      <div>${lab('notes', 'Anything Else?', false)}<textarea id="${p}notes" rows="3" class="${inputCls}" placeholder="Which side of the road, which direction, anything we should know."></textarea></div>
+    </div>
+    <button type="submit" data-track="${toSms ? 'roadside-form-text' : 'roadside-form-email'}" data-location="emergency-page" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon(toSms ? 'send' : 'mail', 24)} ${toSms ? 'Send By Text' : 'Send By Email'}</button>
+    <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
+  </form>`;
+}
+
+function renderRoadsideForm() {
+  const crumbs = [HOME, { label: 'Roadside Assistance', url: roadsideHub.url }, { label: 'Emergency Roadside Help', url: ROADSIDE_FORM_URL }];
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const help = roadsideHub.services.filter((x) => !x.calm);
+  const body = `
+${K.heroBlock({
+  eyebrow: `Roadside Assistance · ${esc(primaryArea.label)}`,
+  titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Help')),
+  sub: 'Dead battery, flat tire, locked out or out of gas? Call for the fastest help. If you cannot talk, send your location and what happened by text or email below.',
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+})}
+${section(
+  `<div class="max-w-5xl mx-auto">
+    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 md:p-8 rounded-sm mb-12">
+      <p class="font-heading text-2xl uppercase tracking-wide font-bold mb-3 flex items-center gap-2">${icon('alert-triangle', 26, 'text-ybe-red')} Safety First</p>
+      <ul class="space-y-3">${[
+        'In danger, injured or blocking traffic: call 911 first',
+        'A child or pet locked in the car: call 911 now',
+        'On a busy shoulder: stay in the car with your seat belt on and your hazards flashing',
+        'If you can, move the car fully off the road before calling'
+      ].map((t) => `<li class="flex items-start gap-3 text-white text-lg leading-snug">${icon('alert-circle', 22, 'text-ybe-red flex-shrink-0 mt-0.5')} <span>${esc(t)}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+      <div>
+        ${h2('What We Help With')}
+        <ul class="space-y-1">${help.map((x) => `<li><a href="${x.url}" class="inline-flex items-start gap-2 py-1.5 text-gray-700 hover:text-ybe-red font-medium">${icon('chevron-right', 16, 'text-ybe-red flex-shrink-0 mt-1')} <span>${esc(x.title)}</span></a></li>`).join('')}</ul>
+      </div>
+      <div>
+        ${h2('While You Wait')}
+        ${K.checkList([
+          'Keep your hazard lights on',
+          'Stay with the vehicle if it is safe',
+          'Have your keys, ID and registration ready',
+          'Note the cross street, exit or a landmark',
+          'Keep your phone on so we can call you back'
+        ])}
+      </div>
+    </div>
+
+    <div class="bg-gray-100 border border-gray-200 p-5 rounded-sm text-gray-700 mb-12">
+      Our phone is answered ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing. If the vehicle needs a tow, we will tell you so you can arrange one.
+    </div>
+
+    ${h2('Send Your Request')}
+    <p class="text-gray-700 text-lg mb-8">Fill in either form. Calling <a href="${b.phone.href}" data-track="call" data-location="emergency-page" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> is still the fastest way.</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      ${emergencyForm('es_sms_', 'sms')}
+      ${emergencyForm('es_mail_', 'email')}
+    </div>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Stuck? Call The Shop.' })}`;
+  return layout({ title: 'Emergency Roadside Help', description: roadsideHub.metaDescription, path: ROADSIDE_FORM_URL, crumbs, body });
+}
+
 /* ===================================================== COMPANY PAGES */
 /** One dealer group or auction from src/data/company-pages.js. */
 function renderCompanyPage(c) {
@@ -1642,7 +1749,7 @@ ${K.heroBlock({
   eyebrow: `${isDealer ? 'Bought From' : 'Bought At'} ${esc(c.name)}`,
   titleHtml: h1Html(h1),
   sub: intro[0],
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 
@@ -1672,17 +1779,19 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get It Checked</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="company-page" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="company-page" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="company-page" class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="company-page"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
       </div>
     </aside>
   </div>`
 )}
 
+${commercialCta('company-page')}
 ${K.contactBlock({ heading: 'Bring It In' })}`;
 
   return layout({
@@ -1705,14 +1814,68 @@ ${K.heroBlock({
   eyebrow: `Independent Repair Shop · ${esc(primaryArea.label)}`,
   titleHtml: h1Html(SM.h1For(CO.hub.url, CO.hub.title)),
   sub: 'Bought a used car from a dealer or at auction? We check it over and repair what it needs. Independent, open seven days, and a quote before any work.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
 })}
 ${section(`${K.heading2('Bought From A <span class="text-ybe-red">Dealer</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.dealers.map(card).join('')}</div>`)}
 ${section(`${K.heading2('Bought At <span class="text-ybe-red">Auction</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.auctions.map(card).join('')}</div>
   <p class="text-sm text-gray-600 mt-8">YBE Auto Repair Center is an independent repair shop and is not affiliated with any company listed here.</p>`, 'bg-gray-50')}
+${commercialCta('company-hub')}
 ${K.contactBlock({ heading: 'Bring It In' })}`;
   return layout({ title: CO.hub.metaTitle, description: CO.hub.metaDescription, path: CO.hub.url, crumbs, body });
+}
+
+/* ===================================================== FLEET & GOVERNMENT PROFILES */
+function renderOrgPage(o) {
+  const h1 = SM.h1For(o.url, o.label);
+  const crumbs = [HOME, { label: 'Fleet & Government', url: ORG.hub.url }, { label: o.name, url: o.url }];
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  // Profile, then how we can help. Nothing else.
+  const body = `
+<section class="bg-ybe-black text-white py-14 md:py-16 border-b-4 border-ybe-red">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="font-heading text-sm font-bold uppercase tracking-widest text-white mb-3">${o.kind === 'fleet' ? 'Fleet Network Profile' : 'Government Profile'}</p>
+    <h1 class="text-4xl md:text-5xl font-heading font-extrabold uppercase leading-tight tracking-wide">${h1Html(h1)}</h1>
+  </div>
+</section>
+<section class="py-14 md:py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    ${h2(esc(o.name))}
+    <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(o.profile)}</div>
+    ${h2('How We Can Help')}
+    <div class="prose-ybe text-lg text-gray-700 mb-6">${paras(o.assist)}</div>
+    <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm mb-8">${K.checkList(o.assistList)}</div>
+    <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="org-page" class="inline-flex items-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold">${icon('clipboard-list', 20)} Commercial Service Request</a>
+  </div>
+</section>`;
+
+  return layout({
+    title: o.label,
+    description: ORG.hub.description,
+    path: o.url,
+    crumbs,
+    schema: [serviceSchema({ name: h1, description: o.profile[0], url: o.url, areaNames })],
+    body
+  });
+}
+
+function renderOrgHub() {
+  const crumbs = [HOME, { label: 'Fleet & Government', url: ORG.hub.url }];
+  const card = (o) => `<a href="${o.url}" class="block bg-gray-50 border border-gray-200 border-l-4 border-l-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
+      <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black">${esc(o.name)}</h3></a>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Prince George’s County · Since ${b.openedYear}`,
+  titleHtml: h1Html(SM.h1For(ORG.hub.url, ORG.hub.title)),
+  sub: ORG.hub.description,
+  ctaLabel: 'Call Now',
+  secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
+})}
+${section(`${K.heading2('Fleet <span class="text-ybe-red">Networks</span>')}<div class="grid grid-cols-1 md:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'fleet').map(card).join('')}</div>`)}
+${section(`${K.heading2('Government <span class="text-ybe-red">Buyers</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'gov').map(card).join('')}</div>`, 'bg-gray-50')}
+${commercialCta('org-hub')}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: ORG.hub.title, description: ORG.hub.description, path: ORG.hub.url, crumbs, body });
 }
 
 /* ===================================================== 404 */
@@ -1722,7 +1885,7 @@ ${K.heroBlock({
   eyebrow: 'Page Not Found',
   titleHtml: `That Page <span class="text-ybe-red">Doesn't Exist</span>`,
   sub: 'The link may be old or mistyped. Here is where to go instead.',
-  ctaLabel: 'Call The Shop',
+  ctaLabel: 'Call Now',
   secondary: { label: 'All Services', href: '/services/', icon: 'wrench' }
 })}
 
@@ -1735,7 +1898,7 @@ ${section(
       { label: 'Service Areas', url: '/service-areas/', icon: 'map-pin' },
       { label: 'Car Care', url: '/car-care/', icon: 'help-circle' },
       { label: 'Contact & Directions', url: '/contact/', icon: 'navigation' },
-      { label: 'Request an Appointment', url: '/request-appointment/', icon: 'calendar' }
+      { label: 'Request A Call Back', url: '/#call-back', icon: 'phone-incoming' }
     ]
       .map(
         (l) => `<a href="${l.url}" class="flex items-center gap-3 bg-gray-50 hover:border-ybe-red border border-gray-200 p-6 rounded-sm transition-colors group">
@@ -1760,12 +1923,17 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 
 module.exports = {
+  renderBooking,
   renderAreaServicePage,
+  renderRoadsideForm,
+  renderCommercialForm,
+  renderOrgPage,
+  renderOrgHub,
   renderCompanyPage,
   renderCompanyHub,
   renderFaqQuestionPage,
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,
   renderCarCareHub, renderArticle, renderAbout, renderReviews,
-  renderContact, renderAppointment, renderFaq, render404
+  renderContact, renderFaq, render404
 };

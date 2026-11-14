@@ -264,7 +264,7 @@ function applyBasePath() {
       // CSS url('/x')
       .replace(/url\((['"]?)\/(?!\/)/g, `url($1${base}/`)
       // service worker paths and precache entries
-      .replace(/(['"])\/(assets|services|roadside-assistance|service-areas|car-care|about|reviews|contact|request-appointment|faq|no-connection\.html|sw\.js|manifest\.webmanifest)/g,
+      .replace(/(['"])\/(assets|services|roadside-assistance|service-areas|car-care|about|reviews|contact|faq|no-connection\.html|sw\.js|manifest\.webmanifest)/g,
         `$1${base}/$2`)
       // manifest start_url / scope
       .replace(/"start_url":\s*"\/"/g, `"start_url": "${base}/"`)
@@ -363,14 +363,19 @@ function run() {
   emit('/about/', R.renderAbout(), { priority: '0.8' });
   emit('/reviews/', R.renderReviews(), { priority: '0.8' });
   emit('/contact/', R.renderContact(), { priority: '0.9' });
-  emit('/request-appointment/', R.renderAppointment(), { priority: '0.9' });
   emit('/faq/', R.renderFaq(), { priority: '0.7' });
   require('./src/data/faq-pages.js').faqPages.forEach((q) => emit(q.url, R.renderFaqQuestionPage(q), { priority: '0.6' }));
   // Spanish core pages (/es/), paired with their English pages by hreflang.
   require('./src/lib/es-pages.js').renderAllEs().forEach(([url, html]) => emit(url, html, { priority: url === '/es/' ? '0.8' : '0.6' }));
+  emit('/commercial-service-request/', R.renderCommercialForm(), { priority: '0.7' });
+  emit('/emergency-roadside-help/', R.renderRoadsideForm(), { priority: '0.8' });
+  emit('/book-appointment/', R.renderBooking(), { priority: '0.8' });
   // Used and auction car repair pages, one per dealer group and auction.
   emit('/used-car-repair/', R.renderCompanyHub(), { priority: '0.6' });
   require('./src/data/company-pages.js').companies.forEach((c) => emit(c.url, R.renderCompanyPage(c), { priority: '0.5' }));
+  // Fleet network and government profile pages.
+  emit('/fleet-and-government/', R.renderOrgHub(), { priority: '0.6' });
+  require('./src/data/org-pages.js').orgs.forEach((o) => emit(o.url, R.renderOrgPage(o), { priority: '0.5' }));
   emit('/404.html', R.render404());
 
   copyAssets();

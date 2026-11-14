@@ -38,8 +38,7 @@ function manifest() {
       ],
       shortcuts: [
         { name: 'Call the shop', url: '/contact/', description: 'Phone YBE Auto Repair Center' },
-        { name: 'Roadside assistance', url: '/roadside-assistance/', description: 'Get help if you are stranded' },
-        { name: 'Request an appointment', url: '/request-appointment/', description: 'Book a service visit' }
+        { name: 'Roadside assistance', url: '/roadside-assistance/', description: 'Get help if you are stranded' }
       ]
     },
     null,

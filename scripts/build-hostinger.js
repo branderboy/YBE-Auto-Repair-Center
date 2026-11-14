@@ -63,6 +63,9 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\\.${DOMAIN.replace(/\./g, '\\.')}$ [NC]
   RewriteRule ^(.*)$ https://${DOMAIN}/$1 [R=301,L]
 
+  # The old appointment page now points to the Square booking page.
+  RewriteRule ^request-appointment/?$ /book-appointment/ [R=301,L]
+
   # Pretty URLs: /services/ is served by /services/index.html already, but a
   # request without the trailing slash should not 404.
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -112,6 +115,19 @@ AddType application/manifest+json .webmanifest
 fs.writeFileSync(path.join(OUT, '.htaccess'), htaccess);
 
 /*
+ * Lead capture backend (PHP, runs on Hostinger). Every form posts to
+ * /api/lead.php, which saves the lead outside the web root and emails it to
+ * the owner. Placeholders are filled from src/data/business.js.
+ */
+const biz = require(path.join(ROOT, 'src', 'data', 'business.js'));
+const leadSrc = fs.readFileSync(path.join(ROOT, 'src', 'server', 'lead.php'), 'utf8')
+  .split('{{TO_EMAIL}}').join(biz.commercialEmail)
+  .split('{{DOMAIN}}').join(DOMAIN)
+  .split('{{BUSINESS}}').join(biz.name.replace(/'/g, ''));
+fs.mkdirSync(path.join(OUT, 'api'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'api', 'lead.php'), leadSrc);
+
+/*
  * Zip it so it can be dropped straight into hPanel's File Manager.
  *
  * Convenience only: CI uploads dist-hostinger/ over FTP and never looks at the
@@ -134,6 +150,7 @@ const count = (dir) =>
   );
 
 console.log(`  ✓ .htaccess written (https, no-www, compression, caching)`);
+console.log(`  ✓ api/lead.php written (leads to ${biz.commercialEmail})`);
 console.log(`  ✓ ${count(OUT)} files in ${OUT_DIR}/`);
 if (zipped) {
   console.log(`  ✓ ${OUT_DIR}.zip  (${(fs.statSync(zipPath).size / 1024 / 1024).toFixed(1)} MB)\n`);

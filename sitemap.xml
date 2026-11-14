@@ -907,12 +907,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/request-appointment/</loc>
-    <lastmod>2026-11-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/faq/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
@@ -1087,6 +1081,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/commercial-service-request/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/emergency-roadside-help/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/book-appointment/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/used-car-repair/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
@@ -1160,6 +1172,72 @@
   </url>
   <url>
     <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/used-car-repair/carmax-laurel-auction/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/merchants-fleet/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/element-fleet/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/enterprise-fleet-management/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/wssc-water/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/state-of-maryland-fleet/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/dc-office-of-contracting-and-procurement/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/prince-georges-county/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/maryland-emma/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/virginia-eva/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/fleet-and-government/federal-sam-gov/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

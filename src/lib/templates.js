@@ -266,16 +266,13 @@ function ctaButtons({ variant = 'default', className = '' } = {}) {
     'bg-ybe-charcoal hover:bg-ybe-black text-white border-gray-500 hover:border-white', 'directions',
     'target="_blank" rel="noopener noreferrer"');
 
-  const appt = btn('/request-appointment/', 'Book', 'calendar',
-    'bg-transparent hover:bg-white text-white hover:text-ybe-black border-white', 'appointment');
-
   const roadside = btn('/roadside-assistance/', 'Roadside', 'truck',
     'bg-yellow-400 hover:bg-yellow-300 text-ybe-black shadow-hard border-transparent', 'roadside');
 
   let items;
   if (variant === 'roadside') items = [call, text, directions];
-  else if (variant === 'home') items = [call, text, directions, appt, roadside];
-  else items = [call, text, directions, appt];
+  else if (variant === 'home') items = [call, text, directions, roadside];
+  else items = [call, text, directions];
 
   // In a narrow sidebar the buttons stack full width instead of wrapping.
   const layout =
@@ -302,7 +299,7 @@ function trustStrip() {
           <div class="bg-ybe-red rounded-sm p-2 flex-shrink-0">${icon(i.icon, 24, 'text-white')}</div>
           <div>
             <div class="font-heading text-xl md:text-2xl font-bold uppercase tracking-wide leading-none">${esc(i.label)}</div>
-            <div class="text-xs md:text-sm text-gray-400 font-medium mt-1">${esc(i.sub)}</div>
+            <div class="text-xs md:text-sm text-white font-medium mt-1">${esc(i.sub)}</div>
           </div>
         </div>`
           )
@@ -336,7 +333,7 @@ function sectionHeading(title, sub, { light = false } = {}) {
     ${
       sub
         ? `<p class="mt-4 text-lg ${
-            light ? 'text-gray-300' : 'text-gray-600'
+            light ? 'text-white' : 'text-gray-600'
           } font-medium border-l-4 border-ybe-red pl-4 max-w-3xl">${esc(sub)}</p>`
         : ''
     }
@@ -364,12 +361,12 @@ function safetyNotice() {
       ${icon('alert-triangle', 32, 'text-yellow-400 flex-shrink-0 mt-1')}
       <div>
         <h3 class="font-heading text-xl font-bold uppercase text-white mb-1">Safety First</h3>
-        <p class="text-gray-300 text-sm leading-relaxed">
+        <p class="text-white text-sm leading-relaxed">
           If you are stopped in a traffic lane, on a narrow shoulder, or facing any immediate emergency,
           call <strong class="text-white">911 first</strong>. Stay in your vehicle with your seat belt fastened
           if it is not safe to stand outside it.
           <br class="hidden sm:block">
-          <em class="text-gray-400">Please note: YBE provides roadside assistance, not towing.</em>
+          <em class="text-white">Please note: YBE provides roadside assistance, not towing.</em>
         </p>
       </div>
     </div>
@@ -416,8 +413,8 @@ function finalCta({ heading, sub, variant = 'default' } = {}) {
           <h2 class="text-3xl md:text-5xl font-heading font-extrabold uppercase tracking-wide mb-4">
             ${heading || 'Ready When You Are'}
           </h2>
-          <p class="text-gray-400 mb-8 font-medium text-lg leading-relaxed">
-            ${esc(sub || 'Call or text the shop, request an appointment, or stop by. We are open seven days a week.')}
+          <p class="text-white mb-8 font-medium text-lg leading-relaxed">
+            ${esc(sub || 'Call or text the shop, or stop by. We are open seven days a week.')}
           </p>
           ${ctaButtons({ variant })}
         </div>
@@ -426,7 +423,7 @@ function finalCta({ heading, sub, variant = 'default' } = {}) {
             <h3 class="font-heading text-2xl font-bold uppercase tracking-wide mb-6 text-white border-b-2 border-ybe-red pb-2">
               ${esc(b.name)}
             </h3>
-            <ul class="space-y-4 text-gray-300">
+            <ul class="space-y-4 text-white">
               <li class="flex items-start gap-3">${icon('map-pin', 20, 'text-ybe-red flex-shrink-0 mt-1')}
                 <span>${esc(b.address.oneLine)}</span></li>
               <li class="flex items-start gap-3">${icon('clock', 20, 'text-ybe-red flex-shrink-0 mt-1')}

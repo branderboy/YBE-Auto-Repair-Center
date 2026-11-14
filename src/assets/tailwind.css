@@ -70,6 +70,8 @@
     padding: 1rem; background: #FC0101; color: #fff; font-weight: 700;
   }
   .skip-link:focus { left: 0; }
+  /* Spam trap on lead forms: off screen for people, still filled in by bots. */
+  .lead-trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 }
 
 /*

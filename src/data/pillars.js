@@ -11,7 +11,7 @@
  *   2. Service Categories    -> /services/<category>/ + /roadside-assistance/
  *   3. Topical Relevance     -> /car-care/<article>/
  *   4. Geographic Relevance  -> /service-areas/<city>/
- *   5. Trust & Decision      -> /about/, /reviews/, /contact/, /request-appointment/, /faq/
+ *   5. Trust & Decision      -> /about/, /reviews/, /contact/, /faq/
  */
 
 const { categories, allServices } = require('./services.js');
@@ -109,6 +109,7 @@ const mainNav = [
     children: clusters.map((c) => ({ label: c.name, url: `/car-care/#${c.slug}` }))
   },
   { label: 'FAQ', url: '/faq/' },
+  { label: 'Book', url: '/book-appointment/' },
   {
     label: 'Roadside Help',
     url: roadsideHub.url,

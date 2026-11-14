@@ -37,6 +37,8 @@ function heroBlock({
   ctaLabel = 'I Need Help Now!',
   ctaHref = b.phone.href,
   ctaTrack = 'call',
+  ctaIcon = 'phone',
+  ctaNewTab = false,
   secondary
 }) {
   return `
@@ -57,9 +59,9 @@ function heroBlock({
           : ''
       }
       <div class="mt-8 flex flex-col sm:flex-row gap-4">
-        <a href="${ctaHref}" data-track="${ctaTrack}" data-location="hero"
+        <a href="${ctaHref}"${ctaNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''} data-track="${ctaTrack}" data-location="hero"
            class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold">
-          ${icon('phone', 28)} ${esc(ctaLabel)}
+          ${icon(ctaIcon, 28)} ${esc(ctaLabel)}
         </a>
         ${
           secondary
@@ -69,7 +71,7 @@ function heroBlock({
             : ''
         }
       </div>
-      <p class="mt-6 text-gray-300 text-sm font-medium flex flex-wrap items-center gap-x-4 gap-y-2">
+      <p class="mt-6 text-white text-sm font-medium flex flex-wrap items-center gap-x-4 gap-y-2">
         <span class="flex items-center gap-2">${icon('clock', 16, 'text-ybe-red')} ${esc(b.hours.summary)}</span>
         <span class="flex items-center gap-2">${icon('map-pin', 16, 'text-ybe-red')} ${esc(b.address.oneLine)}</span>
       </p>
@@ -134,15 +136,15 @@ function roadsideBand({ heading, sub } = {}) {
     <h2 class="text-4xl md:text-6xl font-heading font-extrabold uppercase tracking-wide mb-6 text-white drop-shadow-md">
       ${heading || `Stranded? Call YBE for <span class="text-ybe-red bg-white px-2 rounded-sm inline-block transform -skew-x-12">Roadside Help</span>`}
     </h2>
-    <p class="text-xl md:text-2xl mb-10 font-medium max-w-3xl mx-auto text-gray-300 leading-relaxed">
+    <p class="text-xl md:text-2xl mb-10 font-medium max-w-3xl mx-auto text-white leading-relaxed">
       ${esc(sub || `Mobile assistance for dead batteries, flat tires, fuel delivery, lockouts, no-start conditions and select minor problems in ${primaryArea.name} and nearby communities.`)}
     </p>
     <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
       <a href="${b.phone.href}" data-track="call" data-location="roadside-band"
-         class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
-        ${icon('phone', 32)} Call For Help</a>
+         class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
+        ${icon('phone', 32)} Call Now</a>
       <a href="${b.sms.href}" data-track="text" data-location="roadside-band"
-         class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
+         class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
         ${icon('message-square', 32)} Text Us</a>
     </div>
     <div class="bg-ybe-black/80 border border-gray-700 p-6 rounded-sm max-w-2xl mx-auto">
@@ -150,7 +152,7 @@ function roadsideBand({ heading, sub } = {}) {
         ${icon('alert-triangle', 32, 'text-yellow-400 flex-shrink-0 mt-1')}
         <div>
           <h3 class="font-heading text-xl font-bold uppercase text-white mb-1">Safety Notice</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">
+          <p class="text-white text-sm leading-relaxed">
             If you are stopped in an unsafe traffic location or facing an immediate emergency, contact 911 first.
             Stay in your vehicle with your seat belt fastened if it is not safe to stand outside it.
             <em class="block mt-1">Note: YBE provides roadside assistance, not towing.</em>
@@ -239,8 +241,8 @@ function reviewsBlock(cards, { heading, sub } = {}) {
         .join('')}
     </div>
     <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" data-track="reviews" data-location="reviews-block"
-       class="inline-flex items-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
-      ${icon('external-link', 20)} Read All Google Reviews</a>
+       class="inline-flex items-center justify-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
+      ${icon('external-link', 20)} Read Reviews</a>
   </div>
 </section>`;
 }
@@ -302,7 +304,7 @@ function contactBlock({ heading, sub } = {}) {
           ${heading || 'Request Service'}
         </h2>
         <p class="text-gray-600 mb-8 font-medium">
-          ${esc(sub || 'Call or text the shop, request an appointment online, or stop by. We are open seven days a week.')}
+          ${esc(sub || 'Call or text the shop, or stop by. We are open seven days a week.')}
         </p>
         <div class="space-y-6">
           <div class="flex items-start gap-4">
@@ -348,15 +350,15 @@ function contactBlock({ heading, sub } = {}) {
         <div class="bg-white p-10 rounded-sm border border-gray-200 border-t-4 border-t-ybe-red shadow-xl text-center">
           ${icon('calendar', 64, 'text-ybe-red mx-auto mb-6')}
           <h3 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4 text-ybe-black">Book Your Visit</h3>
-          <p class="text-gray-600 mb-8 font-medium">Request an appointment and we will get back to you to confirm a time.</p>
+          <p class="text-gray-600 mb-8 font-medium">Book online through our Square site, or call the shop.</p>
           <div class="flex flex-col gap-4">
-            <a href="/request-appointment/" data-track="appointment" data-location="contact-block"
-               class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              Request Appointment ${icon('arrow-right', 20)}</a>
-            <div class="text-gray-500 font-medium">OR</div>
             <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="square-booking"
+               class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+              ${icon('calendar', 22)} ${esc(b.booking.label)}</a>
+            <div class="text-gray-600 font-medium">OR</div>
+            <a href="${b.phone.href}" data-track="call" data-location="contact-block"
                class="w-full bg-white hover:bg-gray-50 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              ${esc(b.booking.label)} ${icon('external-link', 20)}</a>
+              ${icon('phone', 22)} Call Now</a>
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=d9b6a8e2">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=a17b0c7d">
 
 <script type="application/ld+json">
 {
@@ -870,7 +870,7 @@
       </div>
     </div>
   </header>
-<main id="main" class="pt-[88px] sm:pt-[104px] lg:pt-[120px]">
+<main id="main" class="pt-[104px] sm:pt-[120px]">
 <nav aria-label="Breadcrumb" class="bg-gray-100 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <div class="flex flex-wrap items-center gap-2 text-sm">
@@ -881,7 +881,7 @@
 
 <section class="relative bg-ybe-black text-white py-16 md:py-20 border-b-4 border-ybe-red">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="font-heading text-sm md:text-base font-bold uppercase tracking-widest text-gray-300 mb-3">Servicios</p>
+    <p class="font-heading text-sm md:text-base font-bold uppercase tracking-widest text-white mb-3">Servicios</p>
     <h1 class="text-4xl md:text-6xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide">Llantas, alineación y suspensión<span class="text-ybe-red"> en Capitol Heights, MD</span></h1>
     <p class="text-lg md:text-xl text-gray-200 max-w-3xl border-l-4 border-ybe-red pl-4 mb-8">Llantas, dirección y suspensión son un solo sistema conectado: un buje gastado desajusta la alineación, y una mala alineación gasta las llantas. Por eso diagnosticamos antes de cambiar la pieza más obvia.</p>
     <div class="flex flex-col sm:flex-row gap-4">
@@ -892,7 +892,7 @@
          class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-2xl px-8 py-4 rounded-sm uppercase tracking-wide font-bold">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> Enviar mensaje</a>
     </div>
-    <div class="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-6 text-sm text-gray-300">
+    <div class="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-6 text-sm text-white">
       <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg> De 8:30 AM a 6:00 PM, los siete días</span>
       <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ybe-red" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg> 8632 Edgeworth Dr, Capitol Heights, MD 20743</span>
     </div>
@@ -950,7 +950,7 @@
         <div>
           <img src="/YBE-Auto-Repair-Center/assets/img/ybe-auto-logo.png?v=e726240f" alt="YBE Auto Repair Center logo with a speedometer, tire tread and the words Repair, Body, Roadside" width="240" height="152" loading="lazy" class="h-16 w-auto mb-5" />
           <p class="mb-4 text-sm leading-relaxed">Reparación, diagnóstico, mantenimiento, carrocería y asistencia en carretera en Capitol Heights y comunidades cercanas de Maryland y DC desde 2006.</p>
-          <p class="text-sm leading-relaxed text-gray-300">Nuestro equipo atiende en inglés. Si le resulta más fácil, envíenos un mensaje de texto o por WhatsApp al (202) 455-3822; puede escribir con un traductor.</p>
+          <p class="text-sm leading-relaxed text-white">Nuestro equipo atiende en inglés. Si le resulta más fácil, envíenos un mensaje de texto o por WhatsApp al (202) 455-3822; puede escribir con un traductor.</p>
         </div>
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Contacto</h2>
@@ -1086,58 +1086,184 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Appointment form.
-  // This is a static site with no backend, so rather than silently failing the
-  // form validates, then hands the details to the shop's text line (a verified
-  // contact channel). To post to a real endpoint instead, set the form's
-  // action/method and remove this handler.
-  var form = document.getElementById('appointment-form');
-  if (form) {
-    var status = document.getElementById('form-status');
-    form.addEventListener('submit', function (e) {
+  // Lead capture. Every form posts here first: /api/lead.php on Hostinger
+  // saves the lead and emails it to the owner. If that does not answer ok
+  // (offline, GitHub Pages copy, server error), onFail runs the old text or
+  // email hand-off so no lead is lost.
+  var pageLoadedAt = Date.now();
+  function postLead(form, key, lines, onOk, onFail) {
+    var trap = form.querySelector('input[name="website"]');
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    fetch('/api/lead.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ form: key, lines: lines, page: location.pathname, elapsed: Date.now() - pageLoadedAt, website: trap ? trap.value : '' }),
+      signal: ctl ? ctl.signal : undefined
+    })
+      .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+      .then(function (d) { clearTimeout(timer); if (btn) btn.disabled = false; if (d && d.ok) { onOk(); } else { onFail(); } })
+      .catch(function () { clearTimeout(timer); if (btn) btn.disabled = false; onFail(); });
+    if (window.dataLayer) window.dataLayer.push({ event: 'lead_submit', lead_form: key });
+  }
+  function leadThanks(statusEl, msg, showCall) {
+    statusEl.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+      '<p class="text-gray-800 font-semibold mb-1">Thank you. We got your request.</p>' +
+      '<p class="text-gray-700 text-sm' + (showCall ? ' mb-3' : '') + '">' + msg + '</p>' +
+      (showCall ? '<a href="tel:+12024553822" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call (202) 455-3822</a>' : '') + '</div>';
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Commercial service request form: validates, then
+  // then hands the labelled fields to the owner's email address.
+  var cform = document.getElementById('commercial-form');
+  if (cform) {
+    var cstatus = document.getElementById('form-status');
+    cform.addEventListener('submit', function (e) {
       e.preventDefault();
       var missing = [];
-      form.querySelectorAll('[required]').forEach(function (el) {
-        var empty = !el.value.trim() || el.value.indexOf('Select a service') === 0;
+      cform.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
         el.classList.toggle('border-ybe-red', empty);
         el.classList.toggle('border-2', empty);
         if (empty) {
-          var lab = form.querySelector('label[for="' + el.id + '"]');
+          var lab = cform.querySelector('label[for="' + el.id + '"]');
           missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
         }
       });
       if (missing.length) {
-        status.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">' +
-          'Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
-        var firstBad = form.querySelector('.border-ybe-red');
-        if (firstBad) firstBad.focus();
+        cstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = cform.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
         return;
       }
-      var g = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
-      var lines = [
-        'Appointment request from the website',
-        'Name: ' + g('name'),
-        'Phone: ' + g('phone'),
-        g('email') ? 'Email: ' + g('email') : '',
-        'Vehicle: ' + g('vehicle_year') + ' ' + g('vehicle_make') + ' ' + g('vehicle_model'),
-        'Service: ' + g('service'),
-        g('preferred_date') ? 'Preferred date: ' + g('preferred_date') : '',
-        'Preferred contact: ' + g('preferred_contact'),
-        'Problem: ' + g('problem')
-      ].filter(Boolean);
-      var body = encodeURIComponent(lines.join('\n'));
-      status.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-        '<p class="text-gray-800 font-semibold mb-2">Your details are ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
-        'If it does not, call the shop and we will take the details over the phone.</p>' +
-        '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-        '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
-      status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', 'tel:+12024553822');
-      status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      var lines = ['Commercial service request from the website'];
+      cform.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = cform.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      postLead(cform, 'commercial', lines, function () {
+        cform.reset();
+        leadThanks(cstatus, 'Your request went to the owner. Someone from YBE will contact you about your vehicles.', false);
+      }, function () {
+        // Goes to the owner by email (static site: the visitor's email app sends it).
+        var company = (document.getElementById('company') || {}).value || '';
+        var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Commercial service request: ' + company) +
+          '&body=' + encodeURIComponent(lines.join('\n'));
+        cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. Press send. If it does not open, email that address or call the shop.</p>' +
+          '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
+          '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
+        cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = mailHref;
+      });
     });
   }
+
+  // Emergency roadside help: two forms, one sending a
+  // text to the shop phone (data-send="sms"), one an email to the owner
+  // (data-send="email").
+  // Address lookup: suggestions from the Photon geocoder (OpenStreetMap data),
+  // biased to the DC area. Free, no key. Typing still works if it is offline.
+  document.querySelectorAll('[data-address-lookup]').forEach(function (input) {
+    var list = document.getElementById(input.getAttribute('aria-controls'));
+    var timer, items = [], active = -1;
+    function close() { list.classList.add('hidden'); list.innerHTML = ''; input.setAttribute('aria-expanded', 'false'); items = []; active = -1; }
+    function label(p) {
+      var street = [p.housenumber, p.street].filter(Boolean).join(' ');
+      var first = p.name && p.name !== street ? p.name : '';
+      return [first, street, p.city || p.district || p.county, p.state, p.postcode].filter(Boolean).join(', ');
+    }
+    function pick(i) { if (!items[i]) return; input.value = items[i]; close(); }
+    function show(results) {
+      items = results; active = -1;
+      if (!items.length) { close(); return; }
+      list.innerHTML = items.map(function (t, i) {
+        return '<li role="option" id="' + list.id + '-' + i + '" data-i="' + i + '" class="px-3 py-2.5 text-sm text-gray-800 cursor-pointer hover:bg-gray-100 border-b border-gray-100 last:border-0">' +
+          t.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>';
+      }).join('');
+      list.classList.remove('hidden'); input.setAttribute('aria-expanded', 'true');
+    }
+    list.addEventListener('mousedown', function (e) { var li = e.target.closest('li'); if (li) { e.preventDefault(); pick(+li.getAttribute('data-i')); } });
+    input.addEventListener('keydown', function (e) {
+      if (!items.length) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        list.querySelectorAll('li').forEach(function (li, i) { li.classList.toggle('bg-gray-100', i === active); });
+        input.setAttribute('aria-activedescendant', list.id + '-' + active);
+      } else if (e.key === 'Enter' && active > -1) { e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape') close();
+    });
+    input.addEventListener('blur', function () { setTimeout(close, 150); });
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 3) { close(); return; }
+      timer = setTimeout(function () {
+        fetch('https://photon.komoot.io/api/?limit=6&lang=en&lat=38.8809&lon=-76.8565&bbox=-77.6,38.5,-76.3,39.4&q=' + encodeURIComponent(q))
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (input.value.trim() !== q) return;
+            var seen = {};
+            show((d.features || []).map(function (f) { return label(f.properties || {}); })
+              .filter(function (t) { if (!t || seen[t]) return false; seen[t] = 1; return true; }));
+          })
+          .catch(close);
+      }, 300);
+    });
+  });
+
+  document.querySelectorAll('form.emergency-form').forEach(function (ef) {
+    var est = ef.querySelector('[data-form-status]');
+    ef.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      ef.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
+        el.classList.toggle('border-ybe-red', empty);
+        el.classList.toggle('border-2', empty);
+        if (empty) {
+          var lab = ef.querySelector('label[for="' + el.id + '"]');
+          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
+        }
+      });
+      if (missing.length) {
+        est.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = ef.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
+        return;
+      }
+      var lines = [(ef.getAttribute('data-title') || 'EMERGENCY ROADSIDE REQUEST') + ' from the website'];
+      ef.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = ef.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      var isCallback = ef.id === 'callback-form';
+      postLead(ef, isCallback ? 'callback' : 'emergency', lines, function () {
+        ef.reset();
+        leadThanks(est, isCallback ? 'We will call you back during business hours, 8:30 AM to 6:00 PM.' : 'The shop has your location and what happened. If you can, call now for the fastest help.', true);
+      }, function () {
+        var text = encodeURIComponent(lines.join('\n'));
+        var byEmail = ef.getAttribute('data-send') === 'email';
+        var href = byEmail
+          ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+          : 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
+        est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
+          '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
+          '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
+        est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = href;
+      });
+    });
+  });
 
   // Share button: device share sheet, falling back to copying the link.
   var shareBtn = document.getElementById('share-btn');

@@ -66,8 +66,7 @@ function siteIndex() {
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
-    { label: 'Contact & Directions', url: '/contact/' },
-    { label: 'Request an Appointment', url: '/request-appointment/' }
+    { label: 'Contact & Directions', url: '/contact/' }
   ]);
 
   return `<section class="border-t border-gray-800 pt-10 mt-4">
@@ -97,7 +96,7 @@ function headerNav(currentPath) {
         )
         .join('');
       return `<div class="relative group">
-        <a href="${item.url}" class="flex items-center gap-1 font-heading tracking-wide text-base xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap ${
+        <a href="${item.url}" class="flex items-center gap-1 font-heading tracking-wide text-[15px] xl:text-lg font-semibold uppercase transition-colors py-2 whitespace-nowrap ${
           item.highlight ? 'text-ybe-red hover:text-ybe-darkred' : active ? 'text-ybe-red' : 'text-ybe-black hover:text-ybe-red'
         }">${esc(item.label)}${children ? icon('chevron-down', 16) : ''}</a>
         ${
@@ -138,7 +137,7 @@ function headerNav(currentPath) {
           <img id="header-logo" src="${b.images.logo}" alt="${esc(b.images.logoAlt)}"
                width="240" height="152" class="transition-all duration-300 h-20 sm:h-24 lg:h-24 w-auto" />
         </a>
-        <nav class="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">${desktop}</nav>
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-5" aria-label="Main navigation">${desktop}</nav>
         <div class="hidden lg:flex items-center gap-2">
           <a href="${require('../data/es.js').EN_TO_ES[currentPath] || '/es/'}" hreflang="es" lang="es"
              class="font-heading text-base font-semibold uppercase tracking-wide text-ybe-black hover:text-ybe-red px-2 py-2 whitespace-nowrap">Español</a>
@@ -190,6 +189,10 @@ function footer() {
     { label: 'Service Areas', url: '/service-areas/' },
     { label: 'Car Care Tips', url: '/car-care/' },
     { label: 'Used & Auction Car Repairs', url: '/used-car-repair/' },
+    { label: 'Fleet & Government', url: '/fleet-and-government/' },
+    { label: 'Commercial Service Request', url: '/commercial-service-request/' },
+    { label: 'Emergency Roadside Help', url: '/emergency-roadside-help/' },
+    { label: 'Book Appointment', url: '/book-appointment/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
@@ -236,9 +239,9 @@ function footer() {
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Explore</h2>
           <ul class="space-y-2 text-sm font-medium mb-5">${explore}</ul>
-          <a href="/request-appointment/" data-track="appointment" data-location="footer"
+          <a href="/#call-back" data-track="callback-link" data-location="footer"
              class="block w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-lg px-4 py-2.5 rounded-sm transition-all uppercase tracking-wide font-bold">
-            Request Appointment</a>
+            Call Me Back</a>
         </div>
       </div>
 
@@ -373,58 +376,184 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Appointment form.
-  // This is a static site with no backend, so rather than silently failing the
-  // form validates, then hands the details to the shop's text line (a verified
-  // contact channel). To post to a real endpoint instead, set the form's
-  // action/method and remove this handler.
-  var form = document.getElementById('appointment-form');
-  if (form) {
-    var status = document.getElementById('form-status');
-    form.addEventListener('submit', function (e) {
+  // Lead capture. Every form posts here first: /api/lead.php on Hostinger
+  // saves the lead and emails it to the owner. If that does not answer ok
+  // (offline, GitHub Pages copy, server error), onFail runs the old text or
+  // email hand-off so no lead is lost.
+  var pageLoadedAt = Date.now();
+  function postLead(form, key, lines, onOk, onFail) {
+    var trap = form.querySelector('input[name="website"]');
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    fetch('/api/lead.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ form: key, lines: lines, page: location.pathname, elapsed: Date.now() - pageLoadedAt, website: trap ? trap.value : '' }),
+      signal: ctl ? ctl.signal : undefined
+    })
+      .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+      .then(function (d) { clearTimeout(timer); if (btn) btn.disabled = false; if (d && d.ok) { onOk(); } else { onFail(); } })
+      .catch(function () { clearTimeout(timer); if (btn) btn.disabled = false; onFail(); });
+    if (window.dataLayer) window.dataLayer.push({ event: 'lead_submit', lead_form: key });
+  }
+  function leadThanks(statusEl, msg, showCall) {
+    statusEl.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+      '<p class="text-gray-800 font-semibold mb-1">Thank you. We got your request.</p>' +
+      '<p class="text-gray-700 text-sm' + (showCall ? ' mb-3' : '') + '">' + msg + '</p>' +
+      (showCall ? '<a href="${b.phone.href}" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call ${b.phone.display}</a>' : '') + '</div>';
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Commercial service request form: validates, then
+  // then hands the labelled fields to the owner's email address.
+  var cform = document.getElementById('commercial-form');
+  if (cform) {
+    var cstatus = document.getElementById('form-status');
+    cform.addEventListener('submit', function (e) {
       e.preventDefault();
       var missing = [];
-      form.querySelectorAll('[required]').forEach(function (el) {
-        var empty = !el.value.trim() || el.value.indexOf('Select a service') === 0;
+      cform.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
         el.classList.toggle('border-ybe-red', empty);
         el.classList.toggle('border-2', empty);
         if (empty) {
-          var lab = form.querySelector('label[for="' + el.id + '"]');
+          var lab = cform.querySelector('label[for="' + el.id + '"]');
           missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
         }
       });
       if (missing.length) {
-        status.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">' +
-          'Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
-        var firstBad = form.querySelector('.border-ybe-red');
-        if (firstBad) firstBad.focus();
+        cstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = cform.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
         return;
       }
-      var g = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
-      var lines = [
-        'Appointment request from the website',
-        'Name: ' + g('name'),
-        'Phone: ' + g('phone'),
-        g('email') ? 'Email: ' + g('email') : '',
-        'Vehicle: ' + g('vehicle_year') + ' ' + g('vehicle_make') + ' ' + g('vehicle_model'),
-        'Service: ' + g('service'),
-        g('preferred_date') ? 'Preferred date: ' + g('preferred_date') : '',
-        'Preferred contact: ' + g('preferred_contact'),
-        'Problem: ' + g('problem')
-      ].filter(Boolean);
-      var body = encodeURIComponent(lines.join('\\n'));
-      status.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-        '<p class="text-gray-800 font-semibold mb-2">Your details are ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
-        'If it does not, call the shop and we will take the details over the phone.</p>' +
-        '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-        '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
-      status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', '${b.phone.href}');
-      status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      var lines = ['Commercial service request from the website'];
+      cform.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = cform.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      postLead(cform, 'commercial', lines, function () {
+        cform.reset();
+        leadThanks(cstatus, 'Your request went to the owner. Someone from YBE will contact you about your vehicles.', false);
+      }, function () {
+        // Goes to the owner by email (static site: the visitor's email app sends it).
+        var company = (document.getElementById('company') || {}).value || '';
+        var mailHref = 'mailto:${b.commercialEmail}?subject=' + encodeURIComponent('Commercial service request: ' + company) +
+          '&body=' + encodeURIComponent(lines.join('\\n'));
+        cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to ${b.commercialEmail}. Press send. If it does not open, email that address or call the shop.</p>' +
+          '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
+          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
+        cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = mailHref;
+      });
     });
   }
+
+  // Emergency roadside help: two forms, one sending a
+  // text to the shop phone (data-send="sms"), one an email to the owner
+  // (data-send="email").
+  // Address lookup: suggestions from the Photon geocoder (OpenStreetMap data),
+  // biased to the DC area. Free, no key. Typing still works if it is offline.
+  document.querySelectorAll('[data-address-lookup]').forEach(function (input) {
+    var list = document.getElementById(input.getAttribute('aria-controls'));
+    var timer, items = [], active = -1;
+    function close() { list.classList.add('hidden'); list.innerHTML = ''; input.setAttribute('aria-expanded', 'false'); items = []; active = -1; }
+    function label(p) {
+      var street = [p.housenumber, p.street].filter(Boolean).join(' ');
+      var first = p.name && p.name !== street ? p.name : '';
+      return [first, street, p.city || p.district || p.county, p.state, p.postcode].filter(Boolean).join(', ');
+    }
+    function pick(i) { if (!items[i]) return; input.value = items[i]; close(); }
+    function show(results) {
+      items = results; active = -1;
+      if (!items.length) { close(); return; }
+      list.innerHTML = items.map(function (t, i) {
+        return '<li role="option" id="' + list.id + '-' + i + '" data-i="' + i + '" class="px-3 py-2.5 text-sm text-gray-800 cursor-pointer hover:bg-gray-100 border-b border-gray-100 last:border-0">' +
+          t.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>';
+      }).join('');
+      list.classList.remove('hidden'); input.setAttribute('aria-expanded', 'true');
+    }
+    list.addEventListener('mousedown', function (e) { var li = e.target.closest('li'); if (li) { e.preventDefault(); pick(+li.getAttribute('data-i')); } });
+    input.addEventListener('keydown', function (e) {
+      if (!items.length) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        list.querySelectorAll('li').forEach(function (li, i) { li.classList.toggle('bg-gray-100', i === active); });
+        input.setAttribute('aria-activedescendant', list.id + '-' + active);
+      } else if (e.key === 'Enter' && active > -1) { e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape') close();
+    });
+    input.addEventListener('blur', function () { setTimeout(close, 150); });
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 3) { close(); return; }
+      timer = setTimeout(function () {
+        fetch('https://photon.komoot.io/api/?limit=6&lang=en&lat=38.8809&lon=-76.8565&bbox=-77.6,38.5,-76.3,39.4&q=' + encodeURIComponent(q))
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (input.value.trim() !== q) return;
+            var seen = {};
+            show((d.features || []).map(function (f) { return label(f.properties || {}); })
+              .filter(function (t) { if (!t || seen[t]) return false; seen[t] = 1; return true; }));
+          })
+          .catch(close);
+      }, 300);
+    });
+  });
+
+  document.querySelectorAll('form.emergency-form').forEach(function (ef) {
+    var est = ef.querySelector('[data-form-status]');
+    ef.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      ef.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
+        el.classList.toggle('border-ybe-red', empty);
+        el.classList.toggle('border-2', empty);
+        if (empty) {
+          var lab = ef.querySelector('label[for="' + el.id + '"]');
+          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
+        }
+      });
+      if (missing.length) {
+        est.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = ef.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
+        return;
+      }
+      var lines = [(ef.getAttribute('data-title') || 'EMERGENCY ROADSIDE REQUEST') + ' from the website'];
+      ef.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = ef.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      var isCallback = ef.id === 'callback-form';
+      postLead(ef, isCallback ? 'callback' : 'emergency', lines, function () {
+        ef.reset();
+        leadThanks(est, isCallback ? 'We will call you back during business hours, 8:30 AM to 6:00 PM.' : 'The shop has your location and what happened. If you can, call now for the fastest help.', true);
+      }, function () {
+        var text = encodeURIComponent(lines.join('\\n'));
+        var byEmail = ef.getAttribute('data-send') === 'email';
+        var href = byEmail
+          ? 'mailto:${b.commercialEmail}?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+          : '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
+        est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
+          '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
+          '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
+        est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = href;
+      });
+    });
+  });
 
   // Share button: device share sheet, falling back to copying the link.
   var shareBtn = document.getElementById('share-btn');
@@ -612,7 +741,7 @@ ${jsonLd}
 <body class="font-sans text-gray-900 bg-white antialiased relative pb-16 lg:pb-0">
 <a href="#main" class="skip-link">${lang === 'es' ? 'Saltar al contenido' : 'Skip to main content'}</a>
 ${lang === 'es' ? ES.header(path) : headerNav(path)}
-<main id="main" class="${fullBleed ? '' : 'pt-[88px] sm:pt-[104px] lg:pt-[120px]'}">
+<main id="main" class="${fullBleed ? '' : 'pt-[104px] sm:pt-[120px]'}">
 ${T.breadcrumbs(crumbs)}
 ${body}
 </main>
