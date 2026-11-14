@@ -1,5 +1,5 @@
 /* YBE Auto Repair Center service worker */
-const CACHE = 'ybe-10ee87dba5';
+const CACHE = 'ybe-b4f34c7aa8';
 const PRECACHE = [
   "/",
   "/YBE-Auto-Repair-Center/no-connection.html",

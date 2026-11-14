@@ -217,7 +217,7 @@ function faqSchema(faqs) {
   };
 }
 
-function serviceSchema({ name, description, url, areaNames, sameAs, placeSameAs }) {
+function serviceSchema({ name, description, url, areaNames, sameAs, placeSameAs, alternateName }) {
   const node = {
     '@type': 'Service',
     '@id': `${abs(url)}#service`,
@@ -233,6 +233,8 @@ function serviceSchema({ name, description, url, areaNames, sameAs, placeSameAs 
       return city;
     })
   };
+  // The searches people use for this service (Search Console, 2026-11-14).
+  if (alternateName && alternateName.length) node.alternateName = alternateName;
   if (sameAs && sameAs.length) {
     node.about = { '@type': 'Thing', name, sameAs };
   }

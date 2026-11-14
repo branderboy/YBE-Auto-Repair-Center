@@ -577,46 +577,81 @@ const articles = [
     title: 'What is included in a tune-up?',
     metaTitle: 'What Is Included in a Tune-Up? | YBE Auto',
     metaDescription:
-      'What a tune-up actually means on a modern car, what it includes, and when your vehicle needs one. YBE Auto Repair Center, Capitol Heights, MD.',
+      'What a tune-up includes on a modern car: spark plugs, ignition, filters, fluids, belts, battery and a code scan. YBE Auto Repair Center, Capitol Heights, MD.',
+    // Rebuilt 2026-11-14 from the Search Console analysis (Muse): about 20
+    // versions of "what is included in a tune up" point at this page.
     shortAnswer:
-      'On a modern vehicle a tune-up generally means spark plugs, ignition components, filters, and inspection of the systems that affect how the engine runs. The old adjustments — points, timing, carburetor — no longer exist on current engines.',
+      'A tune-up on a modern car includes new spark plugs, an ignition check (coils or wires), a new engine air filter and cabin air filter, a fluid check, a belt and hose inspection, a battery and charging test, and a scan for stored and pending trouble codes. The old adjustments, like points, timing and the carburetor, no longer exist on current engines, so the computer handles them.',
     sections: [
       {
-        h2: 'The term is a holdover',
+        h2: 'What is included in a tune-up',
         paras: [
-          'A tune-up once meant physically adjusting things: ignition points, timing, idle mixture and the carburetor. Those parts are gone. Engine timing and fuel mixture are managed by the computer and adjust themselves continuously.',
-          'What remains is replacing the parts that genuinely wear out, and inspecting the systems where wear shows up as poor running.'
+          'A worthwhile tune-up replaces the parts that wear in the ignition and air systems, then inspects everything that affects how the engine runs. At YBE a tune-up covers:'
+        ],
+        list: [
+          'Spark plugs replaced at the interval your manufacturer specifies',
+          'Ignition coils or plug wires inspected, and replaced if failing',
+          'Engine air filter replaced',
+          'Cabin air filter replaced',
+          'Fluid levels and condition checked: oil, coolant, brake, transmission and power steering',
+          'Belts and hoses inspected for cracks, glazing and leaks',
+          'Battery and charging system tested',
+          'Scan for stored and pending trouble codes'
         ]
       },
       {
-        h2: 'What is actually included',
+        h2: 'What a full tune-up adds on a higher-mileage car',
         paras: [
-          'A worthwhile tune-up covers the maintenance items that affect combustion and airflow, plus a real inspection.'
+          'On an older or high-mileage vehicle, a full tune-up goes further, because more parts are near the end of their life. Depending on the car and its service history, it can add:'
         ],
         list: [
-          'Spark plugs replaced at the specified interval',
-          'Ignition coils or wires inspected and replaced if failing',
-          'Engine air filter and cabin air filter',
-          'Fluid levels and condition checked',
-          'Belts and hoses inspected for cracking and wear',
-          'Battery and charging system tested',
-          'Scan for stored and pending codes'
+          'Fuel filter, on vehicles that have a serviceable one',
+          'PCV valve',
+          'Throttle body cleaning when idle is rough or unstable',
+          'Serpentine belt replacement if it is cracked or worn',
+          'Oxygen sensor check if fuel economy has dropped'
+        ]
+      },
+      {
+        h2: 'What a tune-up does not include',
+        paras: [
+          'An oil change is separate maintenance, though many drivers have both done on the same visit. Brakes, tires and alignment are not part of a tune-up either, although YBE will tell you if anything we see during the inspection needs attention.',
+          'A tune-up is also not a repair for a check-engine light. If a light is on, the code is diagnosed first. A shop that sells a tune-up as the cure for a warning light is skipping the diagnosis.'
+        ]
+      },
+      {
+        h2: 'How often a car needs a tune-up',
+        paras: [
+          'Follow the spark plug interval in your owner’s manual. Many modern cars with iridium or platinum plugs go 60,000 to 100,000 miles between plug changes, while older cars with copper plugs need them far sooner.',
+          'Filters and inspections come around more often. The engine air filter is usually checked at every oil change and replaced when it is dirty.'
+        ]
+      },
+      {
+        h2: 'How long a tune-up takes',
+        paras: [
+          'On many four-cylinder cars a tune-up takes about an hour or two. On some V6 and V8 engines the rear spark plugs sit under the intake, so the job takes longer. Call with your year, make and model and we will tell you before you come in.'
         ]
       },
       {
         h2: 'Why spark plugs matter more than they seem',
         paras: [
-          'Worn plugs need more voltage to fire. That extra demand falls on the ignition coils, which are considerably more expensive than plugs.',
-          'This is the clearest example of maintenance protecting more expensive parts. Replacing plugs on schedule is one of the cheapest ways to avoid replacing coils and, in a bad case, dealing with misfire damage to a catalytic converter.'
+          'Worn plugs need more voltage to fire. That extra demand falls on the ignition coils, which cost considerably more than plugs.',
+          'Replacing plugs on schedule is one of the cheapest ways to avoid replacing coils and, in a bad case, dealing with misfire damage to a catalytic converter.'
         ]
       },
       {
         h2: 'Signs your vehicle is due',
         paras: [
-          'Rough idle at a stoplight, hesitation when you accelerate, harder starting, or fuel economy that has quietly slipped over several months are all common indicators.',
-          'If a check-engine light is on as well, that gets diagnosed rather than assumed. A tune-up is maintenance, not a fix for a stored fault, and any shop that sells one as a cure for a warning light is skipping the diagnosis.'
+          'Rough idle at a stoplight, hesitation when you accelerate, harder starting, or fuel economy that has quietly slipped over several months are all common signs a tune-up is due.'
         ]
       }
+    ],
+    faqs: [
+      { q: 'What does a tune-up consist of?', a: 'New spark plugs, an ignition check, new engine and cabin air filters, a fluid check, a belt and hose inspection, a battery and charging test, and a scan for trouble codes.' },
+      { q: 'What is included in a full tune-up?', a: 'Everything in a standard tune-up, plus items that wear on higher-mileage cars, such as the fuel filter where the car has one, the PCV valve, throttle body cleaning and a worn serpentine belt.' },
+      { q: 'Does a tune-up include an oil change?', a: 'No. An oil change is separate maintenance, but many drivers have both done on the same visit.' },
+      { q: 'How long does a tune-up take?', a: 'About an hour or two on many four-cylinder cars. Engines where the rear spark plugs sit under the intake take longer.' },
+      { q: 'How do I know my car needs a tune-up?', a: 'Rough idle, hesitation when you accelerate, harder starting and fuel economy that has slipped are the common signs. Your owner’s manual gives the spark plug interval.' }
     ],
     relatedService: 'tune-ups-maintenance',
     relatedArticles: ['how-often-should-you-change-your-oil', 'preventive-maintenance-older-vehicles']
