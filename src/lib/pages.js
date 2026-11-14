@@ -1575,6 +1575,49 @@ ${K.contactBlock({ heading: 'Talk To The Shop' })}`;
   return layout({ title: 'Commercial Service Request', description: CO.hub.metaDescription, path: COMMERCIAL_FORM_URL, crumbs, body });
 }
 
+/* ===================================================== BOOK APPOINTMENT (owner, 2026-11-14) */
+// Booking is done on the shop's Square site; this page sends customers there.
+const BOOKING_URL = '/book-appointment/';
+function renderBooking() {
+  const crumbs = [HOME, { label: 'Book Appointment', url: BOOKING_URL }];
+  const step = (n, title, text) => `
+      <div class="bg-white border border-gray-200 rounded-sm p-6 shadow-sm">
+        <div class="font-heading text-4xl font-bold text-ybe-red mb-2">${n}</div>
+        <h3 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(title)}</h3>
+        <p class="text-gray-700 leading-relaxed">${esc(text)}</p>
+      </div>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Book Online · ${esc(primaryArea.label)} · Open 7 Days`,
+  titleHtml: h1Html(SM.h1For(BOOKING_URL, 'Book Appointment')),
+  sub: 'Book your visit online through our Square booking site. Pick the service and a time that works for you.',
+  ctaLabel: b.booking.label,
+  ctaHref: b.booking.href,
+  ctaTrack: 'appointment',
+  ctaIcon: 'calendar',
+  ctaNewTab: true,
+  secondary: { label: 'Call Instead', href: b.phone.href, icon: 'phone', track: 'call' }
+})}
+${section(
+  `<div class="max-w-4xl mx-auto text-center">
+    <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="booking-page"
+       class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold">
+      ${icon('calendar', 28)} ${esc(b.booking.label)} ${icon('external-link', 22)}</a>
+    <p class="text-gray-600 mt-4">Opens our Square booking site in a new tab.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
+      ${step(1, 'Open Square', 'Tap Book Appointment to open our Square booking site.')}
+      ${step(2, 'Pick A Service And Time', 'Choose the service you need and a time that works for you.')}
+      ${step(3, 'Bring The Car In', `Come to ${b.address.street}, ${b.address.city}. We are open seven days a week, 8:30 AM to 6:00 PM.`)}
+    </div>
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mt-12 text-left">
+      <p class="text-gray-800 leading-relaxed"><strong class="font-heading uppercase tracking-wide">Don't see your job on Square, or need help today?</strong> Call or text <a href="${b.phone.href}" data-track="call" data-location="booking-page" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> and tell us what the car is doing.</p>
+    </div>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: 'Book Appointment', description: `Book your visit to ${b.name} online through our Square booking site. Open seven days a week in ${primaryArea.label}. Call ${b.phone.display}.`, path: BOOKING_URL, crumbs, body });
+}
+
 /* ===================================================== EMERGENCY ROADSIDE HELP */
 const ROADSIDE_FORM_URL = '/emergency-roadside-help/';
 
@@ -1880,6 +1923,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 
 module.exports = {
+  renderBooking,
   renderAreaServicePage,
   renderRoadsideForm,
   renderCommercialForm,

@@ -37,6 +37,8 @@ function heroBlock({
   ctaLabel = 'I Need Help Now!',
   ctaHref = b.phone.href,
   ctaTrack = 'call',
+  ctaIcon = 'phone',
+  ctaNewTab = false,
   secondary
 }) {
   return `
@@ -57,9 +59,9 @@ function heroBlock({
           : ''
       }
       <div class="mt-8 flex flex-col sm:flex-row gap-4">
-        <a href="${ctaHref}" data-track="${ctaTrack}" data-location="hero"
+        <a href="${ctaHref}"${ctaNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''} data-track="${ctaTrack}" data-location="hero"
            class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold">
-          ${icon('phone', 28)} ${esc(ctaLabel)}
+          ${icon(ctaIcon, 28)} ${esc(ctaLabel)}
         </a>
         ${
           secondary

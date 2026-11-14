@@ -192,6 +192,7 @@ function footer() {
     { label: 'Fleet & Government', url: '/fleet-and-government/' },
     { label: 'Commercial Service Request', url: '/commercial-service-request/' },
     { label: 'Emergency Roadside Help', url: '/emergency-roadside-help/' },
+    { label: 'Book Appointment', url: '/book-appointment/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },

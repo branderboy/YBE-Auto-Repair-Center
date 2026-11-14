@@ -63,8 +63,8 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\\.${DOMAIN.replace(/\./g, '\\.')}$ [NC]
   RewriteRule ^(.*)$ https://${DOMAIN}/$1 [R=301,L]
 
-  # No appointments on the website (owner, 2026-11-14): the old page goes home.
-  RewriteRule ^request-appointment/?$ /#call-back [R=301,L,NE]
+  # The old appointment page now points to the Square booking page.
+  RewriteRule ^request-appointment/?$ /book-appointment/ [R=301,L]
 
   # Pretty URLs: /services/ is served by /services/index.html already, but a
   # request without the trailing slash should not 404.
