@@ -217,6 +217,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/services/commercial-rideshare/used-car-dealer-reconditioning/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/services/commercial-rideshare/auction-vehicle-repair/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-assistance/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>

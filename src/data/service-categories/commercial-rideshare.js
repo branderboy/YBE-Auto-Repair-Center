@@ -5,6 +5,10 @@
  *   Rideshare: preventive maintenance, tires, brakes, repairs, diagnostics
  *   Rental and car-share: maintenance, damage repairs, vehicle preparation
  *   Commercial fleets: scheduled maintenance, mechanical work, body repairs
+ *   Used-car dealers and auction buyers (DC-Metro Commercial Opportunities
+ *   notes, 2026-11-14): ready-to-list reconditioning, overflow mechanical work,
+ *   post-purchase diagnostics. No company is named: none is a confirmed client.
+ *   No turnaround times or prices are promised, per the same notes.
  *
  * Kept to what the site already states as fact: YBE is not a Maryland state
  * inspection station and issues no certificates, and no fleet contract,
@@ -19,9 +23,9 @@ module.exports = {
   metaDescription:
     'Rideshare cars, rental and car-share vehicles and commercial fleets: mechanical repairs, condition checks, body work and vehicle prep. Call (202) 455-3822.',
   blurb:
-    'Mechanical repairs, condition inspections and vehicle preparation for rideshare drivers, rental and car-share hosts, and commercial fleets.',
+    'Mechanical repairs, condition inspections and vehicle preparation for rideshare drivers, rental and car-share hosts, commercial fleets, used-car dealers and auction buyers.',
   intro: [
-    'When a car earns money, every day it sits in a shop costs you. Rideshare drivers, rental and car-share hosts, and businesses running vans and cars need the same thing: the problem found quickly, fixed properly, and the vehicle back on the road.',
+    'When a car earns money, every day it sits in a shop costs you. Rideshare drivers, rental and car-share hosts, businesses running vans and cars, used-car dealers getting inventory ready to sell and buyers bringing cars home from auction all need the same thing: the problem found, fixed properly, and the vehicle back on the road or on the lot.',
     'YBE handles mechanical repair, diagnostics, maintenance and body work under one roof, open seven days a week from 8:30 AM to 6:00 PM. A working vehicle with a brake problem and a dented door does not have to visit two shops.',
     'We are not a Maryland state inspection station and cannot issue a state certificate. We can check a vehicle over, tell you what would hold it up, and fix it.'
   ],
@@ -29,6 +33,8 @@ module.exports = {
     'Rideshare vehicle maintenance and repair',
     'Rental and car-share vehicle preparation',
     'Commercial fleet maintenance',
+    'Used-car dealer reconditioning and overflow repairs',
+    'Post-purchase repairs for auction buyers',
     'Condition inspections between trips or rentals',
     'Mechanical and body repairs in one shop',
     'Open seven days a week'
@@ -150,6 +156,84 @@ module.exports = {
         'Drivers stop reporting problems that never get fixed. Catching wear early keeps vehicles working and drivers safe.'
       ],
       related: ['tune-ups-maintenance', 'collision-body-repair', 'engine-repair']
+    },
+    {
+      slug: 'used-car-dealer-reconditioning',
+      navLabel: 'Dealer Reconditioning',
+      title: 'Used Car Dealer Reconditioning',
+      metaTitle: 'Used Car Dealer Reconditioning in Capitol Heights, MD',
+      metaDescription:
+        'Get used inventory ready to list without tying up your service lane: inspections, written estimates and approved mechanical repairs. Call (202) 455-3822.',
+      customerVoice: 'I have cars on the lot that need work before I can list them.',
+      problem: [
+        'A used car does not earn anything until it is ready to sell. Brakes, suspension, warning lights and safety items have to be sorted first, and an independent lot often has no service bay to do it.',
+        'Dealers with their own service department hit the other problem: the lane is full of customer work, and reconditioning waits behind it while the car sits.'
+      ],
+      whatWeDo: [
+        'We inspect each vehicle and give you a written, prioritized estimate: what it needs to be safe and sellable, and what is optional. You approve the work before anything is ordered or started.',
+        'We handle the approved mechanical work: brakes, suspension, check engine codes, safety items, and the electrical and cooling problems that show up on cars that have sat. Body and paint work is done in the same building.',
+        'For dealers with their own service department, we take the overflow: the reconditioning work your lane cannot get to. Start with a few cars and see how it goes.'
+      ],
+      warningSigns: [
+        'Inventory waiting on repairs before it can be listed',
+        'A warning light on a car you want to sell',
+        'Brake, tire or suspension items flagged on intake',
+        'Your service lane is full of customer work',
+        'Cars that have sat and will not start',
+        'Body damage that has to be fixed before photos'
+      ],
+      includes: [
+        'Vehicle inspection with a written, prioritized estimate',
+        'Approved brakes, suspension and safety repairs',
+        'Check engine and warning light diagnostics',
+        'No-start and battery work on cars that have sat',
+        'Body, dent and paint repair in the same shop',
+        'Nothing ordered or started without your approval'
+      ],
+      whyNotIgnore: [
+        'Every day a car waits for repairs is a day it cannot sell, and a car sold with an open problem tends to come back.',
+        'A written estimate up front lets you decide what a car is worth putting into before money is spent.'
+      ],
+      related: ['check-engine-light-diagnostics', 'brake-pad-rotor-replacement', 'collision-body-repair']
+    },
+    {
+      slug: 'auction-vehicle-repair',
+      navLabel: 'Auction Vehicle Repair',
+      title: 'Auction Vehicle Repair and Diagnostics',
+      metaTitle: 'Auction Car Repair and Diagnostics in Capitol Heights, MD',
+      metaDescription:
+        'Bought a car at auction? YBE handles post-purchase diagnostics, no-starts, roadworthiness checks and the repairs it needs. Open 7 days. Call (202) 455-3822.',
+      customerVoice: 'I bought a car at auction and need to know what I actually have.',
+      problem: [
+        'Auction cars are sold as they are. Some start and drive; some barely start, some do not, and the condition report rarely tells you everything.',
+        'Before the car goes on your lot, to your customer or on the road, you need to know what is wrong and what it will take.'
+      ],
+      whatWeDo: [
+        'We start with a post-purchase diagnostic: scan for codes, test the battery and charging system, and check brakes, tires, steering, suspension, fluids and leaks.',
+        'For cars that will not start, we find out why, whether it is a dead battery from sitting, a fuel or ignition problem, or something bigger.',
+        'You get a written estimate split into what the car needs to be roadworthy and what is optional, and we do only the work you approve. Tell us what you plan to do with the car, and we will tell you honestly whether the repairs make sense.'
+      ],
+      warningSigns: [
+        'A car bought as-is with an unclear condition report',
+        'A no-start or a car that had to be pushed',
+        'Warning lights on at pickup',
+        'Leaks, noises or smoke on the first drive',
+        'Brakes or tires that look worn',
+        'Plans to resell or put the car on the road soon'
+      ],
+      includes: [
+        'Post-purchase diagnostic and code scan',
+        'No-start diagnosis',
+        'Roadworthiness check: brakes, tires, steering, lights, fluids',
+        'Written estimate: needed now versus optional',
+        'Limited-scope reconditioning on approved items',
+        'Body and mechanical work in one shop'
+      ],
+      whyNotIgnore: [
+        'A problem found the day you buy the car is cheaper to deal with than one found after it is sold or on the highway.',
+        'Knowing what a car needs early tells you whether to fix it, resell it as-is or move on.'
+      ],
+      related: ['no-start-diagnostics', 'check-engine-light-diagnostics', 'battery-alternator-starter']
     }
   ]
 };
