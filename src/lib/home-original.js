@@ -81,7 +81,7 @@ function linkUpSections(html) {
   }
 
   html = html.replace(/<a href="#roadside"/g, `<a href="${roadsideHub.url}"`);
-  html = html.replace(/<a href="#contact"/g, '<a href="/request-appointment/"');
+  html = html.replace(/<a href="#contact"/g, '<a href="#call-back"');
 
   const problems = [
     ['My check-engine light is on', '/services/auto-repair-diagnostics/check-engine-light-diagnostics/'],

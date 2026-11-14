@@ -302,7 +302,7 @@ function contactBlock({ heading, sub } = {}) {
           ${heading || 'Request Service'}
         </h2>
         <p class="text-gray-600 mb-8 font-medium">
-          ${esc(sub || 'Call or text the shop, request an appointment online, or stop by. We are open seven days a week.')}
+          ${esc(sub || 'Call or text the shop, or stop by. We are open seven days a week.')}
         </p>
         <div class="space-y-6">
           <div class="flex items-start gap-4">
@@ -346,17 +346,17 @@ function contactBlock({ heading, sub } = {}) {
       </div>
       <div class="lg:w-1/2 w-full">
         <div class="bg-white p-10 rounded-sm border border-gray-200 border-t-4 border-t-ybe-red shadow-xl text-center">
-          ${icon('calendar', 64, 'text-ybe-red mx-auto mb-6')}
-          <h3 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4 text-ybe-black">Book Your Visit</h3>
-          <p class="text-gray-600 mb-8 font-medium">Request an appointment and we will get back to you to confirm a time.</p>
+          ${icon('phone', 64, 'text-ybe-red mx-auto mb-6')}
+          <h3 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4 text-ybe-black">Talk To The Shop</h3>
+          <p class="text-gray-600 mb-8 font-medium">Call or text and tell us what the car is doing. We are open seven days a week.</p>
           <div class="flex flex-col gap-4">
-            <a href="/request-appointment/" data-track="appointment" data-location="contact-block"
+            <a href="${b.phone.href}" data-track="call" data-location="contact-block"
                class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              Request Appointment ${icon('arrow-right', 20)}</a>
-            <div class="text-white font-medium">OR</div>
-            <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="square-booking"
+              ${icon('phone', 22)} ${esc(b.phone.display)}</a>
+            <div class="text-gray-600 font-medium">OR</div>
+            <a href="${b.sms.href}" data-track="text" data-location="contact-block"
                class="w-full bg-white hover:bg-gray-50 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              ${esc(b.booking.label)} ${icon('external-link', 20)}</a>
+              ${icon('message-square', 22)} Text Us</a>
           </div>
         </div>
       </div>

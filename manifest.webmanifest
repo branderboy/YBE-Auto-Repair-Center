@@ -43,11 +43,6 @@
       "name": "Roadside assistance",
       "url": "/YBE-Auto-Repair-Center/roadside-assistance/",
       "description": "Get help if you are stranded"
-    },
-    {
-      "name": "Request an appointment",
-      "url": "/YBE-Auto-Repair-Center/request-appointment/",
-      "description": "Book a service visit"
     }
   ]
 }

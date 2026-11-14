@@ -68,7 +68,6 @@ function localBusinessSchema() {
     sameAs: [
       b.social.facebook,
       b.social.instagram,
-      b.booking.href,
       b.rating.profileUrl
     ],
     areaServed: [
@@ -266,16 +265,13 @@ function ctaButtons({ variant = 'default', className = '' } = {}) {
     'bg-ybe-charcoal hover:bg-ybe-black text-white border-gray-500 hover:border-white', 'directions',
     'target="_blank" rel="noopener noreferrer"');
 
-  const appt = btn('/request-appointment/', 'Book', 'calendar',
-    'bg-transparent hover:bg-white text-white hover:text-ybe-black border-white', 'appointment');
-
   const roadside = btn('/roadside-assistance/', 'Roadside', 'truck',
     'bg-yellow-400 hover:bg-yellow-300 text-ybe-black shadow-hard border-transparent', 'roadside');
 
   let items;
   if (variant === 'roadside') items = [call, text, directions];
-  else if (variant === 'home') items = [call, text, directions, appt, roadside];
-  else items = [call, text, directions, appt];
+  else if (variant === 'home') items = [call, text, directions, roadside];
+  else items = [call, text, directions];
 
   // In a narrow sidebar the buttons stack full width instead of wrapping.
   const layout =
@@ -417,7 +413,7 @@ function finalCta({ heading, sub, variant = 'default' } = {}) {
             ${heading || 'Ready When You Are'}
           </h2>
           <p class="text-white mb-8 font-medium text-lg leading-relaxed">
-            ${esc(sub || 'Call or text the shop, request an appointment, or stop by. We are open seven days a week.')}
+            ${esc(sub || 'Call or text the shop, or stop by. We are open seven days a week.')}
           </p>
           ${ctaButtons({ variant })}
         </div>

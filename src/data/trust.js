@@ -73,7 +73,7 @@ const quotes = [
 const faqs = [
   {
     q: 'Does YBE accept walk-ins?',
-    a: 'Yes. Walk-ins are welcome, though calling ahead or requesting an appointment helps us get to your vehicle faster, especially on weekends.'
+    a: 'Yes. Walk-ins are welcome, though calling ahead helps us get to your vehicle faster, especially on weekends.'
   },
   {
     q: 'Is YBE open on Sundays?',

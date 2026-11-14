@@ -66,8 +66,7 @@ function siteIndex() {
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
-    { label: 'Contact & Directions', url: '/contact/' },
-    { label: 'Request an Appointment', url: '/request-appointment/' }
+    { label: 'Contact & Directions', url: '/contact/' }
   ]);
 
   return `<section class="border-t border-gray-800 pt-10 mt-4">
@@ -239,9 +238,9 @@ function footer() {
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Explore</h2>
           <ul class="space-y-2 text-sm font-medium mb-5">${explore}</ul>
-          <a href="/request-appointment/" data-track="appointment" data-location="footer"
+          <a href="/#call-back" data-track="callback-link" data-location="footer"
              class="block w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-lg px-4 py-2.5 rounded-sm transition-all uppercase tracking-wide font-bold">
-            Request Appointment</a>
+            Request A Call Back</a>
         </div>
       </div>
 
@@ -406,65 +405,7 @@ document.addEventListener('DOMContentLoaded', function () {
     statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  // Appointment form.
-  // This is a static site with no backend, so rather than silently failing the
-  // form validates, then hands the details to the shop's text line (a verified
-  // contact channel). To post to a real endpoint instead, set the form's
-  // action/method and remove this handler.
-  var form = document.getElementById('appointment-form');
-  if (form) {
-    var status = document.getElementById('form-status');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var missing = [];
-      form.querySelectorAll('[required]').forEach(function (el) {
-        var empty = !el.value.trim() || el.value.indexOf('Select a service') === 0;
-        el.classList.toggle('border-ybe-red', empty);
-        el.classList.toggle('border-2', empty);
-        if (empty) {
-          var lab = form.querySelector('label[for="' + el.id + '"]');
-          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
-        }
-      });
-      if (missing.length) {
-        status.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">' +
-          'Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
-        var firstBad = form.querySelector('.border-ybe-red');
-        if (firstBad) firstBad.focus();
-        return;
-      }
-      var g = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
-      var lines = [
-        'Appointment request from the website',
-        'Name: ' + g('name'),
-        'Phone: ' + g('phone'),
-        g('email') ? 'Email: ' + g('email') : '',
-        'Vehicle: ' + g('vehicle_year') + ' ' + g('vehicle_make') + ' ' + g('vehicle_model'),
-        'Service: ' + g('service'),
-        g('preferred_date') ? 'Preferred date: ' + g('preferred_date') : '',
-        'Preferred contact: ' + g('preferred_contact'),
-        'Problem: ' + g('problem')
-      ].filter(Boolean);
-      postLead(form, 'appointment', lines, function () {
-        form.reset();
-        leadThanks(status, 'We will contact you to confirm a time. If you need help today, calling is faster.', true);
-      }, function () {
-        var body = encodeURIComponent(lines.join('\\n'));
-        status.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-          '<p class="text-gray-800 font-semibold mb-2">Your details are ready to send.</p>' +
-          '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
-          'If it does not, call the shop and we will take the details over the phone.</p>' +
-          '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-          '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-        var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
-        status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', '${b.phone.href}');
-        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        window.location.href = smsHref;
-      });
-    });
-  }
-
-  // Commercial service request form: validates like the appointment form,
+  // Commercial service request form: validates, then
   // then hands the labelled fields to the owner's email address.
   var cform = document.getElementById('commercial-form');
   if (cform) {

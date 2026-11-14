@@ -23,7 +23,6 @@ const DOMAIN = '{{DOMAIN}}';
 const FROM_EMAIL = 'leads@{{DOMAIN}}';
 const BUSINESS = '{{BUSINESS}}';
 const FORMS = [
-    'appointment' => 'Appointment request',
     'callback'    => 'Call back request',
     'commercial'  => 'Commercial service request',
     'emergency'   => 'EMERGENCY roadside request',

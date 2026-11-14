@@ -187,7 +187,7 @@ ${K.heroBlock({
   titleHtml: h1Html('Auto Repair Services in Capitol Heights, MD'),
   sub: 'From minor maintenance to major mechanical and body repairs, our Capitol Heights shop handles it all.',
   ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -259,7 +259,7 @@ ${K.heroBlock({
   titleHtml: h1Html(kwH1(cat.url, cat.metaTitle)),
   sub: cat.blurb,
   ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -326,7 +326,7 @@ ${K.heroBlock({
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : cat.blurb,
   ctaLabel: 'Call The Shop',
-  secondary: { label: 'Book Now', href: '/request-appointment/', icon: 'calendar', track: 'appointment' }
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
 ${section(
@@ -375,9 +375,8 @@ ${section(
           <a href="${b.sms.href}" data-track="text" data-location="service-sidebar"
              class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
             Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="service-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
-            Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="service-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
         <div class="mt-6 pt-6 border-t border-gray-700 text-sm text-white space-y-2">
           <p class="flex items-start gap-2">${icon('map-pin', 16, 'text-ybe-red flex-shrink-0 mt-0.5')} ${esc(b.address.oneLine)}</p>
@@ -698,15 +697,15 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Book From ${esc(area.name)}</h2>
-        <p class="text-white mb-6 text-sm leading-relaxed">Call or text the shop, or request an appointment online.</p>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Call From ${esc(area.name)}</h2>
+        <p class="text-white mb-6 text-sm leading-relaxed">Call or text the shop, or stop by. Open seven days a week.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-sidebar"
              class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="area-sidebar"
              class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="area-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="area-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
@@ -853,15 +852,15 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="${page.mobile ? 'bg-ybe-red' : 'bg-ybe-black border-t-4 border-ybe-red'} text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Book From ${esc(area.name)}`}</h2>
-        <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or request an appointment online.'}</p>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Call From ${esc(area.name)}`}</h2>
+        <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or stop by. Open seven days a week.'}</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-service-sidebar"
              class="w-full text-center ${page.mobile ? 'bg-white text-ybe-red' : 'bg-ybe-red hover:bg-ybe-darkred text-white'} font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="area-service-sidebar"
              class="w-full text-center ${page.mobile ? 'bg-ybe-black text-white' : 'bg-white hover:bg-gray-100 text-ybe-black'} font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          ${page.mobile ? '' : `<a href="/request-appointment/" data-track="appointment" data-location="area-service-sidebar"
-             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>`}
+          ${page.mobile ? '' : `<a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="area-service-sidebar"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>`}
         </div>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
@@ -1368,120 +1367,6 @@ ${K.contactBlock({ heading: 'We Are Open Today' })}`;
   });
 }
 
-/* ===================================================== REQUEST APPOINTMENT */
-function renderAppointment() {
-  const crumbs = [HOME, { label: 'Request an Appointment', url: '/request-appointment/' }];
-  const field = (id, label, type = 'text', opts = {}) => `
-    <div class="${opts.full ? 'md:col-span-2' : ''}">
-      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
-        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
-      ${
-        type === 'textarea'
-          ? `<textarea id="${id}" name="${id}" rows="4" ${opts.required ? 'required' : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"
-              placeholder="${esc(opts.placeholder || '')}"></textarea>`
-          : type === 'select'
-          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
-              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
-          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''}
-              ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''}
-              class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"
-              placeholder="${esc(opts.placeholder || '')}">`
-      }
-    </div>`;
-
-  const serviceOptions = [
-    'Select a service…',
-    ...categories.flatMap((c) => c.services.map((s) => s.title)),
-    ...roadsideHub.services.map((s) => s.title),
-    'Not sure — please advise'
-  ];
-
-  const body = `
-${K.heroBlock({
-  eyebrow: `${primaryArea.label} · Open 7 Days`,
-  titleHtml: h1Html('Request an Auto Repair Appointment in Capitol Heights, MD'),
-  sub: 'Tell us about your vehicle and what it is doing. We will get back to you to confirm a time.',
-  ctaLabel: 'Call Instead',
-  secondary: { label: 'Book on Square', href: b.booking.href, icon: 'external-link', track: 'appointment' }
-})}
-
-${section(
-  `<div class="flex flex-col lg:flex-row gap-12">
-    <div class="lg:w-2/3">
-      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mb-10">
-        <p class="text-gray-800 leading-relaxed">
-          <strong class="font-heading uppercase tracking-wide">This is a request, not a confirmed booking.</strong>
-          Your appointment is not scheduled until someone from YBE contacts you to confirm the time.
-          If you need help today, calling is faster.
-        </p>
-      </div>
-
-      <form id="appointment-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
-        <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          ${field('name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
-          ${field('phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
-          ${field('email', 'Email', 'email', { autocomplete: 'email' })}
-          ${field('preferred_contact', 'Preferred Contact Method', 'select', { options: ['Phone call', 'Text message', 'Email', 'WhatsApp'] })}
-          ${field('vehicle_year', 'Vehicle Year', 'text', { required: true, placeholder: '2015' })}
-          ${field('vehicle_make', 'Vehicle Make', 'text', { required: true, placeholder: 'Honda' })}
-          ${field('vehicle_model', 'Vehicle Model', 'text', { required: true, placeholder: 'Accord' })}
-          ${field('preferred_date', 'Preferred Date', 'date')}
-          ${field('service', 'Service Needed', 'select', { full: true, required: true, options: serviceOptions })}
-          ${field('problem', 'Describe the Problem', 'textarea', {
-            full: true,
-            required: true,
-            placeholder: 'What are you noticing? Any noises, warning lights, or when it happens.'
-          })}
-        </div>
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <button type="submit" data-track="appointment" data-location="appointment-form"
-            class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">
-            ${icon('calendar-check', 24)} Send Request</button>
-          <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="appointment-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> to speak with us now.</p>
-        </div>
-        <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
-      </form>
-    </div>
-
-    <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Need Help Today?</h2>
-        <p class="mb-6 text-sm leading-relaxed text-white/90">Calling gets a faster answer than any form, especially for urgent problems.</p>
-        <a href="${b.phone.href}" data-track="call" data-location="appointment-sidebar"
-           class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">${esc(b.phone.display)}</a>
-        <a href="${b.sms.href}" data-track="text" data-location="appointment-sidebar"
-           class="block w-full text-center bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us Instead</a>
-      </div>
-      <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Good To Know</h2>
-        ${K.checkList([
-          'Walk-ins are welcome, but calling ahead helps us get to you faster',
-          'Open seven days a week, 8:30 AM to 6:00 PM',
-          'Wheelchair-accessible parking on site',
-          'Roadside assistance available — call, do not fill out a form',
-          'We will confirm your appointment before it is scheduled'
-        ])}
-      </div>
-    </aside>
-  </div>`
-)}
-
-${K.roadsideBand()}
-${K.mapAreasBlock()}
-${K.contactBlock({ heading: 'Questions Before Booking?' })}`;
-
-  return layout({
-    title: `Request an Appointment | YBE Auto, ${primaryArea.label}`,
-    description: `Request a service appointment at YBE in ${primaryArea.label}. Tell us about your vehicle and the problem and we will confirm a time. Call ${b.phone.display}.`,
-    path: '/request-appointment/',
-    crumbs,
-    body
-  });
-}
-
 /* ===================================================== FAQ */
 function renderFaq() {
   const crumbs = [HOME, { label: 'FAQ', url: '/faq/' }];
@@ -1855,7 +1740,8 @@ ${section(
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="company-page" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="company-page" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
-          <a href="/request-appointment/" data-track="appointment" data-location="company-page" class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>
+          <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="company-page"
+             class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Directions</a>
         </div>
       </div>
     </aside>
@@ -1969,7 +1855,7 @@ ${section(
       { label: 'Service Areas', url: '/service-areas/', icon: 'map-pin' },
       { label: 'Car Care', url: '/car-care/', icon: 'help-circle' },
       { label: 'Contact & Directions', url: '/contact/', icon: 'navigation' },
-      { label: 'Request an Appointment', url: '/request-appointment/', icon: 'calendar' }
+      { label: 'Request A Call Back', url: '/#call-back', icon: 'phone-incoming' }
     ]
       .map(
         (l) => `<a href="${l.url}" class="flex items-center gap-3 bg-gray-50 hover:border-ybe-red border border-gray-200 p-6 rounded-sm transition-colors group">
@@ -2005,5 +1891,5 @@ module.exports = {
   renderServicesHub, renderCategoryHub, renderServicePage,
   renderRoadsideHub, renderRoadsidePage, renderAreasHub, renderAreaPage,
   renderCarCareHub, renderArticle, renderAbout, renderReviews,
-  renderContact, renderAppointment, renderFaq, render404
+  renderContact, renderFaq, render404
 };
