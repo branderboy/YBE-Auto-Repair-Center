@@ -1677,7 +1677,7 @@ ${section(
       </div>
       <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <button type="submit" data-track="commercial-form" data-location="commercial-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 24)} Send Request</button>
-        <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+        <p class="text-sm text-gray-600">Sends to <a href="mailto:${b.commercialEmail}" class="text-ybe-red font-semibold hover:underline">${esc(b.commercialEmail)}</a>. Or call <a href="${b.phone.href}" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
       </div>
       <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
     </form>

@@ -967,7 +967,7 @@
       </div>
       <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <button type="submit" data-track="commercial-form" data-location="commercial-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send Request</button>
-        <p class="text-sm text-gray-600">Or call <a href="tel:+12024553822" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
+        <p class="text-sm text-gray-600">Sends to <a href="mailto:mechaniconwheelz@gmail.com" class="text-ybe-red font-semibold hover:underline">mechaniconwheelz@gmail.com</a>. Or call <a href="tel:+12024553822" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
       </div>
       <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
     </form>
@@ -1412,8 +1412,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Commercial service request form: same hand-off as the appointment form,
-  // the labelled fields sent to the shop's text line.
+  // Commercial service request form: validates like the appointment form,
+  // then hands the labelled fields to the owner's email address.
   var cform = document.getElementById('commercial-form');
   if (cform) {
     var cstatus = document.getElementById('form-status');
@@ -1441,14 +1441,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var lab = cform.querySelector('label[for="' + el.id + '"]');
         lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
       });
-      var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + encodeURIComponent(lines.join('\n'));
+      // Goes to the owner by email (static site: the visitor's email app sends it).
+      var company = (document.getElementById('company') || {}).value || '';
+      var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Commercial service request: ' + company) +
+        '&body=' + encodeURIComponent(lines.join('\n'));
       cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. If it does not, call the shop.</p>' +
-        '<a href="' + smsHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+        '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. Press send. If it does not open, email that address or call the shop.</p>' +
+        '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
         '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      window.location.href = mailHref;
     });
   }
 

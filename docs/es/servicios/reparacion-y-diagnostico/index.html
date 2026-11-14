@@ -1151,8 +1151,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Commercial service request form: same hand-off as the appointment form,
-  // the labelled fields sent to the shop's text line.
+  // Commercial service request form: validates like the appointment form,
+  // then hands the labelled fields to the owner's email address.
   var cform = document.getElementById('commercial-form');
   if (cform) {
     var cstatus = document.getElementById('form-status');
@@ -1180,14 +1180,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var lab = cform.querySelector('label[for="' + el.id + '"]');
         lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
       });
-      var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + encodeURIComponent(lines.join('\n'));
+      // Goes to the owner by email (static site: the visitor's email app sends it).
+      var company = (document.getElementById('company') || {}).value || '';
+      var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Commercial service request: ' + company) +
+        '&body=' + encodeURIComponent(lines.join('\n'));
       cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. If it does not, call the shop.</p>' +
-        '<a href="' + smsHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+        '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. Press send. If it does not open, email that address or call the shop.</p>' +
+        '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
         '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      window.location.href = mailHref;
     });
   }
 
