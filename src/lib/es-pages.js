@@ -24,11 +24,11 @@ function h1Html(t) {
 }
 
 function hero({ eyebrow, title, sub, roadside = false }) {
-  return `<section class="relative bg-ybe-black text-white py-16 md:py-20 border-b-4 border-ybe-red">
+  return `<section class="relative bg-surface text-white py-16 md:py-20 border-b-4 border-ybe-red">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <p class="font-heading text-sm md:text-base font-bold uppercase tracking-widest text-white mb-3">${esc(eyebrow)}</p>
     <h1 class="text-4xl md:text-6xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide">${h1Html(title)}</h1>
-    ${sub ? `<p class="text-lg md:text-xl text-gray-200 max-w-3xl border-l-4 border-ybe-red pl-4 mb-8">${esc(sub)}</p>` : ''}
+    ${sub ? `<p class="text-lg md:text-xl text-gray-700 max-w-3xl border-l-4 border-ybe-red pl-4 mb-8">${esc(sub)}</p>` : ''}
     <div class="flex flex-col sm:flex-row gap-4">
       <a href="${b.phone.href}" data-track="call" data-location="hero-es"
          class="inline-flex items-center justify-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">
@@ -66,7 +66,7 @@ const contactBand = () => section(
       <p class="text-lg text-gray-700 mb-6">Abierto de 8:30 AM a 6:00 PM, los siete días de la semana. Se aceptan clientes sin cita.</p>
       <div class="flex flex-wrap gap-3 mb-6">
         <a href="${b.phone.href}" data-track="call" data-location="contact-es" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">${icon('phone', 20)} ${esc(b.phone.display)}</a>
-        <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-es" class="bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold inline-flex items-center gap-2">${icon('message-circle', 20)} WhatsApp</a>
+        <a href="${b.whatsapp.href}" target="_blank" rel="noopener noreferrer" data-track="whatsapp" data-location="contact-es" class="bg-surface text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold inline-flex items-center gap-2">${icon('message-circle', 20)} WhatsApp</a>
         <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="contact-es" class="bg-white border-2 border-ybe-black text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold inline-flex items-center gap-2">${icon('navigation', 20)} Cómo llegar</a>
       </div>
       ${langNote()}
@@ -95,7 +95,7 @@ ${section(
         <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black mb-2">${esc(c.title)}</h3>
         <p class="text-gray-600 text-sm leading-relaxed">${esc(c.services.map((s) => s.name).join(', '))}.</p></a>`)
       .join('')}
-    <a href="${ES.roadsideHub.url}" class="block bg-ybe-black text-white border-l-4 border-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
+    <a href="${ES.roadsideHub.url}" class="block bg-surface text-white border-l-4 border-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
       <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-2">Asistencia en carretera</h3>
       <p class="text-white text-sm leading-relaxed">${esc(ES.roadside.map((r) => r.title).join(', '))}.</p></a>
   </div>`,
@@ -198,7 +198,7 @@ ${section(
         <div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-black">
           <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5">Lo que incluye</h2>${list(s.includes)}</div>
       </div>
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-10">
+      <div class="bg-surface text-white p-8 rounded-sm border-l-8 border-ybe-red mb-10">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-4">Bueno saberlo</h2>
         <div class="prose-ybe text-white text-lg">${paras(s.note)}</div>
       </div>
@@ -209,7 +209,7 @@ ${section(
       <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${s.calm ? 'Pida una oferta' : 'Llame para ayuda'}</h2>
         <a href="${b.phone.href}" data-track="call" data-location="roadside-sidebar-es" class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">${esc(b.phone.display)}</a>
-        <a href="${b.sms.href}" data-track="text" data-location="roadside-sidebar-es" class="block w-full text-center bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Enviar mensaje</a>
+        <a href="${b.sms.href}" data-track="text" data-location="roadside-sidebar-es" class="block w-full text-center bg-surface text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Enviar mensaje</a>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Otros servicios</h2>

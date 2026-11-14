@@ -349,7 +349,7 @@ ${section(
         </div>
       </div>
 
-      <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
+      <div class="bg-surface text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Why This Should Not Wait</h2>
         <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
@@ -363,7 +363,7 @@ ${section(
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get This Handled</h2>
         <p class="text-white mb-6 text-sm leading-relaxed">
           Call or text the shop and describe what the car is doing. Open ${esc(b.hours.summary.toLowerCase())}.
@@ -516,7 +516,7 @@ ${section(
         </div>
       </div>
 
-      <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
+      <div class="bg-surface text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Worth Knowing</h2>
         <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
@@ -537,7 +537,7 @@ ${section(
            class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">
           ${esc(b.phone.display)}</a>
         <a href="${b.sms.href}" data-track="text" data-location="roadside-sidebar"
-           class="block w-full text-center bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
+           class="block w-full text-center bg-surface text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
           Text Us Instead</a>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
@@ -678,7 +678,7 @@ ${section(
           <a href="${b.phone.href}" data-track="call" data-location="area-roadside"
              class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center gap-2">
             ${icon('phone', 20)} Call For Help</a>
-          <a href="${roadsideHub.url}" class="bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
+          <a href="${roadsideHub.url}" class="bg-surface hover:bg-gray-200 text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
             ${icon('info', 20)} Roadside Services</a>
         </div>
       </div>
@@ -697,7 +697,7 @@ ${section(
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Book From ${esc(area.name)}</h2>
         <p class="text-white mb-6 text-sm leading-relaxed">Call or text the shop, or request an appointment online.</p>
         <div class="flex flex-col gap-3">
@@ -784,7 +784,7 @@ function renderAreaServicePage(page) {
       ${roadsList}
       ${h2('What We Handle Where You Sit')}
       <ul class="bg-gray-50 border-l-4 border-ybe-red rounded-sm p-6 mb-12">${svcs.map((s) => linkItem(s.url, s.title, s.customerVoice ? `“${s.customerVoice}”` : '')).join('')}</ul>
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-12">
+      <div class="bg-surface text-white p-8 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Roadside Assistance, Not Towing</h2>
         <p class="text-white leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
       </div>`;
@@ -852,14 +852,14 @@ ${section(
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
-      <div class="${page.mobile ? 'bg-ybe-red' : 'bg-ybe-black border-t-4 border-ybe-red'} text-white p-8 rounded-sm lg:sticky lg:top-32">
+      <div class="${page.mobile ? 'bg-ybe-red' : 'bg-surface border-t-4 border-ybe-red'} text-white p-8 rounded-sm lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${page.mobile ? 'Call For Help' : `Book From ${esc(area.name)}`}</h2>
         <p class="mb-6 text-sm leading-relaxed text-white/90">${page.mobile ? 'Tell us where you are and what the car is doing.' : 'Call or text the shop, or request an appointment online.'}</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-service-sidebar"
              class="w-full text-center ${page.mobile ? 'bg-white text-ybe-red' : 'bg-ybe-red hover:bg-ybe-darkred text-white'} font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="area-service-sidebar"
-             class="w-full text-center ${page.mobile ? 'bg-ybe-black text-white' : 'bg-white hover:bg-gray-100 text-ybe-black'} font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+             class="w-full text-center ${page.mobile ? 'bg-surface text-white' : 'bg-white hover:bg-gray-100 text-ybe-black'} font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
           ${page.mobile ? '' : `<a href="/request-appointment/" data-track="appointment" data-location="area-service-sidebar"
              class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Request Appointment</a>`}
         </div>
@@ -975,7 +975,7 @@ ${section(
 
       ${
         svc
-          ? `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
+          ? `<div class="bg-surface text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4">Need This Fixed?</h2>
         <p class="text-white leading-relaxed mb-6 text-lg">
           YBE handles this at the ${esc(primaryArea.name)} shop, seven days a week. Read about
@@ -1016,7 +1016,7 @@ ${section(
     </article>
 
     <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Talk To A Mechanic</h2>
         <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary.toLowerCase())} in ${esc(primaryArea.label)}.</p>
         <div class="flex flex-col gap-3">
@@ -1162,7 +1162,7 @@ ${section(
             .join('')}
         </dl>
       </div>
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-5">Come See Us</h2>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="about-sidebar"
@@ -1228,7 +1228,7 @@ ${section(
 )}
 
 ${section(
-  `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red flex flex-col md:flex-row md:items-center gap-6 justify-between">
+  `<div class="bg-surface text-white p-10 rounded-sm border-l-8 border-ybe-red flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
       <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Been To YBE? Leave A Review</h2>
       <p class="text-white leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
@@ -1263,8 +1263,8 @@ function renderContact() {
   const crumbs = [HOME, { label: 'Contact', url: '/contact/' }];
   const tiles = [
     { href: b.phone.href, track: 'call', icon: 'phone', title: 'Call', sub: b.phone.display, cls: 'bg-ybe-red text-white hover:bg-ybe-darkred' },
-    { href: b.sms.href, track: 'text', icon: 'message-square', title: 'Text', sub: b.phone.display, cls: 'bg-ybe-black text-white hover:bg-ybe-charcoal' },
-    { href: b.whatsapp.href, track: 'whatsapp', icon: 'message-circle', title: 'WhatsApp', sub: 'Message us', cls: 'bg-[#25D366] text-white hover:bg-[#128C7E]', ext: true },
+    { href: b.sms.href, track: 'text', icon: 'message-square', title: 'Text', sub: b.phone.display, cls: 'bg-surface text-white hover:bg-gray-200' },
+    { href: b.whatsapp.href, track: 'whatsapp', icon: 'message-circle', title: 'WhatsApp', sub: 'Message us', cls: 'bg-[#25D366] text-ybe-black hover:bg-[#1ebe5b]', ext: true },
     { href: b.maps.directionsUrl, track: 'directions', icon: 'navigation', title: 'Directions', sub: 'Open in Maps', cls: 'bg-gray-100 text-ybe-black border-2 border-ybe-black hover:bg-white', ext: true }
   ];
 
@@ -1308,7 +1308,7 @@ ${section(
           }</div></li>
       </ul>
     </div>
-    <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
+    <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red">
       <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-5">Weekly Hours</h2>
       <ul class="space-y-1 text-white">
         ${b.hours.days
@@ -1452,7 +1452,7 @@ ${section(
         <a href="${b.phone.href}" data-track="call" data-location="appointment-sidebar"
            class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">${esc(b.phone.display)}</a>
         <a href="${b.sms.href}" data-track="text" data-location="appointment-sidebar"
-           class="block w-full text-center bg-ybe-black text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us Instead</a>
+           class="block w-full text-center bg-surface text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us Instead</a>
       </div>
       <div class="bg-gray-50 p-8 rounded-sm border border-gray-200">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5 border-b-2 border-ybe-red pb-2">Good To Know</h2>
@@ -1516,7 +1516,7 @@ ${K.heroBlock({
            class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold flex items-center gap-2">
           ${icon('phone', 20)} ${esc(b.phone.display)}</a>
         <a href="${b.sms.href}" data-track="text" data-location="faq"
-           class="bg-ybe-black hover:bg-ybe-charcoal text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
+           class="bg-surface hover:bg-gray-200 text-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold flex items-center gap-2">
           ${icon('message-square', 20)} Text Us</a>
       </div>
     </div>
@@ -1576,7 +1576,7 @@ ${section(
       </div>
     </article>
     <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get A Price</h2>
         <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
         <div class="flex flex-col gap-3">
@@ -1623,7 +1623,7 @@ const COMMERCIAL_FORM_URL = '/commercial-service-request/';
 
 /** Link to the commercial service request form, used on every commercial page. */
 function commercialCta(where) {
-  return `<section class="py-12 bg-ybe-black text-white border-y-4 border-ybe-red">
+  return `<section class="py-12 bg-surface text-white border-y-4 border-ybe-red">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
       <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Commercial Service Request</h2>
@@ -1718,7 +1718,11 @@ function emergencyForm(p, send) {
       <div>${lab('name', 'Your Name', true)}<input type="text" id="${p}name" required autocomplete="name" class="${inputCls}"></div>
       <div>${lab('phone', 'Phone Number', true)}<input type="tel" id="${p}phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
       <div>${lab('location', 'Where Are You?', true)}
-        <input type="text" id="${p}location" required class="${inputCls}" placeholder="Street address, cross streets or a landmark"></div>
+        <div class="relative">
+          <input type="text" id="${p}location" required autocomplete="off" data-address-lookup class="${inputCls}" placeholder="Start typing a street address or landmark" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${p}location-list">
+          <ul id="${p}location-list" role="listbox" class="address-list hidden absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-300 rounded-sm shadow-lg max-h-64 overflow-y-auto"></ul>
+        </div>
+        <p class="text-xs text-gray-600 mt-1">Address suggestions from OpenStreetMap.</p></div>
       <div>${lab('problem', 'What Happened?', true)}<select id="${p}problem" required class="${inputCls}">
         ${['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
       <div>${lab('vehicle', 'Vehicle', false)}<input type="text" id="${p}vehicle" class="${inputCls}" placeholder="Year, make, model, color"></div>
@@ -1743,7 +1747,7 @@ ${K.heroBlock({
 })}
 ${section(
   `<div class="max-w-5xl mx-auto">
-    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 md:p-8 rounded-sm mb-12">
+    <div class="bg-surface text-white border-l-8 border-ybe-red p-6 md:p-8 rounded-sm mb-12">
       <p class="font-heading text-2xl uppercase tracking-wide font-bold mb-3 flex items-center gap-2">${icon('alert-triangle', 26, 'text-ybe-red')} Safety First</p>
       <ul class="space-y-3">${[
         'In danger, injured or blocking traffic: call 911 first',
@@ -1842,7 +1846,7 @@ ${section(
       </div>
     </article>
     <aside class="lg:w-1/3 space-y-8">
-      <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
+      <div class="bg-surface text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get It Checked</h2>
         <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
         <div class="flex flex-col gap-3">
@@ -1896,7 +1900,7 @@ function renderOrgPage(o) {
   const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
   // Profile, then how we can help. Nothing else.
   const body = `
-<section class="bg-ybe-black text-white py-14 md:py-16 border-b-4 border-ybe-red">
+<section class="bg-surface text-white py-14 md:py-16 border-b-4 border-ybe-red">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <p class="font-heading text-sm font-bold uppercase tracking-widest text-white mb-3">${o.kind === 'fleet' ? 'Fleet Network Profile' : 'Government Profile'}</p>
     <h1 class="text-4xl md:text-5xl font-heading font-extrabold uppercase leading-tight tracking-wide">${h1Html(h1)}</h1>

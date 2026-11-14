@@ -167,7 +167,7 @@ function headerNav(currentPath) {
           <a href="${b.phone.href}" data-track="call" data-location="mobile-menu"
              class="text-center bg-ybe-red text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Call Now</a>
           <a href="${b.sms.href}" data-track="text" data-location="mobile-menu"
-             class="text-center bg-ybe-black text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+             class="text-center bg-surface text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
         </div>
       </div>
     </div>
@@ -260,17 +260,17 @@ function footer() {
 }
 
 function mobileActionBar() {
-  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
+  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-surface border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
     <a href="${b.phone.href}" data-track="call" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors border-r border-gray-700">
       ${icon('phone-call', 22, 'mb-1 text-ybe-red')}
       <span class="font-heading text-sm tracking-wide font-semibold whitespace-nowrap">${esc(b.phone.display)}</span></a>
     <a href="${b.sms.href}" data-track="text" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors border-r border-gray-700">
       ${icon('message-square', 22, 'mb-1 text-white')}
       <span class="font-heading uppercase text-sm tracking-wider font-semibold">Text Us</span></a>
     <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors">
       ${icon('map-pin', 22, 'mb-1 text-ybe-red')}
       <span class="font-heading uppercase text-sm tracking-wider font-semibold">Directions</span></a>
   </div>`;
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
         'If it does not, call the shop and we will take the details over the phone.</p>' +
         '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-        '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="TELHREF" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
       status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', '${b.phone.href}');
       status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
         '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to ${b.commercialEmail}. Press send. If it does not open, email that address or call the shop.</p>' +
         '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
-        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="${b.phone.href}" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = mailHref;
     });
@@ -475,6 +475,57 @@ document.addEventListener('DOMContentLoaded', function () {
   // Emergency roadside help: two forms, one sending a
   // text to the shop phone (data-send="sms"), one an email to the owner
   // (data-send="email").
+  // Address lookup: suggestions from the Photon geocoder (OpenStreetMap data),
+  // biased to the DC area. Free, no key. Typing still works if it is offline.
+  document.querySelectorAll('[data-address-lookup]').forEach(function (input) {
+    var list = document.getElementById(input.getAttribute('aria-controls'));
+    var timer, items = [], active = -1;
+    function close() { list.classList.add('hidden'); list.innerHTML = ''; input.setAttribute('aria-expanded', 'false'); items = []; active = -1; }
+    function label(p) {
+      var street = [p.housenumber, p.street].filter(Boolean).join(' ');
+      var first = p.name && p.name !== street ? p.name : '';
+      return [first, street, p.city || p.district || p.county, p.state, p.postcode].filter(Boolean).join(', ');
+    }
+    function pick(i) { if (!items[i]) return; input.value = items[i]; close(); }
+    function show(results) {
+      items = results; active = -1;
+      if (!items.length) { close(); return; }
+      list.innerHTML = items.map(function (t, i) {
+        return '<li role="option" id="' + list.id + '-' + i + '" data-i="' + i + '" class="px-3 py-2.5 text-sm text-gray-800 cursor-pointer hover:bg-gray-100 border-b border-gray-100 last:border-0">' +
+          t.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>';
+      }).join('');
+      list.classList.remove('hidden'); input.setAttribute('aria-expanded', 'true');
+    }
+    list.addEventListener('mousedown', function (e) { var li = e.target.closest('li'); if (li) { e.preventDefault(); pick(+li.getAttribute('data-i')); } });
+    input.addEventListener('keydown', function (e) {
+      if (!items.length) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        list.querySelectorAll('li').forEach(function (li, i) { li.classList.toggle('bg-gray-100', i === active); });
+        input.setAttribute('aria-activedescendant', list.id + '-' + active);
+      } else if (e.key === 'Enter' && active > -1) { e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape') close();
+    });
+    input.addEventListener('blur', function () { setTimeout(close, 150); });
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 3) { close(); return; }
+      timer = setTimeout(function () {
+        fetch('https://photon.komoot.io/api/?limit=6&lang=en&lat=38.8809&lon=-76.8565&bbox=-77.6,38.5,-76.3,39.4&q=' + encodeURIComponent(q))
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (input.value.trim() !== q) return;
+            var seen = {};
+            show((d.features || []).map(function (f) { return label(f.properties || {}); })
+              .filter(function (t) { if (!t || seen[t]) return false; seen[t] = 1; return true; }));
+          })
+          .catch(close);
+      }, 300);
+    });
+  });
+
   document.querySelectorAll('form.emergency-form').forEach(function (ef) {
     var est = ef.querySelector('[data-form-status]');
     ef.addEventListener('submit', function (e) {
@@ -510,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
         '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
         '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
-        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="${b.phone.href}" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = href;
     });
