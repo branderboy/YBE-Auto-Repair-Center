@@ -167,7 +167,7 @@ function headerNav(currentPath) {
           <a href="${b.phone.href}" data-track="call" data-location="mobile-menu"
              class="text-center bg-ybe-red text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Call Now</a>
           <a href="${b.sms.href}" data-track="text" data-location="mobile-menu"
-             class="text-center bg-surface text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
+             class="text-center bg-ybe-black text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
         </div>
       </div>
     </div>
@@ -260,17 +260,17 @@ function footer() {
 }
 
 function mobileActionBar() {
-  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-surface border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
+  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
     <a href="${b.phone.href}" data-track="call" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors border-r border-gray-700">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
       ${icon('phone-call', 22, 'mb-1 text-ybe-red')}
       <span class="font-heading text-sm tracking-wide font-semibold whitespace-nowrap">${esc(b.phone.display)}</span></a>
     <a href="${b.sms.href}" data-track="text" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors border-r border-gray-700">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700">
       ${icon('message-square', 22, 'mb-1 text-white')}
       <span class="font-heading uppercase text-sm tracking-wider font-semibold">Text Us</span></a>
     <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="mobile-bar"
-       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors">
+       class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors">
       ${icon('map-pin', 22, 'mb-1 text-ybe-red')}
       <span class="font-heading uppercase text-sm tracking-wider font-semibold">Directions</span></a>
   </div>`;
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
         'If it does not, call the shop and we will take the details over the phone.</p>' +
         '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-        '<a href="TELHREF" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
       status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', '${b.phone.href}');
       status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
         '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to ${b.commercialEmail}. Press send. If it does not open, email that address or call the shop.</p>' +
         '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
-        '<a href="${b.phone.href}" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = mailHref;
     });
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
         '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
         '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
-        '<a href="${b.phone.href}" class="inline-block bg-surface text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = href;
     });

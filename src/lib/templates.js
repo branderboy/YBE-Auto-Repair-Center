@@ -263,7 +263,7 @@ function ctaButtons({ variant = 'default', className = '' } = {}) {
     'bg-white hover:bg-gray-100 text-ybe-black shadow-hard border-ybe-black', 'text');
 
   const directions = btn(b.maps.directionsUrl, 'Directions', 'navigation',
-    'bg-surface-2 hover:bg-gray-200 text-white border-gray-500 hover:border-white', 'directions',
+    'bg-ybe-charcoal hover:bg-ybe-black text-white border-gray-500 hover:border-white', 'directions',
     'target="_blank" rel="noopener noreferrer"');
 
   const appt = btn('/request-appointment/', 'Book', 'calendar',
@@ -293,7 +293,7 @@ function trustStrip() {
     { icon: 'clock', label: 'Open 7 Days', sub: '8:30 AM–6:00 PM' },
     { icon: 'award', label: 'Black-Owned', sub: 'Local, independent shop' }
   ];
-  return `<section class="bg-surface text-white border-y-4 border-ybe-red">
+  return `<section class="bg-ybe-black text-white border-y-4 border-ybe-red">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         ${items
@@ -316,13 +316,13 @@ function breadcrumbs(crumbs) {
   if (!crumbs || crumbs.length < 2) return '';
   const parts = crumbs.map((c, i) =>
     i === crumbs.length - 1
-      ? `<span class="text-gray-600" aria-current="page">${esc(c.label)}</span>`
+      ? `<span class="text-gray-500" aria-current="page">${esc(c.label)}</span>`
       : `<a href="${c.url}" class="inline-block py-2 text-ybe-red hover:text-ybe-darkred font-semibold">${esc(c.label)}</a>`
   );
   return `<nav aria-label="Breadcrumb" class="bg-gray-100 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <div class="flex flex-wrap items-center gap-2 text-sm">
-        ${parts.join(`<span class="text-gray-500">/</span>`)}
+        ${parts.join(`<span class="text-gray-400">/</span>`)}
       </div>
     </div>
   </nav>`;
@@ -359,7 +359,7 @@ function linkCard({ url, title, blurb, cta = 'Learn More', icon: ic }) {
 }
 
 function safetyNotice() {
-  return `<div class="bg-surface border-l-4 border-yellow-400 p-6 rounded-sm">
+  return `<div class="bg-ybe-black/90 border-l-4 border-yellow-400 p-6 rounded-sm">
     <div class="flex items-start gap-4 text-left">
       ${icon('alert-triangle', 32, 'text-yellow-400 flex-shrink-0 mt-1')}
       <div>
@@ -408,7 +408,7 @@ function faqAccordion(faqs) {
 
 /** Closing conversion block used at the bottom of every page. */
 function finalCta({ heading, sub, variant = 'default' } = {}) {
-  return `<section class="py-16 md:py-20 bg-surface text-white relative">
+  return `<section class="py-16 md:py-20 bg-ybe-black text-white relative">
     <div class="absolute top-0 left-0 w-full h-2 bg-ybe-red"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col lg:flex-row gap-10 lg:items-center">
@@ -422,7 +422,7 @@ function finalCta({ heading, sub, variant = 'default' } = {}) {
           ${ctaButtons({ variant })}
         </div>
         <div class="lg:w-1/2 w-full">
-          <div class="bg-surface-2 p-8 rounded-sm border border-gray-700 shadow-xl">
+          <div class="bg-ybe-charcoal p-8 rounded-sm border border-gray-700 shadow-xl">
             <h3 class="font-heading text-2xl font-bold uppercase tracking-wide mb-6 text-white border-b-2 border-ybe-red pb-2">
               ${esc(b.name)}
             </h3>

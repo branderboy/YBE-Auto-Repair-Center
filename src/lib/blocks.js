@@ -40,7 +40,7 @@ function heroBlock({
   secondary
 }) {
   return `
-<section class="relative py-14 md:py-20 bg-surface text-white">
+<section class="relative py-14 md:py-20 bg-ybe-black text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
     <div class="max-w-3xl">
       ${
@@ -53,7 +53,7 @@ function heroBlock({
       </h1>
       ${
         sub
-          ? `<p class="text-lg md:text-xl text-gray-700 font-medium leading-relaxed max-w-2xl border-l-4 border-ybe-red pl-4">${esc(sub)}</p>`
+          ? `<p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed max-w-2xl border-l-4 border-ybe-red pl-4">${esc(sub)}</p>`
           : ''
       }
       <div class="mt-8 flex flex-col sm:flex-row gap-4">
@@ -145,7 +145,7 @@ function roadsideBand({ heading, sub } = {}) {
          class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
         ${icon('message-square', 32)} Text Us</a>
     </div>
-    <div class="bg-surface border border-gray-700 p-6 rounded-sm max-w-2xl mx-auto">
+    <div class="bg-ybe-black/80 border border-gray-700 p-6 rounded-sm max-w-2xl mx-auto">
       <div class="flex items-start gap-4 text-left">
         ${icon('alert-triangle', 32, 'text-yellow-400 flex-shrink-0 mt-1')}
         <div>
@@ -280,7 +280,7 @@ function mapAreasBlock({ heading, sub, activeSlug } = {}) {
         </div>
         <div class="mt-8">
           <a href="${b.maps.directionsUrl}" target="_blank" rel="noopener noreferrer" data-track="directions" data-location="map-block"
-             class="w-full bg-surface hover:bg-gray-200 text-white text-center font-heading text-xl px-6 py-4 rounded-sm transition-all uppercase tracking-wide font-bold flex items-center justify-center gap-2">
+             class="w-full bg-ybe-black hover:bg-ybe-charcoal text-white text-center font-heading text-xl px-6 py-4 rounded-sm transition-all uppercase tracking-wide font-bold flex items-center justify-center gap-2">
             ${icon('navigation', 20)} Get Directions</a>
         </div>
       </div>
@@ -353,7 +353,7 @@ function contactBlock({ heading, sub } = {}) {
             <a href="/request-appointment/" data-track="appointment" data-location="contact-block"
                class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
               Request Appointment ${icon('arrow-right', 20)}</a>
-            <div class="text-gray-600 font-medium">OR</div>
+            <div class="text-white font-medium">OR</div>
             <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="square-booking"
                class="w-full bg-white hover:bg-gray-50 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
               ${esc(b.booking.label)} ${icon('external-link', 20)}</a>

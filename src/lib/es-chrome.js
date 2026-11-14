@@ -65,7 +65,7 @@ function header(path) {
         <div class="border-b border-gray-100"><a href="${english}" hreflang="en" lang="en" class="mobile-nav-link block px-3 py-3 font-heading text-xl uppercase tracking-wide text-ybe-black">English</a></div>
         <div class="grid grid-cols-2 gap-2 mt-4 px-1">
           <a href="${b.phone.href}" data-track="call" data-location="mobile-menu-es" class="text-center bg-ybe-red text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Llamar</a>
-          <a href="${b.sms.href}" data-track="text" data-location="mobile-menu-es" class="text-center bg-surface text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Mensaje</a>
+          <a href="${b.sms.href}" data-track="text" data-location="mobile-menu-es" class="text-center bg-ybe-black text-white font-heading text-lg py-3 rounded-sm uppercase tracking-wide font-bold">Mensaje</a>
         </div>
       </div>
     </div>
@@ -118,9 +118,9 @@ function footer() {
 
 function mobileBar() {
   const item = (href, track, ic, color, label, extra = '') =>
-    `<a href="${href}" ${extra} data-track="${track}" data-location="mobile-bar-es" class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-gray-200 transition-colors border-r border-gray-700 last:border-r-0">
+    `<a href="${href}" ${extra} data-track="${track}" data-location="mobile-bar-es" class="flex-1 flex flex-col items-center justify-center py-2.5 text-white active:bg-ybe-charcoal transition-colors border-r border-gray-700 last:border-r-0">
       ${icon(ic, 22, `mb-1 ${color}`)}<span class="font-heading uppercase text-sm tracking-wider font-semibold">${label}</span></a>`;
-  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-surface border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
+  return `<div class="lg:hidden fixed bottom-0 left-0 w-full bg-ybe-black border-t-4 border-ybe-red z-50 flex shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] safe-bottom">
     ${item(b.phone.href, 'call', 'phone-call', 'text-ybe-red', esc(b.phone.display))}
     ${item(b.sms.href, 'text', 'message-square', 'text-white', 'Mensaje')}
     ${item(b.maps.directionsUrl, 'directions', 'map-pin', 'text-ybe-red', 'Cómo llegar', 'target="_blank" rel="noopener noreferrer"')}

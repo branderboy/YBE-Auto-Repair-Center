@@ -27,12 +27,9 @@
 }
 
 @layer components {
-  /* Formerly a dark striped panel; light now (owner, 2026-11-14: no black backgrounds). */
-  .diagonal-stripe-bg { background-color: #F4F4F5; }
-  /* Light surfaces that replaced every black panel, box and band. */
-  .bg-surface { background-color: #F4F4F5; }
-  .bg-surface-2 { background-color: #FFFFFF; border-color: #E5E7EB; }
-
+  .diagonal-stripe-bg {
+    background-image: repeating-linear-gradient(45deg, #1A1A1A, #1A1A1A 10px, #222222 10px, #222222 20px);
+  }
   /* Feather the sharp photo's left edge so it dissolves into the blurred shop
      behind it, instead of meeting it at a hard vertical seam. */
   .hero-photo-fade {
@@ -76,29 +73,56 @@
 }
 
 /*
- * No black backgrounds (owner, 2026-11-14). Panels, bands, sidebars, the footer
- * and the phone bar are light surfaces now. Markup written for dark panels
- * says text-white; on these surfaces that text goes dark. Red and green
- * buttons inside them keep their white text.
+ * Text on dark surfaces goes white.
+ * The brand red is a step darker than the logo, so on a near-black panel or the
+ * striped footer it never reads well however it is tinted. White is simply
+ * legible. Red backgrounds, buttons and rules are untouched; this only affects
+ * text and icons that would otherwise be red on a dark panel.
+ *
+ * :not(.bg-white) matters. The roadside heading sets red text on a white pill
+ * inside the dark band; without the exclusion that text turned white on white
+ * and disappeared entirely.
  */
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg),
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg).text-white,
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .text-white:not(:is(.bg-ybe-red, .bg-ybe-green, .bg-ybe-red *, .bg-ybe-green *)),
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) [class*="text-white/"]:not(:is(.bg-ybe-red, .bg-ybe-red *)) {
-  color: #1A1A1A;
+.bg-gradient-to-r .text-ybe-red:not(.bg-white),
+.hero-section .text-ybe-red:not(.bg-white) { color: #FFFFFF; }
+@media (min-width: 768px) {
+  .bg-ybe-black .text-ybe-red:not(.bg-white),
+  .bg-ybe-charcoal .text-ybe-red:not(.bg-white),
+  .bg-black .text-ybe-red:not(.bg-white),
+  .diagonal-stripe-bg .text-ybe-red:not(.bg-white) {
+    color: #FFFFFF;
+  }
 }
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .hover\:text-white:hover:not(:is(.bg-ybe-red, .bg-ybe-red *)) { color: #FC0101; }
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-white,
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-gray-700,
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-gray-800,
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-gray-500,
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-gray-600 { border-color: #D4D4D8; }
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .border-r.border-gray-700 { border-color: #D4D4D8; }
-/* Outline buttons that were white-on-dark: dark outline, fills red on hover. */
-:is(.bg-surface, .bg-surface-2, .diagonal-stripe-bg) .bg-transparent.border-2:hover { background-color: #1A1A1A; color: #FFFFFF; }
 
-/* The homepage hero photo keeps its dark overlay, so its red text stays white. */
-.bg-gradient-to-r .text-ybe-red:not(.bg-white) { color: #FFFFFF; }
+/* Red links on the black footer need the same lift, including on hover. */
+.bg-black a:hover.text-ybe-red,
+.bg-black a.hover\:text-ybe-red:hover {
+  color: #FFFFFF;
+}
+
+/*
+ * Phones only: no black backgrounds (owner, 2026-11-14). Below 768px every
+ * black, charcoal and striped panel, band, sidebar, footer and the phone bar is
+ * a light surface, and text written white for dark panels goes dark. Desktop
+ * keeps the original dark design. The homepage hero sits on its photo and is
+ * left alone. Red and green buttons keep white text.
+ */
+@media (max-width: 767px) {
+  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) {
+    background-color: #F4F4F5 !important;
+    background-image: none !important;
+    color: #1A1A1A;
+  }
+  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section):is(.text-white),
+  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) :is(.text-white, .text-gray-100, .text-gray-200, .text-gray-300, .text-gray-400, [class*="text-white/"]):not(:is(.bg-ybe-red, .bg-ybe-green, .bg-ybe-red *, .bg-ybe-green *, .hero-section *)) {
+    color: #1A1A1A;
+  }
+  :is(.bg-ybe-black, .bg-ybe-charcoal, .bg-black, .diagonal-stripe-bg, [class*="bg-ybe-black/"]):not(.hero-section) :is(.border-white, .border-gray-500, .border-gray-600, .border-gray-700, .border-gray-800):not(.hero-section *) {
+    border-color: #D4D4D8;
+  }
+  /* Page title bands (white text on the dark band on desktop). */
+  section.bg-ybe-black:not(.hero-section) h1, section.bg-ybe-black:not(.hero-section) .text-gray-200 { color: #1A1A1A; }
+}
 
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
