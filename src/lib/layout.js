@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (bad) bad.focus();
         return;
       }
-      var lines = ['EMERGENCY ROADSIDE REQUEST from the website'];
+      var lines = [(ef.getAttribute('data-title') || 'EMERGENCY ROADSIDE REQUEST') + ' from the website'];
       ef.querySelectorAll('input, select, textarea').forEach(function (el) {
         if (!el.value.trim()) return;
         var lab = ef.querySelector('label[for="' + el.id + '"]');

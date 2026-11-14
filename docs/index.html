@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=6cc62aee">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=236b5783">
 
 <script type="application/ld+json">
 {
@@ -1510,6 +1510,29 @@
         </section>
 
         <!-- Contact Options -->
+        <section id="call-back" class="py-16 bg-white border-t border-gray-200" aria-labelledby="callback-heading">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 id="callback-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+        Request A <span class="text-ybe-red">Call Back</span>
+        <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-ybe-red"></span>
+      </h2>
+      <p class="mt-6 text-lg text-gray-600">Leave your number and we will call you back during business hours, 8:30 AM to 6:00 PM, seven days a week.</p>
+    </div>
+    <form id="callback-form" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8 max-w-3xl mx-auto" data-send="sms" data-title="CALL BACK REQUEST" novalidate>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div><label for="cb_name" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Your Name <span class="text-ybe-red">*</span></label><input type="text" id="cb_name" required autocomplete="name" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"></div>
+        <div><label for="cb_phone" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Phone Number <span class="text-ybe-red">*</span></label><input type="tel" id="cb_phone" required autocomplete="tel" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="(202) 555-0123"></div>
+        <div><label for="cb_time" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Best Time To Call <span class="text-ybe-red">*</span></label><select id="cb_time" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
+          <option value="Select one…">Select one…</option><option value="As soon as possible">As soon as possible</option><option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Before 6 PM">Before 6 PM</option></select></div>
+        <div><label for="cb_about" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">What Is It About?</label><input type="text" id="cb_about" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Brakes, check engine light, a quote…"></div>
+      </div>
+      <button type="submit" data-track="callback-form" data-location="homepage" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="16 2 16 8 22 8" /> <line x1="22" x2="16" y1="2" y2="8" /> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg> Request Call Back</button>
+      <p class="text-sm text-gray-600 mt-3 text-center">Sends to (202) 455-3822 by text. Need us now? <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="homepage-callback" class="text-ybe-red font-semibold hover:underline">Call (202) 455-3822</a>.</p>
+      <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
+    </form>
+  </div>
+</section>
         <section id="contact" class="py-20 bg-ybe-black text-white relative">
             <div class="absolute top-0 left-0 w-full h-2 bg-ybe-red"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2139,7 +2162,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (bad) bad.focus();
         return;
       }
-      var lines = ['EMERGENCY ROADSIDE REQUEST from the website'];
+      var lines = [(ef.getAttribute('data-title') || 'EMERGENCY ROADSIDE REQUEST') + ' from the website'];
       ef.querySelectorAll('input, select, textarea').forEach(function (el) {
         if (!el.value.trim()) return;
         var lab = ef.querySelector('label[for="' + el.id + '"]');
