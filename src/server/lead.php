@@ -20,7 +20,6 @@ header('X-Content-Type-Options: nosniff');
 
 const TO_EMAIL = '{{TO_EMAIL}}';
 const DOMAIN = '{{DOMAIN}}';
-const FROM_EMAIL = 'leads@{{DOMAIN}}';
 const BUSINESS = '{{BUSINESS}}';
 const FORMS = [
     'callback'    => 'Call back request',
@@ -156,14 +155,13 @@ $subject = clean(str_replace(["\r", "\n"], ' ', $subject), 200);
 $body = FORMS[$form] . " from " . DOMAIN . "\n\n" . implode("\n", $lines)
     . "\n\nPage: " . $page . "\nReceived: " . date('l, F j, Y g:i A T') . "\n";
 $headers = [
-    'From: ' . BUSINESS . ' Website <' . FROM_EMAIL . '>',
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
 ];
 if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $headers[] = 'Reply-To: ' . $email;
 }
-$emailed = @mail(TO_EMAIL, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers), '-f' . FROM_EMAIL);
+$emailed = @mail(TO_EMAIL, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
 
 if (!$stored && !$emailed) {
     reply(500, ['ok' => false, 'error' => 'delivery']);
