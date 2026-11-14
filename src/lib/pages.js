@@ -1419,6 +1419,7 @@ ${section(
       </div>
 
       <form id="appointment-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
+        <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           ${field('name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
           ${field('phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
@@ -1665,6 +1666,7 @@ ${section(
       <p class="text-gray-800 leading-relaxed"><strong class="font-heading uppercase tracking-wide">This is a request.</strong> Someone from YBE will contact you about your vehicles. For a vehicle that needs help today, call.</p>
     </div>
     <form id="commercial-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
+      <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         ${field('company', 'Company or Organization', 'text', { required: true, autocomplete: 'organization' })}
         ${field('contact_name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
@@ -1712,6 +1714,7 @@ function emergencyForm(p, send) {
   const lab = (id, text, req) => `<label for="${p}${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
   const toSms = send === 'sms';
   return `<form id="${p}form" data-send="${send}" data-subject="Emergency roadside request" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 ${toSms ? 'border-t-ybe-red' : 'border-t-ybe-black'} rounded-sm p-6 md:p-8" novalidate>
+    <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
     <h2 class="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide text-ybe-black mb-1 flex items-center gap-2">${icon(toSms ? 'message-square' : 'mail', 26, 'text-ybe-red')} ${toSms ? 'Text The Shop' : 'Email The Owner'}</h2>
     <p class="text-gray-600 mb-6">Sends to <strong>${esc(toSms ? b.phone.display : b.commercialEmail)}</strong>${toSms ? ' by text' : ''}.</p>
     <div class="grid grid-cols-1 gap-5">

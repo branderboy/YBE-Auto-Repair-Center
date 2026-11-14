@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=2b4e5d3a">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=2865d8b8">
 
 <script type="application/ld+json">
 {
@@ -1116,6 +1116,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Lead capture. Every form posts here first: /api/lead.php on Hostinger
+  // saves the lead and emails it to the owner. If that does not answer ok
+  // (offline, GitHub Pages copy, server error), onFail runs the old text or
+  // email hand-off so no lead is lost.
+  var pageLoadedAt = Date.now();
+  function postLead(form, key, lines, onOk, onFail) {
+    var trap = form.querySelector('input[name="website"]');
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    fetch('/api/lead.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ form: key, lines: lines, page: location.pathname, elapsed: Date.now() - pageLoadedAt, website: trap ? trap.value : '' }),
+      signal: ctl ? ctl.signal : undefined
+    })
+      .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+      .then(function (d) { clearTimeout(timer); if (btn) btn.disabled = false; if (d && d.ok) { onOk(); } else { onFail(); } })
+      .catch(function () { clearTimeout(timer); if (btn) btn.disabled = false; onFail(); });
+    if (window.dataLayer) window.dataLayer.push({ event: 'lead_submit', lead_form: key });
+  }
+  function leadThanks(statusEl, msg, showCall) {
+    statusEl.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+      '<p class="text-gray-800 font-semibold mb-1">Thank you. We got your request.</p>' +
+      '<p class="text-gray-700 text-sm' + (showCall ? ' mb-3' : '') + '">' + msg + '</p>' +
+      (showCall ? '<a href="tel:+12024553822" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call (202) 455-3822</a>' : '') + '</div>';
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   // Appointment form.
   // This is a static site with no backend, so rather than silently failing the
   // form validates, then hands the details to the shop's text line (a verified
@@ -1155,17 +1185,22 @@ document.addEventListener('DOMContentLoaded', function () {
         'Preferred contact: ' + g('preferred_contact'),
         'Problem: ' + g('problem')
       ].filter(Boolean);
-      var body = encodeURIComponent(lines.join('\n'));
-      status.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-        '<p class="text-gray-800 font-semibold mb-2">Your details are ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
-        'If it does not, call the shop and we will take the details over the phone.</p>' +
-        '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
-        '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
-      status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', 'tel:+12024553822');
-      status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = smsHref;
+      postLead(form, 'appointment', lines, function () {
+        form.reset();
+        leadThanks(status, 'We will contact you to confirm a time. If you need help today, calling is faster.', true);
+      }, function () {
+        var body = encodeURIComponent(lines.join('\n'));
+        status.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your details are ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. ' +
+          'If it does not, call the shop and we will take the details over the phone.</p>' +
+          '<a href="SMSHREF" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+          '<a href="TELHREF" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        var smsHref = 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
+        status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', 'tel:+12024553822');
+        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = smsHref;
+      });
     });
   }
 
@@ -1193,22 +1228,27 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
       var lines = ['Commercial service request from the website'];
-      cform.querySelectorAll('input, select, textarea').forEach(function (el) {
+      cform.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
         if (!el.value.trim()) return;
         var lab = cform.querySelector('label[for="' + el.id + '"]');
         lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
       });
-      // Goes to the owner by email (static site: the visitor's email app sends it).
-      var company = (document.getElementById('company') || {}).value || '';
-      var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Commercial service request: ' + company) +
-        '&body=' + encodeURIComponent(lines.join('\n'));
-      cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-        '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. Press send. If it does not open, email that address or call the shop.</p>' +
-        '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
-        '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = mailHref;
+      postLead(cform, 'commercial', lines, function () {
+        cform.reset();
+        leadThanks(cstatus, 'Your request went to the owner. Someone from YBE will contact you about your vehicles.', false);
+      }, function () {
+        // Goes to the owner by email (static site: the visitor's email app sends it).
+        var company = (document.getElementById('company') || {}).value || '';
+        var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Commercial service request: ' + company) +
+          '&body=' + encodeURIComponent(lines.join('\n'));
+        cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. Press send. If it does not open, email that address or call the shop.</p>' +
+          '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Email</a> ' +
+          '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = mailHref;
+      });
     });
   }
 
@@ -1287,23 +1327,29 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
       var lines = [(ef.getAttribute('data-title') || 'EMERGENCY ROADSIDE REQUEST') + ' from the website'];
-      ef.querySelectorAll('input, select, textarea').forEach(function (el) {
+      ef.querySelectorAll('input:not([name="website"]), select, textarea').forEach(function (el) {
         if (!el.value.trim()) return;
         var lab = ef.querySelector('label[for="' + el.id + '"]');
         lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
       });
-      var text = encodeURIComponent(lines.join('\n'));
-      var byEmail = ef.getAttribute('data-send') === 'email';
-      var href = byEmail
-        ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
-        : 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
-      est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
-        '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
-        '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
-        '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
-        '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
-      est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.location.href = href;
+      var isCallback = ef.id === 'callback-form';
+      postLead(ef, isCallback ? 'callback' : 'emergency', lines, function () {
+        ef.reset();
+        leadThanks(est, isCallback ? 'We will call you back during business hours, 8:30 AM to 6:00 PM.' : 'The shop has your location and what happened. If you can, call now for the fastest help.', true);
+      }, function () {
+        var text = encodeURIComponent(lines.join('\n'));
+        var byEmail = ef.getAttribute('data-send') === 'email';
+        var href = byEmail
+          ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+          : 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
+        est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+          '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+          '<p class="text-gray-700 text-sm mb-3">Your ' + (byEmail ? 'email' : 'messaging') + ' app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
+          '<a href="' + href + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">' + (byEmail ? 'Send Email' : 'Send Text') + '</a> ' +
+          '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+        est.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        window.location.href = href;
+      });
     });
   });
 

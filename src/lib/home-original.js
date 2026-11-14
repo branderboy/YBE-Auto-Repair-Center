@@ -290,6 +290,7 @@ function callbackSection() {
       <p class="mt-6 text-lg text-gray-600">Leave your number and we will call you back during business hours, 8:30 AM to 6:00 PM, seven days a week.</p>
     </div>
     <form id="callback-form" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8 max-w-3xl mx-auto" data-send="sms" data-title="CALL BACK REQUEST" novalidate>
+      <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-5 md:items-end">
         <div>${lab('cb_name', 'Your Name', true)}<input type="text" id="cb_name" required autocomplete="name" class="${cls}"></div>
         <div>${lab('cb_phone', 'Phone Number', true)}<input type="tel" id="cb_phone" required autocomplete="tel" class="${cls}" placeholder="(202) 555-0123"></div>
