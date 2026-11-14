@@ -460,7 +460,7 @@ ${section(
   'bg-gray-50'
 )}
 
-${K.roadsideBand()}
+${roadsideRequestCta('roadside-hub')}
 ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: 'Need Help On The Road?', sub: 'Call the shop directly. Tell us your location and what the vehicle is doing.' })}`;
 
@@ -558,6 +558,7 @@ ${section(
 )}
 
 ${K.mapAreasBlock()}
+${svc.calm ? '' : roadsideRequestCta('roadside-page')}
 ${K.contactBlock({ heading: svc.calm ? 'Call For An Offer' : 'Stuck? Call The Shop.' })}`;
 
   return layout({
@@ -877,7 +878,7 @@ ${section(
   </div>`
 )}
 
-${page.mobile ? '' : K.roadsideBand()}
+${page.mobile ? roadsideRequestCta('area-roadside') : K.roadsideBand()}
 ${K.contactBlock({ heading: `Serving ${esc(area.label)}` })}`;
 
   return layout({
@@ -1687,6 +1688,79 @@ ${K.contactBlock({ heading: 'Talk To The Shop' })}`;
   return layout({ title: 'Commercial Service Request', description: CO.hub.metaDescription, path: COMMERCIAL_FORM_URL, crumbs, body });
 }
 
+/* ===================================================== EMERGENCY ROADSIDE FORM */
+const ROADSIDE_FORM_URL = '/roadside-request/';
+
+/** Link to the emergency roadside request form, used on every roadside page. */
+function roadsideRequestCta(where) {
+  return `<section class="py-12 bg-ybe-red text-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+    <div>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Emergency Roadside Request</h2>
+      <p class="text-white/90 leading-relaxed">Stuck and cannot talk? Send your location and what happened, and the shop gets it by text.</p>
+    </div>
+    <a href="${ROADSIDE_FORM_URL}" data-track="roadside-form" data-location="${esc(where)}"
+       class="flex-shrink-0 bg-white text-ybe-red font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
+      ${icon('siren', 24)} Request Help</a>
+  </div>
+</section>`;
+}
+
+function renderRoadsideForm() {
+  const crumbs = [HOME, { label: 'Roadside Assistance', url: roadsideHub.url }, { label: 'Emergency Request', url: ROADSIDE_FORM_URL }];
+  const field = (id, label, type = 'text', opts = {}) => `
+    <div class="${opts.full ? 'md:col-span-2' : ''}">
+      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
+        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
+      ${
+        type === 'textarea'
+          ? `<textarea id="${id}" name="${id}" rows="3" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}"></textarea>`
+          : type === 'select'
+          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
+              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
+          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''} ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}">`
+      }
+    </div>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Roadside Assistance · ${esc(primaryArea.label)}`,
+  titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Request')),
+  sub: 'Stuck? Calling is fastest. If you cannot talk, send your location and what happened, and the shop gets it by text.',
+  ctaLabel: 'Call For Roadside Help',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+})}
+${section(
+  `<div class="max-w-4xl mx-auto">
+    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 rounded-sm mb-8">
+      <p class="font-heading text-xl uppercase tracking-wide font-bold mb-2">${icon('alert-triangle', 22, 'inline text-ybe-red')} In danger or blocking traffic? Call 911 first.</p>
+      <p class="text-gray-300 leading-relaxed">If a child or pet is locked in the car, call 911. Our phone is answered ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing.</p>
+    </div>
+    <form id="roadside-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        ${field('rs_name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
+        ${field('rs_phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
+        <div class="md:col-span-2">
+          <label for="rs_location" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Where Are You? <span class="text-ybe-red">*</span></label>
+          <input type="text" id="rs_location" name="rs_location" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Street address, cross streets or a landmark">
+          <button type="button" id="rs_locate" class="mt-3 inline-flex items-center gap-2 bg-ybe-black text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold">${icon('locate', 20)} Use My Location</button>
+          <p id="rs_locate_status" class="text-sm text-gray-600 mt-2" aria-live="polite"></p>
+        </div>
+        ${field('rs_problem', 'What Happened?', 'select', { required: true, options: ['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'] })}
+        ${field('rs_vehicle', 'Vehicle', 'text', { placeholder: 'Year, make, model, color' })}
+        ${field('rs_notes', 'Anything Else?', 'textarea', { full: true, placeholder: 'Which side of the road, which direction, anything we should know.' })}
+      </div>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <button type="submit" data-track="roadside-form" data-location="roadside-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center gap-2">${icon('siren', 24)} Send Request</button>
+        <p class="text-sm text-gray-600">Faster: call <a href="${b.phone.href}" data-track="call" data-location="roadside-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+      </div>
+      <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
+    </form>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Stuck? Call The Shop.' })}`;
+  return layout({ title: 'Emergency Roadside Request', description: roadsideHub.metaDescription, path: ROADSIDE_FORM_URL, crumbs, body });
+}
+
 /* ===================================================== COMPANY PAGES */
 /** One dealer group or auction from src/data/company-pages.js. */
 function renderCompanyPage(c) {
@@ -1889,6 +1963,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 module.exports = {
   renderAreaServicePage,
+  renderRoadsideForm,
   renderCommercialForm,
   renderOrgPage,
   renderOrgHub,

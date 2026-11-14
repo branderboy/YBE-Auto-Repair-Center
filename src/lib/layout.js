@@ -192,6 +192,7 @@ function footer() {
     { label: 'Used & Auction Car Repairs', url: '/used-car-repair/' },
     { label: 'Fleet & Government', url: '/fleet-and-government/' },
     { label: 'Commercial Service Request', url: '/commercial-service-request/' },
+    { label: 'Emergency Roadside Request', url: '/roadside-request/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
@@ -468,6 +469,58 @@ document.addEventListener('DOMContentLoaded', function () {
         '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
       cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = mailHref;
+    });
+  }
+
+  // Emergency roadside request: location button, then a text to the shop.
+  var rform = document.getElementById('roadside-form');
+  if (rform) {
+    var rstatus = document.getElementById('form-status');
+    var locBtn = document.getElementById('rs_locate');
+    var locMsg = document.getElementById('rs_locate_status');
+    var locInput = document.getElementById('rs_location');
+    if (locBtn) locBtn.addEventListener('click', function () {
+      if (!navigator.geolocation) { locMsg.textContent = 'Your browser cannot share location. Type where you are instead.'; return; }
+      locMsg.textContent = 'Finding your location…';
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        var lat = pos.coords.latitude.toFixed(5), lng = pos.coords.longitude.toFixed(5);
+        var link = 'https://maps.google.com/?q=' + lat + ',' + lng;
+        locInput.value = (locInput.value ? locInput.value + ' ' : '') + link;
+        locMsg.textContent = 'Location added.';
+      }, function () { locMsg.textContent = 'Could not get your location. Type where you are instead.'; }, { enableHighAccuracy: true, timeout: 10000 });
+    });
+    rform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      rform.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
+        el.classList.toggle('border-ybe-red', empty);
+        el.classList.toggle('border-2', empty);
+        if (empty) {
+          var lab = rform.querySelector('label[for="' + el.id + '"]');
+          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
+        }
+      });
+      if (missing.length) {
+        rstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = rform.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
+        return;
+      }
+      var lines = ['ROADSIDE REQUEST from the website'];
+      rform.querySelectorAll('input, select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = rform.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + encodeURIComponent(lines.join('\\n'));
+      rstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+        '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. Press send. If it does not open, call the shop.</p>' +
+        '<a href="' + smsHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+      rstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      window.location.href = smsHref;
     });
   }
 

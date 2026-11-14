@@ -1093,6 +1093,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/roadside-request/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://branderboy.github.io/YBE-Auto-Repair-Center/used-car-repair/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
