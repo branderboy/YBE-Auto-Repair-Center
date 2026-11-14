@@ -613,7 +613,7 @@ ${jsonLd}
 <body class="font-sans text-gray-900 bg-white antialiased relative pb-16 lg:pb-0">
 <a href="#main" class="skip-link">${lang === 'es' ? 'Saltar al contenido' : 'Skip to main content'}</a>
 ${lang === 'es' ? ES.header(path) : headerNav(path)}
-<main id="main" class="${fullBleed ? '' : 'pt-[88px] sm:pt-[104px] lg:pt-[120px]'}">
+<main id="main" class="${fullBleed ? '' : 'pt-[104px] sm:pt-[120px]'}">
 ${T.breadcrumbs(crumbs)}
 ${body}
 </main>
