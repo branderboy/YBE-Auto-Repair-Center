@@ -80,7 +80,7 @@ function footer() {
         <div>
           <img src="${b.images.logo}" alt="${esc(b.images.logoAlt)}" width="240" height="152" loading="lazy" class="h-16 w-auto mb-5" />
           <p class="mb-4 text-sm leading-relaxed">Reparación, diagnóstico, mantenimiento, carrocería y asistencia en carretera en ${esc(b.address.city)} y comunidades cercanas de Maryland y DC desde ${b.openedYear}.</p>
-          <p class="text-sm leading-relaxed text-gray-300">${esc(ES.LANG_NOTE)}</p>
+          <p class="text-sm leading-relaxed text-white">${esc(ES.LANG_NOTE)}</p>
         </div>
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Contacto</h2>

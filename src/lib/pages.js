@@ -352,7 +352,7 @@ ${section(
       <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Why This Should Not Wait</h2>
-        <div class="prose-ybe text-gray-300 text-lg">${paras(svc.whyNotIgnore)}</div>
+        <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -365,7 +365,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get This Handled</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+        <p class="text-white mb-6 text-sm leading-relaxed">
           Call or text the shop and describe what the car is doing. Open ${esc(b.hours.summary.toLowerCase())}.
         </p>
         <div class="flex flex-col gap-3">
@@ -379,7 +379,7 @@ ${section(
              class="w-full text-center bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">
             Request Appointment</a>
         </div>
-        <div class="mt-6 pt-6 border-t border-gray-700 text-sm text-gray-400 space-y-2">
+        <div class="mt-6 pt-6 border-t border-gray-700 text-sm text-white space-y-2">
           <p class="flex items-start gap-2">${icon('map-pin', 16, 'text-ybe-red flex-shrink-0 mt-0.5')} ${esc(b.address.oneLine)}</p>
           <p class="flex items-start gap-2">${icon('clock', 16, 'text-ybe-red flex-shrink-0 mt-0.5')} ${esc(b.hours.summary)}</p>
         </div>
@@ -519,7 +519,7 @@ ${section(
       <div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-5 flex items-center gap-3">
           ${icon('alert-triangle', 30, 'text-ybe-red')} Worth Knowing</h2>
-        <div class="prose-ybe text-gray-300 text-lg">${paras(svc.whyNotIgnore)}</div>
+        <div class="prose-ybe text-white text-lg">${paras(svc.whyNotIgnore)}</div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -699,7 +699,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Book From ${esc(area.name)}</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Call or text the shop, or request an appointment online.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Call or text the shop, or request an appointment online.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="area-sidebar"
              class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
@@ -786,7 +786,7 @@ function renderAreaServicePage(page) {
       <ul class="bg-gray-50 border-l-4 border-ybe-red rounded-sm p-6 mb-12">${svcs.map((s) => linkItem(s.url, s.title, s.customerVoice ? `“${s.customerVoice}”` : '')).join('')}</ul>
       <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Roadside Assistance, Not Towing</h2>
-        <p class="text-gray-300 leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
+        <p class="text-white leading-relaxed">If the car needs to come off the road entirely, we tell you that when you call, so you can arrange a tow instead of waiting on help that will not solve the problem.</p>
       </div>`;
   } else if (page.type === 'jump-start') {
     const js = roadsideBySlug['jump-start'];
@@ -977,7 +977,7 @@ ${section(
         svc
           ? `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red mb-12">
         <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-4">Need This Fixed?</h2>
-        <p class="text-gray-300 leading-relaxed mb-6 text-lg">
+        <p class="text-white leading-relaxed mb-6 text-lg">
           YBE handles this at the ${esc(primaryArea.name)} shop, seven days a week. Read about
           <a href="${svc.url}" class="text-ybe-red hover:text-white font-semibold underline">${esc(svc.title)}</a>,
           or call and describe what your car is doing.
@@ -1018,7 +1018,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Talk To A Mechanic</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary.toLowerCase())} in ${esc(primaryArea.label)}.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary.toLowerCase())} in ${esc(primaryArea.label)}.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="article-sidebar"
              class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
@@ -1231,7 +1231,7 @@ ${section(
   `<div class="bg-ybe-black text-white p-10 rounded-sm border-l-8 border-ybe-red flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
       <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Been To YBE? Leave A Review</h2>
-      <p class="text-gray-300 leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
+      <p class="text-white leading-relaxed max-w-2xl">A sentence or two about the repair helps the next driver in Capitol Heights decide. Open our Google listing and tap Reviews.</p>
     </div>
     <a href="${b.rating.listingUrl}" target="_blank" rel="noopener noreferrer" data-track="review" data-location="reviews-page"
        class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
@@ -1310,7 +1310,7 @@ ${section(
     </div>
     <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red">
       <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-5">Weekly Hours</h2>
-      <ul class="space-y-1 text-gray-300">
+      <ul class="space-y-1 text-white">
         ${b.hours.days
           .map(
             (d) =>
@@ -1578,7 +1578,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get A Price</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="faq-question" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="faq-question" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
@@ -1627,7 +1627,7 @@ function commercialCta(where) {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
     <div>
       <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Commercial Service Request</h2>
-      <p class="text-gray-300 leading-relaxed">Fleets, dealers, auction buyers, rideshare and rental vehicles, and agencies: tell us about your vehicles and what they need.</p>
+      <p class="text-white leading-relaxed">Fleets, dealers, auction buyers, rideshare and rental vehicles, and agencies: tell us about your vehicles and what they need.</p>
     </div>
     <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="${esc(where)}"
        class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
@@ -1844,7 +1844,7 @@ ${section(
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-black text-white p-8 rounded-sm border-t-4 border-ybe-red lg:sticky lg:top-32">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">Get It Checked</h2>
-        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
+        <p class="text-white mb-6 text-sm leading-relaxed">Open ${esc(b.hours.summary)} at ${esc(b.address.oneLine)}. Walk-ins welcome.</p>
         <div class="flex flex-col gap-3">
           <a href="${b.phone.href}" data-track="call" data-location="company-page" class="w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold">${esc(b.phone.display)}</a>
           <a href="${b.sms.href}" data-track="text" data-location="company-page" class="w-full text-center bg-white hover:bg-gray-100 text-ybe-black font-heading text-xl px-6 py-3 rounded-sm uppercase tracking-wide font-bold">Text Us</a>
@@ -1898,7 +1898,7 @@ function renderOrgPage(o) {
   const body = `
 <section class="bg-ybe-black text-white py-14 md:py-16 border-b-4 border-ybe-red">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="font-heading text-sm font-bold uppercase tracking-widest text-gray-300 mb-3">${o.kind === 'fleet' ? 'Fleet Network Profile' : 'Government Profile'}</p>
+    <p class="font-heading text-sm font-bold uppercase tracking-widest text-white mb-3">${o.kind === 'fleet' ? 'Fleet Network Profile' : 'Government Profile'}</p>
     <h1 class="text-4xl md:text-5xl font-heading font-extrabold uppercase leading-tight tracking-wide">${h1Html(h1)}</h1>
   </div>
 </section>

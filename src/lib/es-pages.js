@@ -26,7 +26,7 @@ function h1Html(t) {
 function hero({ eyebrow, title, sub, roadside = false }) {
   return `<section class="relative bg-ybe-black text-white py-16 md:py-20 border-b-4 border-ybe-red">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="font-heading text-sm md:text-base font-bold uppercase tracking-widest text-gray-300 mb-3">${esc(eyebrow)}</p>
+    <p class="font-heading text-sm md:text-base font-bold uppercase tracking-widest text-white mb-3">${esc(eyebrow)}</p>
     <h1 class="text-4xl md:text-6xl font-heading font-extrabold text-white uppercase leading-tight mb-4 tracking-wide">${h1Html(title)}</h1>
     ${sub ? `<p class="text-lg md:text-xl text-gray-200 max-w-3xl border-l-4 border-ybe-red pl-4 mb-8">${esc(sub)}</p>` : ''}
     <div class="flex flex-col sm:flex-row gap-4">
@@ -37,7 +37,7 @@ function hero({ eyebrow, title, sub, roadside = false }) {
          class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white hover:text-ybe-black text-white border-2 border-white font-heading text-2xl px-8 py-4 rounded-sm uppercase tracking-wide font-bold">
         ${icon('message-square', 24)} Enviar mensaje</a>
     </div>
-    <div class="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-6 text-sm text-gray-300">
+    <div class="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-6 text-sm text-white">
       <span class="flex items-center gap-2">${icon('clock', 16, 'text-ybe-red')} De 8:30 AM a 6:00 PM, los siete días</span>
       <span class="flex items-center gap-2">${icon('map-pin', 16, 'text-ybe-red')} ${esc(b.address.oneLine)}</span>
     </div>
@@ -97,7 +97,7 @@ ${section(
       .join('')}
     <a href="${ES.roadsideHub.url}" class="block bg-ybe-black text-white border-l-4 border-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
       <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-2">Asistencia en carretera</h3>
-      <p class="text-gray-300 text-sm leading-relaxed">${esc(ES.roadside.map((r) => r.title).join(', '))}.</p></a>
+      <p class="text-white text-sm leading-relaxed">${esc(ES.roadside.map((r) => r.title).join(', '))}.</p></a>
   </div>`,
   'bg-gray-50'
 )}
@@ -200,7 +200,7 @@ ${section(
       </div>
       <div class="bg-ybe-black text-white p-8 rounded-sm border-l-8 border-ybe-red mb-10">
         <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-4">Bueno saberlo</h2>
-        <div class="prose-ybe text-gray-300 text-lg">${paras(s.note)}</div>
+        <div class="prose-ybe text-white text-lg">${paras(s.note)}</div>
       </div>
       ${langNote()}
       ${englishLink(s.en)}
