@@ -1166,22 +1166,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Emergency roadside help: location buttons, and two forms, one sending a
+  // Emergency roadside help: two forms, one sending a
   // text to the shop phone (data-send="sms"), one an email to the owner
   // (data-send="email").
-  document.querySelectorAll('[data-locate]').forEach(function (btn) {
-    var input = document.getElementById(btn.getAttribute('data-locate'));
-    var msg = document.querySelector('[data-locate-status="' + btn.getAttribute('data-locate') + '"]');
-    btn.addEventListener('click', function () {
-      if (!navigator.geolocation) { msg.textContent = 'Your browser cannot share location. Type where you are instead.'; return; }
-      msg.textContent = 'Finding your location…';
-      navigator.geolocation.getCurrentPosition(function (pos) {
-        var link = 'https://maps.google.com/?q=' + pos.coords.latitude.toFixed(5) + ',' + pos.coords.longitude.toFixed(5);
-        input.value = (input.value ? input.value + ' ' : '') + link;
-        msg.textContent = 'Location added.';
-      }, function () { msg.textContent = 'Could not get your location. Type where you are instead.'; }, { enableHighAccuracy: true, timeout: 10000 });
-    });
-  });
   document.querySelectorAll('form.emergency-form').forEach(function (ef) {
     var est = ef.querySelector('[data-form-status]');
     ef.addEventListener('submit', function (e) {

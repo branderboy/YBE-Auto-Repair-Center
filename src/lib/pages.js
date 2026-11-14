@@ -1718,9 +1718,7 @@ function emergencyForm(p, send) {
       <div>${lab('name', 'Your Name', true)}<input type="text" id="${p}name" required autocomplete="name" class="${inputCls}"></div>
       <div>${lab('phone', 'Phone Number', true)}<input type="tel" id="${p}phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
       <div>${lab('location', 'Where Are You?', true)}
-        <input type="text" id="${p}location" required class="${inputCls}" placeholder="Street address, cross streets or a landmark">
-        <button type="button" data-locate="${p}location" class="mt-3 inline-flex items-center gap-2 bg-ybe-black text-white font-heading text-lg px-5 py-2.5 rounded-sm uppercase tracking-wide font-bold">${icon('locate', 20)} Use My Location</button>
-        <p data-locate-status="${p}location" class="text-sm text-gray-600 mt-2" aria-live="polite"></p></div>
+        <input type="text" id="${p}location" required class="${inputCls}" placeholder="Street address, cross streets or a landmark"></div>
       <div>${lab('problem', 'What Happened?', true)}<select id="${p}problem" required class="${inputCls}">
         ${['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
       <div>${lab('vehicle', 'Vehicle', false)}<input type="text" id="${p}vehicle" class="${inputCls}" placeholder="Year, make, model, color"></div>
