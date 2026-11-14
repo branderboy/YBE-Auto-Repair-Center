@@ -486,7 +486,7 @@ ${K.heroBlock({
   eyebrow: `${svc.calm ? 'Mobile Service' : 'Roadside Assistance'} · ${primaryArea.label}`,
   titleHtml: h1Html(kwH1(svc.url, svc.metaTitle)),
   sub: svc.customerVoice ? `“${svc.customerVoice}”` : '',
-  ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Roadside Help',
+  ctaLabel: svc.calm ? 'Call For An Offer' : 'Call For Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 
@@ -530,7 +530,7 @@ ${section(
 
     <aside class="lg:w-1/3 space-y-8">
       <div class="bg-ybe-red text-white p-8 rounded-sm lg:sticky lg:top-32">
-        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${svc.calm ? 'Call For An Offer' : 'Call For Roadside Help'}</h2>
+        <h2 class="font-heading text-2xl font-bold uppercase tracking-wide mb-3">${svc.calm ? 'Call For An Offer' : 'Call For Help'}</h2>
         <p class="mb-6 text-sm leading-relaxed text-white/90">${svc.calm ? 'Tell us the year, make, model and condition.' : 'Tell us where you are and what happened.'}</p>
         <a href="${b.phone.href}" data-track="call" data-location="roadside-sidebar"
            class="block w-full text-center bg-white text-ybe-red font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold mb-3">
@@ -825,7 +825,7 @@ ${K.heroBlock({
   eyebrow: `${esc(area.label)} · ${page.mobile ? 'We Come To You' : esc(area.relationship)}`,
   titleHtml: h1Html(kwH1(page.url, page.title)),
   sub: (SM.metaFor(page.url) || page).description || page.metaDescription,
-  ctaLabel: page.mobile ? 'Call For Roadside Help' : 'Call The Shop',
+  ctaLabel: page.mobile ? 'Call For Help' : 'Call The Shop',
   secondary: page.mobile
     ? { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
     : { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
@@ -1516,7 +1516,7 @@ function commercialCta(where) {
       <p class="text-white leading-relaxed">Fleets, dealers, auction buyers, rideshare and rental vehicles, and agencies: tell us about your vehicles and what they need.</p>
     </div>
     <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="${esc(where)}"
-       class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
+       class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center justify-center gap-2">
       ${icon('clipboard-list', 24)} Request Service</a>
   </div>
 </section>`;
@@ -1596,16 +1596,16 @@ ${K.heroBlock({
   ctaTrack: 'appointment',
   ctaIcon: 'calendar',
   ctaNewTab: true,
-  secondary: { label: 'Call Instead', href: b.phone.href, icon: 'phone', track: 'call' }
+  secondary: { label: 'Call Now', href: b.phone.href, icon: 'phone', track: 'call' }
 })}
 ${section(
   `<div class="max-w-4xl mx-auto text-center">
     <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="booking-page"
-       class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold">
-      ${icon('calendar', 28)} ${esc(b.booking.label)} ${icon('external-link', 22)}</a>
+       class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl sm:text-3xl px-8 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold">
+      ${icon('calendar', 28)} ${esc(b.booking.label)}</a>
     <p class="text-gray-600 mt-4">Opens our Square booking site in a new tab.</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
-      ${step(1, 'Open Square', 'Tap Book Appointment to open our Square booking site.')}
+      ${step(1, 'Open Square', 'Tap Book Online to open our Square booking site.')}
       ${step(2, 'Pick A Service And Time', 'Choose the service you need and a time that works for you.')}
       ${step(3, 'Bring The Car In', `Come to ${b.address.street}, ${b.address.city}. We are open seven days a week, 8:30 AM to 6:00 PM.`)}
     </div>
@@ -1630,7 +1630,7 @@ function roadsideRequestCta(where) {
       <p class="text-white/90 leading-relaxed">Stuck and cannot talk? Send your location and what happened by text or email.</p>
     </div>
     <a href="${ROADSIDE_FORM_URL}" data-track="roadside-form" data-location="${esc(where)}"
-       class="flex-shrink-0 bg-white text-ybe-red font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
+       class="flex-shrink-0 bg-white text-ybe-red font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center justify-center gap-2">
       ${icon('siren', 24)} Request Help</a>
   </div>
 </section>`;
@@ -1673,7 +1673,7 @@ ${K.heroBlock({
   eyebrow: `Roadside Assistance · ${esc(primaryArea.label)}`,
   titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Help')),
   sub: 'Dead battery, flat tire, locked out or out of gas? Call for the fastest help. If you cannot talk, send your location and what happened by text or email below.',
-  ctaLabel: 'Call For Roadside Help',
+  ctaLabel: 'Call For Help',
   secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
 })}
 ${section(

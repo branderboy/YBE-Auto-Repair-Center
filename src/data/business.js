@@ -117,7 +117,7 @@ const business = {
   },
 
   booking: {
-    label: 'Book Appointment',
+    label: 'Book Online',
     href: 'https://ybe-auto-repair-shop.square.site/'
   },
 

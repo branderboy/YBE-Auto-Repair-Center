@@ -141,10 +141,10 @@ function roadsideBand({ heading, sub } = {}) {
     </p>
     <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
       <a href="${b.phone.href}" data-track="call" data-location="roadside-band"
-         class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
+         class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
         ${icon('phone', 32)} Call For Help</a>
       <a href="${b.sms.href}" data-track="text" data-location="roadside-band"
-         class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-3xl px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
+         class="bg-white hover:bg-gray-100 text-ybe-black font-heading text-2xl sm:text-3xl px-6 sm:px-10 py-5 rounded-sm shadow-hard border-2 border-transparent transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-3">
         ${icon('message-square', 32)} Text Us</a>
     </div>
     <div class="bg-ybe-black/80 border border-gray-700 p-6 rounded-sm max-w-2xl mx-auto">
@@ -241,8 +241,8 @@ function reviewsBlock(cards, { heading, sub } = {}) {
         .join('')}
     </div>
     <a href="${b.rating.profileUrl}" target="_blank" rel="noopener noreferrer" data-track="reviews" data-location="reviews-block"
-       class="inline-flex items-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
-      ${icon('external-link', 20)} Read All Google Reviews</a>
+       class="inline-flex items-center justify-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white border-2 border-transparent font-heading text-xl font-bold uppercase tracking-wide px-8 py-4 transition-all rounded-sm shadow-hard">
+      ${icon('external-link', 20)} Read Google Reviews</a>
   </div>
 </section>`;
 }
@@ -354,11 +354,11 @@ function contactBlock({ heading, sub } = {}) {
           <div class="flex flex-col gap-4">
             <a href="${b.booking.href}" target="_blank" rel="noopener noreferrer" data-track="appointment" data-location="square-booking"
                class="w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-white transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              ${esc(b.booking.label)} ${icon('external-link', 20)}</a>
+              ${icon('calendar', 22)} ${esc(b.booking.label)}</a>
             <div class="text-gray-600 font-medium">OR</div>
             <a href="${b.phone.href}" data-track="call" data-location="contact-block"
                class="w-full bg-white hover:bg-gray-50 text-ybe-black font-heading text-2xl px-6 py-4 rounded-sm shadow-hard border-2 border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-              ${icon('phone', 22)} ${esc(b.phone.display)}</a>
+              ${icon('phone', 22)} Call Now</a>
           </div>
         </div>
       </div>
