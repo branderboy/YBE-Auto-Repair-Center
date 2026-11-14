@@ -118,6 +118,7 @@ const areas = [
     relationship: 'Just north of the shop.',
     intro: [
       'Landover sits north of us along the Landover Road corridor, close enough that we see customers from there regularly. Many of them found us after needing something a quick-service place could not handle, like a real diagnosis on a recurring warning light or a repair involving both mechanical and body damage.',
+      'Brake repair, battery service and tire service are what Landover drivers search for most, and the shop handles all three seven days a week.',
       'The seven-day schedule matters here. A lot of Landover customers work schedules that make a weekday appointment difficult, and being open Saturday and Sunday is often the only reason a repair happens at all.'
     ],
     localContext: [
@@ -127,15 +128,15 @@ const areas = [
     roads: ['Landover Road (MD-202)', 'Sheriff Road', 'Martin Luther King Jr. Highway (MD-704)', 'the Capital Beltway (I-495)'],
     landmarkNote:
       'From the Landover Road corridor, the shop is a short trip south toward Central Avenue.',
-    // Search Console, 2026-11-13: number 3 page, searched as general
-    // "mechanic" and "auto repair", so general repair leads the list.
+    // Search Console 2026-11-14 (Muse): brake repair Landover 11.3,
+    // battery service Landover 15.3, tire service Landover 20.8.
     priorityServices: [
-      'check-engine-light-diagnostics',
       'brake-pad-rotor-replacement',
+      'battery-alternator-starter',
+      'tire-repair-replacement',
+      'check-engine-light-diagnostics',
       'engine-repair',
-      'transmission-repair',
-      'cooling-system-overheating',
-      'collision-body-repair'
+      'cooling-system-overheating'
     ],
     roadsideNote:
       'We cover Landover for roadside calls including jump starts, flat-tire help, fuel delivery and lockouts.'
@@ -364,6 +365,7 @@ const areas = [
       'Upper Marlboro drivers use YBE for engine and transmission work, brakes, suspension and bodywork. Open seven days a week. Call (202) 455-3822.',
     relationship: 'Southeast of the shop, outside the Beltway.',
     intro: [
+      'Looking for a mechanic in Upper Marlboro? YBE is a full-service shop up Route 4 in Capitol Heights, open seven days a week, with walk-ins welcome.',
       'Upper Marlboro customers generally drive further and on more varied roads than our in-close neighbors, and the work tends to reflect that: suspension, tires, cooling systems and transmissions.',
       'As the county seat, it is also an area where people are often driving between appointments all day. Being open seven days makes it easier to fit a repair around that kind of schedule.'
     ],

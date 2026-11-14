@@ -52,7 +52,7 @@ const records = [
   svc(`${S}auto-ac-heating/ac-repair/`, 'Auto AC Repair', ['leaks found', 'compressors replaced', 'cold air back']),
   svc(`${S}auto-ac-heating/heating-system-repair/`, 'Car Heater Repair', ['heater cores checked', 'thermostats replaced', 'defrost fixed']),
   svc(`${S}auto-body-glass/collision-body-repair/`, 'Collision Repair', ['damage behind the panel checked', 'panels repaired', 'paint matched']),
-  svc(`${S}auto-body-glass/dent-scratch-paint/`, 'Dent and Scratch Repair', ['dents pulled', 'scratches refinished', 'paint blended to match']),
+  svc(`${S}auto-body-glass/dent-scratch-paint/`, 'Car Paint Scratch and Dent Repair', ['paint scratches repaired', 'dents pulled', 'paint blended to match']),
   svc(`${S}auto-body-glass/auto-glass/`, 'Auto Glass Repair', ['chips repaired', 'windshields replaced', 'windows fixed']),
   svc('/roadside-assistance/roadside-mobile-diagnostics/', 'Mobile Auto Diagnostics', ['codes scanned where you sit', 'a drive-it or not answer', 'fixes on site when possible']),
   svc('/roadside-assistance/roadside-mobile-repairs/', 'Mobile Minor Auto Repairs', ['batteries and cables fixed', 'fuses and belts replaced', 'repairs where you sit']),

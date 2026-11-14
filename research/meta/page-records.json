@@ -6,13 +6,13 @@
     "key_question": "How much does a mobile mechanic cost?",
     "primary_service": "Mechanic and Auto Repair",
     "service_area": "Capitol Heights, MD",
-    "problem": "a car that will not start",
+    "problem": "car trouble right now",
     "top_service_1": "Auto repair",
     "top_service_2": "brake repair",
     "top_service_3": "roadside help",
-    "trust_signal": "Serving the community since 2006",
+    "trust_signal": "Open 7 days, walk-ins welcome",
     "phone": "(202) 455-3822",
-    "_note": "primary_service changed from 'Auto Repair' 2026-11-13: 'mechanic near me' is the Google profile's top search (156 of 180)."
+    "_note": "primary_service changed from 'Auto Repair' 2026-11-13: 'mechanic near me' is the Google profile's top search (156 of 180). | Search Console analysis 2026-11-14 (Muse): 'mechanic near me' pos 6.7, 0 clicks; 'auto repair near me' pos 8.0."
   },
   {
     "page": "Auto Repair and Diagnostics - Capitol Heights",
@@ -241,12 +241,13 @@
     "trade_label": "Auto Repair Shop",
     "city": "Landover",
     "state": "MD",
-    "problem": "a car that will not start",
-    "top_service_1": "Auto repair",
-    "top_service_2": "brake repair",
-    "top_service_3": "roadside help",
+    "problem": "car trouble right now",
+    "top_service_1": "Brake repair",
+    "top_service_2": "battery service",
+    "top_service_3": "tire service",
     "trust_signal": "Serving the community since 2006",
-    "phone": "(202) 455-3822"
+    "phone": "(202) 455-3822",
+    "_note": "Search Console analysis 2026-11-14 (Muse): brake repair Landover 11.3, battery service Landover 15.3, tire service Landover 20.8."
   },
   {
     "page": "Auto Repair - Largo, MD",
@@ -358,15 +359,16 @@
     "slug": "/service-areas/upper-marlboro-md/",
     "page_type": "location",
     "key_question": "How much does auto repair cost in Upper Marlboro?",
-    "trade_label": "Auto Repair Shop",
+    "trade_label": "Mechanic",
     "city": "Upper Marlboro",
     "state": "MD",
-    "problem": "a car that will not start",
+    "problem": "car trouble right now",
     "top_service_1": "Auto repair",
     "top_service_2": "brake repair",
     "top_service_3": "roadside help",
     "trust_signal": "Serving the community since 2006",
-    "phone": "(202) 455-3822"
+    "phone": "(202) 455-3822",
+    "_note": "Search Console analysis 2026-11-14 (Muse): 'Upper Marlboro mechanic' 80 impr, page 835 impr pos 24.8, 0 clicks."
   },
   {
     "page": "Auto Repair - Washington, DC",

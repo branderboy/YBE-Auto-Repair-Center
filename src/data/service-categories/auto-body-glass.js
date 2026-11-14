@@ -71,7 +71,9 @@ module.exports = {
       customerVoice: 'Somebody put a dent in my door.',
       problem: [
         'Parking lot dents, shopping cart dings, a scrape down the side from a tight garage, or a scratch deep enough that you can feel it with a fingernail.',
-        'The depth is what determines the repair. A scratch in the clear coat is a very different job from one that has gone through the paint to the primer or the metal underneath.'
+        'The depth is what determines the repair. A scratch in the clear coat is a very different job from one that has gone through the paint to the primer or the metal underneath.',
+        // Search Console 2026-11-14 (Muse): "car paint scratch repair near me" is the site's top search.
+        'If you are looking for car paint scratch repair near Capitol Heights, bring the car by any day of the week and we will look at the damage and tell you what it needs.'
       ],
       whatWeDo: [
         'We assess how deep the damage goes and whether the panel can be worked back into shape or needs filling and refinishing. Not every dent needs paint, and not every scratch needs a full panel.',
