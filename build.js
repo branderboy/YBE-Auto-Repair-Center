@@ -371,6 +371,9 @@ function run() {
   // Used and auction car repair pages, one per dealer group and auction.
   emit('/used-car-repair/', R.renderCompanyHub(), { priority: '0.6' });
   require('./src/data/company-pages.js').companies.forEach((c) => emit(c.url, R.renderCompanyPage(c), { priority: '0.5' }));
+  // Fleet network and government profile pages.
+  emit('/fleet-and-government/', R.renderOrgHub(), { priority: '0.6' });
+  require('./src/data/org-pages.js').orgs.forEach((o) => emit(o.url, R.renderOrgPage(o), { priority: '0.5' }));
   emit('/404.html', R.render404());
 
   copyAssets();

@@ -30,6 +30,7 @@ const { articleBySlug, articles: allArticles } = require('../data/articles.js');
 require('../data/area-services.js'); // attaches area.servicePages
 const { faqPages } = require('../data/faq-pages.js');
 const CO = require('../data/company-pages.js');
+const ORG = require('../data/org-pages.js');
 const b = require('../data/business.js');
 const { reviewThemes, quotes, faqs, about, commonProblems } = require('../data/trust.js');
 
@@ -1715,6 +1716,57 @@ ${K.contactBlock({ heading: 'Bring It In' })}`;
   return layout({ title: CO.hub.metaTitle, description: CO.hub.metaDescription, path: CO.hub.url, crumbs, body });
 }
 
+/* ===================================================== FLEET & GOVERNMENT PROFILES */
+function renderOrgPage(o) {
+  const h1 = SM.h1For(o.url, o.label);
+  const crumbs = [HOME, { label: 'Fleet & Government', url: ORG.hub.url }, { label: o.name, url: o.url }];
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  // Profile, then how we can help. Nothing else.
+  const body = `
+<section class="bg-ybe-black text-white py-14 md:py-16 border-b-4 border-ybe-red">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="font-heading text-sm font-bold uppercase tracking-widest text-gray-300 mb-3">${o.kind === 'fleet' ? 'Fleet Network Profile' : 'Government Profile'}</p>
+    <h1 class="text-4xl md:text-5xl font-heading font-extrabold uppercase leading-tight tracking-wide">${h1Html(h1)}</h1>
+  </div>
+</section>
+<section class="py-14 md:py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    ${h2(esc(o.name))}
+    <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(o.profile)}</div>
+    ${h2('How We Can Help')}
+    <div class="prose-ybe text-lg text-gray-700 mb-6">${paras(o.assist)}</div>
+    <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm">${K.checkList(o.assistList)}</div>
+  </div>
+</section>`;
+
+  return layout({
+    title: o.label,
+    description: ORG.hub.description,
+    path: o.url,
+    crumbs,
+    schema: [serviceSchema({ name: h1, description: o.profile[0], url: o.url, areaNames })],
+    body
+  });
+}
+
+function renderOrgHub() {
+  const crumbs = [HOME, { label: 'Fleet & Government', url: ORG.hub.url }];
+  const card = (o) => `<a href="${o.url}" class="block bg-gray-50 border border-gray-200 border-l-4 border-l-ybe-red p-6 rounded-sm hover:shadow-lg transition-shadow">
+      <h3 class="font-heading text-xl font-bold uppercase tracking-wide text-ybe-black">${esc(o.name)}</h3></a>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Prince George’s County · Since ${b.openedYear}`,
+  titleHtml: h1Html(SM.h1For(ORG.hub.url, ORG.hub.title)),
+  sub: ORG.hub.description,
+  ctaLabel: 'Call The Shop',
+  secondary: { label: 'Directions', href: b.maps.directionsUrl, icon: 'navigation', track: 'directions' }
+})}
+${section(`${K.heading2('Fleet <span class="text-ybe-red">Networks</span>')}<div class="grid grid-cols-1 md:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'fleet').map(card).join('')}</div>`)}
+${section(`${K.heading2('Government <span class="text-ybe-red">Buyers</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'gov').map(card).join('')}</div>`, 'bg-gray-50')}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: ORG.hub.title, description: ORG.hub.description, path: ORG.hub.url, crumbs, body });
+}
+
 /* ===================================================== 404 */
 function render404() {
   const body = `
@@ -1761,6 +1813,8 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 module.exports = {
   renderAreaServicePage,
+  renderOrgPage,
+  renderOrgHub,
   renderCompanyPage,
   renderCompanyHub,
   renderFaqQuestionPage,
