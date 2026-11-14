@@ -430,7 +430,8 @@ categories.push(
   require('./service-categories/electrical.js'),
   require('./service-categories/tires-alignment-suspension.js'),
   require('./service-categories/auto-ac-heating.js'),
-  require('./service-categories/auto-body-glass.js')
+  require('./service-categories/auto-body-glass.js'),
+  require('./service-categories/commercial-rideshare.js')
 );
 
 /**

@@ -97,6 +97,16 @@ const records = [
   q('/car-care/what-to-do-after-a-flat-tire/', 'What should you do right after getting a flat tire?')
 ];
 
+// Commercial and rideshare (owner, 2026-11-14)
+records.push(
+  { url: '/services/commercial-rideshare/', page: 'Commercial and Rideshare', page_type: 'service_location',
+    key_question: 'Who repairs rideshare and commercial vehicles in Capitol Heights?',
+    service: 'Commercial and Rideshare Repair', service_lower: 'commercial or rideshare vehicle repair', city: 'Capitol Heights', state: 'MD',
+    fix_1: 'mechanical repairs', fix_2: 'condition checks', fix_3: 'vehicle prep' },
+  svc('/services/commercial-rideshare/rideshare-vehicle-repair/', 'Rideshare Car Repair', ['brakes and tires', 'diagnostics and repairs', 'high-mileage maintenance']),
+  svc('/services/commercial-rideshare/rental-car-share-vehicle-prep/', 'Rental and Car-Share Prep', ['checks between bookings', 'damage repaired', 'maintenance kept current']),
+  svc('/services/commercial-rideshare/commercial-fleet-maintenance/', 'Commercial Fleet Repair', ['scheduled maintenance', 'mechanical work', 'body repairs'])
+);
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 
