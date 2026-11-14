@@ -191,6 +191,7 @@ function footer() {
     { label: 'Car Care Tips', url: '/car-care/' },
     { label: 'Used & Auction Car Repairs', url: '/used-car-repair/' },
     { label: 'Fleet & Government', url: '/fleet-and-government/' },
+    { label: 'Commercial Service Request', url: '/commercial-service-request/' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },
@@ -423,6 +424,46 @@ document.addEventListener('DOMContentLoaded', function () {
       var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + body;
       status.innerHTML = status.innerHTML.replace('SMSHREF', smsHref).replace('TELHREF', '${b.phone.href}');
       status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      window.location.href = smsHref;
+    });
+  }
+
+  // Commercial service request form: same hand-off as the appointment form,
+  // the labelled fields sent to the shop's text line.
+  var cform = document.getElementById('commercial-form');
+  if (cform) {
+    var cstatus = document.getElementById('form-status');
+    cform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      cform.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
+        el.classList.toggle('border-ybe-red', empty);
+        el.classList.toggle('border-2', empty);
+        if (empty) {
+          var lab = cform.querySelector('label[for="' + el.id + '"]');
+          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
+        }
+      });
+      if (missing.length) {
+        cstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">Please fill in: <strong>' + missing.join(', ') + '</strong></p>';
+        var bad = cform.querySelector('.border-ybe-red');
+        if (bad) bad.focus();
+        return;
+      }
+      var lines = ['Commercial service request from the website'];
+      cform.querySelectorAll('input, select, textarea').forEach(function (el) {
+        if (!el.value.trim()) return;
+        var lab = cform.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      var smsHref = '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + encodeURIComponent(lines.join('\\n'));
+      cstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
+        '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
+        '<p class="text-gray-700 text-sm mb-3">Your messaging app should open with everything filled in. If it does not, call the shop.</p>' +
+        '<a href="' + smsHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Send Text</a> ' +
+        '<a href="${b.phone.href}" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Instead</a></div>';
+      cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       window.location.href = smsHref;
     });
   }

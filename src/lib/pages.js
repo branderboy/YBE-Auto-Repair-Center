@@ -299,6 +299,7 @@ ${section(
 ${K.roadsideBand()}
 ${K.checklistBlock()}
 ${K.mapAreasBlock()}
+${cat.slug === 'commercial-rideshare' ? commercialCta('commercial-hub') : ''}
 ${K.contactBlock({ heading: `Need ${esc(cat.navLabel)}?` })}`;
 
   return layout({
@@ -401,6 +402,7 @@ ${section(
 )}
 
 ${K.checklistBlock({ heading: `Why Drivers Choose <span class="text-ybe-red">YBE</span>` })}
+${cat.slug === 'commercial-rideshare' ? commercialCta('commercial-service') : ''}
 ${K.roadsideBand()}
 ${K.mapAreasBlock()}
 ${K.contactBlock({ heading: `Need ${esc(svc.navLabel || svc.title)}?` })}`;
@@ -1615,6 +1617,76 @@ ${K.contactBlock({ heading: 'Get It Priced' })}`;
   });
 }
 
+/* ===================================================== COMMERCIAL FORM */
+const COMMERCIAL_FORM_URL = '/commercial-service-request/';
+
+/** Link to the commercial service request form, used on every commercial page. */
+function commercialCta(where) {
+  return `<section class="py-12 bg-ybe-black text-white border-y-4 border-ybe-red">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+    <div>
+      <h2 class="font-heading text-3xl font-bold uppercase tracking-wide mb-2">Commercial Service Request</h2>
+      <p class="text-gray-300 leading-relaxed">Fleets, dealers, auction buyers, rideshare and rental vehicles, and agencies: tell us about your vehicles and what they need.</p>
+    </div>
+    <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="${esc(where)}"
+       class="flex-shrink-0 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-wide font-bold inline-flex items-center gap-2">
+      ${icon('clipboard-list', 24)} Request Service</a>
+  </div>
+</section>`;
+}
+
+function renderCommercialForm() {
+  const crumbs = [HOME, { label: 'Commercial Service Request', url: COMMERCIAL_FORM_URL }];
+  const field = (id, label, type = 'text', opts = {}) => `
+    <div class="${opts.full ? 'md:col-span-2' : ''}">
+      <label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">
+        ${esc(label)}${opts.required ? ' <span class="text-ybe-red">*</span>' : ''}</label>
+      ${
+        type === 'textarea'
+          ? `<textarea id="${id}" name="${id}" rows="4" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}"></textarea>`
+          : type === 'select'
+          ? `<select id="${id}" name="${id}" ${opts.required ? 'required' : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
+              ${opts.options.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`
+          : `<input type="${type}" id="${id}" name="${id}" ${opts.required ? 'required' : ''} ${opts.autocomplete ? `autocomplete="${opts.autocomplete}"` : ''} class="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="${esc(opts.placeholder || '')}">`
+      }
+    </div>`;
+  const body = `
+${K.heroBlock({
+  eyebrow: `Commercial · ${esc(primaryArea.label)} · Open 7 Days`,
+  titleHtml: h1Html(SM.h1For(COMMERCIAL_FORM_URL, 'Commercial Service Request')),
+  sub: 'Fleets, dealers, auction buyers, rideshare and rental vehicles, and public agencies: tell us about your vehicles and what they need, and we will get back to you.',
+  ctaLabel: 'Call Instead',
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+})}
+${section(
+  `<div class="max-w-4xl mx-auto">
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-sm mb-10">
+      <p class="text-gray-800 leading-relaxed"><strong class="font-heading uppercase tracking-wide">This is a request.</strong> Someone from YBE will contact you about your vehicles. For a vehicle that needs help today, call.</p>
+    </div>
+    <form id="commercial-form" class="bg-gray-50 border border-gray-200 rounded-sm p-8" novalidate>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        ${field('company', 'Company or Organization', 'text', { required: true, autocomplete: 'organization' })}
+        ${field('contact_name', 'Your Name', 'text', { required: true, autocomplete: 'name' })}
+        ${field('phone', 'Phone Number', 'tel', { required: true, autocomplete: 'tel', placeholder: '(202) 555-0123' })}
+        ${field('email', 'Email', 'email', { autocomplete: 'email' })}
+        ${field('business_type', 'Type of Business', 'select', { required: true, options: ['Select one…', 'Commercial fleet', 'Fleet management company', 'Rideshare driver', 'Rental or car-share host', 'Used-car dealer', 'Auction buyer or wholesaler', 'Government agency', 'Other'] })}
+        ${field('vehicle_count', 'Number of Vehicles', 'text', { placeholder: 'e.g. 1, 5, 20+' })}
+        ${field('vehicle_types', 'Vehicle Types', 'text', { full: true, placeholder: 'Cars, SUVs, vans, light trucks' })}
+        ${field('services', 'Services Needed', 'select', { full: true, required: true, options: ['Select one…', 'Scheduled maintenance', 'Mechanical repairs', 'Diagnostics', 'Body and collision repair', 'Reconditioning or vehicle prep', 'Roadside help', 'Several of these', 'Not sure, please advise'] })}
+        ${field('message', 'Tell Us More', 'textarea', { full: true, required: true, placeholder: 'How your vehicles are used, how often they need service, or the job you need done.' })}
+      </div>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <button type="submit" data-track="commercial-form" data-location="commercial-form" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 24)} Send Request</button>
+        <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="commercial-form" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+      </div>
+      <div id="form-status" role="status" aria-live="polite" class="mt-6"></div>
+    </form>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Talk To The Shop' })}`;
+  return layout({ title: 'Commercial Service Request', description: CO.hub.metaDescription, path: COMMERCIAL_FORM_URL, crumbs, body });
+}
+
 /* ===================================================== COMPANY PAGES */
 /** One dealer group or auction from src/data/company-pages.js. */
 function renderCompanyPage(c) {
@@ -1684,6 +1756,7 @@ ${section(
   </div>`
 )}
 
+${commercialCta('company-page')}
 ${K.contactBlock({ heading: 'Bring It In' })}`;
 
   return layout({
@@ -1712,6 +1785,7 @@ ${K.heroBlock({
 ${section(`${K.heading2('Bought From A <span class="text-ybe-red">Dealer</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.dealers.map(card).join('')}</div>`)}
 ${section(`${K.heading2('Bought At <span class="text-ybe-red">Auction</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${CO.auctions.map(card).join('')}</div>
   <p class="text-sm text-gray-600 mt-8">YBE Auto Repair Center is an independent repair shop and is not affiliated with any company listed here.</p>`, 'bg-gray-50')}
+${commercialCta('company-hub')}
 ${K.contactBlock({ heading: 'Bring It In' })}`;
   return layout({ title: CO.hub.metaTitle, description: CO.hub.metaDescription, path: CO.hub.url, crumbs, body });
 }
@@ -1735,7 +1809,8 @@ function renderOrgPage(o) {
     <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(o.profile)}</div>
     ${h2('How We Can Help')}
     <div class="prose-ybe text-lg text-gray-700 mb-6">${paras(o.assist)}</div>
-    <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm">${K.checkList(o.assistList)}</div>
+    <div class="bg-gray-50 border-l-4 border-ybe-red p-6 rounded-sm mb-8">${K.checkList(o.assistList)}</div>
+    <a href="${COMMERCIAL_FORM_URL}" data-track="commercial-form" data-location="org-page" class="inline-flex items-center gap-2 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-xl px-6 py-3 rounded-sm shadow-hard uppercase tracking-wide font-bold">${icon('clipboard-list', 20)} Commercial Service Request</a>
   </div>
 </section>`;
 
@@ -1763,6 +1838,7 @@ ${K.heroBlock({
 })}
 ${section(`${K.heading2('Fleet <span class="text-ybe-red">Networks</span>')}<div class="grid grid-cols-1 md:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'fleet').map(card).join('')}</div>`)}
 ${section(`${K.heading2('Government <span class="text-ybe-red">Buyers</span>')}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${ORG.orgs.filter((o) => o.kind === 'gov').map(card).join('')}</div>`, 'bg-gray-50')}
+${commercialCta('org-hub')}
 ${K.contactBlock({ heading: 'Talk To The Shop' })}`;
   return layout({ title: ORG.hub.title, description: ORG.hub.description, path: ORG.hub.url, crumbs, body });
 }
@@ -1813,6 +1889,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 
 module.exports = {
   renderAreaServicePage,
+  renderCommercialForm,
   renderOrgPage,
   renderOrgHub,
   renderCompanyPage,

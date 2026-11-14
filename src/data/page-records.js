@@ -127,6 +127,8 @@ require('./org-pages.js').orgs.forEach((o) => records.push({
   service_lower: `${o.short} vehicle repair`,
   key_question: `How can YBE help ${o.name} with vehicle repair?`
 }));
+// Commercial service request form (owner, 2026-11-14)
+records.push(svc('/commercial-service-request/', 'Commercial Service Request', ['fleets and dealers', 'rideshare and rental', 'agencies']));
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 
