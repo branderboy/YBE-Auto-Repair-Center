@@ -23,7 +23,7 @@ const path = require('path');
 const { layout } = require('./layout.js');
 const { icon } = require('./icons.js');
 const T = require('./templates.js');
-const { esc } = require('./blocks.js');
+const { esc, fixListSection } = require('./blocks.js');
 const { articles } = require('../data/articles.js');
 const { areas } = require('../data/areas.js');
 const { activeOffers } = require('../data/offers.js');
@@ -194,7 +194,7 @@ function renderHomeOriginal() {
      * is not coverage. They are appended here rather than edited into the
      * template markup, so the page above stays exactly as written.
      */
-    body: main + areasSection() + carCareSection()
+    body: main + fixListSection('/') + areasSection() + carCareSection()
   });
 }
 

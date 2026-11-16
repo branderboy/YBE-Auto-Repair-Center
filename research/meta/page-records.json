@@ -12,7 +12,8 @@
     "top_service_3": "roadside help",
     "trust_signal": "Open 7 days, walk-ins welcome",
     "phone": "(202) 455-3822",
-    "_note": "primary_service changed from 'Auto Repair' 2026-11-13: 'mechanic near me' is the Google profile's top search (156 of 180). | Search Console analysis 2026-11-14 (Muse): 'mechanic near me' pos 6.7, 0 clicks; 'auto repair near me' pos 8.0."
+    "_note": "primary_service changed from 'Auto Repair' 2026-11-13: 'mechanic near me' is the Google profile's top search (156 of 180). | Search Console analysis 2026-11-14 (Muse): 'mechanic near me' pos 6.7, 0 clicks; 'auto repair near me' pos 8.0. | Fix List 2026-11-16 (owner): title_override from the Search Console 7-to-20 cut.",
+    "title_override": "Auto Repair In Capitol Heights, MD: Repairs, Diagnostics, Brakes And More At YBE Auto Repair Center"
   },
   {
     "page": "Auto Repair and Diagnostics - Capitol Heights",
@@ -41,7 +42,9 @@
     "fix_2": "grinding and squeaking fixed",
     "fix_3": "brake fluid checked",
     "trust_signal": "Open seven days a week",
-    "phone": "(202) 455-3822"
+    "phone": "(202) 455-3822",
+    "title_override": "Brake Repair In Landover And Capitol Heights, MD",
+    "_note": "Fix List 2026-11-16 (owner): title_override from the Search Console 7-to-20 cut."
   },
   {
     "page": "Transmission Service - Capitol Heights",

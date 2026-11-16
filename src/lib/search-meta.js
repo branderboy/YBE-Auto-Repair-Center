@@ -85,6 +85,8 @@ for (const r of rows) {
     type: r[col('Page Type')],
     keyQuestion: r[col('Key Question')],
     title: r[col('Title')],
+    // Generated statement; differs from the title only where a record carries a Fix List title_override.
+    statement: col('H1 Statement') >= 0 ? r[col('H1 Statement')] : r[col('Title')],
     description: r[col('Description')],
     flags: r[col('Flags')]
   };
@@ -96,7 +98,7 @@ const metaFor = (url) => META[url] || null;
 function h1For(url, fallbackTitle) {
   const m = META[url];
   // The phone ends the title only; the H1 is the statement before it.
-  if (m) return m.type === 'faq' ? m.keyQuestion : m.title.replace(/ \| Call [\d-]+$/, '');
+  if (m) return m.type === 'faq' ? m.keyQuestion : (m.statement || m.title).replace(/ \| Call [\d-]+$/, '');
   return fallbackTitle.split(' | ')[0].trim();
 }
 
