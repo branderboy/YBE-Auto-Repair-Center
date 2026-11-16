@@ -136,6 +136,18 @@ records.push(svc('/book-appointment/', 'Book Appointment', ['book online with Sq
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 
+/*
+ * Fix List, 2026-11-16 (owner): titles set from the Search Console 7-to-20
+ * cut. They ship verbatim (see title_override in scripts/dynamic-meta.js).
+ * Home and the brake hub carry theirs in research/meta/page-records.json.
+ */
+const FIX_LIST_TITLES = {
+  [`${S}electrical/battery-alternator-starter/`]: 'Battery Service And Replacement In Capitol Heights And Landover, MD',
+  [`${S}auto-repair-diagnostics/oil-change/`]: 'Oil Change In Capitol Heights And Landover, MD',
+  [`${S}auto-repair-diagnostics/engine-repair/`]: 'Engine Repair And Diagnostics In Capitol Heights, MD'
+};
+records.forEach((r) => { if (FIX_LIST_TITLES[r.url]) r.title_override = FIX_LIST_TITLES[r.url]; });
+
 records.forEach((r) => { r.slug = r.url; r.phone = PHONE; });
 
 module.exports = { records, TRUSTS };

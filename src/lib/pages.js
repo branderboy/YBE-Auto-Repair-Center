@@ -268,7 +268,7 @@ ${section(
     <div class="lg:w-2/3">
       <div class="prose-ybe text-lg text-gray-700 mb-10">${paras(cat.intro)}</div>
       <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-6">What This Covers</h2>
-      ${K.checkList(cat.covers)}
+      ${K.checkList(cat.covers)}${K.fixListSection(cat.url, { inline: true }) ? `\n      <div class="mt-12">${K.fixListSection(cat.url, { inline: true })}</div>` : ''}
     </div>
     <div class="lg:w-1/3 space-y-8">
       ${areasServed()}
@@ -349,7 +349,7 @@ ${section(
 
       <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${esc(svc.title)} at YBE</h2>
       <div class="prose-ybe text-lg text-gray-700 mb-12">${paras(svc.whatWeDo)}</div>
-${searchFocus(svc)}
+${searchFocus(svc)}${K.fixListSection(svc.url, { inline: true })}
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <div class="bg-gray-50 p-8 rounded-sm border border-gray-200 border-l-4 border-l-ybe-red">
           <h2 class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-5">Common Warning Signs</h2>

@@ -35,9 +35,9 @@ function run() {
     out.push({ r, ...best });
   }
   const cell = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
-  const rows = [['Page', 'Slug', 'Page Type', 'Key Question', 'Title', 'Title Chars', 'Description', 'Description Chars', 'Flags']];
+  const rows = [['Page', 'Slug', 'Page Type', 'Key Question', 'Title', 'Title Chars', 'Description', 'Description Chars', 'Flags', 'H1 Statement']];
   for (const o of out)
-    rows.push([o.r.page, o.r.slug, o.r.page_type, o.r.key_question, o.title, o.title ? o.title.length : '', o.description, o.description ? o.description.length : '', o.flags.join('; ')]);
+    rows.push([o.r.page, o.r.slug, o.r.page_type, o.r.key_question, o.title, o.title ? o.title.length : '', o.description, o.description ? o.description.length : '', o.flags.join('; '), o.statement]);
   fs.writeFileSync(OUT, rows.map((row) => row.map(cell).join(',')).join('\n') + '\n');
   return { count: out.length, flagged: out.filter((o) => o.flags.length) };
 }

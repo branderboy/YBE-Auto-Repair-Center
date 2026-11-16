@@ -68,7 +68,14 @@ function withPhone(statement, r) {
   return `${base}${tail}`;
 }
 
+/*
+ * Fix List, 2026-11-16 (owner): a record may carry `title_override`, the exact
+ * title the owner set from the Search Console 7-to-20 cut. It ships verbatim,
+ * no phone tail, and the 60-character cap does not apply to it. The H1 keeps
+ * the generated statement (returned as `statement`).
+ */
 function buildTitle(r) {
+  if (r.title_override) return r.title_override;
   const t = statementTitle(r);
   if (t && ['service', 'service_location', 'location'].includes(r.page_type)) return withPhone(t, r);
   return t;
@@ -157,10 +164,11 @@ function generateMeta(r) {
     return { title: null, description: null, flags: ["NO KEY QUESTION: no meta ships"] };
   }
   const title = buildTitle(r);
+  const statement = r.title_override ? (() => { const { title_override, ...rest } = r; return buildTitle(rest); })() : title;
   const description = buildDescription(r);
   if (title === null) flags.push(`UNKNOWN PAGE TYPE: ${r.page_type}`);
   if (title) {
-    if (title.length > 60) flags.push(`TITLE OVER 60 (${title.length})`);
+    if (title.length > 60 && !r.title_override) flags.push(`TITLE OVER 60 (${title.length})`);
     if ((r.page_type === "faq" || r.page_type === "blog") && title.length < TITLE_MIN)
       flags.push(`QUESTION TITLE UNDER 50 (${title.length})`);
   }
@@ -169,7 +177,7 @@ function generateMeta(r) {
     if (description.length < DESC_MIN) flags.push(`DESCRIPTION UNDER 150 (${description.length})`);
     if (!description.includes(r.phone)) flags.push("PHONE MISSING FROM DESCRIPTION");
   }
-  return { title, description, flags };
+  return { title, statement, description, flags };
 }
 
 function csvCell(v) {

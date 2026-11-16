@@ -399,8 +399,39 @@ function checkList(items) {
   </ul>`;
 }
 
+/* ------------------------------------------------------------- FIX LIST */
+/**
+ * Fix List H2 (owner, 2026-11-16): the H2 a page was missing, with its copy,
+ * from src/data/fix-list.js. Empty string on any page without an entry.
+ * `inline` renders inside an existing column; otherwise a full section.
+ */
+function fixListSection(url, { inline = false } = {}) {
+  const f = require('../data/fix-list.js').fixList[url];
+  if (!f) return '';
+  const { activeOffers } = require('../data/offers.js');
+  const offer = f.offer && activeOffers.find((o) => o.slug === f.offer);
+  const p = (arr = []) => arr.map((t) => `<p>${esc(t)}</p>`).join('');
+  const inner = `
+      <h2 class="text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${esc(f.h2)}</h2>
+      <div class="prose-ybe text-lg text-gray-700 mb-6">${p(f.paras)}</div>
+      ${f.list ? `<div class="mb-6">${checkList(f.list)}</div>` : ''}
+      ${f.links ? `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">${f.links
+        .map((l) => `<li><a href="${l.url}" class="flex items-center gap-2 border-2 border-gray-200 hover:border-ybe-red bg-white px-4 py-3 rounded-sm font-heading uppercase tracking-wide font-bold text-ybe-black">${icon('chevron-right', 18, 'text-ybe-red flex-shrink-0')} <span>${esc(l.label)}</span></a></li>`)
+        .join('')}</ul>` : ''}
+      ${f.after ? `<div class="prose-ybe text-lg text-gray-700 mb-6">${p(f.after)}</div>` : ''}
+      ${offer ? `<p class="bg-ybe-redtint border-l-4 border-ybe-red px-5 py-4 mb-6 text-gray-800"><strong class="font-heading uppercase tracking-wide text-ybe-black">${esc(offer.headline)}</strong> ${esc(offer.highlight)}. ${esc(offer.fineprint)} <a href="${b.phone.href}" data-track="call" data-location="fix-list-offer" class="text-ybe-red font-semibold hover:text-ybe-darkred">Call ${esc(b.phone.display)}</a></p>` : ''}
+      ${f.more ? `<p class="mb-12"><a href="${f.more.url}" class="inline-flex items-center gap-2 font-heading text-lg font-bold text-ybe-red uppercase tracking-wide hover:text-ybe-darkred">${icon('arrow-right', 18)} ${esc(f.more.label)}</a></p>` : '<div class="mb-12"></div>'}
+`;
+  if (inline) return inner;
+  return `
+<section class="py-20 bg-white border-t border-gray-200">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">${inner}</div>
+</section>`;
+}
+
 module.exports = {
   esc,
+  fixListSection,
   heroBlock,
   numberedCards,
   problemTiles,
