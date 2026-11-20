@@ -468,7 +468,6 @@ function repairAssessmentForm() {
       </div>
       <div class="mt-6 flex flex-col items-center gap-3 text-center">
         <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-10 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon('send', 22)} Send Assessment</button>
-        <p class="text-lg text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
       </div>
       <div id="repair-status" role="status" aria-live="polite" class="mt-4 empty:mt-0"></div>
     </form>`;
