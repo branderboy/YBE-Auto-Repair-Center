@@ -153,6 +153,13 @@ function renderHomeOriginal() {
   if (activeOffers.length) {
     main = main.replace('</section>', '</section>' + offersSection(), 1);
   }
+  // "What's Going On With Your Car?" is white (owner, 2026-11-20); the
+  // offers band above it carries the light grey.
+  {
+    const from = '<section class="py-16 bg-gray-100 border-b-4 border-ybe-red">';
+    if (main.split(from).length !== 2) throw new Error('homepage: problem-picker section not found');
+    main = main.replace(from, '<section class="py-16 bg-white border-b-4 border-ybe-red">');
+  }
   // Repair Assessment form, directly above Our New Offers (owner, 2026-11-20).
   main = main.replace('</section>', '</section>' + repairAssessmentSection(), 1);
 
