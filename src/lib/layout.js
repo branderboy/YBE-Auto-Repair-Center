@@ -838,6 +838,8 @@ function layout({
     webPageSchema({ title, description, path, lang }),
     ...schema
   ];
+  // The visible breadcrumb bar was removed from every page (owner, 2026-11-20).
+  // The trail is still given to search engines as structured data.
   if (crumbs.length > 1) graph.push(breadcrumbSchema(crumbs));
 
   const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
@@ -905,7 +907,6 @@ ${jsonLd}
 <a href="#main" class="skip-link">${lang === 'es' ? 'Saltar al contenido' : 'Skip to main content'}</a>
 ${lang === 'es' ? ES.header(path) : headerNav(path)}
 <main id="main" class="${fullBleed ? '' : 'pt-[104px] sm:pt-[120px]'}">
-${T.breadcrumbs(crumbs)}
 ${body}
 </main>
 ${lang === 'es' ? ES.footer() : footer()}
