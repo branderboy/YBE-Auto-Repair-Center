@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=a17b0c7d">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=d3c41b33">
 
 <script type="application/ld+json">
 {
@@ -1284,7 +1284,7 @@
         </div>
         <div>
           <h2 class="font-heading text-xl font-bold uppercase text-white mb-5 border-b border-gray-800 pb-2">Explore</h2>
-          <ul class="space-y-2 text-sm font-medium mb-5"><li><a href="/YBE-Auto-Repair-Center/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Home</a></li><li><a href="/YBE-Auto-Repair-Center/services/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">All Services</a></li><li><a href="/YBE-Auto-Repair-Center/service-areas/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Service Areas</a></li><li><a href="/YBE-Auto-Repair-Center/car-care/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Car Care Tips</a></li><li><a href="/YBE-Auto-Repair-Center/used-car-repair/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Used &amp; Auction Car Repairs</a></li><li><a href="/YBE-Auto-Repair-Center/fleet-and-government/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Fleet &amp; Government</a></li><li><a href="/YBE-Auto-Repair-Center/commercial-service-request/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Commercial Service Request</a></li><li><a href="/YBE-Auto-Repair-Center/emergency-roadside-help/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Emergency Roadside Help</a></li><li><a href="/YBE-Auto-Repair-Center/book-appointment/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Book Appointment</a></li><li><a href="/YBE-Auto-Repair-Center/about/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">About YBE</a></li><li><a href="/YBE-Auto-Repair-Center/reviews/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Reviews</a></li><li><a href="/YBE-Auto-Repair-Center/faq/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">FAQ</a></li><li><a href="/YBE-Auto-Repair-Center/contact/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Contact &amp; Directions</a></li></ul>
+          <ul class="space-y-2 text-sm font-medium mb-5"><li><a href="/YBE-Auto-Repair-Center/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Home</a></li><li><a href="/YBE-Auto-Repair-Center/services/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">All Services</a></li><li><a href="/YBE-Auto-Repair-Center/service-areas/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Service Areas</a></li><li><a href="/YBE-Auto-Repair-Center/car-care/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Car Care Tips</a></li><li><a href="/YBE-Auto-Repair-Center/used-car-repair/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Used &amp; Auction Car Repairs</a></li><li><a href="/YBE-Auto-Repair-Center/fleet-and-government/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Fleet &amp; Government</a></li><li><a href="/YBE-Auto-Repair-Center/commercial-service-request/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Commercial Service Request</a></li><li><a href="/YBE-Auto-Repair-Center/emergency-roadside-help/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Emergency Roadside Help</a></li><li><a href="/YBE-Auto-Repair-Center/book-appointment/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Book Appointment</a></li><li><a href="/YBE-Auto-Repair-Center/repair-assessment/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Repair Assessment</a></li><li><a href="/YBE-Auto-Repair-Center/about/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">About YBE</a></li><li><a href="/YBE-Auto-Repair-Center/reviews/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Reviews</a></li><li><a href="/YBE-Auto-Repair-Center/faq/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">FAQ</a></li><li><a href="/YBE-Auto-Repair-Center/contact/" class="inline-block py-2.5 hover:text-ybe-red transition-colors">Contact &amp; Directions</a></li></ul>
           <a href="/YBE-Auto-Repair-Center/#call-back" data-track="callback-link" data-location="footer"
              class="block w-full text-center bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-lg px-4 py-2.5 rounded-sm transition-all uppercase tracking-wide font-bold">
             Call Me Back</a>
@@ -1567,16 +1567,25 @@ document.addEventListener('DOMContentLoaded', function () {
   // (offline, GitHub Pages copy, server error), onFail runs the old text or
   // email hand-off so no lead is lost.
   var pageLoadedAt = Date.now();
-  function postLead(form, key, lines, onOk, onFail) {
+  function postLead(form, key, lines, onOk, onFail, files) {
     var trap = form.querySelector('input[name="website"]');
     var ctl = window.AbortController ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+    var hasFiles = !!(files && files.length && window.FormData);
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, hasFiles ? 60000 : 8000);
     var btn = form.querySelector('button[type="submit"]');
     if (btn) btn.disabled = true;
+    var payload = JSON.stringify({ form: key, lines: lines, page: location.pathname, elapsed: Date.now() - pageLoadedAt, website: trap ? trap.value : '' });
+    var body = payload;
+    // Photos travel as a multipart upload; everything else stays JSON.
+    if (hasFiles) {
+      body = new FormData();
+      body.append('payload', payload);
+      files.forEach(function (f, i) { body.append('photos[]', f, f.name || ('photo-' + (i + 1) + '.jpg')); });
+    }
     fetch('/api/lead.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ form: key, lines: lines, page: location.pathname, elapsed: Date.now() - pageLoadedAt, website: trap ? trap.value : '' }),
+      headers: hasFiles ? {} : { 'Content-Type': 'application/json' },
+      body: body,
       signal: ctl ? ctl.signal : undefined
     })
       .then(function (r) { return r.ok ? r.json() : { ok: false }; })
@@ -1636,6 +1645,117 @@ document.addEventListener('DOMContentLoaded', function () {
           '<a href="tel:+12024553822" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold">Call Now</a></div>';
         cstatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         window.location.href = mailHref;
+      });
+    });
+  }
+
+  // Repair assessment: what the visitor needs done, with up to two photos.
+  // Saved to the lead list and emailed to the owner. No price is shown.
+  var pform = document.getElementById('repair-form');
+  if (pform) {
+    var pstatus = document.getElementById('repair-status');
+    var pphotos = document.getElementById('repair_photos');
+    var pnote = document.getElementById('repair-photo-note');
+    var MAX_PHOTOS = 2;
+    var chosen = function () { return Array.prototype.slice.call((pphotos && pphotos.files) || []); };
+    var photoProblem = function () {
+      var f = chosen();
+      if (f.length > MAX_PHOTOS) return 'Please choose no more than 2 photos.';
+      for (var i = 0; i < f.length; i++) {
+        if (f[i].type && f[i].type.indexOf('image/') !== 0) return 'Photos only, please (JPG, PNG or HEIC).';
+        if (f[i].size > 20 * 1024 * 1024) return 'That photo is too large. Please choose one under 20 MB.';
+      }
+      return '';
+    };
+    if (pphotos) pphotos.addEventListener('change', function () {
+      var bad = photoProblem();
+      if (bad) { pphotos.value = ''; pnote.textContent = bad; pnote.classList.add('text-ybe-red', 'font-semibold'); return; }
+      pnote.classList.remove('text-ybe-red', 'font-semibold');
+      var f = chosen();
+      pnote.textContent = f.length ? f.length + (f.length === 1 ? ' photo' : ' photos') + ' added: ' + f.map(function (x) { return x.name; }).join(', ') : 'Optional. Up to 2 photos.';
+    });
+    // Phone photos run 3 to 12 MB. Scale them down in the browser so the
+    // upload is quick and fits the server limit. Anything the browser cannot
+    // decode is sent as it is.
+    var shrink = function (file, n) {
+      return new Promise(function (resolve) {
+        if (!window.URL || !URL.createObjectURL || !HTMLCanvasElement.prototype.toBlob) { resolve(file); return; }
+        var img = new Image();
+        var url = URL.createObjectURL(file);
+        img.onload = function () {
+          URL.revokeObjectURL(url);
+          try {
+            var s = Math.min(1, 1600 / Math.max(img.width, img.height));
+            var c = document.createElement('canvas');
+            c.width = Math.max(1, Math.round(img.width * s));
+            c.height = Math.max(1, Math.round(img.height * s));
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            c.toBlob(function (blob) {
+              if (!blob || blob.size >= file.size) { resolve(file); return; }
+              blob.name = 'photo-' + n + '.jpg';
+              resolve(blob);
+            }, 'image/jpeg', 0.82);
+          } catch (err) { resolve(file); }
+        };
+        img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+        img.src = url;
+      });
+    };
+    var nextSteps = function (heading, msg, extra) {
+      pstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-5 md:p-6 rounded-sm">' +
+        '<p class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">' + heading + '</p>' +
+        '<p class="text-gray-700 mb-4">' + msg + '</p>' +
+        '<p class="text-gray-800 text-lg font-semibold mb-1">We offer financing.</p>' +
+        '<p class="text-gray-700 mb-4">Give us a call now at <a href="tel:+12024553822" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>, or come visit us at <strong>8632 Edgeworth Dr, Capitol Heights, MD 20743</strong>. Open 7 days · 8:30 AM–6:00 PM.</p>' +
+        (extra || '') +
+        '<a href="tel:+12024553822" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold mb-2">Call (202) 455-3822</a> ' +
+        '<a href="https://maps.google.com/?q=8632+Edgeworth+Dr,+Capitol+Heights,+MD+20743" target="_blank" rel="noopener noreferrer" class="inline-block bg-ybe-black text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold mb-2">Get Directions</a></div>';
+      pstatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    pform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = [];
+      pform.querySelectorAll('[required]').forEach(function (el) {
+        var empty = !el.value.trim() || el.value.indexOf('Select one') === 0;
+        el.classList.toggle('border-ybe-red', empty);
+        el.classList.toggle('border-2', empty);
+        if (empty) {
+          var lab = pform.querySelector('label[for="' + el.id + '"]');
+          missing.push(lab ? lab.textContent.replace('*', '').trim() : el.id);
+        }
+      });
+      var bad = photoProblem();
+      if (missing.length || bad) {
+        pstatus.innerHTML = '<p class="bg-red-50 border-l-4 border-ybe-red text-gray-800 p-4 rounded-sm">' +
+          (missing.length ? 'Please fill in: <strong>' + missing.join(', ') + '</strong>' : bad) + '</p>';
+        var first = pform.querySelector('.border-ybe-red');
+        if (first) first.focus();
+        return;
+      }
+      var lines = ['Repair assessment from the website'];
+      pform.querySelectorAll('input:not([name="website"]):not([type="file"]), select, textarea').forEach(function (el) {
+        if (!el.value.trim() || el.value.indexOf('Select one') === 0) return;
+        var lab = pform.querySelector('label[for="' + el.id + '"]');
+        lines.push((lab ? lab.textContent.replace('*', '').trim() : el.id) + ': ' + el.value.trim());
+      });
+      var picked = chosen();
+      var pbtn = pform.querySelector('button[type="submit"]');
+      if (pbtn) pbtn.disabled = true;
+      pstatus.innerHTML = '<p class="bg-gray-100 border-l-4 border-gray-400 text-gray-800 p-4 rounded-sm">Sending' + (picked.length ? ' your photos' : '') + '…</p>';
+      Promise.all(picked.map(function (f, i) { return shrink(f, i + 1); })).then(function (files) {
+        postLead(pform, 'repair', lines, function () {
+          pform.reset();
+          if (pnote) pnote.textContent = 'Optional. Up to 2 photos.';
+          nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. We will look them over and contact you.');
+        }, function () {
+          // No server answer: hand the details to the visitor's email app.
+          var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Repair assessment') +
+            '&body=' + encodeURIComponent(lines.join('\n'));
+          nextSteps('Your repair assessment is ready to send.', 'Your email app should open with everything filled in, addressed to mechaniconwheelz@gmail.com. ' +
+            (files.length ? 'Attach your photos to that email, then press send.' : 'Press send.'),
+            '<a href="' + mailHref + '" class="inline-block bg-ybe-red text-white font-heading text-lg px-5 py-2 rounded-sm uppercase tracking-wide font-bold mb-2">Send Email</a> ');
+          window.location.href = mailHref;
+        }, files);
       });
     });
   }

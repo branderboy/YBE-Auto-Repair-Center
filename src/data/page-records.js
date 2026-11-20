@@ -133,6 +133,8 @@ records.push(svc('/commercial-service-request/', 'Commercial Service Request', [
 records.push(svc('/emergency-roadside-help/', 'Emergency Roadside Help', ['jump starts and flat tires', 'lockouts and fuel', 'request by text or email']));
 // Square booking page (owner, 2026-11-14)
 records.push(svc('/book-appointment/', 'Book Appointment', ['book online with Square', 'pick a service and time', 'open 7 days']));
+// Repair assessment form (owner, 2026-11-20)
+records.push(svc('/repair-assessment/', 'Repair Assessment', ['tell us what you need done', 'add up to 2 photos', 'financing available']));
 // Question posts, batch 1: the key question is the page's title and H1.
 require('./question-posts.js').posts.forEach((p) => records.push(q(`/car-care/${p.slug}/`, p.keyQuestion)));
 
