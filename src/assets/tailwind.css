@@ -48,6 +48,28 @@
     transform: scale(1.08);
   }
 
+  /* Interior page hero (owner, 2026-11-20): the shop photo behind the copy.
+     Dark on the left where the headline sits, easing off to the right so the
+     shop shows through. On phones the copy covers the whole width, so the
+     whole photo is darkened evenly. */
+  .hero-interior {
+    background-color: #0d0d0e;
+    background-image:
+      linear-gradient(90deg, rgba(13,13,14,0.96) 0%, rgba(13,13,14,0.90) 38%, rgba(13,13,14,0.55) 68%, rgba(13,13,14,0.30) 100%),
+      url('/assets/img/hero-shop.jpg');
+    background-size: cover;
+    background-position: center, 70% 28%;
+    background-repeat: no-repeat;
+  }
+  @media (max-width: 767px) {
+    .hero-interior {
+      background-image:
+        linear-gradient(rgba(13,13,14,0.86), rgba(13,13,14,0.86)),
+        url('/assets/img/hero-shop.jpg');
+      background-position: center, 78% 30%;
+    }
+  }
+
   /* Hero backdrop: dark on the left behind the copy, easing toward the photo
      on the right, with a soft brand glow behind the subject. */
   .hero-blend {
