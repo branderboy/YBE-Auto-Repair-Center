@@ -58,6 +58,75 @@ function clean(string $s, int $max): string
 }
 
 /** Where leads are kept: outside the web root when the host allows it. */
+/**
+ * Mailbox login for sending, if the deploy supplied one (api/mail-config.php,
+ * written at build time from a GitHub secret, never committed). Without it
+ * the server's built-in mail() is used.
+ */
+function mail_config(): ?array
+{
+    $file = __DIR__ . '/mail-config.php';
+    if (!is_file($file)) {
+        return null;
+    }
+    if (!defined('YBE_LEAD')) {
+        define('YBE_LEAD', true);
+    }
+    $cfg = include $file;
+    return (is_array($cfg) && !empty($cfg['host']) && !empty($cfg['user']) && !empty($cfg['pass'])) ? $cfg : null;
+}
+
+/**
+ * Send one message through the mailbox's own mail server with a login
+ * (SMTP). Mail sent this way is signed for the domain, which is what keeps it
+ * out of spam folders. Returns false on any problem so the caller can fall
+ * back to mail().
+ */
+function smtp_send(array $cfg, string $from, array $rcpts, string $headers, string $body): bool
+{
+    $fp = @stream_socket_client($cfg['host'], $errno, $errstr, 15);
+    if (!$fp) {
+        return false;
+    }
+    stream_set_timeout($fp, 25);
+    $read = function () use ($fp): string {
+        $data = '';
+        while (($line = fgets($fp, 1024)) !== false) {
+            $data .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') {
+                break;
+            }
+        }
+        return $data;
+    };
+    $say = function (string $cmd, string $expect) use ($fp, $read): bool {
+        fwrite($fp, $cmd . "\r\n");
+        return strncmp($read(), $expect, strlen($expect)) === 0;
+    };
+    $helo = preg_replace('/[^a-z0-9.-]/i', '', DOMAIN) ?: 'localhost';
+    $ok = strncmp($read(), '220', 3) === 0
+        && $say('EHLO ' . $helo, '250')
+        && $say('AUTH LOGIN', '334')
+        && $say(base64_encode($cfg['user']), '334')
+        && $say(base64_encode($cfg['pass']), '235')
+        && $say('MAIL FROM:<' . $from . '>', '250');
+    foreach ($rcpts as $r) {
+        $ok = $ok && $say('RCPT TO:<' . $r . '>', '25');
+    }
+    if ($ok && $say('DATA', '354')) {
+        // CRLF line endings, and a leading dot doubled, as SMTP requires.
+        $data = preg_replace('/\r\n|\r|\n/', "\r\n", $headers . "\r\n\r\n" . $body);
+        $data = preg_replace('/^\./m', '..', $data);
+        fwrite($fp, rtrim($data, "\r\n") . "\r\n");
+        $ok = $say('.', '250');
+    } else {
+        $ok = false;
+    }
+    @fwrite($fp, "QUIT\r\n");
+    @fclose($fp);
+    return $ok;
+}
+
 function storage_dir(): ?string
 {
     $candidates = [];
@@ -342,17 +411,41 @@ $headersFor = function (bool $named, string $type) use ($from, $replyTo): string
     }
     return implode("\r\n", $h);
 };
-// Try the full email first; if the server refuses it, fall back step by step
-// to the plain text with the server's own sender, so the lead still arrives.
-$emailed = @mail($recipients, $encodedSubject, $message, $headersFor(true, $contentType));
+// First choice: send through the leads mailbox with its login, when the
+// deploy supplied one. That mail is signed for the domain.
+$emailed = false;
+$via = 'none';
+$smtp = mail_config();
+if ($smtp !== null) {
+    $rcpts = array_map('trim', explode(',', $recipients));
+    $smtpHeaders = implode("\r\n", [
+        'Date: ' . date('r'),
+        'From: ' . $from,
+        'To: ' . $recipients,
+        'Subject: ' . $encodedSubject,
+        'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . (preg_replace('/[^a-z0-9.-]/i', '', DOMAIN) ?: 'localhost') . '>',
+    ]) . "\r\n" . $headersFor(false, $contentType);
+    $emailed = smtp_send($smtp, FROM_EMAIL, $rcpts, $smtpHeaders, $message);
+    if ($emailed) {
+        $via = 'mailbox';
+    }
+}
+// Otherwise the server's own mail(): the full email first, then step by step
+// down to plain text with the server's sender, so the lead still arrives.
+if (!$emailed) {
+    $emailed = @mail($recipients, $encodedSubject, $message, $headersFor(true, $contentType));
+}
 if (!$emailed) {
     $emailed = @mail($recipients, $encodedSubject, $message, $headersFor(false, $contentType));
 }
 if (!$emailed) {
     $emailed = @mail($recipients, $encodedSubject, $text, $headersFor(false, 'text/plain; charset=UTF-8'));
 }
+if ($emailed && $via === 'none') {
+    $via = 'server';
+}
 
 if (!$stored && !$emailed) {
     reply(500, ['ok' => false, 'error' => 'delivery']);
 }
-reply(200, ['ok' => true, 'stored' => $stored, 'emailed' => $emailed]);
+reply(200, ['ok' => true, 'stored' => $stored, 'emailed' => $emailed, 'via' => $via]);
