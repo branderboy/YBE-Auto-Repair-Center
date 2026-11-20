@@ -66,6 +66,9 @@ ErrorDocument 404 /404.html
   # The old appointment page now points to the Square booking page.
   RewriteRule ^request-appointment/?$ /book-appointment/ [R=301,L]
 
+  # Repair Assessment moved from its own page onto the homepage.
+  RewriteRule ^repair-assessment/?$ /#repair-assessment [R=301,NE,L]
+
   # Pretty URLs: /services/ is served by /services/index.html already, but a
   # request without the trailing slash should not 404.
   RewriteCond %{REQUEST_FILENAME} !-f
