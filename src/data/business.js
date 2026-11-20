@@ -119,11 +119,6 @@ const business = {
     ga4Id: process.env.GA4_ID || ''
   },
 
-  booking: {
-    label: 'Book Now',
-    href: 'https://ybe-auto-repair-shop.square.site/'
-  },
-
   hours: {
     summary: '8:30 AM–6:00 PM, seven days a week',
     short: 'Open 7 days · 8:30 AM–6:00 PM',

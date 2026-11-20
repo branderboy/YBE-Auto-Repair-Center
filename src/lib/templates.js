@@ -8,7 +8,7 @@
  *
  * What changed is that it is now multi-page: real nav with dropdowns,
  * breadcrumbs, per-page metadata and schema, and SMS added alongside the
- * existing WhatsApp and Square booking integrations.
+ * existing WhatsApp integration.
  */
 
 const b = require('../data/business.js');
@@ -62,13 +62,12 @@ function localBusinessSchema() {
 
     /*
      * sameAs is entity reconciliation, so it lists every profile that is
-     * demonstrably this same business: the two social accounts, the Square
-     * booking site the profile gives as its website, and the Maps listing.
+     * demonstrably this same business: the two social accounts and the Maps
+     * listing. The Square booking site was removed (owner, 2026-11-20).
      */
     sameAs: [
       b.social.facebook,
       b.social.instagram,
-      b.booking.href,
       b.rating.profileUrl
     ],
     areaServed: [
