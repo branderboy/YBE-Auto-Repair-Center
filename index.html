@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=c8c9c72c">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=82ff719e">
 
 <script type="application/ld+json">
 {
@@ -962,34 +962,39 @@
                 <div class="w-full h-0.5 bg-ybe-red mt-2 rounded-full"></div>
             </div>
         </section>
-<section id="repair-assessment" class="py-16 bg-white border-b border-gray-200" aria-labelledby="repair-assessment-heading">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-10">
+<section id="repair-assessment" class="py-12 bg-white border-b border-gray-200" aria-labelledby="repair-assessment-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
       <h2 id="repair-assessment-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Repair <span class="text-ybe-red">Assessment</span>
         <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-ybe-red"></span>
       </h2>
-      <p class="mt-6 text-lg text-gray-600">Tell us what your vehicle needs and add up to 2 photos. It goes straight to the shop.</p>
+      <p class="mt-5 text-xl md:text-2xl text-gray-700">Tell us what your vehicle needs and add up to 2 photos. It goes straight to the shop.</p>
     </div>
-    <form id="repair-form" class="bg-white border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8" novalidate>
+    <form id="repair-form" class="bg-white border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-5 md:p-6" novalidate>
       <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div><label for="repair_name" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Your Name <span class="text-ybe-red">*</span></label><input type="text" id="repair_name" required autocomplete="name" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"></div>
-        <div><label for="repair_phone" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Phone Number <span class="text-ybe-red">*</span></label><input type="tel" id="repair_phone" required autocomplete="tel" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="(202) 555-0123"></div>
-        <div><label for="repair_email" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Email</label><input type="email" id="repair_email" autocomplete="email" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"></div>
-        <div><label for="repair_vehicle" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Vehicle</label><input type="text" id="repair_vehicle" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Year, make, model"></div>
-        <div class="md:col-span-2"><label for="repair_need" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">What Do You Need Done? <span class="text-ybe-red">*</span></label><select id="repair_need" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red">
-          <option value="Select one…">Select one…</option><option value="Repair or diagnostics">Repair or diagnostics</option><option value="Brakes">Brakes</option><option value="Transmission">Transmission</option><option value="Electrical, battery or starting">Electrical, battery or starting</option><option value="Tires, alignment or suspension">Tires, alignment or suspension</option><option value="AC or heating">AC or heating</option><option value="Body, paint or glass">Body, paint or glass</option><option value="Oil change or tune-up">Oil change or tune-up</option><option value="Something else">Something else</option><option value="Not sure, please advise">Not sure, please advise</option></select></div>
-        <div class="md:col-span-2"><label for="repair_details" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Describe The Job <span class="text-ybe-red">*</span></label><textarea id="repair_details" rows="5" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
-        <div class="md:col-span-2"><label for="repair_photos" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">Photos</label>
-          <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-gray-700 file:mr-4 file:py-2.5 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
-          <p id="repair-photo-note" class="text-sm text-gray-600 mt-2" aria-live="polite">Optional. Up to 2 photos.</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
+        <div><label for="repair_name" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Your Name <span class="text-ybe-red">*</span></label><input type="text" id="repair_name" required autocomplete="name" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"></div>
+        <div><label for="repair_phone" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Phone Number <span class="text-ybe-red">*</span></label><input type="tel" id="repair_phone" required autocomplete="tel" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="(202) 555-0123"></div>
+        <div><label for="repair_email" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Email</label><input type="email" id="repair_email" autocomplete="email" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"></div>
+        <div><label for="repair_emergency" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Is This An Emergency?</label><select id="repair_emergency" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"><option value="No">No</option><option value="Yes, this is an emergency">Yes, this is an emergency</option></select></div>
+        <p id="repair-emergency-note" class="hidden md:col-span-2 lg:col-span-4 bg-red-50 border-l-4 border-ybe-red text-gray-800 text-lg p-3 rounded-sm">For an emergency, call now for the fastest help: <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="repair-assessment-emergency" class="text-ybe-red font-bold hover:underline">(202) 455-3822</a>. You can still send this form.</p>
+        <div><label for="repair_year" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Vehicle Year</label><select id="repair_year" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"><option value="">Select year</option><option value="2027">2027</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option></select></div>
+        <div><label for="repair_make" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Vehicle Make</label><select id="repair_make" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"><option value="">Select make</option><option value="Acura">Acura</option><option value="Audi">Audi</option><option value="BMW">BMW</option><option value="Buick">Buick</option><option value="Cadillac">Cadillac</option><option value="Chevrolet">Chevrolet</option><option value="Chrysler">Chrysler</option><option value="Dodge">Dodge</option><option value="Fiat">Fiat</option><option value="Ford">Ford</option><option value="Genesis">Genesis</option><option value="GMC">GMC</option><option value="Honda">Honda</option><option value="Hyundai">Hyundai</option><option value="Infiniti">Infiniti</option><option value="Jaguar">Jaguar</option><option value="Jeep">Jeep</option><option value="Kia">Kia</option><option value="Land Rover">Land Rover</option><option value="Lexus">Lexus</option><option value="Lincoln">Lincoln</option><option value="Mazda">Mazda</option><option value="Mercedes-Benz">Mercedes-Benz</option><option value="Mercury">Mercury</option><option value="Mini">Mini</option><option value="Mitsubishi">Mitsubishi</option><option value="Nissan">Nissan</option><option value="Pontiac">Pontiac</option><option value="Porsche">Porsche</option><option value="Ram">Ram</option><option value="Saturn">Saturn</option><option value="Scion">Scion</option><option value="Subaru">Subaru</option><option value="Tesla">Tesla</option><option value="Toyota">Toyota</option><option value="Volkswagen">Volkswagen</option><option value="Volvo">Volvo</option><option value="Other">Other</option></select></div>
+        <div><label for="repair_model" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Vehicle Model</label><select id="repair_model" disabled class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red disabled:bg-gray-100 disabled:text-gray-500"><option value="">Choose year and make first</option></select></div>
+        <div><label for="repair_need" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">What Do You Need Done? <span class="text-ybe-red">*</span></label><select id="repair_need" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"><option value="Select one…">Select one…</option><option value="Repair or diagnostics">Repair or diagnostics</option><option value="Brakes">Brakes</option><option value="Transmission">Transmission</option><option value="Electrical, battery or starting">Electrical, battery or starting</option><option value="Tires, alignment or suspension">Tires, alignment or suspension</option><option value="AC or heating">AC or heating</option><option value="Body, paint or glass">Body, paint or glass</option><option value="Oil change or tune-up">Oil change or tune-up</option><option value="Something else">Something else</option><option value="Not sure, please advise">Not sure, please advise</option></select></div>
+        <div id="repair-model-other-wrap" class="hidden md:col-span-2 lg:col-span-4"><label for="repair_model_other" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Type Your Make And Model</label><input type="text" id="repair_model_other" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Make and model"></div>
+        <div class="md:col-span-2"><label for="repair_details" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Describe The Job <span class="text-ybe-red">*</span></label><textarea id="repair_details" rows="3" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
+        <div class="md:col-span-2 flex flex-col"><label for="repair_photos" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Photos</label>
+          <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-lg text-gray-700 file:mr-4 file:py-2 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
+          <p id="repair-photo-note" class="text-base text-gray-600 mt-1" aria-live="polite">Optional. Up to 2 photos.</p>
+          <div class="mt-3 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-7 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send Assessment</button>
+            <p class="text-lg text-gray-600">Or call <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
+          </div>
+        </div>
       </div>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send Assessment</button>
-        <p class="text-sm text-gray-600">Or call <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
-      </div>
-      <div id="repair-status" role="status" aria-live="polite" class="mt-6"></div>
+      <div id="repair-status" role="status" aria-live="polite" class="mt-4 empty:mt-0"></div>
     </form>
   </div>
 </section>
@@ -2177,6 +2182,63 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = url;
       });
     };
+    // Vehicle: models for the chosen year and make come from the NHTSA
+    // vehicle database (free, no key). If it does not answer, or the make is
+    // not on the list, the visitor types the make and model instead.
+    var ry = document.getElementById('repair_year');
+    var rmk = document.getElementById('repair_make');
+    var rmd = document.getElementById('repair_model');
+    var rother = document.getElementById('repair_model_other');
+    var rotherWrap = document.getElementById('repair-model-other-wrap');
+    var modelCache = {};
+    var modelReq = 0;
+    var showOther = function (on) { rotherWrap.classList.toggle('hidden', !on); if (!on) rother.value = ''; };
+    var setModels = function (list, msg) {
+      rmd.innerHTML = '';
+      var add = function (v, t) { var o = document.createElement('option'); o.value = v; o.textContent = t; rmd.appendChild(o); };
+      add('', msg);
+      (list || []).forEach(function (m) { add(m, m); });
+      if (list) add('Other', 'Other / not listed');
+      rmd.disabled = !list;
+      showOther(false);
+    };
+    var loadModels = function () {
+      var y = ry.value, mk = rmk.value, id = ++modelReq;
+      if (!y || !mk) { setModels(null, 'Choose year and make first'); return; }
+      if (mk === 'Other') { setModels(null, 'Type it below'); showOther(true); return; }
+      var key = y + '|' + mk;
+      if (modelCache[key]) { setModels(modelCache[key], 'Select model'); return; }
+      setModels(null, 'Loading models…');
+      Promise.all(['car', 'truck', 'mpv'].map(function (t) {
+        return fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/' + encodeURIComponent(mk) + '/modelyear/' + y + '/vehicletype/' + t + '?format=json')
+          .then(function (r) { return r.json(); })
+          .then(function (d) { return d.Results || []; });
+      })).then(function (sets) {
+        if (id !== modelReq) return;
+        var seen = {}, names = [];
+        sets.forEach(function (set) { set.forEach(function (r) {
+          var n = String(r.Model_Name || '').trim();
+          if (n && !seen[n]) { seen[n] = 1; names.push(n); }
+        }); });
+        if (!names.length) { setModels(null, 'Type it below'); showOther(true); return; }
+        names.sort(function (a, b) { return a.localeCompare(b, undefined, { numeric: true }); });
+        modelCache[key] = names;
+        setModels(names, 'Select model');
+      }).catch(function () {
+        if (id !== modelReq) return;
+        setModels(null, 'Type it below'); showOther(true);
+      });
+    };
+    if (ry && rmk && rmd) {
+      ry.addEventListener('change', loadModels);
+      rmk.addEventListener('change', loadModels);
+      rmd.addEventListener('change', function () { showOther(rmd.value === 'Other'); });
+    }
+    // Emergency: tell them to call straight away; the form can still be sent.
+    var remg = document.getElementById('repair_emergency');
+    var remgNote = document.getElementById('repair-emergency-note');
+    var isEmergency = function () { return !!remg && remg.value.indexOf('Yes') === 0; };
+    if (remg) remg.addEventListener('change', function () { remgNote.classList.toggle('hidden', !isEmergency()); });
     var nextSteps = function (heading, msg, extra) {
       pstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-5 md:p-6 rounded-sm">' +
         '<p class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">' + heading + '</p>' +
@@ -2220,9 +2282,12 @@ document.addEventListener('DOMContentLoaded', function () {
       pstatus.innerHTML = '<p class="bg-gray-100 border-l-4 border-gray-400 text-gray-800 p-4 rounded-sm">Sending' + (picked.length ? ' your photos' : '') + '…</p>';
       Promise.all(picked.map(function (f, i) { return shrink(f, i + 1); })).then(function (files) {
         postLead(pform, 'repair', lines, function () {
+          var urgent = isEmergency();
           pform.reset();
           if (pnote) pnote.textContent = 'Optional. Up to 2 photos.';
-          nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. We will look them over and contact you.');
+          if (ry && rmk && rmd) loadModels();
+          if (remgNote) remgNote.classList.add('hidden');
+          nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. ' + (urgent ? 'Since this is an emergency, call us now for the fastest help.' : 'We will look them over and contact you.'));
         }, function () {
           // No server answer: hand the details to the visitor's email app.
           var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Repair assessment') +

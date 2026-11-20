@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=c8c9c72c">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=82ff719e">
 
 <script type="application/ld+json">
 {
@@ -1606,6 +1606,63 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = url;
       });
     };
+    // Vehicle: models for the chosen year and make come from the NHTSA
+    // vehicle database (free, no key). If it does not answer, or the make is
+    // not on the list, the visitor types the make and model instead.
+    var ry = document.getElementById('repair_year');
+    var rmk = document.getElementById('repair_make');
+    var rmd = document.getElementById('repair_model');
+    var rother = document.getElementById('repair_model_other');
+    var rotherWrap = document.getElementById('repair-model-other-wrap');
+    var modelCache = {};
+    var modelReq = 0;
+    var showOther = function (on) { rotherWrap.classList.toggle('hidden', !on); if (!on) rother.value = ''; };
+    var setModels = function (list, msg) {
+      rmd.innerHTML = '';
+      var add = function (v, t) { var o = document.createElement('option'); o.value = v; o.textContent = t; rmd.appendChild(o); };
+      add('', msg);
+      (list || []).forEach(function (m) { add(m, m); });
+      if (list) add('Other', 'Other / not listed');
+      rmd.disabled = !list;
+      showOther(false);
+    };
+    var loadModels = function () {
+      var y = ry.value, mk = rmk.value, id = ++modelReq;
+      if (!y || !mk) { setModels(null, 'Choose year and make first'); return; }
+      if (mk === 'Other') { setModels(null, 'Type it below'); showOther(true); return; }
+      var key = y + '|' + mk;
+      if (modelCache[key]) { setModels(modelCache[key], 'Select model'); return; }
+      setModels(null, 'Loading models…');
+      Promise.all(['car', 'truck', 'mpv'].map(function (t) {
+        return fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/' + encodeURIComponent(mk) + '/modelyear/' + y + '/vehicletype/' + t + '?format=json')
+          .then(function (r) { return r.json(); })
+          .then(function (d) { return d.Results || []; });
+      })).then(function (sets) {
+        if (id !== modelReq) return;
+        var seen = {}, names = [];
+        sets.forEach(function (set) { set.forEach(function (r) {
+          var n = String(r.Model_Name || '').trim();
+          if (n && !seen[n]) { seen[n] = 1; names.push(n); }
+        }); });
+        if (!names.length) { setModels(null, 'Type it below'); showOther(true); return; }
+        names.sort(function (a, b) { return a.localeCompare(b, undefined, { numeric: true }); });
+        modelCache[key] = names;
+        setModels(names, 'Select model');
+      }).catch(function () {
+        if (id !== modelReq) return;
+        setModels(null, 'Type it below'); showOther(true);
+      });
+    };
+    if (ry && rmk && rmd) {
+      ry.addEventListener('change', loadModels);
+      rmk.addEventListener('change', loadModels);
+      rmd.addEventListener('change', function () { showOther(rmd.value === 'Other'); });
+    }
+    // Emergency: tell them to call straight away; the form can still be sent.
+    var remg = document.getElementById('repair_emergency');
+    var remgNote = document.getElementById('repair-emergency-note');
+    var isEmergency = function () { return !!remg && remg.value.indexOf('Yes') === 0; };
+    if (remg) remg.addEventListener('change', function () { remgNote.classList.toggle('hidden', !isEmergency()); });
     var nextSteps = function (heading, msg, extra) {
       pstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-5 md:p-6 rounded-sm">' +
         '<p class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">' + heading + '</p>' +
@@ -1649,9 +1706,12 @@ document.addEventListener('DOMContentLoaded', function () {
       pstatus.innerHTML = '<p class="bg-gray-100 border-l-4 border-gray-400 text-gray-800 p-4 rounded-sm">Sending' + (picked.length ? ' your photos' : '') + '…</p>';
       Promise.all(picked.map(function (f, i) { return shrink(f, i + 1); })).then(function (files) {
         postLead(pform, 'repair', lines, function () {
+          var urgent = isEmergency();
           pform.reset();
           if (pnote) pnote.textContent = 'Optional. Up to 2 photos.';
-          nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. We will look them over and contact you.');
+          if (ry && rmk && rmd) loadModels();
+          if (remgNote) remgNote.classList.add('hidden');
+          nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. ' + (urgent ? 'Since this is an emergency, call us now for the fastest help.' : 'We will look them over and contact you.'));
         }, function () {
           // No server answer: hand the details to the visitor's email app.
           var mailHref = 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Repair assessment') +

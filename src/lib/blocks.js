@@ -435,28 +435,42 @@ function fixListSection(url, { inline = false } = {}) {
  * in layout.js finds it by id.
  */
 function repairAssessmentForm() {
-  const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
-  const lab = (id, text, req) => `<label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
+  const lab = (id, text, req) => `<label for="${id}" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  const opts = (list) => list.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('');
   const needs = ['Select one…', 'Repair or diagnostics', 'Brakes', 'Transmission', 'Electrical, battery or starting', 'Tires, alignment or suspension', 'AC or heating', 'Body, paint or glass', 'Oil change or tune-up', 'Something else', 'Not sure, please advise'];
-  return `<form id="repair-form" class="bg-white border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8" novalidate>
+  /*
+   * Year and make are fixed lists. Models are looked up for the chosen year
+   * and make from the NHTSA vehicle database (layout.js), so the list is the
+   * real one for that car. If the lookup fails the visitor types the model.
+   */
+  const thisYear = new Date().getFullYear();
+  const years = Array.from({ length: thisYear + 1 - 1990 + 1 }, (_, i) => String(thisYear + 1 - i));
+  const makes = ['Acura', 'Audi', 'BMW', 'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Dodge', 'Fiat', 'Ford', 'Genesis', 'GMC', 'Honda', 'Hyundai', 'Infiniti', 'Jaguar', 'Jeep', 'Kia', 'Land Rover', 'Lexus', 'Lincoln', 'Mazda', 'Mercedes-Benz', 'Mercury', 'Mini', 'Mitsubishi', 'Nissan', 'Pontiac', 'Porsche', 'Ram', 'Saturn', 'Scion', 'Subaru', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Other'];
+  return `<form id="repair-form" class="bg-white border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-5 md:p-6" novalidate>
       <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-4">
         <div>${lab('repair_name', 'Your Name', true)}<input type="text" id="repair_name" required autocomplete="name" class="${inputCls}"></div>
         <div>${lab('repair_phone', 'Phone Number', true)}<input type="tel" id="repair_phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
         <div>${lab('repair_email', 'Email', false)}<input type="email" id="repair_email" autocomplete="email" class="${inputCls}"></div>
-        <div>${lab('repair_vehicle', 'Vehicle', false)}<input type="text" id="repair_vehicle" class="${inputCls}" placeholder="Year, make, model"></div>
-        <div class="md:col-span-2">${lab('repair_need', 'What Do You Need Done?', true)}<select id="repair_need" required class="${inputCls}">
-          ${needs.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
-        <div class="md:col-span-2">${lab('repair_details', 'Describe The Job', true)}<textarea id="repair_details" rows="5" required class="${inputCls}" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
-        <div class="md:col-span-2">${lab('repair_photos', 'Photos', false)}
-          <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-gray-700 file:mr-4 file:py-2.5 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
-          <p id="repair-photo-note" class="text-sm text-gray-600 mt-2" aria-live="polite">Optional. Up to 2 photos.</p></div>
+        <div>${lab('repair_emergency', 'Is This An Emergency?', false)}<select id="repair_emergency" class="${inputCls}">${opts(['No', 'Yes, this is an emergency'])}</select></div>
+        <p id="repair-emergency-note" class="hidden md:col-span-2 lg:col-span-4 bg-red-50 border-l-4 border-ybe-red text-gray-800 text-lg p-3 rounded-sm">For an emergency, call now for the fastest help: <a href="${b.phone.href}" data-track="call" data-location="repair-assessment-emergency" class="text-ybe-red font-bold hover:underline">${esc(b.phone.display)}</a>. You can still send this form.</p>
+        <div>${lab('repair_year', 'Vehicle Year', false)}<select id="repair_year" class="${inputCls}"><option value="">Select year</option>${opts(years)}</select></div>
+        <div>${lab('repair_make', 'Vehicle Make', false)}<select id="repair_make" class="${inputCls}"><option value="">Select make</option>${opts(makes)}</select></div>
+        <div>${lab('repair_model', 'Vehicle Model', false)}<select id="repair_model" disabled class="${inputCls} disabled:bg-gray-100 disabled:text-gray-500"><option value="">Choose year and make first</option></select></div>
+        <div>${lab('repair_need', 'What Do You Need Done?', true)}<select id="repair_need" required class="${inputCls}">${opts(needs)}</select></div>
+        <div id="repair-model-other-wrap" class="hidden md:col-span-2 lg:col-span-4">${lab('repair_model_other', 'Type Your Make And Model', false)}<input type="text" id="repair_model_other" class="${inputCls}" placeholder="Make and model"></div>
+        <div class="md:col-span-2">${lab('repair_details', 'Describe The Job', true)}<textarea id="repair_details" rows="3" required class="${inputCls}" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
+        <div class="md:col-span-2 flex flex-col">${lab('repair_photos', 'Photos', false)}
+          <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-lg text-gray-700 file:mr-4 file:py-2 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
+          <p id="repair-photo-note" class="text-base text-gray-600 mt-1" aria-live="polite">Optional. Up to 2 photos.</p>
+          <div class="mt-3 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-7 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 22)} Send Assessment</button>
+            <p class="text-lg text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+          </div>
+        </div>
       </div>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 24)} Send Assessment</button>
-        <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
-      </div>
-      <div id="repair-status" role="status" aria-live="polite" class="mt-6"></div>
+      <div id="repair-status" role="status" aria-live="polite" class="mt-4 empty:mt-0"></div>
     </form>`;
 }
 
