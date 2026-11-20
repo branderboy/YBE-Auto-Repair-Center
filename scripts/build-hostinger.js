@@ -136,6 +136,27 @@ fs.mkdirSync(path.join(OUT, 'api'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'api', 'lead.php'), leadSrc);
 
 /*
+ * Mailbox login for lead emails. PHP's mail() on shared hosting sends unsigned
+ * mail, which Gmail files as spam. With the leads mailbox password supplied as
+ * the LEADS_SMTP_PASSWORD secret, lead.php logs in to the mailbox's own mail
+ * server and sends from there instead, signed for the domain.
+ *
+ * The password is written only into the build output, never the repository.
+ * The file answers 404 to a browser and gives its contents only to lead.php.
+ * Without the secret no file is written and lead.php keeps using mail().
+ */
+const smtpPass = process.env.LEADS_SMTP_PASSWORD || '';
+const phpStr = (v) => `'${String(v).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+if (smtpPass) {
+  const smtpHost = process.env.LEADS_SMTP_HOST || 'ssl://smtp.hostinger.com:465';
+  const smtpUser = `leads@${DOMAIN.replace(/:\d+$/, '')}`;
+  fs.writeFileSync(
+    path.join(OUT, 'api', 'mail-config.php'),
+    `<?php\nif (!defined('YBE_LEAD')) { http_response_code(404); exit; }\nreturn ['host' => ${phpStr(smtpHost)}, 'user' => ${phpStr(smtpUser)}, 'pass' => ${phpStr(smtpPass)}];\n`
+  );
+}
+
+/*
  * Zip it so it can be dropped straight into hPanel's File Manager.
  *
  * Convenience only: CI uploads dist-hostinger/ over FTP and never looks at the
@@ -159,6 +180,7 @@ const count = (dir) =>
 
 console.log(`  ✓ .htaccess written (https, no-www, compression, caching)`);
 console.log(`  ✓ api/lead.php written (leads to ${biz.commercialEmail})`);
+console.log(smtpPass ? '  ✓ api/mail-config.php written (lead emails sent through the leads mailbox)' : '  · LEADS_SMTP_PASSWORD not set: lead emails use the server mail() function');
 console.log(`  ✓ ${count(OUT)} files in ${OUT_DIR}/`);
 if (zipped) {
   console.log(`  ✓ ${OUT_DIR}.zip  (${(fs.statSync(zipPath).size / 1024 / 1024).toFixed(1)} MB)\n`);
