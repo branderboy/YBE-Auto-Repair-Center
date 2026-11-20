@@ -454,7 +454,6 @@ function repairAssessmentForm() {
         <div>${lab('repair_phone', 'Phone Number', true)}<input type="tel" id="repair_phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
         <div>${lab('repair_email', 'Email', false)}<input type="email" id="repair_email" autocomplete="email" class="${inputCls}"></div>
         <div>${lab('repair_emergency', 'Is This An Emergency?', false)}<select id="repair_emergency" class="${inputCls}">${opts(['No', 'Yes, this is an emergency'])}</select></div>
-        <p id="repair-emergency-note" class="hidden md:col-span-2 lg:col-span-4 bg-red-50 border-l-4 border-ybe-red text-gray-800 text-lg p-3 rounded-sm">For an emergency, call now for the fastest help: <a href="${b.phone.href}" data-track="call" data-location="repair-assessment-emergency" class="text-ybe-red font-bold hover:underline">${esc(b.phone.display)}</a>. You can still send this form.</p>
         <div>${lab('repair_year', 'Vehicle Year', false)}<select id="repair_year" class="${inputCls}"><option value="">Select year</option>${opts(years)}</select></div>
         <div>${lab('repair_make', 'Vehicle Make', false)}<select id="repair_make" class="${inputCls}"><option value="">Select make</option>${opts(makes)}</select></div>
         <div>${lab('repair_model', 'Vehicle Model', false)}<select id="repair_model" disabled class="${inputCls} disabled:bg-gray-100 disabled:text-gray-500"><option value="">Choose year and make first</option></select></div>
