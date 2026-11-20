@@ -128,7 +128,7 @@ const leadSrc = fs.readFileSync(path.join(ROOT, 'src', 'server', 'lead.php'), 'u
   .split('{{COPY_EMAIL}}').join(biz.leadCopyEmail || '')
   // Sent from the site's own domain, so inboxes show the business, not the
   // hosting account. No mailbox is needed to send; replies go to the customer.
-  .split('{{FROM_EMAIL}}').join(`website@${DOMAIN.replace(/:\d+$/, '')}`)
+  .split('{{FROM_EMAIL}}').join(`leads@${DOMAIN.replace(/:\d+$/, '')}`)
   .split('{{DOMAIN}}').join(DOMAIN)
   .split('{{BUSINESS}}').join(biz.name.replace(/'/g, ''));
 fs.mkdirSync(path.join(OUT, 'api'), { recursive: true });
