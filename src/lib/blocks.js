@@ -42,7 +42,7 @@ function heroBlock({
   secondary
 }) {
   return `
-<section class="relative py-14 md:py-20 bg-ybe-black text-white">
+<section class="hero-interior relative py-14 md:py-20 bg-ybe-black text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
     <div class="max-w-3xl">
       ${
