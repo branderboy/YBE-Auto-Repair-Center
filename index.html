@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=82ff719e">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=bd126651">
 
 <script type="application/ld+json">
 {
@@ -985,14 +985,14 @@
         <div><label for="repair_need" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">What Do You Need Done? <span class="text-ybe-red">*</span></label><select id="repair_need" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red"><option value="Select one…">Select one…</option><option value="Repair or diagnostics">Repair or diagnostics</option><option value="Brakes">Brakes</option><option value="Transmission">Transmission</option><option value="Electrical, battery or starting">Electrical, battery or starting</option><option value="Tires, alignment or suspension">Tires, alignment or suspension</option><option value="AC or heating">AC or heating</option><option value="Body, paint or glass">Body, paint or glass</option><option value="Oil change or tune-up">Oil change or tune-up</option><option value="Something else">Something else</option><option value="Not sure, please advise">Not sure, please advise</option></select></div>
         <div id="repair-model-other-wrap" class="hidden md:col-span-2 lg:col-span-4"><label for="repair_model_other" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Type Your Make And Model</label><input type="text" id="repair_model_other" class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="Make and model"></div>
         <div class="md:col-span-2"><label for="repair_details" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Describe The Job <span class="text-ybe-red">*</span></label><textarea id="repair_details" rows="3" required class="w-full border border-gray-300 rounded-sm px-3 py-2.5 text-lg bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
-        <div class="md:col-span-2 flex flex-col"><label for="repair_photos" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Photos</label>
+        <div class="md:col-span-2"><label for="repair_photos" class="block font-heading uppercase tracking-wide text-lg font-bold text-ybe-black mb-1">Photos</label>
           <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-lg text-gray-700 file:mr-4 file:py-2 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
           <p id="repair-photo-note" class="text-base text-gray-600 mt-1" aria-live="polite">Optional. Up to 2 photos.</p>
-          <div class="mt-3 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-7 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send Assessment</button>
-            <p class="text-lg text-gray-600">Or call <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
-          </div>
         </div>
+      </div>
+      <div class="mt-6 flex flex-col items-center gap-3 text-center">
+        <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-10 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send Assessment</button>
+        <p class="text-lg text-gray-600">Or call <a data-track="call" data-location="homepage" href="tel:+12024553822" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">(202) 455-3822</a>.</p>
       </div>
       <div id="repair-status" role="status" aria-live="polite" class="mt-4 empty:mt-0"></div>
     </form>

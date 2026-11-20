@@ -461,14 +461,14 @@ function repairAssessmentForm() {
         <div>${lab('repair_need', 'What Do You Need Done?', true)}<select id="repair_need" required class="${inputCls}">${opts(needs)}</select></div>
         <div id="repair-model-other-wrap" class="hidden md:col-span-2 lg:col-span-4">${lab('repair_model_other', 'Type Your Make And Model', false)}<input type="text" id="repair_model_other" class="${inputCls}" placeholder="Make and model"></div>
         <div class="md:col-span-2">${lab('repair_details', 'Describe The Job', true)}<textarea id="repair_details" rows="3" required class="${inputCls}" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
-        <div class="md:col-span-2 flex flex-col">${lab('repair_photos', 'Photos', false)}
+        <div class="md:col-span-2">${lab('repair_photos', 'Photos', false)}
           <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-lg text-gray-700 file:mr-4 file:py-2 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
           <p id="repair-photo-note" class="text-base text-gray-600 mt-1" aria-live="polite">Optional. Up to 2 photos.</p>
-          <div class="mt-3 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-7 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 22)} Send Assessment</button>
-            <p class="text-lg text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
-          </div>
         </div>
+      </div>
+      <div class="mt-6 flex flex-col items-center gap-3 text-center">
+        <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-10 py-3 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon('send', 22)} Send Assessment</button>
+        <p class="text-lg text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
       </div>
       <div id="repair-status" role="status" aria-live="polite" class="mt-4 empty:mt-0"></div>
     </form>`;
