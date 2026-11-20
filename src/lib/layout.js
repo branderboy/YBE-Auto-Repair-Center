@@ -192,7 +192,6 @@ function footer() {
     { label: 'Fleet & Government', url: '/fleet-and-government/' },
     { label: 'Commercial Service Request', url: '/commercial-service-request/' },
     { label: 'Emergency Roadside Help', url: '/emergency-roadside-help/' },
-    { label: 'Book Appointment', url: '/book-appointment/' },
     { label: 'Repair Assessment', url: '/#repair-assessment' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
@@ -293,34 +292,19 @@ document.addEventListener('DOMContentLoaded', function () {
    * scroll position inside requestAnimationFrame instead of on every event.
    */
   var header = document.getElementById('main-header');
-  var logo = document.getElementById('header-logo');
   var shrunk = false;
   var ticking = false;
 
+  // The logo stays one size on every page and at every scroll position
+  // (owner, 2026-11-20). Scrolling only adds the header shadow.
   function applyScrollState() {
     ticking = false;
-    if (window.innerWidth < 1024) {
-      if (shrunk) {
-        header.classList.remove('shadow-lg', 'py-1');
-        header.classList.add('py-3');
-        logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
-        logo.classList.add('h-20', 'sm:h-24', 'lg:h-24');
-        shrunk = false;
-      }
-      return;
-    }
     var y = window.scrollY;
     if (!shrunk && y > 90) {
-      header.classList.add('shadow-lg', 'py-1');
-      header.classList.remove('py-3');
-      logo.classList.add('h-12', 'sm:h-14', 'lg:h-16');
-      logo.classList.remove('h-20', 'sm:h-24', 'lg:h-24');
+      header.classList.add('shadow-lg');
       shrunk = true;
     } else if (shrunk && y < 40) {
-      header.classList.remove('shadow-lg', 'py-1');
-      header.classList.add('py-3');
-      logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
-      logo.classList.add('h-20', 'sm:h-24', 'lg:h-24');
+      header.classList.remove('shadow-lg');
       shrunk = false;
     }
   }

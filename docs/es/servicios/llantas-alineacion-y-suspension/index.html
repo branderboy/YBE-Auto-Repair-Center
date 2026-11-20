@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=c9d089e1">
+<link rel="stylesheet" href="/YBE-Auto-Repair-Center/assets/css/site.css?v=5564a4b7">
 
 <script type="application/ld+json">
 {
@@ -1002,34 +1002,19 @@ document.addEventListener('DOMContentLoaded', function () {
    * scroll position inside requestAnimationFrame instead of on every event.
    */
   var header = document.getElementById('main-header');
-  var logo = document.getElementById('header-logo');
   var shrunk = false;
   var ticking = false;
 
+  // The logo stays one size on every page and at every scroll position
+  // (owner, 2026-11-20). Scrolling only adds the header shadow.
   function applyScrollState() {
     ticking = false;
-    if (window.innerWidth < 1024) {
-      if (shrunk) {
-        header.classList.remove('shadow-lg', 'py-1');
-        header.classList.add('py-3');
-        logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
-        logo.classList.add('h-20', 'sm:h-24', 'lg:h-24');
-        shrunk = false;
-      }
-      return;
-    }
     var y = window.scrollY;
     if (!shrunk && y > 90) {
-      header.classList.add('shadow-lg', 'py-1');
-      header.classList.remove('py-3');
-      logo.classList.add('h-12', 'sm:h-14', 'lg:h-16');
-      logo.classList.remove('h-20', 'sm:h-24', 'lg:h-24');
+      header.classList.add('shadow-lg');
       shrunk = true;
     } else if (shrunk && y < 40) {
-      header.classList.remove('shadow-lg', 'py-1');
-      header.classList.add('py-3');
-      logo.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
-      logo.classList.add('h-20', 'sm:h-24', 'lg:h-24');
+      header.classList.remove('shadow-lg');
       shrunk = false;
     }
   }
