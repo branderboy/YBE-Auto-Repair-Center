@@ -21,13 +21,15 @@ header('X-Content-Type-Options: nosniff');
 const TO_EMAIL = '{{TO_EMAIL}}';
 // A second address that receives a copy of every lead. Empty for none.
 const COPY_EMAIL = '{{COPY_EMAIL}}';
+// The address lead emails are sent from: this website's own domain.
+const FROM_EMAIL = '{{FROM_EMAIL}}';
 const DOMAIN = '{{DOMAIN}}';
 const BUSINESS = '{{BUSINESS}}';
 const FORMS = [
     'callback'    => 'Call back request',
     'commercial'  => 'Commercial service request',
     'emergency'   => 'EMERGENCY roadside request',
-    'repair'      => 'Repair assessment',
+    'repair'      => 'Repair Assessment',
 ];
 const MAX_PER_HOUR = 10;
 // Repair assessments may carry photos (owner, 2026-11-20).
@@ -227,45 +229,126 @@ if ($dir !== null) {
 // 2. Email it to the owner.
 // A repair assessment marked as an emergency says so at the front of the subject.
 $urgent = $form === 'repair' && stripos($field('Is This An Emergency'), 'yes') === 0;
-$subject = ($urgent ? 'EMERGENCY: ' : '') . FORMS[$form] . ($name !== '' ? ': ' . $name : '') . ' (' . $phone . ')';
-$subject = clean(str_replace(["\r", "\n"], ' ', $subject), 200);
-$body = FORMS[$form] . " from " . DOMAIN . "\n\n" . implode("\n", $lines)
-    . "\n\nPage: " . $page . "\nReceived: " . date('l, F j, Y g:i A T') . "\n";
-$headers = [
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-];
-if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $headers[] = 'Reply-To: ' . $email;
-}
-$recipients = TO_EMAIL . (filter_var(COPY_EMAIL, FILTER_VALIDATE_EMAIL) ? ', ' . COPY_EMAIL : '');
-$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$emailed = false;
 
-// With photos: one multipart email carrying them as attachments.
+// (202) 505-1212 rather than whatever was typed.
+$digits = preg_replace('/\D/', '', $phone);
+if (strlen($digits) === 11 && $digits[0] === '1') {
+    $digits = substr($digits, 1);
+}
+$phoneNice = strlen($digits) === 10
+    ? '(' . substr($digits, 0, 3) . ') ' . substr($digits, 3, 3) . '-' . substr($digits, 6)
+    : $phone;
+
+// Subject: what it is, who, and the number to call.
+$subject = ($urgent ? 'EMERGENCY: ' : '') . 'New ' . FORMS[$form] . ' | ' . ($name !== '' ? $name . ' | ' : '') . $phoneNice;
+$subject = clean(str_replace(["\r", "\n"], ' ', $subject), 200);
+$received = date('l, F j, Y g:i A T');
+$replyTo = ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
+
+// Each "Label: value" line becomes a row. Lines with no label are headings
+// the form adds for the text hand-off and are left out.
+$rows = [];
+foreach ($lines as $l) {
+    $at = strpos($l, ': ');
+    if ($at === false) {
+        continue;
+    }
+    $label = rtrim(substr($l, 0, $at), '?');
+    $value = substr($l, $at + 2);
+    if (stripos($label, 'Your Name') === 0) {
+        $label = 'Name';
+    }
+    if (stripos($label, 'Phone') === 0) {
+        $value = $phoneNice;
+    }
+    $rows[] = [$label, $value];
+}
+
+// Plain-text version, for mail apps that do not show HTML.
+$text = ($urgent ? "EMERGENCY\n" : '') . 'New ' . FORMS[$form] . ' from ' . DOMAIN . "\n\n";
+foreach ($rows as [$label, $value]) {
+    $text .= $label . ': ' . $value . "\n";
+}
+$text .= "\nReceived: " . $received . "\nPage: " . $page . "\n";
+
+// HTML version.
+$e = fn (string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$html = '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f3f4f6;">'
+    . '<div style="max-width:600px;margin:0 auto;padding:16px;font-family:Arial,Helvetica,sans-serif;color:#111827;">'
+    . '<div style="background:#111111;color:#ffffff;padding:18px 20px;border-top:5px solid #d90d0d;">'
+    . '<div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#d1d5db;">' . $e(BUSINESS) . ' website</div>'
+    . '<div style="font-size:22px;font-weight:bold;margin-top:4px;">New ' . $e(FORMS[$form]) . '</div></div>';
+if ($urgent) {
+    $html .= '<div style="background:#d90d0d;color:#ffffff;padding:12px 20px;font-size:17px;font-weight:bold;">EMERGENCY. Call this customer now.</div>';
+}
+$html .= '<div style="background:#ffffff;padding:8px 20px 20px;border:1px solid #e5e7eb;border-top:0;">'
+    . '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">';
+foreach ($rows as [$label, $value]) {
+    $html .= '<tr><td style="padding:10px 12px 10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-weight:bold;text-transform:uppercase;color:#6b7280;vertical-align:top;width:38%;">' . $e($label) . '</td>'
+        . '<td style="padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:16px;color:#111827;vertical-align:top;">' . nl2br($e($value)) . '</td></tr>';
+}
+$html .= '</table><div style="margin-top:20px;">'
+    . '<a href="tel:+1' . $e($digits) . '" style="display:inline-block;background:#d90d0d;color:#ffffff;text-decoration:none;font-weight:bold;font-size:16px;padding:12px 20px;margin:0 8px 8px 0;">Call ' . $e($phoneNice) . '</a>';
+if ($replyTo !== '') {
+    $html .= '<a href="mailto:' . $e($replyTo) . '" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;font-weight:bold;font-size:16px;padding:12px 20px;margin:0 8px 8px 0;">Email the customer</a>';
+}
+$html .= '</div>';
+if ($photos) {
+    $html .= '<p style="font-size:14px;color:#374151;margin:14px 0 0;">' . count($photos) . (count($photos) === 1 ? ' photo is' : ' photos are') . ' attached to this email.</p>';
+}
+$html .= '<p style="font-size:12px;color:#6b7280;margin:16px 0 0;">Received ' . $e($received) . ' from ' . $e(DOMAIN . $page) . '</p>'
+    . '</div></div></body></html>';
+
+// Sender: the business name and the website's own domain, so the inbox does
+// not show the hosting account name. Replies go to the customer when they
+// gave an email address.
+$from = '=?UTF-8?B?' . base64_encode(BUSINESS . ' Website') . '?= <' . FROM_EMAIL . '>';
+$alt = 'ybe-alt-' . bin2hex(random_bytes(12));
+$altPart = '--' . $alt . "\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
+    . chunk_split(base64_encode($text))
+    . '--' . $alt . "\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n"
+    . chunk_split(base64_encode($html))
+    . '--' . $alt . "--\r\n";
+
 $attachBytes = array_sum(array_map(fn ($ph) => strlen($ph['bytes']), $photos));
-if ($photos && $attachBytes <= MAX_ATTACH_BYTES) {
-    $boundary = 'ybe-' . bin2hex(random_bytes(12));
-    $mixed = $headers;
-    $mixed[1] = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"';
-    $message = '--' . $boundary . "\r\n"
-        . "Content-Type: text/plain; charset=UTF-8\r\n"
-        . "Content-Transfer-Encoding: 8bit\r\n\r\n"
-        . $body . "\r\n";
+$withPhotos = $photos && $attachBytes <= MAX_ATTACH_BYTES;
+if ($withPhotos) {
+    $mixed = 'ybe-mix-' . bin2hex(random_bytes(12));
+    $contentType = 'multipart/mixed; boundary="' . $mixed . '"';
+    $message = '--' . $mixed . "\r\nContent-Type: multipart/alternative; boundary=\"" . $alt . "\"\r\n\r\n" . $altPart;
     foreach ($photos as $ph) {
-        $message .= '--' . $boundary . "\r\n"
+        $message .= '--' . $mixed . "\r\n"
             . 'Content-Type: ' . $ph['mime'] . '; name="' . $ph['name'] . "\"\r\n"
             . "Content-Transfer-Encoding: base64\r\n"
             . 'Content-Disposition: attachment; filename="' . $ph['name'] . "\"\r\n\r\n"
             . chunk_split(base64_encode($ph['bytes']));
     }
-    $message .= '--' . $boundary . "--\r\n";
-    $emailed = @mail($recipients, $encodedSubject, $message, implode("\r\n", $mixed));
+    $message .= '--' . $mixed . "--\r\n";
+} else {
+    $contentType = 'multipart/alternative; boundary="' . $alt . '"';
+    $message = $altPart;
 }
-// No photos, or the email with attachments was refused: send the text alone.
-// The photo file names are already in the body.
+
+$recipients = TO_EMAIL . (filter_var(COPY_EMAIL, FILTER_VALIDATE_EMAIL) ? ', ' . COPY_EMAIL : '');
+$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+$headersFor = function (bool $named, string $type) use ($from, $replyTo): string {
+    $h = ['MIME-Version: 1.0', 'Content-Type: ' . $type];
+    if ($named) {
+        $h[] = 'From: ' . $from;
+    }
+    if ($replyTo !== '') {
+        $h[] = 'Reply-To: ' . $replyTo;
+    }
+    return implode("\r\n", $h);
+};
+// Try the full email first; if the server refuses it, fall back step by step
+// to the plain text with the server's own sender, so the lead still arrives.
+$emailed = @mail($recipients, $encodedSubject, $message, $headersFor(true, $contentType));
 if (!$emailed) {
-    $emailed = @mail($recipients, $encodedSubject, $body, implode("\r\n", $headers));
+    $emailed = @mail($recipients, $encodedSubject, $message, $headersFor(false, $contentType));
+}
+if (!$emailed) {
+    $emailed = @mail($recipients, $encodedSubject, $text, $headersFor(false, 'text/plain; charset=UTF-8'));
 }
 
 if (!$stored && !$emailed) {
