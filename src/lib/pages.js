@@ -1391,7 +1391,7 @@ ${K.heroBlock({
   secondary: { label: 'Contact Us', href: '/contact/', icon: 'map-pin' }
 })}
 
-<section class="py-20 bg-gray-100">
+<section class="py-20 bg-white">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     ${K.heading2Center('Frequently Asked Questions')}
     ${faqAccordion(faqs)}
