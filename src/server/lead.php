@@ -239,8 +239,9 @@ $phoneNice = strlen($digits) === 10
     ? '(' . substr($digits, 0, 3) . ') ' . substr($digits, 3, 3) . '-' . substr($digits, 6)
     : $phone;
 
-// Subject: what it is, who, and the number to call.
-$subject = ($urgent ? 'EMERGENCY: ' : '') . 'New ' . FORMS[$form] . ' | ' . ($name !== '' ? $name . ' | ' : '') . $phoneNice;
+// Subject (owner, 2026-11-20): "New Lead From YBE Auto", then who and the
+// number, so each lead stays its own conversation in the inbox.
+$subject = ($urgent ? 'EMERGENCY: ' : '') . 'New Lead From YBE Auto: ' . ($name !== '' ? $name . ', ' : '') . $phoneNice;
 $subject = clean(str_replace(["\r", "\n"], ' ', $subject), 200);
 $received = date('l, F j, Y g:i A T');
 $replyTo = ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
@@ -265,7 +266,7 @@ foreach ($lines as $l) {
 }
 
 // Plain-text version, for mail apps that do not show HTML.
-$text = ($urgent ? "EMERGENCY\n" : '') . 'New ' . FORMS[$form] . ' from ' . DOMAIN . "\n\n";
+$text = ($urgent ? "EMERGENCY\n" : '') . "New Lead From YBE Auto\n" . FORMS[$form] . ' from ' . DOMAIN . "\n\n";
 foreach ($rows as [$label, $value]) {
     $text .= $label . ': ' . $value . "\n";
 }
@@ -276,8 +277,8 @@ $e = fn (string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE,
 $html = '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f3f4f6;">'
     . '<div style="max-width:600px;margin:0 auto;padding:16px;font-family:Arial,Helvetica,sans-serif;color:#111827;">'
     . '<div style="background:#111111;color:#ffffff;padding:18px 20px;border-top:5px solid #d90d0d;">'
-    . '<div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#d1d5db;">' . $e(BUSINESS) . ' website</div>'
-    . '<div style="font-size:22px;font-weight:bold;margin-top:4px;">New ' . $e(FORMS[$form]) . '</div></div>';
+    . '<div style="font-size:22px;font-weight:bold;">New Lead From YBE Auto</div>'
+    . '<div style="font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#d1d5db;margin-top:4px;">' . $e(FORMS[$form]) . '</div></div>';
 if ($urgent) {
     $html .= '<div style="background:#d90d0d;color:#ffffff;padding:12px 20px;font-size:17px;font-weight:bold;">EMERGENCY. Call this customer now.</div>';
 }
