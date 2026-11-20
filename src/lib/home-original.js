@@ -311,14 +311,14 @@ function callbackSection() {
  */
 function repairAssessmentSection() {
   return `
-<section id="repair-assessment" class="py-16 bg-white border-b border-gray-200" aria-labelledby="repair-assessment-heading">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-10">
+<section id="repair-assessment" class="py-12 bg-white border-b border-gray-200" aria-labelledby="repair-assessment-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
       <h2 id="repair-assessment-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Repair <span class="text-ybe-red">Assessment</span>
         <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-ybe-red"></span>
       </h2>
-      <p class="mt-6 text-lg text-gray-600">Tell us what your vehicle needs and add up to 2 photos. It goes straight to the shop.</p>
+      <p class="mt-5 text-xl md:text-2xl text-gray-700">Tell us what your vehicle needs and add up to 2 photos. It goes straight to the shop.</p>
     </div>
     ${repairAssessmentForm()}
   </div>

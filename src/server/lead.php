@@ -225,7 +225,9 @@ if ($dir !== null) {
 }
 
 // 2. Email it to the owner.
-$subject = FORMS[$form] . ($name !== '' ? ': ' . $name : '') . ' (' . $phone . ')';
+// A repair assessment marked as an emergency says so at the front of the subject.
+$urgent = $form === 'repair' && stripos($field('Is This An Emergency'), 'yes') === 0;
+$subject = ($urgent ? 'EMERGENCY: ' : '') . FORMS[$form] . ($name !== '' ? ': ' . $name : '') . ' (' . $phone . ')';
 $subject = clean(str_replace(["\r", "\n"], ' ', $subject), 200);
 $body = FORMS[$form] . " from " . DOMAIN . "\n\n" . implode("\n", $lines)
     . "\n\nPage: " . $page . "\nReceived: " . date('l, F j, Y g:i A T') . "\n";
