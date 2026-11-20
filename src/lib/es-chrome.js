@@ -41,7 +41,7 @@ function header(path) {
   return `<header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-white py-3 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="relative flex justify-center lg:justify-between items-center gap-4">
-        <a href="/es/" class="flex-shrink-0 flex items-center" aria-label="${esc(b.name)}, inicio">
+        <a href="/es/" class="flex-shrink-0 flex items-center lg:mr-4 xl:mr-10" aria-label="${esc(b.name)}, inicio">
           <img id="header-logo" src="${b.images.logo}" alt="${esc(b.images.logoAlt)}" width="240" height="152" class="transition-all duration-300 h-20 sm:h-24 lg:h-24 w-auto" />
         </a>
         <nav class="hidden lg:flex items-center gap-4 xl:gap-5" aria-label="Navegación principal">${desktop}</nav>
