@@ -172,7 +172,8 @@ const business = {
    * VERIFIED FROM THE GOOGLE BUSINESS PROFILE
    * These were held empty until the profile confirmed them. They now come
    * straight off the listing's attributes, so the site and the profile agree.
-   * Warranty and financing stay empty because the profile asserts neither.
+   * Warranty stays empty because the profile does not assert one. Financing
+   * was confirmed by the owner on 2026-11-20.
    */
   paymentMethods: [
     'Credit cards',
@@ -196,7 +197,7 @@ const business = {
   blackOwned: true,
 
   warranty: '',         // profile asserts none — leave empty
-  financing: '',        // profile asserts none — leave empty
+  financing: 'We offer financing',   // owner, 2026-11-20
 
   // Services YBE explicitly does NOT provide. Used to keep copy honest.
   /*
