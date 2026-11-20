@@ -193,7 +193,7 @@ function footer() {
     { label: 'Commercial Service Request', url: '/commercial-service-request/' },
     { label: 'Emergency Roadside Help', url: '/emergency-roadside-help/' },
     { label: 'Book Appointment', url: '/book-appointment/' },
-    { label: 'Repair Assessment', url: '/repair-assessment/' },
+    { label: 'Repair Assessment', url: '/#repair-assessment' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
     { label: 'FAQ', url: '/faq/' },

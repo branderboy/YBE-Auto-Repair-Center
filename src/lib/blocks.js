@@ -429,7 +429,39 @@ function fixListSection(url, { inline = false } = {}) {
 </section>`;
 }
 
+/**
+ * The Repair Assessment form (owner, 2026-11-20): what the visitor needs done
+ * plus up to two photos. Sits on the homepage above Our New Offers; the handler
+ * in layout.js finds it by id.
+ */
+function repairAssessmentForm() {
+  const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
+  const lab = (id, text, req) => `<label for="${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
+  const needs = ['Select one…', 'Repair or diagnostics', 'Brakes', 'Transmission', 'Electrical, battery or starting', 'Tires, alignment or suspension', 'AC or heating', 'Body, paint or glass', 'Oil change or tune-up', 'Something else', 'Not sure, please advise'];
+  return `<form id="repair-form" class="bg-white border border-gray-200 border-t-4 border-t-ybe-red rounded-sm p-6 md:p-8" novalidate>
+      <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>${lab('repair_name', 'Your Name', true)}<input type="text" id="repair_name" required autocomplete="name" class="${inputCls}"></div>
+        <div>${lab('repair_phone', 'Phone Number', true)}<input type="tel" id="repair_phone" required autocomplete="tel" class="${inputCls}" placeholder="(202) 555-0123"></div>
+        <div>${lab('repair_email', 'Email', false)}<input type="email" id="repair_email" autocomplete="email" class="${inputCls}"></div>
+        <div>${lab('repair_vehicle', 'Vehicle', false)}<input type="text" id="repair_vehicle" class="${inputCls}" placeholder="Year, make, model"></div>
+        <div class="md:col-span-2">${lab('repair_need', 'What Do You Need Done?', true)}<select id="repair_need" required class="${inputCls}">
+          ${needs.map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
+        <div class="md:col-span-2">${lab('repair_details', 'Describe The Job', true)}<textarea id="repair_details" rows="5" required class="${inputCls}" placeholder="What the car is doing, what you want fixed, and how long it has been going on."></textarea></div>
+        <div class="md:col-span-2">${lab('repair_photos', 'Photos', false)}
+          <input type="file" id="repair_photos" accept="image/*" multiple class="block w-full text-gray-700 file:mr-4 file:py-2.5 file:px-5 file:rounded-sm file:border-0 file:bg-ybe-black file:text-white file:font-heading file:uppercase file:tracking-wide file:font-bold file:cursor-pointer">
+          <p id="repair-photo-note" class="text-sm text-gray-600 mt-2" aria-live="polite">Optional. Up to 2 photos.</p></div>
+      </div>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <button type="submit" data-track="repair-form" data-location="repair-assessment" class="bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-8 py-4 rounded-sm shadow-hard border-2 border-transparent hover:border-ybe-black transition-all uppercase tracking-widest font-bold flex items-center gap-2">${icon('send', 24)} Send Assessment</button>
+        <p class="text-sm text-gray-600">Or call <a href="${b.phone.href}" data-track="call" data-location="repair-assessment" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a>.</p>
+      </div>
+      <div id="repair-status" role="status" aria-live="polite" class="mt-6"></div>
+    </form>`;
+}
+
 module.exports = {
+  repairAssessmentForm,
   esc,
   fixListSection,
   heroBlock,

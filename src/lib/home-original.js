@@ -23,7 +23,7 @@ const path = require('path');
 const { layout } = require('./layout.js');
 const { icon } = require('./icons.js');
 const T = require('./templates.js');
-const { esc, fixListSection } = require('./blocks.js');
+const { esc, fixListSection, repairAssessmentForm } = require('./blocks.js');
 const { articles } = require('../data/articles.js');
 const { areas } = require('../data/areas.js');
 const { activeOffers } = require('../data/offers.js');
@@ -135,6 +135,8 @@ function renderHomeOriginal() {
   if (activeOffers.length) {
     main = main.replace('</section>', '</section>' + offersSection(), 1);
   }
+  // Repair Assessment form, directly above Our New Offers (owner, 2026-11-20).
+  main = main.replace('</section>', '</section>' + repairAssessmentSection(), 1);
 
   // Call-back request form, just above the original contact section.
   main = main.replace('<section id="contact"', callbackSection() + '\n        <section id="contact"');
@@ -299,6 +301,26 @@ function callbackSection() {
       <p class="text-sm text-gray-600 mt-3 text-center">Sends to ${b.phone.display} by text. Need us now? <a href="${b.phone.href}" data-track="call" data-location="homepage-callback" class="text-ybe-red font-semibold hover:underline">Call ${b.phone.display}</a>.</p>
       <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
     </form>
+  </div>
+</section>`;
+}
+
+/**
+ * Repair Assessment (owner, 2026-11-20): lives on the homepage, between the
+ * hero and Our New Offers. It has no page of its own.
+ */
+function repairAssessmentSection() {
+  return `
+<section id="repair-assessment" class="py-16 bg-gray-50 border-b border-gray-200" aria-labelledby="repair-assessment-heading">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 id="repair-assessment-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
+        Repair <span class="text-ybe-red">Assessment</span>
+        <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-ybe-red"></span>
+      </h2>
+      <p class="mt-6 text-lg text-gray-600">Tell us what your vehicle needs and add up to 2 photos. It goes straight to the shop.</p>
+    </div>
+    ${repairAssessmentForm()}
   </div>
 </section>`;
 }
