@@ -125,6 +125,7 @@ fs.writeFileSync(path.join(OUT, '.htaccess'), htaccess);
 const biz = require(path.join(ROOT, 'src', 'data', 'business.js'));
 const leadSrc = fs.readFileSync(path.join(ROOT, 'src', 'server', 'lead.php'), 'utf8')
   .split('{{TO_EMAIL}}').join(biz.commercialEmail)
+  .split('{{COPY_EMAIL}}').join(biz.leadCopyEmail || '')
   .split('{{DOMAIN}}').join(DOMAIN)
   .split('{{BUSINESS}}').join(biz.name.replace(/'/g, ''));
 fs.mkdirSync(path.join(OUT, 'api'), { recursive: true });

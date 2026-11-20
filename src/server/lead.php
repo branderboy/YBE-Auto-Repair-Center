@@ -19,6 +19,8 @@ header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 
 const TO_EMAIL = '{{TO_EMAIL}}';
+// A second address that receives a copy of every lead. Empty for none.
+const COPY_EMAIL = '{{COPY_EMAIL}}';
 const DOMAIN = '{{DOMAIN}}';
 const BUSINESS = '{{BUSINESS}}';
 const FORMS = [
@@ -234,6 +236,7 @@ $headers = [
 if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $headers[] = 'Reply-To: ' . $email;
 }
+$recipients = TO_EMAIL . (filter_var(COPY_EMAIL, FILTER_VALIDATE_EMAIL) ? ', ' . COPY_EMAIL : '');
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 $emailed = false;
 
@@ -255,12 +258,12 @@ if ($photos && $attachBytes <= MAX_ATTACH_BYTES) {
             . chunk_split(base64_encode($ph['bytes']));
     }
     $message .= '--' . $boundary . "--\r\n";
-    $emailed = @mail(TO_EMAIL, $encodedSubject, $message, implode("\r\n", $mixed));
+    $emailed = @mail($recipients, $encodedSubject, $message, implode("\r\n", $mixed));
 }
 // No photos, or the email with attachments was refused: send the text alone.
 // The photo file names are already in the body.
 if (!$emailed) {
-    $emailed = @mail(TO_EMAIL, $encodedSubject, $body, implode("\r\n", $headers));
+    $emailed = @mail($recipients, $encodedSubject, $body, implode("\r\n", $headers));
 }
 
 if (!$stored && !$emailed) {

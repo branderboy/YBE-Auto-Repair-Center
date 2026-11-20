@@ -20,6 +20,8 @@ const business = {
   mobileName: 'YBE Mechanic On Wheelz',
   // Commercial service requests go to the owner (2026-11-14).
   commercialEmail: 'mechaniconwheelz@gmail.com',
+  // Gets a copy of every website lead email (2026-11-20). Empty for none.
+  leadCopyEmail: 'kawani@digiwaxx.com',
 
   /*
    * Live location of the site. Used for canonicals, Open Graph tags and the
