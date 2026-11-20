@@ -63,8 +63,9 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\\.${DOMAIN.replace(/\./g, '\\.')}$ [NC]
   RewriteRule ^(.*)$ https://${DOMAIN}/$1 [R=301,L]
 
-  # The old appointment page now points to the Square booking page.
-  RewriteRule ^request-appointment/?$ /book-appointment/ [R=301,L]
+  # Online booking was removed from the site (owner, 2026-11-20). The old
+  # appointment and booking addresses go to the Repair Assessment form.
+  RewriteRule ^(request-appointment|book-appointment)/?$ /#repair-assessment [R=301,NE,L]
 
   # Repair Assessment moved from its own page onto the homepage.
   RewriteRule ^repair-assessment/?$ /#repair-assessment [R=301,NE,L]

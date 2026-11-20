@@ -106,6 +106,24 @@ function renderHomeOriginal() {
   const original = fs.readFileSync(SOURCE, 'utf8');
 
   let main = extractMain(original);
+  /*
+   * Online booking was removed from the site (owner, 2026-11-20). The original
+   * contact section offered Square booking; it now offers WhatsApp only.
+   */
+  {
+    const before = main;
+    main = main
+      .replace('Use our online booking system to request an appointment quickly and easily, or reach out to us directly.',
+        'Tell us what your car needs, or reach out to us directly.')
+      .replace('<i data-lucide="calendar" width="64" height="64" class="text-ybe-red mx-auto mb-6"></i>',
+        '<i data-lucide="message-circle" width="64" height="64" class="text-ybe-red mx-auto mb-6"></i>')
+      .replace('>Book Online</h3>', '>Message Us</h3>')
+      .replace('Click below to schedule your appointment directly through our Square site.', 'Message the shop on WhatsApp.')
+      .replace(/<a href="https:\/\/ybe-auto-repair-shop\.square\.site\/"[\s\S]*?<\/a>\s*<div class="text-white font-medium my-2">OR<\/div>/, '');
+    if (main === before || /square\.site|Book Online|Book Now/.test(main)) {
+      throw new Error('homepage: the Square booking block was not removed');
+    }
+  }
   main = inlineIcons(main);
   main = linkUpSections(main);
 
