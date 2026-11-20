@@ -311,8 +311,8 @@ function callbackSection() {
  */
 function repairAssessmentSection() {
   return `
-<section id="repair-assessment" class="py-16 bg-gray-50 border-b border-gray-200" aria-labelledby="repair-assessment-heading">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="repair-assessment" class="py-16 bg-white border-b border-gray-200" aria-labelledby="repair-assessment-heading">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-10">
       <h2 id="repair-assessment-heading" class="text-4xl md:text-5xl font-heading font-bold text-ybe-black uppercase tracking-wide inline-block relative">
         Repair <span class="text-ybe-red">Assessment</span>
