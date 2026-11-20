@@ -568,11 +568,10 @@ document.addEventListener('DOMContentLoaded', function () {
       rmk.addEventListener('change', loadModels);
       rmd.addEventListener('change', function () { showOther(rmd.value === 'Other'); });
     }
-    // Emergency: tell them to call straight away; the form can still be sent.
+    // Emergency: nothing extra is shown before sending (owner, 2026-11-20:
+    // the form has one action, the button). The call prompt comes after.
     var remg = document.getElementById('repair_emergency');
-    var remgNote = document.getElementById('repair-emergency-note');
     var isEmergency = function () { return !!remg && remg.value.indexOf('Yes') === 0; };
-    if (remg) remg.addEventListener('change', function () { remgNote.classList.toggle('hidden', !isEmergency()); });
     var nextSteps = function (heading, msg, extra) {
       pstatus.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-5 md:p-6 rounded-sm">' +
         '<p class="font-heading text-2xl font-bold uppercase tracking-wide text-ybe-black mb-2">' + heading + '</p>' +
@@ -620,7 +619,6 @@ document.addEventListener('DOMContentLoaded', function () {
           pform.reset();
           if (pnote) pnote.textContent = 'Optional. Up to 2 photos.';
           if (ry && rmk && rmd) loadModels();
-          if (remgNote) remgNote.classList.add('hidden');
           nextSteps('Thank you. We got your repair assessment.', 'Your details' + (files.length ? ' and photos' : '') + ' went to the shop. ' + (urgent ? 'Since this is an emergency, call us now for the fastest help.' : 'We will look them over and contact you.'));
         }, function () {
           // No server answer: hand the details to the visitor's email app.
