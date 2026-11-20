@@ -84,7 +84,7 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
-  // Never touch other origins: Google Maps, the Square booking site, socials.
+  // Never touch other origins: Google Maps, socials.
   if (url.origin !== self.location.origin) return;
 
   const isPage = req.mode === 'navigate';
