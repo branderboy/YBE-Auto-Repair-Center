@@ -39,7 +39,8 @@ function heroBlock({
   ctaTrack = 'call',
   ctaIcon = 'phone',
   ctaNewTab = false,
-  secondary
+  secondary,
+  hoursText = b.hours.summary
 }) {
   return `
 <section class="hero-interior relative py-14 md:py-20 bg-ybe-black text-white">
@@ -72,7 +73,7 @@ function heroBlock({
         }
       </div>
       <p class="mt-6 text-white text-sm font-medium flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span class="flex items-center gap-2">${icon('clock', 16, 'text-ybe-red')} ${esc(b.hours.summary)}</span>
+        <span class="flex items-center gap-2">${icon('clock', 16, 'text-ybe-red')} ${esc(hoursText)}</span>
         <span class="flex items-center gap-2">${icon('map-pin', 16, 'text-ybe-red')} ${esc(b.address.oneLine)}</span>
       </p>
     </div>

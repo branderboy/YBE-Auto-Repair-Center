@@ -1643,7 +1643,8 @@ ${K.heroBlock({
   titleHtml: h1Html(SM.h1For(ROADSIDE_FORM_URL, 'Emergency Roadside Help')),
   sub: 'Dead battery, flat tire, locked out or out of gas? Call for the fastest help. If you cannot talk, send your location and what happened by text or email below.',
   ctaLabel: 'Call Now',
-  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' }
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' },
+  hoursText: `Emergency roadside: ${b.roadsideHours.summary}`
 })}
 ${section(
   `<div class="max-w-5xl mx-auto">
@@ -1675,7 +1676,7 @@ ${section(
     </div>
 
     <div class="bg-gray-100 border border-gray-200 p-5 rounded-sm text-gray-700 mb-12">
-      Our phone is answered ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing. If the vehicle needs a tow, we will tell you so you can arrange one.
+      Emergency roadside calls are answered ${esc(b.roadsideHours.summary)}. The shop at ${esc(b.address.oneLine)} is open ${esc(b.hours.summary)}. YBE provides roadside assistance, not towing. If the vehicle needs a tow, we will tell you so you can arrange one.
     </div>
 
     ${h2('Send Your Request')}

@@ -127,6 +127,11 @@ const business = {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   },
 
+  /* Emergency roadside line hours, shown on the Emergency Roadside Help page (owner's instruction 2026-11-23). */
+  roadsideHours: {
+    summary: '9:00 AM–12:00 AM (midnight), seven days a week'
+  },
+
   /*
    * Google listing links. The star rating and review count were removed from
    * the site on the owner's instruction (2026-11-13); nothing renders them.

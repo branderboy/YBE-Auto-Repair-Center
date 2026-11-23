@@ -1,7 +1,7 @@
 METADATA
 
 Meta Title: Emergency Roadside Help In Prince George's County | YBE Auto
-Meta Description: Dead battery, flat tire, lockout or out of gas in Prince George's County? Call YBE Auto at (202) 455-3822. Roadside help 7 days, 8:30 AM to 6:00 PM.
+Meta Description: Dead battery, flat tire, lockout or out of gas in Prince George's County? Call YBE Auto at (202) 455-3822. Roadside help 7 days, 9 AM to midnight.
 URL Slug: ybe-auto-emergency-roadside-help-prince-georges-county
 Focus Keyword: emergency roadside assistance Prince George's County
 Tags: Roadside Assistance, Prince George's County, Capitol Heights, Jump Start, Black-Owned Business
@@ -53,7 +53,7 @@ YBE is based in Capitol Heights and serves Capitol Heights, District Heights, Fo
 
 When To Call
 
-The YBE phone is answered seven days a week, 8:30 AM to 6:00 PM, Saturday and Sunday included. Save (202) 455-3822 in your phone now, so you have it the day the car will not start.
+Emergency roadside calls are answered seven days a week, 9:00 AM to 12:00 AM (midnight), Saturday and Sunday included. The shop itself is open 8:30 AM to 6:00 PM. Save (202) 455-3822 in your phone now, so you have it the day the car will not start.
 
 Why Drivers Call YBE
 
@@ -72,8 +72,8 @@ Jump starts, mobile battery replacement, flat tire help and spare installation, 
 Does YBE tow?
 No. YBE provides roadside assistance, not towing. If the car needs a tow, YBE will tell you so you can arrange one.
 
-When can I call?
-The phone is answered seven days a week, 8:30 AM to 6:00 PM, including Saturday and Sunday.
+When can I call for roadside help?
+Emergency roadside calls are answered seven days a week, 9:00 AM to 12:00 AM (midnight), including Saturday and Sunday. The shop is open 8:30 AM to 6:00 PM.
 
 Can I ask for help if I cannot talk on the phone?
 Yes. Text your location and what happened to (202) 455-3822, or use the form on the YBE Emergency Roadside Help page.
