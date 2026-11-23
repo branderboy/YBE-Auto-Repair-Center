@@ -1,3 +1,18 @@
+METADATA
+
+Meta Title: Capitol Heights Auto Repair For Cars And Car Lots | YBE Auto
+Meta Description: YBE Auto Repair Center in Capitol Heights, MD repairs personal cars, dealer inventory, auction cars and work vehicles. Open 7 days, walk-ins welcome.
+URL Slug: ybe-auto-repair-capitol-heights-personal-cars-car-lots-work-vehicles
+Focus Keyword: auto repair Capitol Heights MD
+Tags: Auto Repair, Capitol Heights, Prince George's County, Used Car Dealers, Black-Owned Business
+Category: Business
+
+EXCERPT
+
+From the car you drive to work to the cars on your lot, YBE Auto Repair Center in Capitol Heights finds what is wrong before it fixes anything. Black-owned since 2006, 4.8 stars on Google, open seven days a week.
+
+POST
+
 Auto Repair For Your Own Car, Your Car Lot And Your Work Vehicles: YBE Auto Repair Center In Capitol Heights
 
 A warning light comes on. The brakes start to squeal. A car on the lot will not start after sitting for two weeks. Whether the vehicle is the one you drive to work or one you need to sell, the question is the same. What is actually wrong, and what will it take to fix it?
@@ -8,7 +23,11 @@ For Your Personal Car, Get A Straight Answer
 
 Most drivers come in with one of a few stories. The check engine light is on and the car seems fine. The brakes grind or the pedal feels soft. The car pulls to one side, or the tires are wearing unevenly. The A/C blows warm, or the heat never gets going. The engine cranks but will not turn over.
 
-YBE handles each of those. The team diagnoses check engine lights, misfires and sensor problems, repairs brake pads, rotors and calipers, services transmissions, tracks down battery, alternator and starter trouble, and fixes alignment, suspension and climate systems. Drivers come in from Capitol Heights, District Heights, Landover, Forestville, Hyattsville, Bowie, Upper Marlboro and across Prince George's County and Washington, DC.
+YBE handles each of those. The team diagnoses check engine lights, misfires and sensor problems, repairs brake pads, rotors and calipers, services transmissions, tracks down battery, alternator and starter trouble, and fixes alignment, suspension and climate systems.
+
+Where YBE Customers Come From
+
+The shop sits on Edgeworth Dr in Capitol Heights, a short drive from the DC line. Drivers and dealers come in from Capitol Heights, District Heights, Forestville, Hillcrest Heights, Landover, Lanham, Largo, New Carrollton, Hyattsville, Bowie and Upper Marlboro, plus Washington, DC and the rest of Prince George's County.
 
 For Car Lots And Used Car Dealers, Get Inventory Ready To Sell
 
@@ -38,11 +57,39 @@ When a car dies away from the shop, YBE offers roadside assistance in Capitol He
 
 Why Owners Choose YBE
 
-YBE Auto Repair Center is a Black-owned neighborhood shop that has served the community since 2006 and holds a 4.8 star rating on Google. Walk-ins are welcome. The doors are open seven days a week, 8:30 AM to 6:00 PM, Saturday and Sunday included, which matters when the vehicle in the bay is the one that gets you to work or the one you need on the lot.
+YBE Auto Repair Center is a Black-owned neighborhood shop that has served the community since 2006 and holds a 4.8 star rating on Google. Read the reviews and get directions on the YBE Auto Repair Center Google Business Profile: https://www.google.com/maps/search/?api=1&query=YBE+Auto+Repair+Center&query_place_id=ChIJAQAAAPG3t4kR5ORCzZFDnCs
+
+Walk-ins are welcome. The doors are open seven days a week, 8:30 AM to 6:00 PM, Saturday and Sunday included, which matters when the vehicle in the bay is the one that gets you to work or the one you need on the lot.
 
 Book The Repair
 
 Call or text (202) 455-3822, message the shop on WhatsApp, or book online. Dealers and auction buyers can call to talk through how many cars they have and what they need. Bring the vehicle to 8632 Edgeworth Dr, Capitol Heights, MD 20743 and leave with a straight answer on what is wrong and how long it will take.
+
+Frequently Asked Questions
+
+Where is YBE Auto Repair Center?
+8632 Edgeworth Dr, Capitol Heights, MD 20743, in Prince George's County near the Washington, DC line.
+
+What are the hours?
+Seven days a week, 8:30 AM to 6:00 PM, including Saturday and Sunday.
+
+Do I need an appointment?
+Walk-ins are welcome. You can also call or text (202) 455-3822, message the shop on WhatsApp, or book online.
+
+Does YBE work on cars for used car lots and dealers?
+Yes. YBE inspects dealer inventory, gives a written, prioritized estimate that separates what each car needs to be safe and sellable from what is optional, and only does approved work. Dealers with a full service lane can send overflow.
+
+Can YBE check a car I bought at auction?
+Yes. A post purchase diagnostic covers a code scan, a battery and charging test, and a check of the brakes, tires, steering, suspension, fluids and leaks.
+
+My check engine light is on. What happens first?
+The car is diagnosed before any parts are ordered, so the repair goes after what is actually wrong.
+
+Does YBE tow?
+No. YBE offers roadside assistance in Capitol Heights and nearby communities, including jump starts, mobile battery replacement, lockouts, flat tire help and fuel delivery, but does not tow.
+
+What areas does YBE serve?
+Capitol Heights, District Heights, Forestville, Hillcrest Heights, Landover, Lanham, Largo, New Carrollton, Hyattsville, Bowie, Upper Marlboro, Washington, DC and the rest of Prince George's County.
 
 Find YBE Auto Repair Center online:
 
