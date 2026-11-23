@@ -61,6 +61,12 @@ Why Drivers Call YBE
 
 YBE Auto Repair Center is a Black-owned neighborhood shop that has served the community since 2006 and holds a 4.8 star rating on Google. Read the reviews and get directions on the YBE Auto Repair Center Google Business Profile: https://www.google.com/maps/search/?api=1&query=YBE+Auto+Repair+Center&query_place_id=ChIJAQAAAPG3t4kR5ORCzZFDnCs
 
+YBE Auto Repair Center On Google Maps
+
+Embed this map in the post (HTML block):
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.882314214507!2d-76.85651899999999!3d38.8809343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b7f100000001%3A0x2b9c4391cd42e4e4!2sYBE%20Auto%20Repair%20Center!5e0!3m2!1sen!2sus!4v1787844125343!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="YBE Auto Repair Center on Google Maps"></iframe>
+
 Walk-ins are welcome at the shop, which is open seven days a week, 8:30 AM to 6:00 PM. The emergency line is answered 9:00 AM to 12:00 AM (midnight). Save (202) 455-3822 in your phone now, so you have it the day the car will not start.
 
 Frequently Asked Questions
