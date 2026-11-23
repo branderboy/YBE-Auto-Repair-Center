@@ -192,6 +192,7 @@ function footer() {
     { label: 'Fleet & Government', url: '/fleet-and-government/' },
     { label: 'Commercial Service Request', url: '/commercial-service-request/' },
     { label: 'Emergency Roadside Help', url: '/emergency-roadside-help/' },
+    { label: 'Emergency Car Repair', url: '/emergency-car-repair/' },
     { label: 'Repair Assessment', url: '/#repair-assessment' },
     { label: 'About YBE', url: '/about/' },
     { label: 'Reviews', url: '/reviews/' },
@@ -705,7 +706,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var text = encodeURIComponent(lines.join('\\n'));
         var byEmail = ef.getAttribute('data-send') === 'email';
         var href = byEmail
-          ? 'mailto:${b.commercialEmail}?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+          ? 'mailto:${b.commercialEmail}?subject=' + encodeURIComponent(ef.getAttribute('data-subject') || 'Emergency roadside request') + '&body=' + text
           : '${b.sms.href}' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
         est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
           '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +

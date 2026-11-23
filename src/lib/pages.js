@@ -1606,11 +1606,16 @@ function roadsideRequestCta(where) {
 }
 
 /** One emergency form. `send` is 'sms' (shop phone) or 'email' (owner's email); `p` prefixes field ids. */
-function emergencyForm(p, send) {
+function emergencyForm(p, send, opts = {}) {
+  const subject = opts.subject || 'Emergency roadside request';
+  const formTitle = opts.title || 'EMERGENCY ROADSIDE REQUEST';
+  const problems = opts.problems || ['Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'];
+  const track = opts.track || 'roadside-form';
+  const where = opts.location || 'emergency-page';
   const inputCls = 'w-full border border-gray-300 rounded-sm px-3 py-2.5 bg-white focus:outline-none focus:border-ybe-red focus:ring-1 focus:ring-ybe-red';
   const lab = (id, text, req) => `<label for="${p}${id}" class="block font-heading uppercase tracking-wide text-sm font-bold text-ybe-black mb-1">${esc(text)}${req ? ' <span class="text-ybe-red">*</span>' : ''}</label>`;
   const toSms = send === 'sms';
-  return `<form id="${p}form" data-send="${send}" data-subject="Emergency roadside request" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 ${toSms ? 'border-t-ybe-red' : 'border-t-ybe-black'} rounded-sm p-6 md:p-8" novalidate>
+  return `<form id="${p}form" data-send="${send}" data-subject="${esc(subject)}" data-title="${esc(formTitle)}" class="emergency-form bg-gray-50 border border-gray-200 border-t-4 ${toSms ? 'border-t-ybe-red' : 'border-t-ybe-black'} rounded-sm p-6 md:p-8" novalidate>
     <div class="lead-trap" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
     <h2 class="font-heading text-2xl md:text-3xl font-bold uppercase tracking-wide text-ybe-black mb-1 flex items-center gap-2">${icon(toSms ? 'message-square' : 'mail', 26, 'text-ybe-red')} ${toSms ? 'Text The Shop' : 'Email The Owner'}</h2>
     <p class="text-gray-600 mb-6">Sends to <strong>${esc(toSms ? b.phone.display : b.commercialEmail)}</strong>${toSms ? ' by text' : ''}.</p>
@@ -1624,11 +1629,11 @@ function emergencyForm(p, send) {
         </div>
         <p class="text-xs text-gray-600 mt-1">Address suggestions from OpenStreetMap.</p></div>
       <div>${lab('problem', 'What Happened?', true)}<select id="${p}problem" required class="${inputCls}">
-        ${['Select one…', 'Dead battery, need a jump', 'Flat tire', 'Locked out', 'Out of fuel', 'Car will not start', 'Something else'].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
+        ${['Select one…', ...problems].map((o) => `<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></div>
       <div>${lab('vehicle', 'Vehicle', false)}<input type="text" id="${p}vehicle" class="${inputCls}" placeholder="Year, make, model, color"></div>
       <div>${lab('notes', 'Anything Else?', false)}<textarea id="${p}notes" rows="3" class="${inputCls}" placeholder="Which side of the road, which direction, anything we should know."></textarea></div>
     </div>
-    <button type="submit" data-track="${toSms ? 'roadside-form-text' : 'roadside-form-email'}" data-location="emergency-page" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon(toSms ? 'send' : 'mail', 24)} ${toSms ? 'Send By Text' : 'Send By Email'}</button>
+    <button type="submit" data-track="${toSms ? track + '-text' : track + '-email'}" data-location="${where}" class="mt-6 w-full bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl px-6 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold flex items-center justify-center gap-2">${icon(toSms ? 'send' : 'mail', 24)} ${toSms ? 'Send By Text' : 'Send By Email'}</button>
     <div data-form-status role="status" aria-live="polite" class="mt-5"></div>
   </form>`;
 }
@@ -1689,6 +1694,89 @@ ${section(
 )}
 ${K.contactBlock({ heading: 'Stuck? Call The Shop.' })}`;
   return layout({ title: 'Emergency Roadside Help', description: roadsideHub.metaDescription, path: ROADSIDE_FORM_URL, crumbs, body });
+}
+
+/* Emergency car repair page (owner, 2026-11-23): 9 AM to midnight line, form and click to call. */
+const EMERGENCY_REPAIR_URL = '/emergency-car-repair/';
+function renderEmergencyRepair() {
+  const crumbs = [HOME, { label: 'Emergency Car Repair', url: EMERGENCY_REPAIR_URL }];
+  const h2 = (t) => `<h2 class="text-3xl md:text-4xl font-heading font-extrabold text-ybe-black uppercase tracking-wide leading-none mb-5">${t}</h2>`;
+  const callBtn = (where) => `<a href="${b.phone.href}" data-track="call" data-location="${where}" class="inline-flex items-center justify-center gap-3 bg-ybe-red hover:bg-ybe-darkred text-white font-heading text-2xl md:text-3xl px-8 py-4 rounded-sm shadow-hard uppercase tracking-widest font-bold">${icon('phone', 28)} Call ${esc(b.phone.display)}</a>`;
+  const opts = {
+    subject: 'Emergency car repair request',
+    title: 'EMERGENCY CAR REPAIR REQUEST',
+    track: 'emergency-repair-form',
+    location: 'emergency-repair-page',
+    problems: ['Car will not start', 'Warning light or check engine light', 'Brakes grinding or not stopping right', 'Overheating', 'Transmission slipping or not shifting', 'Dead battery or electrical problem', 'Flat tire', 'Something else']
+  };
+  const body = `
+${K.heroBlock({
+  eyebrow: `Emergency Car Repair · ${esc(primaryArea.label)}`,
+  titleHtml: h1Html(SM.h1For(EMERGENCY_REPAIR_URL, 'Emergency Car Repair In Prince George’s County')),
+  sub: 'Car broke down, will not start, or something just went wrong? Call YBE now. If you cannot talk, send what happened with the form below.',
+  ctaLabel: `Call ${b.phone.display}`,
+  secondary: { label: 'Text Us', href: b.sms.href, icon: 'message-square', track: 'text' },
+  hoursText: `Emergency line: ${b.roadsideHours.summary}`
+})}
+${section(
+  `<div class="max-w-5xl mx-auto">
+    <div class="bg-ybe-black text-white border-l-8 border-ybe-red p-6 md:p-8 rounded-sm mb-12">
+      <p class="font-heading text-2xl uppercase tracking-wide font-bold mb-3 flex items-center gap-2">${icon('alert-triangle', 26, 'text-ybe-red')} Safety First</p>
+      <ul class="space-y-3">${[
+        'In danger, injured or blocking traffic: call 911 first',
+        'On a busy road: stay in the car with your seat belt on and your hazards flashing',
+        'If the brakes failed or the car is smoking, do not keep driving it'
+      ].map((t) => `<li class="flex items-start gap-3 text-white text-lg leading-snug">${icon('alert-circle', 22, 'text-ybe-red flex-shrink-0 mt-0.5')} <span>${esc(t)}</span></li>`).join('')}</ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+      <div>
+        ${h2('What We Help With')}
+        ${K.checkList([
+          'Cars that will not start or stalled out',
+          'Check engine and warning lights',
+          'Brake problems',
+          'Overheating',
+          'Transmission trouble',
+          'Battery, alternator, starter and electrical problems',
+          'Flat tires'
+        ])}
+      </div>
+      <div>
+        ${h2('How It Works')}
+        ${K.checkList([
+          'Call or send the form and tell us what the car is doing',
+          'If it can be handled where the car sits, we send mobile help',
+          'If it needs the shop, bring it to 8632 Edgeworth Dr',
+          'We diagnose first and quote before any work starts'
+        ])}
+      </div>
+    </div>
+
+    <div class="bg-gray-100 border border-gray-200 p-5 rounded-sm text-gray-700 mb-8">
+      The emergency line is answered ${esc(b.roadsideHours.summary)}. The shop at ${esc(b.address.oneLine)} is open ${esc(b.hours.summary)}. YBE does not tow. If the car needs a tow, we will tell you so you can arrange one.
+    </div>
+
+    <div class="text-center mb-12">${callBtn('emergency-repair-middle')}</div>
+
+    ${h2('Send Your Request')}
+    <p class="text-gray-700 text-lg mb-8">Fill in either form. Calling <a href="${b.phone.href}" data-track="call" data-location="emergency-repair-page" class="text-ybe-red font-semibold hover:underline">${esc(b.phone.display)}</a> is still the fastest way.</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      ${emergencyForm('er_sms_', 'sms', opts)}
+      ${emergencyForm('er_mail_', 'email', opts)}
+    </div>
+
+    <div class="text-center mt-12">${callBtn('emergency-repair-bottom')}</div>
+  </div>`
+)}
+${K.contactBlock({ heading: 'Car Trouble? Call The Shop.' })}`;
+  return layout({
+    title: 'Emergency Car Repair In Prince George’s County',
+    description: 'Car broke down in Prince George’s County? Call YBE Auto at (202) 455-3822, 9 AM to midnight, 7 days. Request help by text or email. No towing.',
+    path: EMERGENCY_REPAIR_URL,
+    crumbs,
+    body
+  });
 }
 
 /* ===================================================== COMPANY PAGES */
@@ -1895,6 +1983,7 @@ ${K.contactBlock({ heading: 'Need Help Now?' })}`;
 module.exports = {
   renderAreaServicePage,
   renderRoadsideForm,
+  renderEmergencyRepair,
   renderCommercialForm,
   renderOrgPage,
   renderOrgHub,

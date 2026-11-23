@@ -1419,7 +1419,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var text = encodeURIComponent(lines.join('\n'));
         var byEmail = ef.getAttribute('data-send') === 'email';
         var href = byEmail
-          ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent('Emergency roadside request') + '&body=' + text
+          ? 'mailto:mechaniconwheelz@gmail.com?subject=' + encodeURIComponent(ef.getAttribute('data-subject') || 'Emergency roadside request') + '&body=' + text
           : 'sms:+12024553822' + (navigator.userAgent.indexOf('iPhone') > -1 ? '&' : '?') + 'body=' + text;
         est.innerHTML = '<div class="bg-green-50 border-l-4 border-green-600 p-4 rounded-sm">' +
           '<p class="text-gray-800 font-semibold mb-2">Your request is ready to send.</p>' +
