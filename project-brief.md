@@ -620,3 +620,17 @@ The project is complete when:
 * No unsupported claims have been introduced.
 * Local SEO fundamentals are implemented.
 * The website passes build, mobile, navigation, form, metadata, and schema checks.
+
+---
+
+# Owner Standing Rules (2026-11-23)
+
+These rules come from the owner and override any older draft, template or brief.
+
+* **No booking link.** Never use the Square booking link (ybe-auto-repair-shop.square.site) or any "Book Online", "Book Now" or "Book Appointment" option, on the website, in guest posts, or anywhere else. Customers call or text (202) 455-3822, message on WhatsApp, or walk in.
+* **Auto repair is the business.** The homepage headline is "Mechanic and Auto Repair in Capitol Heights, MD." Content leads with mechanic and auto repair: repairs and diagnostics, brakes, transmission, electrical and starting, tires and alignment, A/C and heating, maintenance, and roadside assistance. Audiences are personal car owners, car lots and used car dealers, auction buyers, rideshare drivers and work vehicles. Do not write body, paint or repaint content unless the owner asks for it.
+* **The first guest post** leads with "Mechanic and Auto Repair in Capitol Heights, MD," not with emergency, roadside or paint topics.
+* **Emergency hours.** The emergency line (Emergency Car Repair and Emergency Roadside Help pages) is answered 9:00 AM to 12:00 AM (midnight), seven days a week. Shop hours stay 8:30 AM to 6:00 PM, seven days a week. YBE does not tow.
+* **Guest post package.** Every guest post includes metadata (meta title, meta description, URL slug, focus keyword, tags, category), a short excerpt, a link to the Google Business Profile, the Google Maps embed, the neighborhoods served, and an FAQ. No prices.
+* **Delivery.** Send finished posts to the owner as Word doc attachments, not pasted into the email body. Send from the agent inbox (kay.assistant@agentmail.to) only.
+* **Inboxes.** Never read the owner's Gmail. Do not reply to or send anything to Muse unless the owner says to. Muse briefs are not the owner's final word.
