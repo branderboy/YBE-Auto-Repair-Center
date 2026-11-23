@@ -1,40 +1,48 @@
-Find The Problem Before You Pay To Fix It: YBE Auto Repair Center Keeps Commercial And Private Vehicles Running In Capitol Heights
+Auto Repair For Your Own Car, Your Car Lot And Your Work Vehicles: YBE Auto Repair Center In Capitol Heights
 
-A warning light comes on. The brakes start to squeal. The car hesitates when you pull into traffic, or it cranks slow on a cold morning. Most drivers know something is wrong long before they know what it is, and guessing gets expensive fast. Parts get swapped, the problem comes back, and the vehicle sits.
+A warning light comes on. The brakes start to squeal. A car on the lot will not start after sitting for two weeks. Whether the vehicle is the one you drive to work or one you need to sell, the question is the same. What is actually wrong, and what will it take to fix it?
 
-YBE Auto Repair Center in Capitol Heights, Maryland has been fixing cars since 2006. The shop starts with diagnosis, so the repair is aimed at what is actually wrong.
+YBE Auto Repair Center in Capitol Heights, Maryland has been answering that question since 2006. The shop starts with diagnosis, so the repair is aimed at what is wrong instead of a guess. Diagnostics, brakes, transmission, electrical and starting problems, tires and alignment, and A/C and heating are all handled at 8632 Edgeworth Dr.
 
-For Commercial Owners, A Parked Vehicle Costs Money
+For Your Personal Car, Get A Straight Answer
 
-A work truck or service van that will not start is a job that does not get done. Downtime is the real cost of a fleet repair, and it doubles when the vehicle bounces between shops because the first one guessed wrong.
-
-YBE works on vans, work trucks and company cars under one roof at 8632 Edgeworth Dr in Capitol Heights. Diagnostics, brakes, transmission, electrical and starting problems, tires and alignment, and A/C and heating are all handled in the same place. The shop is open seven days a week, so a vehicle that fails on Friday can come in on Saturday and be back on the route Monday.
-
-For Private Owners, Get A Straight Answer
-
-Private owners usually come in with one of a few stories. The check engine light is on and the car seems fine. The brakes grind or the pedal feels soft. The car pulls to one side, or the tires are wearing unevenly. The A/C blows warm, or the heat never gets going. The engine cranks but will not turn over.
+Most drivers come in with one of a few stories. The check engine light is on and the car seems fine. The brakes grind or the pedal feels soft. The car pulls to one side, or the tires are wearing unevenly. The A/C blows warm, or the heat never gets going. The engine cranks but will not turn over.
 
 YBE handles each of those. The team diagnoses check engine lights, misfires and sensor problems, repairs brake pads, rotors and calipers, services transmissions, tracks down battery, alternator and starter trouble, and fixes alignment, suspension and climate systems. Drivers come in from Capitol Heights, District Heights, Landover, Forestville, Hyattsville, Bowie, Upper Marlboro and across Prince George's County and Washington, DC.
+
+For Car Lots And Used Car Dealers, Get Inventory Ready To Sell
+
+A used car does not earn anything until it is ready to list. Brakes, suspension, warning lights and safety items have to be sorted first, and an independent lot often has no service bay to do it. Dealers with their own service department have the other problem. The lane is full of customer work, and reconditioning waits behind it while the car sits.
+
+YBE inspects each vehicle and gives the dealer a written, prioritized estimate that separates what the car needs to be safe and sellable from what is optional. Nothing is ordered or started until the dealer approves it. The approved work covers brakes, suspension, check engine codes, safety items, and the electrical and cooling problems that show up on cars that have sat. For dealers with a full service lane, YBE takes the overflow. Start with a few cars and see how it goes.
+
+For Auction Buyers, Know What You Actually Bought
+
+Auction cars are sold as they are, and the condition report rarely tells the whole story. YBE starts with a post purchase diagnostic. That means a code scan, a battery and charging system test, and a check of the brakes, tires, steering, suspension, fluids and leaks. For a car that will not start, the team finds out why, whether it is a dead battery from sitting, a fuel or ignition problem, or something bigger. The estimate splits what the car needs to be roadworthy from what is optional, and only approved work gets done.
+
+For Rideshare Drivers And Work Vehicles, Keep It On The Road
+
+A rideshare car or a work van that is down means lost fares or a missed job. City miles and long idling wear brakes, tires and batteries fastest. YBE keeps those high mileage items ahead of schedule and handles engine, transmission and electrical repairs for vans, work trucks and company cars. Every job is quoted before work starts. The shop is open seven days a week, so a vehicle that fails on Friday can come in on Saturday.
 
 How A Repair At YBE Works
 
 1. Diagnosis. The vehicle is inspected and tested first so the cause is found before any parts are ordered.
 2. Scope. You get a straight answer on what is wrong, what it takes to fix, and the timing, and the job is quoted after that inspection.
-3. Repair. The work is aimed at what the diagnosis found.
+3. Repair. Only the work you approve gets done, aimed at what the diagnosis found.
 
-If the car also has body damage, dents or scratches, the same shop handles that work too, so one visit can cover both.
+If a car also has dents or scratches, body and paint work happens in the same building, so one visit can cover both.
 
 Stuck Nearby
 
-When the car dies away from the shop, YBE offers roadside assistance in Capitol Heights and nearby communities, including jump starts, mobile battery replacement, lockouts, flat tire help and fuel delivery. YBE does not tow.
+When a car dies away from the shop, YBE offers roadside assistance in Capitol Heights and nearby communities, including jump starts, mobile battery replacement, lockouts, flat tire help and fuel delivery. YBE does not tow.
 
 Why Owners Choose YBE
 
-YBE Auto Repair Center is a Black-owned neighborhood shop that has served the community since 2006 and holds a 4.8 star rating on Google. Walk-ins are welcome. The doors are open seven days a week, 8:30 AM to 6:00 PM, Saturday and Sunday included, which matters when the vehicle in the bay is the one that gets you to work or gets your crew to the job.
+YBE Auto Repair Center is a Black-owned neighborhood shop that has served the community since 2006 and holds a 4.8 star rating on Google. Walk-ins are welcome. The doors are open seven days a week, 8:30 AM to 6:00 PM, Saturday and Sunday included, which matters when the vehicle in the bay is the one that gets you to work or the one you need on the lot.
 
 Book The Repair
 
-Call or text (202) 455-3822, message the shop on WhatsApp, or book online. Bring the vehicle to 8632 Edgeworth Dr, Capitol Heights, MD 20743 and leave with a straight answer on what is wrong and how long it will take.
+Call or text (202) 455-3822, message the shop on WhatsApp, or book online. Dealers and auction buyers can call to talk through how many cars they have and what they need. Bring the vehicle to 8632 Edgeworth Dr, Capitol Heights, MD 20743 and leave with a straight answer on what is wrong and how long it will take.
 
 Find YBE Auto Repair Center online:
 
