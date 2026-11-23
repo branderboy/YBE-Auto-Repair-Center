@@ -69,7 +69,7 @@ Walk-ins are welcome. The doors are open seven days a week, 8:30 AM to 6:00 PM, 
 
 Book The Repair
 
-Call or text (202) 455-3822, message the shop on WhatsApp, or book online. Dealers and auction buyers can call to talk through how many cars they have and what they need. Bring the vehicle to 8632 Edgeworth Dr, Capitol Heights, MD 20743 and leave with a straight answer on what is wrong and how long it will take.
+Call or text (202) 455-3822 or message the shop on WhatsApp. Dealers and auction buyers can call to talk through how many cars they have and what they need. Bring the vehicle to 8632 Edgeworth Dr, Capitol Heights, MD 20743 and leave with a straight answer on what is wrong and how long it will take.
 
 Frequently Asked Questions
 
@@ -83,7 +83,7 @@ What are the hours?
 Seven days a week, 8:30 AM to 6:00 PM, including Saturday and Sunday.
 
 Do I need an appointment?
-Walk-ins are welcome. You can also call or text (202) 455-3822, message the shop on WhatsApp, or book online.
+Walk-ins are welcome. You can also call or text (202) 455-3822 or message the shop on WhatsApp.
 
 Does YBE work on cars for used car lots and dealers?
 Yes. YBE inspects dealer inventory, gives a written, prioritized estimate that separates what each car needs to be safe and sellable from what is optional, and only does approved work. Dealers with a full service lane can send overflow.
@@ -107,4 +107,3 @@ Website: https://pgcountyautorepair.com
 Auto Repair And Diagnostics: https://pgcountyautorepair.com/services/auto-repair-diagnostics/
 Facebook: https://www.facebook.com/ybeauto
 Instagram: https://www.instagram.com/yberepairshop
-Book Online: https://ybe-auto-repair-shop.square.site

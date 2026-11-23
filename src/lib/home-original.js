@@ -107,8 +107,9 @@ function renderHomeOriginal() {
 
   let main = extractMain(original);
   /*
-   * Online booking was removed from the site (owner, 2026-11-20). The original
-   * contact section offered Square booking; it now offers WhatsApp only.
+   * Online booking was removed from the site (owner, 2026-11-20, restated
+   * 2026-11-23: never use the Square booking link). The source file no longer
+   * carries it; these replacements and the guard keep it from coming back.
    */
   {
     const before = main;
@@ -120,7 +121,7 @@ function renderHomeOriginal() {
       .replace('>Book Online</h3>', '>Message Us</h3>')
       .replace('Click below to schedule your appointment directly through our Square site.', 'Message the shop on WhatsApp.')
       .replace(/<a href="https:\/\/ybe-auto-repair-shop\.square\.site\/"[\s\S]*?<\/a>\s*<div class="text-white font-medium my-2">OR<\/div>/, '');
-    if (main === before || /square\.site|Book Online|Book Now/.test(main)) {
+    if (/square\.site|Book Online|Book Now|Book Appointment/i.test(main)) {
       throw new Error('homepage: the Square booking block was not removed');
     }
   }

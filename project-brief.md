@@ -341,6 +341,8 @@ Use the customer reviews to establish real themes:
 
 Do not invent technician certifications, warranties, financing, pickup services, loaner vehicles, towing, pricing, turnaround guarantees, or insurance relationships.
 
+Never use the Square booking link (ybe-auto-repair-shop.square.site) or any "Book Online" option, on the website, in guest posts, or anywhere else (owner, 2026-11-20, restated 2026-11-23). Customers call or text (202) 455-3822, message on WhatsApp, or walk in.
+
 ---
 
 # Multi-Page Architecture
